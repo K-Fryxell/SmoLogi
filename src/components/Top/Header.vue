@@ -2,78 +2,78 @@
     <div>
         <v-toolbar-items>
             <div class="mt-3">
-            <!-- テキストのタイトル -->
-            <!-- ログインボタン -->
-            <v-btn text color="blue lighten-2" dark @click="dialog = true" class="mr-3">ログイン</v-btn>
-            
-            <!-- モーダル(ログインの中身） -->
-            <div class="text-center">
-                <v-dialog v-model="dialog" width="500">
-                    <v-card height="420">
-                        <v-card-title class="headline blue white--text" primary-title>ログイン</v-card-title>
-                        <v-card-text>
-                            <v-form
-                            ref="form"
-                            v-model="valid">
-                                <!-- mail入力 -->
-                                <v-text-field prepend-icon="mdi-email" class="pt-6" v-model="login_email"
-                                    :rules="emailRules"
-                                    counter
-                                    label="E-mail"
-                                    hint="メールアドレスは50字以下で記入してください。"
-                                    required />
-                                <!-- パスワード入力 -->
-                                <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                                    v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
-                                    @click:append="showPassword = !showPassword" v-model="login_password"
-                                    :rules="passRules"
-                                    counter
-                                    label="password"
-                                    hint="パスワードは8字以上20字以下にしてください。"
-                                    required/>
-                                <!-- ログインボタン -->
-                                <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
-                                    <v-btn
-                                        :disabled="!valid"
-                                        color="blue"
-                                        class="mr-4 white--text"
-                                        @keypress.enter="login"
-                                        @click="login"
-                                        width="120"
-                                    >
-                                        | Login |
+                <!-- テキストのタイトル -->
+                <!-- ログインボタン -->
+                <v-btn text color="blue lighten-2" dark @click="dialog = true" class="mr-3">ログイン</v-btn>
+                
+                <!-- モーダル(ログインの中身） -->
+                <div class="text-center">
+                    <v-dialog v-model="dialog" width="500">
+                        <v-card height="420">
+                            <v-card-title class="headline blue white--text" primary-title>ログイン</v-card-title>
+                            <v-card-text>
+                                <v-form
+                                ref="form"
+                                v-model="valid">
+                                    <!-- mail入力 -->
+                                    <v-text-field prepend-icon="mdi-email" class="pt-6" v-model="login_email"
+                                        :rules="emailRules"
+                                        counter
+                                        label="E-mail"
+                                        hint="メールアドレスは50字以下で記入してください。"
+                                        required />
+                                    <!-- パスワード入力 -->
+                                    <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                                        v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                        @click:append="showPassword = !showPassword" v-model="login_password"
+                                        :rules="passRules"
+                                        counter
+                                        label="password"
+                                        hint="パスワードは8字以上20字以下にしてください。"
+                                        required/>
+                                    <!-- ログインボタン -->
+                                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                                        <v-btn
+                                            :disabled="!valid"
+                                            color="blue"
+                                            class="mr-4 white--text"
+                                            @keypress.enter="login"
+                                            @click="login"
+                                            width="120"
+                                        >
+                                            | Login |
+                                        </v-btn>
+                                    </v-row>
+                                </v-form>
+                            </v-card-text>
+                            
+                            <v-card-text>
+                                <v-row justify="end" align="center" class="pa-0 ma-0">
+                                    <v-btn to="#"  height="20"  class="overline mt-n6" :elevation=0 color="white">
+                                        パスワードを忘れた方▶︎
                                     </v-btn>
                                 </v-row>
-                            </v-form>
-                        </v-card-text>
-                        
-                        <v-card-text>
-                            <v-row justify="end" align="center" class="pa-0 ma-0">
-                                <v-btn to="#"  height="20"  class="overline mt-n6" :elevation=0 color="white">
-                                    パスワードを忘れた方▶︎
-                                </v-btn>
-                            </v-row>
-                            <v-row justify="end" align="center" class="pa-0 ma-0">
-                                <v-btn @click="(regist = true) && (dialog = false)"  height="20"  class="overline mb-n3" :elevation=0 color="white">
-                                    新規登録まだの方▶︎
-                                </v-btn>
-                            </v-row>
-                        </v-card-text>
-                        <v-divider></v-divider>
+                                <v-row justify="end" align="center" class="pa-0 ma-0">
+                                    <v-btn @click="(regist = true) && (dialog = false)"  height="20"  class="overline mb-n3" :elevation=0 color="white">
+                                        新規登録まだの方▶︎
+                                    </v-btn>
+                                </v-row>
+                            </v-card-text>
+                            <v-divider></v-divider>
 
-                        <v-card-actions>
-                            <!-- 外部ボタン -->
-                            <v-row justify="center" class="ma-0 pa-0 mt-3 mb-n4">
-                                <v-col cols="auto">
-                                    <v-btn class="red white--text" width="120"><v-icon small left >fab fa-google</v-icon>Google</v-btn>
-                                </v-col>
-                                <v-col cols="auto">
-                                    <v-btn class="blue white--text" width="120"><v-icon left>fab fa-twitter-square</v-icon>Twitter</v-btn>
-                                </v-col>
-                            </v-row>
-                        </v-card-actions>
-                    </v-card> 
-                </v-dialog>
+                            <v-card-actions>
+                                <!-- 外部ボタン -->
+                                <v-row justify="center" class="ma-0 pa-0 mt-3 mb-n4">
+                                    <v-col cols="auto">
+                                        <v-btn class="red white--text" width="120"><v-icon small left >fab fa-google</v-icon>Google</v-btn>
+                                    </v-col>
+                                    <v-col cols="auto">
+                                        <v-btn class="blue white--text" width="120"><v-icon left>fab fa-twitter-square</v-icon>Twitter</v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-card-actions>
+                        </v-card> 
+                    </v-dialog>
                 </div>  
             </div>
             <!-- 新規登録ページ -->
@@ -144,9 +144,9 @@
 
                             <v-card-text>
                                 <v-row justify="end" align="center" class="pa-0 ma-0">
-                                <v-btn @click="(dialog = true) && (regist = false)"  height="20"  class="overline mb-n3" :elevation=0 color="white">
-                                    アカウント登録済みの方▶︎
-                                </v-btn>
+                                    <v-btn @click="(dialog = true) && (regist = false)"  height="20"  class="overline mb-n3" :elevation=0 color="white">
+                                        アカウント登録済みの方▶︎
+                                    </v-btn>
                                 </v-row>
                             </v-card-text>
                             <v-divider></v-divider>
@@ -154,12 +154,12 @@
                             <v-card-actions>
                                 <!-- 外部ボタン -->
                                 <v-row justify="center" class="pa-0 ma-0 mt-3">
-                                <v-col cols="auto">
-                                    <v-btn class="red white--text" width="120"><v-icon small left >fab fa-google</v-icon>Google</v-btn>
-                                </v-col>
-                                <v-col cols="auto">
-                                    <v-btn class="blue white--text" width="120"><v-icon left>fab fa-twitter-square</v-icon>Twitter</v-btn>
-                                </v-col>
+                                    <v-col cols="auto">
+                                        <v-btn class="red white--text" width="120"><v-icon small left >fab fa-google</v-icon>Google</v-btn>
+                                    </v-col>
+                                    <v-col cols="auto">
+                                        <v-btn class="blue white--text" width="120"><v-icon left>fab fa-twitter-square</v-icon>Twitter</v-btn>
+                                    </v-col>
                                 </v-row>
                             </v-card-actions>
                         </v-card> 
