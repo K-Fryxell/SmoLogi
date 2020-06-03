@@ -3,12 +3,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '/',
-        name: 'Home',
-        component: () =>
-            import ('../views/index.vue')
-    }
-]
+    path: '/',
+    name: 'Top',
+    component: () =>
+        import ('../views/top.vue')
+}]
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
