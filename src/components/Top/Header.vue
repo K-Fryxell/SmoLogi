@@ -5,7 +5,7 @@
                 <!-- テキストのタイトル -->
                 <!-- ログインボタン -->
                 <v-btn text color="blue lighten-2" dark @click="dialog = true" class="mr-3">ログイン</v-btn>
-                
+
                 <!-- モーダル(ログインの中身） -->
                 <div class="text-center">
                     <v-dialog v-model="dialog" width="500">
@@ -23,8 +23,8 @@
                                         hint="メールアドレスは50字以下で記入してください。"
                                         required />
                                     <!-- パスワード入力 -->
-                                    <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                                        v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                    <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                                        v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                         @click:append="showPassword = !showPassword" v-model="login_password"
                                         :rules="passRules"
                                         counter
@@ -34,6 +34,7 @@
                                     <!-- ログインボタン -->
                                     <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                                         <v-btn
+                                            :loading= loading
                                             :disabled="!valid"
                                             color="blue"
                                             class="mr-4 white--text"
@@ -46,7 +47,7 @@
                                     </v-row>
                                 </v-form>
                             </v-card-text>
-                            
+
                             <v-card-text>
                                 <v-row justify="end" align="center" class="pa-0 ma-0">
                                     <v-btn to="#"  height="20"  class="overline mt-n6" :elevation=0 color="white">
@@ -72,9 +73,9 @@
                                     </v-col>
                                 </v-row>
                             </v-card-actions>
-                        </v-card> 
+                        </v-card>
                     </v-dialog>
-                </div>  
+                </div>
             </div>
             <!-- 新規登録ページ -->
             <div class="mt-3">
@@ -117,7 +118,7 @@
                                 ></v-text-field>
                                 <!-- パスワード再入力 -->
                                 <v-text-field
-                                    prepend-icon="mdi-lock" 
+                                    prepend-icon="mdi-lock"
                                     label="Password Confirmation"
                                     v-bind:type="showss ? 'text' : 'password'"
                                     v-bind:append-icon="showss ? 'mdi-eye' : 'mdi-eye-off'"
@@ -162,9 +163,9 @@
                                     </v-col>
                                 </v-row>
                             </v-card-actions>
-                        </v-card> 
+                        </v-card>
                     </v-dialog>
-                </div>  
+                </div>
             </div>
         </v-toolbar-items>
     </div>
@@ -181,6 +182,7 @@ export default {
       regist_email:'',
       regist_username:'',
       regist_password:'',
+      loading: false,
       valid: true,
       valiregi: true,
       dialog: false,
@@ -242,10 +244,10 @@ export default {
   },
   methods: {
       login(){
-          console('a')
+          console.log('a')
       },
       register(){
-          console('b')
+          console.log('b')
       }
   },
   // created() {
