@@ -1,10 +1,10 @@
 <template>
     <content>
-        <Header></Header>
+        <Sign/>
     </content>
 </template>
 <script>
-import Header from '../components/Top/Header'
+import Sign from '../components/Top/Sign'
 export default {
     data(){
         return{
@@ -12,7 +12,7 @@ export default {
         }
     },
     components:{
-        Header
+        Sign
     }
 }
 </script>

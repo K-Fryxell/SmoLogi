@@ -7,6 +7,11 @@ const routes = [{
     name: 'Top',
     component: () =>
         import ('../views/top.vue')
+}, {
+    path: '/regist',
+    name: 'Registration',
+    component: () =>
+        import ('@/views/registration')
 }]
 const router = new VueRouter({
     mode: 'history',
