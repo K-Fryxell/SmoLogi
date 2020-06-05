@@ -62,11 +62,12 @@ export default {
     },
     methods: {
         signUp: function () {
-        firebase.auth().createUserWithEmailAndPassword(this.mailaddress, this.password)
-        .then(
-            // 成功時の処理
-            console.log('OK')
-        )
+            firebase.auth().createUserWithEmailAndPassword(this.mailaddress, this.password)
+            .then(
+                // 成功時の処理
+                console.log('OK'),
+                this.$router.push('/')
+            )
         }
     },
     components:{
