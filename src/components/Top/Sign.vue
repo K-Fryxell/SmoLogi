@@ -1,11 +1,6 @@
 <template>
     <content>
-        <div v-if="authenticatedUser">
-            <v-btn color="blue lighten-2" dark @click="logoutUser">
-                ログアウト
-            </v-btn>
-        </div>
-        <div v-else>
+        <div>
             <!-- ログインボタン -->
             <v-btn text color="blue lighten-2" @click="dialog = true">
                 ログイン
@@ -24,7 +19,7 @@
                             hint="メールアドレスは50字以下で記入してください。"
                             required />
                         <!-- パスワード入力 -->
-                        <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                        <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
                             v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
                             @click:append="showPassword = !showPassword" v-model="password"
                             :rules="registpassRules"
@@ -122,11 +117,11 @@ export default {
     },
     mounted(){
         firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            this.authenticatedUser = true;
-        } else {
-            this.authenticatedUser = false;
-        }
+            if (user) {
+                this.authenticatedUser = true;
+            } else {
+                this.authenticatedUser = false;
+            }
         });
     },
     watch: {
