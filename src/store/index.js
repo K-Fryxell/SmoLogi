@@ -61,6 +61,8 @@ export default new Vuex.Store({
         admin_pass: ""
 
 
+
+
     },
     mutations: {},
     actions: {},
