@@ -11,8 +11,7 @@
                 :rules="registemailRules"
                 counter
                 label="E-mail"
-                hint="メールアドレスは50字以下で記入してください。">
-            </v-text-field>
+                hint="メールアドレスは50字以下で記入してください。"/>
             <v-text-field 
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
@@ -70,8 +69,5 @@ export default {
             )
         }
     },
-    components:{
-
-    }
 }
 </script>
