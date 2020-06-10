@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <router-link to="/">About</router-link>
+  <v-app class="mx-auto">
     <router-view/>
-  </div>
+  </v-app>
 </template>
