@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import firebase from 'firebase'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        errorCode: '',
+        errorMessage: '',
         // ユーザデータ
-
+        array: {},
         // メールアドレス・パスワード
         user_email: "",
         user_pass: "",
@@ -59,12 +61,34 @@ export default new Vuex.Store({
         // メールアドレス・パスワード
         admin_email: "",
         admin_pass: ""
+    },
+    getters: {
+        email(state) {
+            return state.email
+        },
+        isSignedIn(state) {
+            return state.status
+        },
+    },
+    mutations: {
+        registUser(state, array) {
+            firebase.auth().createUserWithEmailAndPassword(
 
-
-
+                    array['email'],
+                    array['password']
+                )
+                .catch(function(error) {
+                    // Handle Errors here.
+                    state.errorCode = error.code,
+                        state.errorMessage = error.message;
+                    // ...
+                })
+        }
+    },
+    actions: {
 
     },
-    mutations: {},
-    actions: {},
-    modules: {}
+    modules: {
+
+    }
 })
