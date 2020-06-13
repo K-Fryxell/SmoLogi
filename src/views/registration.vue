@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import firebase from 'firebase'
 export default {
     data(){
         return{
+            array: {},
             mailaddress: '',
             password: '',
             valid: true,
@@ -60,13 +60,18 @@ export default {
         }
     },
     methods: {
-        signUp: function () {
-            firebase.auth().createUserWithEmailAndPassword(this.mailaddress, this.password)
-            .then(
-                // 成功時の処理
-                console.log('OK'),
-                this.$router.push('/')
-            )
+        // signUp: function () {
+        //     firebase.auth().createUserWithEmailAndPassword(this.mailaddress, this.password)
+        //     .then(
+        //         // 成功時の処理
+        //         console.log('OK'),
+        //         this.$router.push('/')
+        //     )
+        // }
+        signUp:function(){
+            this.array['email'] = this.mailaddress
+            this.array['password'] = this.password
+            this.$store.commit('registUser',this.array)
         }
     },
 }
