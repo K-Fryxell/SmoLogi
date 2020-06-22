@@ -2,7 +2,7 @@
     <v-card class="pb-12" min-height="700">
         <v-row justify="center">
             <v-col cols="8">
-                <v-card-title>
+                <v-card-title class="display-1">
                     よくある質問
                 </v-card-title>
                 <v-row justify="center">
@@ -30,6 +30,13 @@
                             <v-col cols="auto">
                                 お困りの内容が一覧にない場合
                             </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+                <v-row justify="center">
+                    <v-col class="auto">
+                        <v-row justify="center">
+                            <v-btn color="primary">お問い合わせページへ</v-btn>
                         </v-row>
                     </v-col>
                 </v-row>

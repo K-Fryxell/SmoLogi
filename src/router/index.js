@@ -21,13 +21,13 @@ const routes = [{
             import ('@/views/user/mypage')
     },
     {
-        path: '/Kiyaku',
+        path: '/kiyaku',
         name: 'Kiyaku',
         component: () =>
             import ('../views/footer/Kiyaku.vue')
     },
     {
-        path: '/Question',
+        path: '/question',
         name: 'Question',
         component: () =>
             import ('../views/footer/Question.vue')
