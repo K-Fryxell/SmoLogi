@@ -18,7 +18,7 @@ const firebaseConfig = {
     measurementId: "G-10BNJ2MBJP"
 };
 firebase.initializeApp(firebaseConfig);
-
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
 new Vue({
     router,
     store,

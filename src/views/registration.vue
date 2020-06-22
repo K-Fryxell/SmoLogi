@@ -60,18 +60,12 @@ export default {
         }
     },
     methods: {
-        // signUp: function () {
-        //     firebase.auth().createUserWithEmailAndPassword(this.mailaddress, this.password)
-        //     .then(
-        //         // 成功時の処理
-        //         console.log('OK'),
-        //         this.$router.push('/')
-        //     )
-        // }
-        signUp:function(){
+        signUp:async function(){
+            this.$store.errorCode = ''
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
-            this.$store.commit('registUser',this.array)
+            await this.$store.commit('registUser',this.array)
+            
         }
     },
 }
