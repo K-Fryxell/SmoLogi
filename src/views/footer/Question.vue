@@ -27,17 +27,8 @@
                 <v-row justify="center" class="mt-8">
                     <v-col class="auto">
                         <v-row justify="center">
-                            <v-col cols="auto" v-if="session===1">
-                                お困りの内容が一覧にない場合
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                </v-row>
-                <v-row justify="center">
-                    <v-col class="auto">
-                        <v-row justify="center">
                             <v-col cols="auto">
-                                <v-btn v-if="session===1" tile elevation="0" outlined to="/spica/inquiry">お問い合わせページへ</v-btn>
+                                お困りの内容が一覧にない場合
                             </v-col>
                         </v-row>
                     </v-col>
