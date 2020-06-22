@@ -13,11 +13,24 @@ const routes = [{
         name: 'Registration',
         component: () =>
             import ('@/views/registration')
-    }, {
+    },
+    {
         path: '/user_mypage',
         name: 'UserMypage',
         component: () =>
             import ('@/views/user/mypage')
+    },
+    {
+        path: '/Kiyaku',
+        name: 'Kiyaku',
+        component: () =>
+            import ('../views/footer/Kiyaku.vue')
+    },
+    {
+        path: '/Question',
+        name: 'Question',
+        component: () =>
+            import ('../views/footer/Question.vue')
     }
 ]
 const router = new VueRouter({
