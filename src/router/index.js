@@ -7,7 +7,17 @@ const routes = [{
     name: 'Top',
     component: () =>
         import ('../views/top.vue')
-}, {
+},{
+    path: '/Kiyaku',
+    name: 'Kiyaku',
+    component: () =>
+        import ('../views/footer/Kiyaku.vue')
+},{
+    path: '/Question',
+    name: 'Question',
+    component: () =>
+        import ('../views/footer/Question.vue')
+},{
     path: '/regist',
     name: 'Registration',
     component: () =>
