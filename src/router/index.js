@@ -31,6 +31,18 @@ const routes = [{
         name: 'Question',
         component: () =>
             import ('../views/footer/Question.vue')
+    },
+    {
+        path: '/part_registuser',
+        name: 'partRegistUser',
+        component: () =>
+            import ('../views/part/partRegistration')
+    },
+    {
+        path: '/part_mypage',
+        name: 'partMypage',
+        component: () =>
+            import ('../views/part/mypage/partMypage')
     }
 ]
 const router = new VueRouter({
