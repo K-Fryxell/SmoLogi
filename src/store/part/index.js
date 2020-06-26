@@ -1,3 +1,5 @@
+import firebase from 'firebase'
+import router from '../../router/index'
 export default ({
     state: {
         // パートナーデータ
@@ -36,7 +38,16 @@ export default ({
     },
     getters: {},
     mutations: {
-
+        partRegistUser(state, array) {
+            firebase.auth().createUserWithEmailAndPassword(
+                    array['email'],
+                    array['password']
+                )
+                .then(function() {
+                    console.log('success')
+                    router.push('/part_mypage')
+                })
+            }
     },
     actions: {
 
