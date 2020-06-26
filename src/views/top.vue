@@ -4,7 +4,7 @@
     </content>
 </template>
 <script>
-import Sign from '../components/Top/Sign'
+import Sign from '../components/User/Sign'
 export default {
     data(){
         return{

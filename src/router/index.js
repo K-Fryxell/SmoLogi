@@ -12,7 +12,7 @@ const routes = [{
         path: '/regist',
         name: 'Registration',
         component: () =>
-            import ('@/views/registration')
+            import ('@/views/user/registration')
     },
     {
         path: '/user_mypage',
@@ -42,7 +42,13 @@ const routes = [{
         path: '/part_mypage',
         name: 'partMypage',
         component: () =>
-            import ('../views/part/mypage/partMypage')
+            import ('../views/part/partMypage')
+    },
+    {
+        path: '/part_top',
+        name: 'partTop',
+        component: () =>
+            import ('../views/part/partTop')
     }
 ]
 const router = new VueRouter({
