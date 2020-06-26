@@ -1,5 +1,7 @@
 <template>
   <v-app class="mx-auto">
-    <router-view/>
+    <content>
+      <router-view/>
+    </content>
   </v-app>
 </template>
