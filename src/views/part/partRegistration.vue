@@ -61,7 +61,6 @@ export default {
     },
     methods: {
         signUp:async function(){
-            this.$store.errorCode = ''
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
             await this.$store.commit('partRegistUser',this.array)

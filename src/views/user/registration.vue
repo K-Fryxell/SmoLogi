@@ -65,7 +65,6 @@ export default {
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
             await this.$store.commit('registUser',this.array)
-            
         }
     },
 }
