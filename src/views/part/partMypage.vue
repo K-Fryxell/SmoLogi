@@ -10,7 +10,7 @@ import firebase from 'firebase'
 export default {
     data() {
         return {
-            allData: [],
+            allData: "",
         }
     },
     computed: {
@@ -29,11 +29,14 @@ export default {
     },
     created:function(){
         // this.$store.onAuth()
-        // firebase.firestore().collection('comments').get().then(snapshot => {
-        //   snapshot.forEach(doc => {
-        //     this.allData.push(doc.data())
-        //   })
-        // })
+        firebase.firestore().collection('comments').get().then(snapshot => {
+          snapshot.forEach(doc => {
+            //contentは要素
+            //pushは配列データそのもの
+            // this.allData.push(doc.data().content)
+            this.allData = doc.data().content
+          })
+        })
     }
 }
 </script>

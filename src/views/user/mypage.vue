@@ -17,6 +17,7 @@ export default {
     },
     methods:{
         logout:function(){
+            //#####現在エラー有り#####
             this.$store.logout()
         }
     },
