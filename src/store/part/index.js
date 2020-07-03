@@ -3,7 +3,7 @@ import router from '../../router/index'
 export default ({
     state: {
         // パートナーデータ
-
+        array:{},
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
@@ -43,11 +43,13 @@ export default ({
                     array['email'],
                     array['password']
                 )
-                .then(function() {
+                .then(function () {
                     console.log('success')
                     router.push('/part_mypage')
                 })
-            }
+        }
+        
+
     },
     actions: {
 
