@@ -18,7 +18,7 @@ const routes = [{
         path: '/user_mypage',
         name: 'UserMypage',
         component: () =>
-            import ('@/views/user/mypage')
+            import ('@/views/user/mypage.vue')
     },
     {
         path: '/kiyaku',
