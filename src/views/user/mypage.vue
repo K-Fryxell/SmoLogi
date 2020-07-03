@@ -1,41 +1,41 @@
 <template>
     <v-container>
         <v-row justify="center" class="ma-0 pa-0"> 
-        {{allData}}
+            
+        ユーザ情報
         {{user}}
+        ユーザID
+        {{user_id}}
           <v-card-title class="mt-12 display-3">ようこそ！<br/>○○○さん</v-card-title>
         </v-row>
         <v-row justify="center">
             <v-btn class="mt-12" rounded color="primary" large>お手伝いを頼む</v-btn>
         </v-row>
-      <v-row justify="center"> 
-      <v-card
-    v-scroll.self="onScroll"
-    class="overflow-y-auto mt-12"
-    max-height="400"
-  >
-    <v-banner
-      class="justify-center title font-weight-light"
-      sticky
-    >
-      利用履歴
-    </v-banner>
+        <v-row justify="center"> 
+            <v-card
+                    class="overflow-y-auto mt-12"
+                    max-height="400">
+                <v-banner
+                    class="justify-center title font-weight-light"
+                    sticky>
+                    利用履歴
+                </v-banner>
 
-    <v-card-text>
-      <div
-        v-for="n in 12"
-        :key="n"
-        class="mb-4"
-      >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi commodi earum tenetur. Asperiores dolorem placeat ab nobis iusto culpa, autem molestias molestiae quidem pariatur. Debitis beatae expedita nam facere perspiciatis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus cupiditate rerum officiis consequuntur laborum doloremque quaerat ipsa voluptates, nobis nam quis nulla ullam at corporis, similique ratione quasi illo!
-      </div>
-    </v-card-text>
-  </v-card>
-      </v-row>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-btn class="mt-12">登録情報の変更</v-btn>
-      </v-row>
+                <v-card-text>
+                    <div
+                        v-for="n in 12"
+                        :key="n"
+                        class="mb-4"
+                    >
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi commodi earum tenetur. Asperiores dolorem placeat ab nobis iusto culpa, autem molestias molestiae quidem pariatur. Debitis beatae expedita nam facere perspiciatis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus cupiditate rerum officiis consequuntur laborum doloremque quaerat ipsa voluptates, nobis nam quis nulla ullam at corporis, similique ratione quasi illo!
+                    </div>
+                </v-card-text>
+            </v-card>
+        </v-row>
+        <v-row>
+            <v-spacer></v-spacer>
+            <v-btn class="mt-12">登録情報の変更</v-btn>
+        </v-row>
     </v-container>
 </template>
 <script>
@@ -43,13 +43,13 @@ import firebase from 'firebase'
 export default {
     data() {
         return {
-            allData: "",
             user: {
                 id: "",
                 email: "",
                 name: "",
                 sex: ""
-            }
+            },
+            user_id:""
         }
     },
     computed: {
@@ -76,7 +76,16 @@ export default {
             this.user.name = doc.data().name
             this.user.sex = doc.data().sex
         })
-        
+        firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User logged in already or has just logged in.
+            // ユーザーIDの取得
+            console.log(user.uid);
+            this.user_id = user.uid
+        } else {
+            // User not logged in or has just logged out.
+        }
+        });
     }
 }
 </script>
