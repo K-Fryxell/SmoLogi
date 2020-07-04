@@ -3,9 +3,10 @@
         <v-row justify="center" class="ma-0 pa-0"> 
             
         ユーザ情報
-        {{user}}
+        {{user}}<br>
         ユーザID
         {{user_id}}
+        <br>
           <v-card-title class="mt-12 display-3">ようこそ！<br/>○○○さん</v-card-title>
         </v-row>
         <v-row justify="center">
@@ -44,10 +45,10 @@ export default {
     data() {
         return {
             user: {
-                id: "",
                 email: "",
-                name: "",
-                sex: ""
+                pass: "",
+                // name: "",
+                // sex:""
             },
             user_id:""
         }
@@ -69,23 +70,25 @@ export default {
         //     this.allData = doc().data().content
         //   })
         // })
-        firebase.firestore().collection('users').doc('001').get().then( doc => {
-            console.log(doc.data())
-            this.user.email = doc.data().email
-            this.user.id = doc.data().id
-            this.user.name = doc.data().name
-            this.user.sex = doc.data().sex
-        })
         firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            // User logged in already or has just logged in.
-            // ユーザーIDの取得
-            console.log(user.uid);
-            this.user_id = user.uid
-        } else {
-            // User not logged in or has just logged out.
-        }
-        });
+            if (user) {
+                // User logged in already or has just logged in.
+                // ユーザーIDの取得
+                console.log(user.uid);
+                this.user_id = user.uid
+                firebase.firestore().collection('users').doc(this.user_id).get().then( doc => {
+                console.log(doc.data())
+                this.user.email = doc.data().email
+                this.user.pass = doc.data().password
+                // this.user.name = doc.data().fname
+                // this.user.sex = doc.data().sex
+            })
+            } else {
+                // User not logged in or has just logged out.
+            }
+        })
+        
+        
     }
 }
 </script>
