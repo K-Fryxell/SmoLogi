@@ -76,6 +76,7 @@ export default {
                 // ユーザーIDの取得
                 console.log(user.uid);
                 this.user_id = user.uid
+                // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
                 firebase.firestore().collection('users').doc(this.user_id).get().then( doc => {
                 console.log(doc.data())
                 this.user.email = doc.data().email
