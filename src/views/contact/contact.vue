@@ -7,7 +7,17 @@
                         <v-col cols="9" class="ma-0 pa-0">
                             <v-card class="red pa-5" elevation="0" height="700" tile>
                                 <v-card class="green" elevation="0" height="650" tile >
-                                    配達者の位置情報を表示
+                                    <!-- ここにグーグルマップの表示 -->
+                                    <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 100%;" :options="mapStyle">
+                                        <GmapMarker v-for="(m, id) in marker_items"
+                                        :position="m.position"
+                                        :title="m.title"
+                                        :key="id"
+                                        :icon="m.icon"
+                                        :clickable="true"
+                                        :draggable="true">
+                                        </GmapMarker>
+                                    </GmapMap>
                                 </v-card>
                             </v-card>
                         </v-col>
@@ -58,6 +68,22 @@
 </template>
 <script>
 export default {
-    
+    name: 'MapComponent',
+    data() {
+        return {
+            center: { lat: 35.698304, lng: 139.766325 },
+            zoom: 18,
+            mapStyle: {
+                disableDefaultUI: true, // 表示のオプションを指定できます。
+                styles: [
+                    console.log(process.env.VUE_APP_MAP),
+                    // カスタマイズで使用したスタイルなどはここに。
+                ]
+            },
+            // marker_items: [
+            //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
+            // ]
+        }
+    }
 }
 </script>
