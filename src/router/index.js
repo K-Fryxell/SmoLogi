@@ -49,6 +49,12 @@ const routes = [{
         name: 'partTop',
         component: () =>
             import ('../views/part/partTop')
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        component: () =>
+            import('../views/contact/contact.vue')
     }
 ]
 const router = new VueRouter({
