@@ -11,7 +11,12 @@ const routes = [{
     path: '/regist',
     name: 'Registration',
     component: () =>
-        import ('@/views/registration')
+        import('@/views/registration')
+}, {
+    path: '/history',
+    name: 'usage_history',
+    component: () =>
+        import('@/views/usage_history.vue')
 }]
 const router = new VueRouter({
     mode: 'history',
