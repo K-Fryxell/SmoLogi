@@ -7,6 +7,7 @@ export default ({
         // ユーザデータ
         array: {},
         user: {},
+        user_id:'',
         // ログイン情報のフラグ
         status: false,
         // メールアドレス・パスワード
@@ -42,7 +43,26 @@ export default ({
                     array['password']
                 )
                 .then(function() {
-                    console.log('success')
+                    // ユーザ情報の変更などに検知
+                    firebase.auth().onAuthStateChanged((user) => {
+                        if (user) {
+                            // User logged in already or has just logged in.
+                            // ユーザーIDの取得
+                            console.log(user.uid);
+                            // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                            state.user_id = user.uid
+                            firebase.firestore().collection("users").doc(state.user_id)
+                            .set(array)
+                            .then(function () {
+                                // 正常にデータ保存できた時の処理
+                                console.log('success')
+                            })
+                        } else {
+                            // User not logged in or has just logged out.
+                        }
+                    });
+                    
+                    
                     router.push('/user_mypage')
                 })
                 // .catch(function(error) {
