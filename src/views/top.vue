@@ -2,9 +2,12 @@
     <v-container>
         <v-layout>
             <v-flex xs=12 sm=6 md=6 >
+                <content>
+                    <Sign/>
+                </content>
                 <v-row>
                     <v-col sm=6 md=6 class="pa-10">
-                    <SaleGraph />
+                    <!-- <SaleGraph /> -->
                         <v-card elevation="0">
                             <v-card-text><v-card-title class="headline">ニモチとは</v-card-title>
                             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -12,7 +15,7 @@
                         </v-card>
                     </v-col>
                     <v-col sm=6 md=6 >
-                    <SaleGraph />
+                    <!-- <SaleGraph /> -->
                         <v-card elevation="0">
                             <v-img  height="200px" :src="imageurl">
                             </v-img>
@@ -47,11 +50,15 @@
     </v-container>
 </template>
 <script>
+import Sign from '../components/User/Sign'
 export default {
     data(){
         return{
             imageurl:require("../assets/nimoti.jpg"),
         }
     },
+    components:{
+        Sign
+    }
 }
 </script>
