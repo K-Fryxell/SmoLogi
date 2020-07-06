@@ -1,8 +1,11 @@
 <template>
     <div>
         <v-card>パートナーユーザログイン</v-card>
-        <v-btn @click="logout">ログアウト</v-btn>
-        {{ allData }}
+        <v-btn @click="logout">ログアウト</v-btn><br/>
+        ユーザ情報
+        {{part_user['email']}} {{part_user['pass']}}<br/>
+        ユーザID
+        {{part_user_id}}
     </div>
 </template>
 <script>
@@ -10,6 +13,13 @@ import firebase from 'firebase'
 export default {
     data() {
         return {
+            part_user: {
+                email: "",
+                pass: ""
+                // name: "",
+                // sex:""
+            },
+            part_user_id:"",
             allData: "",
         }
     },
@@ -28,14 +38,24 @@ export default {
         }
     },
     created:function(){
-        // this.$store.onAuth()
-        firebase.firestore().collection('comments').get().then(snapshot => {
-          snapshot.forEach(doc => {
-            //contentは要素
-            //pushは配列データそのもの
-            // this.allData.push(doc.data().content)
-            this.allData = doc.data().content
-          })
+        firebase.auth().onAuthStateChanged((part_user) => {
+            if (part_user) {
+                // User logged in already or has just logged in.
+                // ユーザーIDの取得
+                console.log(part_user.uid);
+                this.part_user_id = part_user.uid
+                // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
+                firebase.firestore().collection('part_users').doc(this.part_user_id).get().then( doc => {
+                console.log(doc.data())
+                this.part_user['email'] = doc.data().email
+                this.part_user['pass'] = doc.data().password
+                // zako.com
+                // this.user.name = doc.data().fname
+                // this.user.sex = doc.data().sex
+            })
+            } else {
+                // User not logged in or has just logged out.
+            }
         })
     }
 }

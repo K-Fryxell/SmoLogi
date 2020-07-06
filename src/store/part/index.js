@@ -4,6 +4,8 @@ export default ({
     state: {
         // パートナーデータ
         array:{},
+        part_user: {},
+        part_user_id:'',
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
@@ -43,13 +45,28 @@ export default ({
                     array['email'],
                     array['password']
                 )
-                .then(function () {
-                    console.log('success')
+                .then(function() {
+                    // ユーザ情報の変更などに検知
+                    firebase.auth().onAuthStateChanged((part_user) => {
+                        if (part_user) {
+                            // User logged in already or has just logged in.
+                            // ユーザーIDの取得
+                            console.log(part_user.uid);
+                            // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                            state.part_user_id = part_user.uid
+                            firebase.firestore().collection("part_users").doc(state.part_user_id)
+                            .set(array)
+                            .then(function () {
+                                // 正常にデータ保存できた時の処理
+                                console.log('success')
+                            })
+                        } else {
+                            // User not logged in or has just logged out.
+                        }
+                    })
                     router.push('/part_mypage')
                 })
-        }
-        
-
+            }
     },
     actions: {
 
