@@ -56,14 +56,12 @@ export default ({
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
+                                router.push('/user_mypage')
                             })
                         } else {
                             // User not logged in or has just logged out.
                         }
-                    });
-                    
-                    
-                    router.push('/user_mypage')
+                    })
                 })
                 // .catch(function(error) {
                 //     console.log('err');
