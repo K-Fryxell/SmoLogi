@@ -9,14 +9,14 @@
                                 <v-card class="green" elevation="0" height="650" tile >
                                     <!-- ここにグーグルマップの表示 -->
                                     <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 100%;" :options="mapStyle">
-                                        <GmapMarker v-for="(m, id) in marker_items"
+                                        <!-- <GmapMarker v-for="(m, id) in marker_items"
                                         :position="m.position"
                                         :title="m.title"
                                         :key="id"
                                         :icon="m.icon"
                                         :clickable="true"
                                         :draggable="true">
-                                        </GmapMarker>
+                                        </GmapMarker> -->
                                     </GmapMap>
                                 </v-card>
                             </v-card>
@@ -76,7 +76,7 @@ export default {
             mapStyle: {
                 disableDefaultUI: true, // 表示のオプションを指定できます。
                 styles: [
-                    console.log(process.env.VUE_APP_MAP),
+                    // console.log(process.env['VUE_APP_API_MAP']),
                     // カスタマイズで使用したスタイルなどはここに。
                 ]
             },
