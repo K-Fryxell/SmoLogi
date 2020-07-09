@@ -2,20 +2,20 @@
   <v-card tile>
     <v-toolbar dense>
         <v-toolbar-title>
-            <router-link to="/part_top">
-                <img width="100" src="../../../assets/partTop_header/logokari.png">
+            <router-link to="/part_mypage">
+                <img width="100" src="../../assets/partTop_header/logokari.png">
             </router-link>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
-        <!-- ログイン・新規登録 -->
-        <Sign/>
+        <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
     </v-toolbar>
   </v-card>
 </template>
 
 <script>
-import Sign from '../../../components/Part/Sign'
 export default {
     data(){
         return{
@@ -23,7 +23,6 @@ export default {
         }
     },
     components:{
-        Sign
     }
 }
 </script>
