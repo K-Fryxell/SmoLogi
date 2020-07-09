@@ -21,6 +21,12 @@ const routes = [{
             import ('@/views/user/mypage.vue')
     },
     {
+        path: '/user_passchange',
+        name: 'UserPasschange',
+        component: () =>
+            import ('@/views/user/passchange.vue')
+    },
+    {
         path: '/kiyaku',
         name: 'Kiyaku',
         component: () =>

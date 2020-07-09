@@ -1,44 +1,96 @@
 <template>
     <div>
-        <h2>
-            ユーザ登録
-        </h2>
-        <v-form
-            v-model="valid">
-            <v-text-field
-                v-model="mailaddress"
-                prepend-icon="mdi-email"
-                :rules="registemailRules"
-                counter
-                label="E-mail"
-                hint="メールアドレスは50字以下で記入してください。"/>
-            <v-text-field 
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
-                @click:append="showPassword = !showPassword"
-                :rules="registpassRules"
-                counter
-                label="password"
-                hint="パスワードは8字以上20字以下にしてください。"
-                required/>
-            <v-btn 
-                @click="signUp"
-                :disabled="!valid"
-                color="blue"
-                class="mr-4 white--text"
-                width="120">
-                登録
-            </v-btn>
-        </v-form>
+        <v-row justify="center">
+        <v-card tile width="600" height="auto" class="mt-12">
+        <v-tabs>
+            <v-tab v-on:click="tab = 0">ログイン</v-tab>
+            <v-tab v-on:click="tab = 1">新規登録</v-tab>
+        </v-tabs>
+            <v-row>
+                <Sign v-if="tab == 0"/>
+                <v-card-text v-if="tab == 1">
+                    <v-row>
+                    <v-col cols="6" sm="3">
+                    <v-text-field
+                    v-model="sei"
+                    label="姓"
+                    :rules="seiRules">
+                    </v-text-field>
+                    </v-col>
+                    <v-col cols="6" sm="3">
+                    <v-text-field
+                  v-model="mei"
+                  label="名"
+                  :rules="meiRules"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6" sm="3">
+                <v-text-field
+                  v-model="seiKana"
+                  label="セイ"
+                  :rules="seikanaRules"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6" sm="3">
+                <v-text-field
+                  v-model="meiKana"
+                  label="メイ"
+                  :rules="meikanaRules"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col sm="2">
+                <v-text-field
+                v-model="frontpost"
+                  label="xxx"
+                  :rules="frontpostRules"
+                ></v-text-field>
+              </v-col>
+              <div class="mt-10">
+                ー
+              </div>
+              <v-col sm="2">
+                <v-text-field
+                  v-model="backpost"
+                  label="xxxx"
+                  :rules="backpostRules"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+                <v-text-field
+                v-model="address"
+                  label="住所"
+                  :rules="addressRules"
+                ></v-text-field>
+                <v-text-field
+                  v-model="mailaddress"
+                  counter
+                  label="メールアドレス"
+                  :rules="registemailRules"
+                  hint="メールアドレスは50字以下で記入してください。"
+                ></v-text-field>
+                <v-text-field
+                  v-model="tel"
+                  label="電話番号"
+                  :rules="telRules"
+                ></v-text-field>
+        </v-card-text>
+            </v-row>
+        </v-card>
+        </v-row>
     </div>
 </template>
 
 <script>
+import Sign from '../../components/User/Sign.vue';
 export default {
     data(){
         return{
             array: {},
+            tab:0,
             mailaddress: '',
             password: '',
             valid: true,
@@ -58,6 +110,9 @@ export default {
                 v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
             ],
         }
+    },
+    components:{
+        Sign
     },
     methods: {
         signUp:async function(){
