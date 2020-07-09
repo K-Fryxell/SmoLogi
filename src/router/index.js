@@ -21,6 +21,22 @@ const routes = [{
             import ('@/views/user/mypage.vue')
     },
     {
+        path: '/history',
+        name: 'History',
+        component: () =>
+            import('@/views/user/usage_history.vue')
+    }, {
+        path: '/transport',
+        name: 'Transport',
+        component: () =>
+            import('@/views/user/transport_info.vue')
+    }, {
+        path: '/change',
+        name: 'Change',
+        component: () =>
+            import('@/views/user/change_detail.vue')
+    },
+    {
         path: '/kiyaku',
         name: 'Kiyaku',
         component: () =>

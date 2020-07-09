@@ -12,17 +12,17 @@
                 counter
                 label="E-mail"
                 hint="メールアドレスは50字以下で記入してください。"/>
-            <v-text-field 
+            <v-text-field
                 v-model="password"
-                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPassword = !showPassword"
                 :rules="registpassRules"
                 counter
                 label="password"
                 hint="パスワードは8字以上20字以下にしてください。"
                 required/>
-            <v-btn 
+            <v-btn
                 @click="signUp"
                 :disabled="!valid"
                 color="blue"
