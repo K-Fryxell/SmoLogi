@@ -27,7 +27,7 @@
                                                 </v-col>
                                             </v-row>
                                             <v-row justify="center">
-                                                <v-btn class="white--text" x-large="12" color="green">変更</v-btn>
+                                                <v-btn class="white--text" color="green">変更</v-btn>
                                             </v-row>
                                         </v-tab-item>
                                         
