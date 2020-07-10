@@ -19,8 +19,8 @@
                             hint="メールアドレスは50字以下で記入してください。"
                             required />
                         <!-- パスワード入力 -->
-                        <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                            v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                        <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                            v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="showPassword = !showPassword" v-model="password"
                             :rules="registpassRules"
                             counter
@@ -44,7 +44,7 @@
                         </v-form>
                 </v-card>
             </v-dialog>
-            
+
             <!-- 新規登録ページボタン -->
             <v-btn color="blue lighten-2" dark to="regist">
                 新規登録

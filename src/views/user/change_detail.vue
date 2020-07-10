@@ -98,12 +98,11 @@ export default {
           mei: '',
           seiKana: '',
           meiKana: '',
-          frontpos: '',
+          frontpost: '',
           backpost: '',
           address: '',
           mailaddress: '',
           tel: '',
-          //姓名
           seiRules:[
             v => !!v || '入力欄が空白です。',
             v => (v && v.length <= 20) || '姓は20字以内で入力してください。',
@@ -139,7 +138,7 @@ export default {
           mailRules: [
             v => !!v || '入力欄が空白です。',
                 v => /.+@.+\..+/.test(v) || '想定していない文字形式で入力されました。',
-                v => (v && v.length <= 50) || '50字以内で入力してください。', 
+                v => (v && v.length <= 50) || '50字以内で入力してください。',
           ],
           //電話番号
           telRules: [
