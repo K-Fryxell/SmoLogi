@@ -6,12 +6,9 @@
         </h2>
         <v-form
             v-model="valid">
-            <v-text-field
-                v-model="mailaddress"
-                prepend-icon="mdi-lock-outline"
-                :rules="registemailRules"
-                counter
-                label="古いパスワード"/>
+            <div class="mt-10">
+          カード番号
+        
             <v-text-field 
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
@@ -21,14 +18,27 @@
                 counter
                 label="新しいパスワード"
                 hint="パスワードは8字以上20字以下にしてください。"
-                required/>
-            <v-col class="d-flex" cols="12" sm="6">
-        <v-select
+                required>
+            </v-text-field>
+            </div>
+          <v-row>
+            <v-col>
+          <v-select
           :items="items"
-          label="Solo field"
-          dense
-          solo></v-select>
-      </v-col>
+        ></v-select>
+        </v-col>
+        <div class="mt-10">
+          年
+        </div>
+        <v-col>
+          <v-select
+            :items="items"
+          ></v-select>
+        </v-col>
+        <div class="mt-10">
+          月
+        </div>
+      </v-row>
             <v-btn 
                 @click="signUp"
                 :disabled="!valid"
