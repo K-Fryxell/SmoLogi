@@ -49,6 +49,12 @@ const routes = [{
         name: 'partTop',
         component: () =>
             import ('../views/part/partTop')
+    },
+    {
+        path: '/change_passwd',
+        name: 'partChangepasswd',
+        component: () =>
+            import ('../views/part/partChangepasswd')
     }
 ]
 const router = new VueRouter({

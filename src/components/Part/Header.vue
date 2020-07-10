@@ -1,5 +1,5 @@
 <template>
-  <v-card tile>
+  <v-card tile elevation="0">
     <v-toolbar dense>
         <v-toolbar-title>
             <router-link to="/part_mypage">

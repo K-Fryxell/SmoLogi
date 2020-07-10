@@ -3,8 +3,8 @@
     <!-- ヘッダー -->
     <TopHeader/>
     <v-container class="ma-0 pa-0" fluid >
-      <v-layout class="ma-0 pa-0" wrap>
-        <v-card  class="ma-0 pa-0" elevation="0">
+      <v-layout class="ma-0 pa-0" wrap  >
+        <v-card class="ma-0 pa-0" elevation="0">
           <v-card-title class="justify-center mt-5">
             <h3>ニモチの利用方法</h3>
           </v-card-title>
