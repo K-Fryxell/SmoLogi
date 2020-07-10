@@ -13,15 +13,13 @@
                     <v-col cols="6" sm="3">
                     <v-text-field
                     v-model="sei"
-                    label="姓"
-                    :rules="seiRules">
+                    label="姓">
                     </v-text-field>
                     </v-col>
                     <v-col cols="6" sm="3">
                     <v-text-field
                   v-model="mei"
                   label="名"
-                  :rules="meiRules"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -30,14 +28,12 @@
                 <v-text-field
                   v-model="seiKana"
                   label="セイ"
-                  :rules="seikanaRules"
                 ></v-text-field>
               </v-col>
               <v-col cols="6" sm="3">
                 <v-text-field
                   v-model="meiKana"
                   label="メイ"
-                  :rules="meikanaRules"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -46,7 +42,6 @@
                 <v-text-field
                 v-model="frontpost"
                   label="xxx"
-                  :rules="frontpostRules"
                 ></v-text-field>
               </v-col>
               <div class="mt-10">
@@ -56,26 +51,22 @@
                 <v-text-field
                   v-model="backpost"
                   label="xxxx"
-                  :rules="backpostRules"
                 ></v-text-field>
               </v-col>
             </v-row>
                 <v-text-field
                 v-model="address"
                   label="住所"
-                  :rules="addressRules"
                 ></v-text-field>
                 <v-text-field
                   v-model="mailaddress"
                   counter
                   label="メールアドレス"
-                  :rules="registemailRules"
                   hint="メールアドレスは50字以下で記入してください。"
                 ></v-text-field>
                 <v-text-field
                   v-model="tel"
                   label="電話番号"
-                  :rules="telRules"
                 ></v-text-field>
         </v-card-text>
             </v-row>
@@ -93,6 +84,14 @@ export default {
             tab:0,
             mailaddress: '',
             password: '',
+            sei: '',
+            mei: '',
+            tel: '',
+            seiKana: '',
+            meiKana: '',
+            backpost: '',
+            frontpost: '',
+            address: '',
             valid: true,
             showPassword:false,
             // メールアドレスの登録
