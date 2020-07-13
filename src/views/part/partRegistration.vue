@@ -17,7 +17,7 @@
                 :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPassword = !showPassword"
-                :rules="registpassRules"
+                :rules="registpassRules"    
                 counter
                 label="password"
                 hint="パスワードは8字以上20字以下にしてください。"

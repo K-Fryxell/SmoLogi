@@ -34,8 +34,8 @@
                     align="center"
                     justify="center"
                   >
-                  <v-card elevation="0" width="100%" align="center" class="display-2 mt-6">{{item.text}}</v-card>
-                  <v-card elevation="0" justify="center" class="headline mt-5">{{item.texts}}</v-card>
+                  <v-card elevation="0" width="100%" align="center" class="headline mt-6">{{item.text}}</v-card>
+                  <v-card elevation="0" justify="center" class="subtitle-1 pa-4 text-center">{{item.texts}}</v-card>
                 </v-row>
               </v-sheet>
             </v-carousel-item>
