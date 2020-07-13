@@ -25,16 +25,24 @@ const routes = [{
         name: 'History',
         component: () =>
             import('@/views/user/usage_history.vue')
-    }, {
+    },
+    {
         path: '/user_transport',
         name: 'Transport',
         component: () =>
             import('@/views/user/transport_info.vue')
-    }, {
+    },
+    {
         path: '/user_change',
         name: 'Change',
         component: () =>
             import('@/views/user/change_detail.vue')
+    },
+    {
+        path: '/user_passchange',
+        name: 'UserPasschange',
+        component: () =>
+            import ('@/views/user/passchange.vue')
     },
     {
         path: '/kiyaku',
