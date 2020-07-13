@@ -1,15 +1,14 @@
 <template>
-    <div>
+    <div class="ma-0 pa-0">
         <content class="ma-0 pa-0">
             <Header/>
-            <v-container fluid class="ma-0 pa-0 pt-3">
+            <v-container fluid class="ma-0 pa-0">
                 <v-layout>
                     <v-flex lg12 xs12>
                         <v-card elevation="0" class="ma-0 pa-0">
                             <v-row justify="center">
                                 <v-col lg="8" cols="11">
-                                    <v-btn @click="logout">ログアウト</v-btn>
-                                    {{ allData }}
+                                    
                                     <!-- <v-flex lg8> -->
                                     <v-tabs color="green">
                                         <v-row dense justify="start">
@@ -89,7 +88,6 @@ import Footer from '../../components/Part/Footer'
 export default {
     data() {
         return {
-            allData: "",
         }
     },
     components:{
@@ -110,16 +108,16 @@ export default {
             firebase.auth().signOut()
         }
     },
-    created:function(){
-        // this.$store.onAuth()
-        firebase.firestore().collection('comments').get().then(snapshot => {
-          snapshot.forEach(doc => {
-            //contentは要素
-            //pushは配列データそのもの
-            // this.allData.push(doc.data().content)
-            this.allData = doc.data().content
-          })
-        })
-    }
+    // created:function(){
+    //     // this.$store.onAuth()
+    //     firebase.firestore().collection('comments').get().then(snapshot => {
+    //       snapshot.forEach(doc => {
+    //         //contentは要素
+    //         //pushは配列データそのもの
+    //         // this.allData.push(doc.data().content)
+    //         // this.allData = doc.data().content
+    //       })
+    //     })
+    // }
 }
 </script>

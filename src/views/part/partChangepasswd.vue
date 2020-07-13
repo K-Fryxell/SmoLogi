@@ -8,7 +8,6 @@
                         <v-card elevation="0" class="ma-0 mt-6 pa-0">
                             <v-row justify="center">
                                 <v-col lg="8" cols="11">
-                                    <!-- <v-flex lg8> -->
                                     <v-tabs color="grey">
                                         <v-row dense justify="start">
                                             <v-col class="yellow" lg="2" cols="4">

@@ -51,16 +51,17 @@
         <h3>利用車種の例</h3>
       </v-card-title>
         <v-row justify="space-around" class="px-6 pt-5">
+          <v-col cols="4">
             <v-card
               v-for="item in items"
-              :key="item.name" cols="4"
-              class="justify-center ma-0 pa-0"
+              :key="item.name"
+              class="justify-center ma-0 pa-0 red"
               tile
               style="border:solid 2px grey;"
               elevation="0"
             >
-              <v-col>
-                <v-card-text class="bule mt-5 text-center">
+              <v-col class="blue">
+                <v-card-text class="mt-5 text-center">
                   <img :src="item.img" width="110" height="80" class="ma-0 pa-0"/>
                   <p>
                     {{item.name}}
@@ -68,6 +69,7 @@
                 </v-card-text>
               </v-col>
             </v-card>
+          </v-col>
         </v-row>
       </v-card>
     </v-container>

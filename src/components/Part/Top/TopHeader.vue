@@ -1,9 +1,9 @@
 <template>
-  <v-card tile>
+  <v-card elevation="0" tile height="85">
     <v-toolbar dense>
         <v-toolbar-title>
             <router-link to="/part_top">
-                <img width="100" src="../../../assets/partTop_header/logokari.png">
+                <img height="55" src="../../../assets/partTop_header/logokari.png">
             </router-link>
         </v-toolbar-title>
 
