@@ -71,6 +71,18 @@ const routes = [{
         name: 'Contact',
         component: () =>
             import('../views/contact/contact.vue')
+    },
+    {
+        path: '/part_changedetails',
+        name: 'partChangedetails',
+        component: () =>
+            import ('../views/part/partChangedetails')
+    },
+    {
+        path: '/part_requestdetails',
+        name: 'partRequestdetails',
+        component: () =>
+            import ('../views/part/partRequestdetails')
     }
 ]
 const router = new VueRouter({
