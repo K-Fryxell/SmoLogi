@@ -13,9 +13,7 @@
             時
           </div>
           <v-col sm="2">
-            <v-select
-              :items="minute"
-            ></v-select>
+            <v-select></v-select>
           </v-col>
           <div class="mt-10">
             分
