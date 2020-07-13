@@ -49,6 +49,18 @@ const routes = [{
         name: 'partTop',
         component: () =>
             import ('../views/part/partTop')
+    },
+    {
+        path: '/part_changedetails',
+        name: 'partChangedetails',
+        component: () =>
+            import ('../views/part/partChangedetails')
+    },
+    {
+        path: '/part_requestdetails',
+        name: 'partRequestdetails',
+        component: () =>
+            import ('../views/part/partRequestdetails')
     }
 ]
 const router = new VueRouter({
