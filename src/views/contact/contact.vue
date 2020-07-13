@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <v-flex xs=12 sm=6 md=6 >
+        <v-flex xs=12 sm=6 md=6>
             <v-row class="ma-0 pa-0 mx-12">
                 <v-col class="ma-0 pa-0">
                     <v-row class="ma-0 pa-0">
