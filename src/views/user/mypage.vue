@@ -1,7 +1,6 @@
 <template>
     <v-container>
-        <v-row justify="center" class="ma-0 pa-0"> 
-            
+        <v-row justify="center" class="ma-0 pa-0">   
         ユーザ情報
         {{user}}<br>
         ユーザID
