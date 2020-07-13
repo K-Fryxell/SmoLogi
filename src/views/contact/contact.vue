@@ -51,14 +51,7 @@
                                 </v-row>
                             </v-card>
                             <!-- 切替 -->
-                            <v-card class="green display-1 overflow-y-auto" height="350" elevation="0" tile v-else-if="tab">
-                                <v-banner
-                                    class="headline font-weight-light yellow"
-                                    sticky
-                                    >
-                                    チャットエリア
-                                </v-banner>
-
+                            <v-card class="green display-1 overflow-y-auto" id="takasa" height="350" elevation="0" tile v-else-if="tab">
                                 <v-card-text
                                     class="body-1 pb-0 ma-0"
                                     v-for="(item,index) in chat"
