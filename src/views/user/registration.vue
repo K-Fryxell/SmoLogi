@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import Sign from '../../components/User/Sign.vue';
+import Sign from '@/components/User/Sign.vue';
 export default {
     data(){
         return{

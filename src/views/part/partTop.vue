@@ -85,9 +85,9 @@
 
 
 <script>
-import Slider from '../../components/Part/Top/Slider.vue';
-import TopHeader from '../../components/Part/Top/TopHeader.vue';
-import Footer from '../../components/Part/Footer.vue';
+import Slider from '@/components/Part/Top/Slider.vue';
+import TopHeader from '@/components/Part/Top/TopHeader.vue';
+import Footer from '@/components/Part/Footer.vue';
 export default {
     data (){
     return{

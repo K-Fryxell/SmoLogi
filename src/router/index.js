@@ -63,6 +63,12 @@ const routes = [{
             import ('../views/part/partRegistration')
     },
     {
+        path: '/part_credit',
+        name: 'partRegistUser',
+        component: () =>
+            import ('../views/part/partCredit')
+    },
+    {
         path: '/part_mypage',
         name: 'partMypage',
         component: () =>

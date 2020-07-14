@@ -3,19 +3,19 @@
     <v-toolbar dense>
         <v-toolbar-title>
             <router-link to="/part_top">
-                <img height="55" src="../../../assets/partTop_header/logokari.png">
+                <img height="55" src="@/assets/partTop_header/logokari.png">
             </router-link>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
         <!-- ログイン・新規登録 -->
-        <Sign/>
+        <PartSign/>
     </v-toolbar>
   </v-card>
 </template>
 
 <script>
-import Sign from '../../../components/Part/Sign'
+import PartSign from '@/components/Part/PartSign'
 export default {
     data(){
         return{
@@ -23,7 +23,7 @@ export default {
         }
     },
     components:{
-        Sign
+        PartSign
     }
 }
 </script>
