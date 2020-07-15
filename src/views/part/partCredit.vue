@@ -5,7 +5,7 @@
                 クレカ登録
             </v-card-title>
         </v-row>
-        <v-form ref="ca" v-model="caf">
+        <v-form ref="form" v-model="caf">
             <v-row justify="center">
                 <v-col cols="2">
                     <v-row justify="end">
@@ -154,6 +154,9 @@ export default {
         }
     },
     methods:{
+        validate () {
+            this.$refs.form.validate()
+        },
         regist_card() {
             this.array['cardexpire'] = this.isYear
             this.array['cardnum'] = this.card

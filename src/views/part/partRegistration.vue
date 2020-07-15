@@ -5,7 +5,7 @@
       <v-card-text>
         <v-container>
             <v-layout>
-                <v-form v-model="regist">
+                <v-form ref="form" v-model="regist">
                     <v-row justify="center">
                         <v-flex>
                             <!-- 氏textarea -->
@@ -177,7 +177,7 @@
                             class="grey liten-5 white--text"
                             to="/part_credit"
                             :disabled="!regist"
-                            @click="regist"
+                            @click="register()"
                             width="170"
                             height="50"
                         >
@@ -209,7 +209,7 @@ export default {
         showpp:false,
         showss:false,
         uploadImageUrl: '',
-        objects: {},
+        array: {},
         regist: true,
         nameRules: [
             v => !!v || '入力欄が空白です。'
@@ -220,13 +220,13 @@ export default {
         ],
         usernameRules: [
             v => !!v || '入力欄が空白です。',
-            v => v.length <= 8 || '8字以内で入力してください。'
+            v => (v && v.length <= 8) || '8字以内で入力してください。'
         ],
         emailRules: [
             v => !!v || '入力欄が空白です。',
             v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
             v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
-            v => v.length <= 50 || '有効桁を超えた不正な値が入力されました。'
+            v => (v && v.length <= 50) || '有効桁を超えた不正な値が入力されました。'
         ],
         // アカウント登録1パスワード
         registpassRules:[
@@ -245,6 +245,9 @@ export default {
     }
   },
   methods: {
+        // validate () {
+        //     this.$refs.form.validate()
+        // },
         register(){
             this.array['firstname'] = this.firstname
             this.array['lastname'] = this.lastname
@@ -255,7 +258,6 @@ export default {
             this.array['password'] = this.password
             this.$store.commit('register', this.array)
         },
-
         // selectfileボタン押下時
         btnclick() {
           this.$refs.input.click()
