@@ -3,129 +3,161 @@
     <v-card>
       <v-card-title class="text-center justify-center">パートナーユーザ登録</v-card-title>
       <v-card-text>
-        <v-container>
-            <v-layout>
+        <v-container class="ma-0 pa-0" fluid>
+            <v-layout column>
                 <v-form ref="form" v-model="regist">
                     <v-row justify="center">
-                        <v-flex>
-                            <!-- 氏textarea -->
-                            <v-col lg="12" cols="5">
-                                <p>氏</p>
+                        <v-flex lg3 xs4>
+                            <!-- 姓textarea -->
+                            <v-col lg="12" cols="12">
                                 <v-text-field
                                 v-model="firstname"
                                 :rules="nameRules"
                                 required
-                                label="苗字"
-                                single-line
-                                outlined
+                                label="姓"
                             ></v-text-field>
                             </v-col>
                         </v-flex>
-                        <v-flex>
+                        <v-flex lg3 xs4>
                             <!-- 名textarea -->
-                            <v-col lg="12" cols="5">
-                                <p>名</p>
+                            <v-col lg="12" cols="12">
                                 <v-text-field
                                 v-model="lastname"
                                 :rules="nameRules"
                                 required
-                                label="名前"
-                                single-line
-                                outlined
+                                label="名"
                             ></v-text-field>
+                            </v-col>
+                        </v-flex>
+                    </v-row>
+                    <v-row justify="center">
+                        <v-flex lg3 xs4>
+                            <!-- セイtextarea -->
+                            <v-col lg="12" cols="12">
+                                <v-text-field
+                                v-model="firstkana"
+                                :rules="kanaRules"
+                                required
+                                label="セイ"
+                            ></v-text-field>
+                            </v-col>
+                        </v-flex>
+                        <v-flex lg3 xs4>
+                            <!-- メイtextarea -->
+                            <v-col lg="12" cols="12">
+                                <v-text-field
+                                v-model="lastkana"
+                                :rules="kanaRules"
+                                required
+                                label="メイ"
+                            ></v-text-field>
+                            </v-col>
+                        </v-flex>
+                    </v-row>
+                    <!-- 郵便番号textarea -->
+                    <v-row justify="center">
+                        <v-flex lg3 xs4>
+                            <v-col lg="12" cols="12">
+                                <v-text-field
+                                v-model="frontpost"
+                                :rules="frontpostRules"
+                                label="〒"
+                                required
+                                ></v-text-field>
+                            </v-col>
+                        </v-flex>
+                        <v-flex lg3 xs4>
+                            <v-col lg="12" cols="12">
+                                <v-text-field
+                                v-model="backpost"
+                                :rules="backpostRules"
+                                required
+                                ></v-text-field>
                             </v-col>
                         </v-flex>
                     </v-row>
                     <!-- 住所textarea -->
                     <v-row justify="center">
-                        <v-col cols="5">
-                            <p>住所</p>
+                        <v-col lg="6" cols="8">
                             <v-text-field
                             v-model="address"
                             :rules="nameRules"
                             label="住所"
                             required
-                            single-line
-                            outlined
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <!-- 電話番号textarea -->
                     <v-row justify="center">
-                        <v-col cols="5">
-                            <p>電話番号</p>
-                            <v-text-field
-                            v-model="tel"
-                            :rules="telRules"
-                            :counter="11"
-                            label="電話番号"
-                            required
-                            single-line
-                            outlined
-                            ></v-text-field>
-                        </v-col>
+                        <v-flex lg6 xs8>
+                            <v-row class="ma-0 pa-0">
+                                <v-col lg="2" cols="4">
+                                <v-text-field
+                                v-model="fronttel"
+                                :rules="fronttelRules"
+                                :counter="3"
+                                label="電話番号"
+                                required
+                                ></v-text-field>
+                            </v-col>
+                        <!-- </v-flex>
+                        <v-flex lg2 xs4> -->
+                            <v-col lg="2" cols="4">
+                                <v-text-field
+                                v-model="mediumtel"
+                                :rules="telRules"
+                                :counter="4"
+                                required
+                                ></v-text-field>
+                            </v-col>
+                        <!-- </v-flex>
+                        <v-flex lg2 xs4> -->
+                            <v-col lg="2" cols="4">
+                                <v-text-field
+                                v-model="backtel"
+                                :rules="telRules"
+                                :counter="4"
+                                required
+                                ></v-text-field>
+                            </v-col>
+                            </v-row>
+                            
+                        </v-flex>
                     </v-row>
+
                     <!-- メールtextarea -->
                     <v-row justify="center">
-                        <v-col cols="5">
-                            <p>メールアドレス</p>
+                        <v-col lg="6" cols="8">
                             <v-text-field
                             v-model="email"
                             :rules="emailRules"
                             :counter="50"
                             label="メールアドレス"
                             required
-                            single-line
-                            outlined
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <!-- ユーザ名textarea -->
                     <v-row justify="center">
-                        <v-col cols="5">
-                            <p>ユーザ名</p>
+                        <v-col lg="6" cols="8">
                             <v-text-field
                             v-model="username"
                             :rules="usernameRules"
                             :counter="8"
                             required
                             label="ユーザ名"
-                            single-line
-                            outlined
                         ></v-text-field>
                         </v-col>
                     </v-row>
-
-                    <!-- パスワード入力 -->
-                    <v-text-field
-                    prepend-icon="mdi-lock"
-                    label="Password"
-                    v-bind:type="showpp ? 'text' : 'password'"
-                    v-bind:append-icon="showpp ? 'mdi-eye' : 'mdi-eye-off'"
-                    @click:append="showpp = !showpp"
-                    v-model="password"
-                    :rules="registpassRules"
-                    counter
-                    required
-                    ></v-text-field>
-                    <!-- パスワード再入力 -->
-                    <v-text-field
-                    prepend-icon="mdi-lock" 
-                    label="Password Confirmation"
-                    v-bind:type="showss ? 'text' : 'password'"
-                    v-bind:append-icon="showss ? 'mdi-eye' : 'mdi-eye-off'"
-                    @click:append="showss = !showss"
-                    :rules="passwordConfirmRules"
-                    v-model="passcon"
-                    counter
-                    required
-                    ></v-text-field>
-
                     <!-- ここから顔写真の登録   -->
-                    <v-row justify="center">
-                        <v-card-text>
-                            顔写真の登録
-                        </v-card-text>
+                    <v-row class="ma-0 pa-0 blue" justify="center">
+                        <v-col lg="2">
+                            <v-row class="ma-0 pa-0 red" justify="center">
+                                <v-card-text style="justify-center" class="justify-center">
+                                    顔写真の登録
+                                </v-card-text>
+                            </v-row>
+                        </v-col>
                     </v-row>
                     <v-row justify="center">
                         <v-avatar size="200">
@@ -135,7 +167,7 @@
                                 style="border-radius: 8em;
                                 width:200px;
                                 height:200px;" 
-                            >
+                            > -->
                             <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                 src="#"
                                 alt="アイコンb"
@@ -200,54 +232,69 @@ export default {
     return {
         firstname:'',
         lastname:'',
+        firstkana:'',
+        lastkana:'',
+        frontpost:'',
+        backpost:'',
         address:'',
-        tel:'',
+        fronttel:'',
+        mediumtel:'',
+        backtel:'',
         email:'',
         username:'',
-        password:'',
-        passcon:'',
-        showpp:false,
-        showss:false,
         uploadImageUrl: '',
         array: {},
         regist: true,
+        //姓・名・住所
         nameRules: [
             v => !!v || '入力欄が空白です。'
         ],
+        //セイ・メイ
+        kanaRules: [
+            v => !!v || '入力欄が空白です。',
+            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+        ],
+        //郵便番号(前)
+        frontpostRules: [
+            v => !!v || '入力欄が空白です。',
+            v => /^\d{3}$/.test(v) || '郵便番号は半角数字3桁で入力してください。'
+        ],
+        //郵便番号(後)
+        backpostRules: [
+            v => !!v || '入力欄が空白です。',
+            v => /^\d{4}$/.test(v) || '郵便番号は半角数字4桁で入力してください。'
+        ],
+        //電話番号（前）
+        fronttelRules: [
+            v => !!v || '入力欄が空欄です。',
+            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+            v => /^\d{2}$/.test(v) || /^\d{3}$/.test(v) || '半角数字2桁か3桁で入力してください。'
+        ],
+        //電話番号（中）（後）
         telRules: [
             v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。'
+            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+            v => /^\d{4}$/.test(v) || '半角数字4桁で入力してください。'
         ],
-        usernameRules: [
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length <= 8) || '8字以内で入力してください。'
-        ],
+        //メール
         emailRules: [
             v => !!v || '入力欄が空白です。',
             v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
             v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
             v => (v && v.length <= 50) || '有効桁を超えた不正な値が入力されました。'
         ],
-        // アカウント登録1パスワード
-        registpassRules:[
+        //ユーザ名
+        usernameRules: [
             v => !!v || '入力欄が空白です。',
-            v => (v&& 8<=v.length) || '',
-            v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
-        ],
-        // アカウント登録2パスワード
-        passwordConfirmRules: [
-            v => !!v || '入力欄が空白です。',
-            v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => v === this.password || 'パスワードが一致していません。',
+            v => (v && v.length <= 8) || '8字以内で入力してください。'
         ],
         inputImage: null,
     }
   },
   methods: {
-        // validate () {
-        //     this.$refs.form.validate()
-        // },
+        validate () {
+            this.$refs.form.validate()
+        },
         register(){
             this.array['firstname'] = this.firstname
             this.array['lastname'] = this.lastname
