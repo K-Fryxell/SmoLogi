@@ -104,6 +104,50 @@
                   <v-btn v-on:click="tab = 2">次へ</v-btn>
                 </v-card-text>
             <v-card-text v-if="tab == 2">
+              <v-form v-model="valid">
+                <div class="mt-10">
+                  <v-card-text>
+                    カード番号
+                  </v-card-text>
+                  <v-text-field 
+                    v-model="password"
+                    :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                    @click:append="showPassword = !showPassword"
+                    :rules="registpassRules"
+                    counter
+                    required>
+                  </v-text-field>
+                </div>
+              <v-row>
+                <v-col>
+                  <v-select
+                  :items="items"
+                  ></v-select>
+                </v-col>
+                <div class="mt-10">
+                年
+                </div>
+                <v-col>
+                  <v-select :items="items"></v-select>
+                </v-col>
+              <div class="mt-10">
+                月
+              </div>
+              </v-row>
+              <v-row>
+                  <v-btn v-on:click="tab = 1">
+                      戻る
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                      :disabled="!valid"
+                      color="blue"
+                      class="mr-4 white--text">
+                      登録
+                  </v-btn>
+              </v-row>
+            </v-form>
             </v-card-text>
         </v-row>
       </v-card>

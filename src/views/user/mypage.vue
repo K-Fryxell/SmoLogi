@@ -2,34 +2,31 @@
     <v-container>
         <v-row justify="center" class="ma-0 pa-0">   
         ユーザ情報
-        {{user}}<br>
+        {{user}}<br/>
         ユーザID
         {{user_id}}
-        <br>
+        <br/>
           <v-card-title class="mt-12 display-3">ようこそ！<br/>○○○さん</v-card-title>
         </v-row>
         <v-row justify="center">
             <v-btn class="mt-12" rounded color="primary" large>お手伝いを頼む</v-btn>
         </v-row>
         <v-row justify="center"> 
-            <v-card
-                    class="overflow-y-auto mt-12"
-                    max-height="400">
+            <v-card class="mt-12" min-width="700">
                 <v-banner
                     class="justify-center title font-weight-light"
                     sticky>
                     利用履歴
                 </v-banner>
-                    
-                <v-card-text>
-                    <div
-                        v-for="n in 12"
-                        :key="n"
-                        class="mb-4"
-                    >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi commodi earum tenetur. Asperiores dolorem placeat ab nobis iusto culpa, autem molestias molestiae quidem pariatur. Debitis beatae expedita nam facere perspiciatis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ducimus cupiditate rerum officiis consequuntur laborum doloremque quaerat ipsa voluptates, nobis nam quis nulla ullam at corporis, similique ratione quasi illo!
-                    </div>
-                </v-card-text>
+                <v-card
+                class="overflow-y-auto"
+                    max-height="400">
+                    <v-card-text v-for="item in items"
+                        :key="item.id"
+                        class="mb-4">
+                            {{item.name}}{{message1}}{{item.weight}}{{message2}}
+                    </v-card-text>
+                </v-card>
             </v-card>
         </v-row>
         <v-row>
@@ -43,13 +40,45 @@ import firebase from 'firebase'
 export default {
     data() {
         return {
+            message1:"さん",
+            message2:"kg",
             user: {
                 email: "",
                 pass: "",
                 // name: "",
                 // sex:""
             },
-            user_id:""
+            user_id:"",
+            items: [
+                    {
+                        name:'たろう',
+                        weight:'2',
+                    },
+                    {
+                        name:'ねむい',
+                        weight:'2'
+                    },
+                    {
+                        name:'ねむい',
+                        weight:'2'
+                    },
+                    {
+                        name:'ねむい',
+                        weight:'2'
+                    },
+                    {
+                        name:'ねむい',
+                        weight:'2'
+                    },
+                    {
+                        name:'ねむい',
+                        weight:'2'
+                    },
+                    {
+                        name:'ねむい',
+                        weight:'2'
+                    }
+            ]
         }
     },
     computed: {
