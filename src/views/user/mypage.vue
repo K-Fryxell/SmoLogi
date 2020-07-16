@@ -20,7 +20,7 @@
                     sticky>
                     利用履歴
                 </v-banner>
-
+                    
                 <v-card-text>
                     <div
                         v-for="n in 12"
