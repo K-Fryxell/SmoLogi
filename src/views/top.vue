@@ -1,7 +1,6 @@
 
 <template>
 <content class="ma-0 pa-0">
-        <TopHeader/>
         <v-container class="ma-0 pa-0" fluid>
         <v-layout class="ma-0 pa-0" wrap>
             <v-flex xs12 lg12>
@@ -62,7 +61,6 @@
 </template>
 <script>
 import Ufooter from '../components/User/Ufooter'
-import TopHeader from '../components/User/TopHeader'
 export default {
     data(){
         return{
@@ -70,7 +68,6 @@ export default {
         }
     },components:{
         Ufooter,
-        TopHeader,
     },
 }
 
