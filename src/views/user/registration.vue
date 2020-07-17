@@ -32,8 +32,6 @@
                                     :disabled="!valid"
                                     color="blue"
                                     class="mr-4 white--text"
-                                    @click="login"
-                                    :loading="loading"
                                     width="120"
                                 >
                                     | Login |
@@ -170,6 +168,7 @@ export default {
             backpost: '',
             frontpost: '',
             address: '',
+            items:[1,2,3,4,5,6,7,8,9,10,11,12],
             valid: true,
             showPassword:false,
             // メールアドレスの登録

@@ -9,7 +9,7 @@
             <v-text-field
                 v-model="mailaddress"
                 prepend-icon="mdi-lock-outline"
-                :rules="registemailRules"
+                :rules="registpassRules"
                 counter
                 label="古いパスワード"/>
             <v-text-field 

@@ -12,19 +12,20 @@
             <v-btn class="mt-12" rounded color="primary" large>お手伝いを頼む</v-btn>
         </v-row>
         <v-row justify="center"> 
-            <v-card class="mt-12" min-width="700">
+            <v-card class="mt-12" min-width="700" outlined>
                 <v-banner
                     class="justify-center title font-weight-light"
                     sticky>
                     利用履歴
                 </v-banner>
                 <v-card
+                elevation="0"
                 class="overflow-y-auto"
                     max-height="400">
                     <v-card-text v-for="item in items"
                         :key="item.id"
                         class="mb-4">
-                            {{item.name}}{{message1}}{{item.weight}}{{message2}}
+                            <span class="pr-4">{{item.name}}{{message1}}</span>{{item.weight}}{{message2}}
                     </v-card-text>
                 </v-card>
             </v-card>
