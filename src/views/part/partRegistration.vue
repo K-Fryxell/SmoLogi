@@ -56,25 +56,14 @@
                     </v-row>
                     <!-- 郵便番号textarea -->
                     <v-row justify="center">
-                        <v-flex lg3 xs4>
-                            <v-col lg="12" cols="12">
-                                <v-text-field
-                                v-model="frontpost"
-                                :rules="frontpostRules"
-                                label="〒"
-                                required
-                                ></v-text-field>
-                            </v-col>
-                        </v-flex>
-                        <v-flex lg3 xs4>
-                            <v-col lg="12" cols="12">
-                                <v-text-field
-                                v-model="backpost"
-                                :rules="backpostRules"
-                                required
-                                ></v-text-field>
-                            </v-col>
-                        </v-flex>
+                        <v-col lg="6" cols="8">
+                            <v-text-field
+                            v-model="post"
+                            :rules="postRules"
+                            label="郵便番号(ハイフン(-)を含めて入力してください)"
+                            required
+                            ></v-text-field>
+                        </v-col>
                     </v-row>
                     <!-- 住所textarea -->
                     <v-row justify="center">
@@ -89,40 +78,14 @@
                     </v-row>
                     <!-- 電話番号textarea -->
                     <v-row justify="center">
-                        <v-flex lg6 xs8>
-                            <v-row class="ma-0 pa-0">
-                                <v-col lg="2" cols="4">
-                                <v-text-field
-                                v-model="fronttel"
-                                :rules="fronttelRules"
-                                :counter="3"
-                                label="電話番号"
-                                required
-                                ></v-text-field>
-                            </v-col>
-                        <!-- </v-flex>
-                        <v-flex lg2 xs4> -->
-                            <v-col lg="2" cols="4">
-                                <v-text-field
-                                v-model="mediumtel"
-                                :rules="telRules"
-                                :counter="4"
-                                required
-                                ></v-text-field>
-                            </v-col>
-                        <!-- </v-flex>
-                        <v-flex lg2 xs4> -->
-                            <v-col lg="2" cols="4">
-                                <v-text-field
-                                v-model="backtel"
-                                :rules="telRules"
-                                :counter="4"
-                                required
-                                ></v-text-field>
-                            </v-col>
-                            </v-row>
-                            
-                        </v-flex>
+                        <v-col lg="6" cols="8">
+                            <v-text-field
+                            v-model="tel"
+                            :rules="telRules"
+                            label="電話番号(ハイフン(-)を含めて入力してください)"
+                            required
+                            ></v-text-field>
+                        </v-col>
                     </v-row>
 
                     <!-- メールtextarea -->
@@ -234,12 +197,9 @@ export default {
         lastname:'',
         firstkana:'',
         lastkana:'',
-        frontpost:'',
-        backpost:'',
+        post:'',
         address:'',
-        fronttel:'',
-        mediumtel:'',
-        backtel:'',
+        tel:'',
         email:'',
         username:'',
         uploadImageUrl: '',
@@ -255,26 +215,15 @@ export default {
             v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
         ],
         //郵便番号(前)
-        frontpostRules: [
+        postRules: [
             v => !!v || '入力欄が空白です。',
-            v => /^\d{3}$/.test(v) || '郵便番号は半角数字3桁で入力してください。'
+            v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
         ],
-        //郵便番号(後)
-        backpostRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /^\d{4}$/.test(v) || '郵便番号は半角数字4桁で入力してください。'
-        ],
-        //電話番号（前）
-        fronttelRules: [
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^\d{2}$/.test(v) || /^\d{3}$/.test(v) || '半角数字2桁か3桁で入力してください。'
-        ],
-        //電話番号（中）（後）
+        //電話番号
         telRules: [
             v => !!v || '入力欄が空欄です。',
             v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^\d{4}$/.test(v) || '半角数字4桁で入力してください。'
+            v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違いますdadaaad'
         ],
         //メール
         emailRules: [
