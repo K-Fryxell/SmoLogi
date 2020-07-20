@@ -8,7 +8,11 @@
                             <v-card class="red pa-5" elevation="0" height="700" tile>
                                 <v-card class="green" elevation="0" height="650" tile >
                                     <!-- ここにグーグルマップの表示 -->
-                                    <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 100%;" :options="mapStyle">
+                                    <GmapMap
+                                        :center="{lat:latitude, lng:longitude}"
+                                        :zoom="zoom"
+                                        style="width: 100%; height: 100%;"
+                                        :options="mapStyle">
                                         <!-- <GmapMarker v-for="(m, id) in marker_items"
                                         :position="m.position"
                                         :title="m.title"
@@ -94,6 +98,7 @@
                     </v-row>
                 </v-col>
             </v-row>
+            緯度：{{latitude}}<br/>経度：{{longitude}}
         </v-flex>
     </v-layout>
 </template>
@@ -103,6 +108,8 @@ export default {
     name: 'MapComponent',
     data() {
         return {
+            latitude: 0,
+            longitude: 0,
             coment:"",
             center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
@@ -149,7 +156,16 @@ export default {
             this.coment = ""
         },
     },
-    watch:{
+    mounted() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+            function(position){
+                let coords = position.coords;
+                // 緯度経度だけ取得
+                this.latitude = coords.latitude;
+                this.longitude = coords.longitude;
+            }.bind(this))
+        }
     },
     created:function(){
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {

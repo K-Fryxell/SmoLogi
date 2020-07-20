@@ -185,8 +185,6 @@ export default {
             ],
         }
     },
-    components:{
-    },
     methods: {
         signUp:async function(){
             this.$store.errorCode = ''

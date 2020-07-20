@@ -83,8 +83,8 @@
 </template>
 <script>
 import firebase from 'firebase'
-import Header from '../../components/Part/Header'
-import Footer from '../../components/Part/Footer'
+import Header from '@/components/Part/Header'
+import Footer from '@/components/Part/Footer'
 export default {
     data() {
         return {
