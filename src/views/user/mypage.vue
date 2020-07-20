@@ -1,11 +1,6 @@
 <template>
     <v-container>
         <v-row justify="center" class="ma-0 pa-0">   
-        ユーザ情報
-        {{user}}<br/>
-        ユーザID
-        {{user_id}}
-        <br/>
           <v-card-title class="mt-12 display-3">ようこそ！<br/>○○○さん</v-card-title>
         </v-row>
         <v-row justify="center">

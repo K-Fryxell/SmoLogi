@@ -4,13 +4,13 @@
         <v-form
             v-model="valid">
             <v-text-field
-                v-model="mailaddress"
+                v-model="oldpassword"
                 prepend-icon="mdi-lock-outline"
                 :rules="registpassRules"
                 counter
                 label="古いパスワード"/>
             <v-text-field 
-                v-model="password"
+                v-model="newpassword"
                 :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
                 @click:append="showPassword = !showPassword"
@@ -20,7 +20,7 @@
                 hint="パスワードは8字以上20字以下にしてください。"
                 required/>
             <v-text-field 
-                v-model="password"
+                v-model="newpasswordagain"
                 :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
                 @click:append="showPassword = !showPassword"
@@ -47,8 +47,9 @@ export default {
     data(){
         return{
             array: {},
-            mailaddress: '',
-            password: '',
+            oldpassword: '',
+            newpassword: '',
+            newpasswordagain: '',
             valid: true,
             showPassword:false,
             // パスワードの登録

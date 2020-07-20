@@ -8,11 +8,11 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="6" lg="4">
                                     <v-text-field
+                                    prepend-icon="mdi-account-circle"
                                     v-model="sei"
                                     label="姓"
                                     :rules="seiRules"/>
                                 </v-col>
-
                                 <v-col cols="6" lg="4">
                                     <v-text-field
                                     v-model="mei"
@@ -22,52 +22,31 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="6" lg="4">
-                                <v-text-field
+                                    <v-text-field
+                                    prepend-icon="mdi-account-circle-outline"
                                     v-model="seiKana"
                                     label="セイ"
                                     :rules="seikanaRules"/>
                                 </v-col>
-
                                 <v-col cols="6" lg="4">
-                                <v-text-field
+                                    <v-text-field
                                     v-model="meiKana"
                                     label="メイ"
                                     :rules="meikanaRules"/>
                                 </v-col>
                             </v-row>
-
+                            <v-row class="ma-0 pa-0">
+                                <v-col cols="6" lg="4">
+                                    <v-radio-group v-model="seibetu" :mandatory="false" row>
+                                        <v-radio label="男性"/>
+                                        <v-radio label="女性"/>
+                                    </v-radio-group>
+                                </v-col>
+                            </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                 <v-text-field
-                                    v-model="password"
-                                    label="パスワード"
-                                    counter
-                                    hint="パスワードは8字以上20字以下にしてください。"
-                                    :rules="registpassRules"/>
-                                </v-col>
-                            </v-row>
-
-                            <v-row class="ma-0 pa-0">
-                                <v-col cols="12" lg="5">
-                                <v-text-field
-                                    v-model="post"
-                                    label="郵便番号"
-                                    :rules="postRules"/>
-                                </v-col>
-                            </v-row>
-
-                            <v-row class="ma-0 pa-0">
-                                <v-col>
-                                <v-text-field
-                                    v-model="address"
-                                    label="住所"
-                                    :rules="addressRules"/>
-                                </v-col>
-                            </v-row>
-
-                            <v-row class="ma-0 pa-0">
-                                <v-col>
-                                <v-text-field
+                                    prepend-icon="mdi-email"
                                     v-model="mailaddress"
                                     counter
                                     label="メールアドレス"
@@ -75,10 +54,39 @@
                                     hint="メールアドレスは50字以下で記入してください。"/>
                                 </v-col>
                             </v-row>
-
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                <v-text-field
+                                    <v-text-field
+                                    prepend-icon="mdi-lock"
+                                    v-model="password"
+                                    label="パスワード"
+                                    counter
+                                    hint="パスワードは8字以上20字以下にしてください。"
+                                    :rules="registpassRules"/>
+                                </v-col>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col cols="12" lg="5">
+                                    <v-text-field
+                                    v-model="post"
+                                    prepend-icon="mdi-currency-kzt"
+                                    label="郵便番号"
+                                    :rules="postRules"/>
+                                </v-col>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col>
+                                    <v-text-field
+                                    v-model="address"
+                                    prepend-icon="mdi-home"
+                                    label="住所"
+                                    :rules="addressRules"/>
+                                </v-col>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col>
+                                    <v-text-field
+                                    prepend-icon="mdi-phone-in-talk"
                                     v-model="tel"
                                     label="電話"
                                     :rules="telRules"/>
@@ -124,8 +132,7 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line
-                                    ></v-select>
+                                        single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     年
@@ -137,8 +144,7 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line
-                                    ></v-select>
+                                        single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     月
@@ -150,7 +156,7 @@
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0"> 
-                                <v-col cols="12" lg="3">
+                                <v-col cols="12" xs="3" sm="3" md="3" lg="3">
                                     <v-text-field v-model="secu"
                                         :rules="secuRules"
                                         hint="セキュリティコードはクレジットカード裏面の末尾3桁(1部4桁)"
@@ -162,8 +168,7 @@
                                 :disabled="!valid"
                                 color="blue"
                                 class="mr-4 white--text"
-                                width="120"
-                                    >
+                                width="120">
                                     登録
                                 </v-btn>
                             </v-row>
@@ -186,9 +191,9 @@ export default {
             tel: '',
             seiKana: '',
             meiKana: '',
+            seibetu: '',
             post: '',
             address: '',
-            items:[1,2,3,4,5,6,7,8,9,10,11,12],
             card: '',
             secu:'',
             meigi:'',

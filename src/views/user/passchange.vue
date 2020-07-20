@@ -1,18 +1,22 @@
 <template>
-    <div>
-        <v-row justify="center">
-        <v-card tile width="600" height="500" class="mt-12">
-        <v-tabs>
-            <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
-            <v-tab v-on:click="tab = 1">クレジットカード情報変更</v-tab>
-        </v-tabs>
-            <v-row>
-                <Pass v-if="tab == 0"/>
-                <Cred v-if="tab == 1"/>
-            </v-row>
-        </v-card>
-        </v-row>
-    </div>
+    <v-container class="ma-0 pa-0" >
+        <v-layout class="ma-0 pa-0">
+            <v-flex xs12 lg12>
+                <v-row justify="center" class="ma-0 pa-0">
+                    <v-card tile width="600" height="auto" class="mt-12">
+                        <v-tabs>
+                            <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
+                            <v-tab v-on:click="tab = 1">クレジットカード情報変更</v-tab>
+                        </v-tabs>
+                        <v-row class="ma-0 pa-0">
+                            <Pass v-if="tab == 0"/>
+                            <Cred v-if="tab == 1"/>
+                        </v-row>
+                    </v-card>
+                </v-row>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
