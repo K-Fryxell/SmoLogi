@@ -1,44 +1,93 @@
 <template>
-    <div>
-        <v-container>
-        <h2>
-            クレジットカード情報変更
-        </h2>
-        <v-form
-            v-model="valid">
-            <div class="mt-10">
-          カード番号
-        
-            <v-text-field 
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
-                @click:append="showPassword = !showPassword"
-                :rules="registpassRules"
-                counter
-                label="新しいパスワード"
-                hint="パスワードは8字以上20字以下にしてください。"
-                required>
-            </v-text-field>
-            </div>
-          <v-row>
-            <v-col>
-          <v-select
-          :items="items"
-        ></v-select>
-        </v-col>
-        <div class="mt-10">
-          年
-        </div>
-        <v-col>
-          <v-select
-            :items="items"
-          ></v-select>
-        </v-col>
-        <div class="mt-10">
-          月
-        </div>
-      </v-row>
+    <v-container>
+        <v-form ref="form" v-model="caf">
+            <v-row justify="center">
+                <v-col cols="2">
+                    <v-row>
+                        <v-col cols="auto">
+                            <h3 class="pt-2">カード有効期限</h3>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col>
+                    <v-select
+                        v-model="isYear"
+                        :items="year"
+                        menu-props="auto"
+                        label="Select"
+                        hide-details
+                        single-line
+                    ></v-select>
+                </v-col>
+                <v-col>
+                    年
+                </v-col>
+                <v-col>
+                    <v-select
+                        v-model="isMonth"
+                        :items="month"
+                        menu-props="auto"
+                        label="Select"
+                        hide-details
+                        single-line
+                    ></v-select>
+                </v-col>
+                <v-col cols="auto" class="mt-5 ml-n4">
+                    月
+                </v-col>
+                <v-col cols="1"></v-col>
+            </v-row>
+            <v-row justify="center">
+                <v-col cols="2">
+                    <v-row justify="end">
+                        <v-col cols="auto">
+                            <h3 class="pt-2">カード情報</h3>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="2">
+                    <v-text-field class="pt-6" v-model="card"
+                        :rules="cardRules"
+                        counter
+                        hint="使えるカードはVISAカードのみです"
+                        required/>
+                </v-col>
+                <v-col cols="1"></v-col>
+            </v-row>
+            <v-row justify="center">
+                <v-col cols="2">
+                    <v-row justify="end">
+                        <v-col cols="auto">
+                            <h3 class="pt-2">セキュリティコード</h3>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="2">
+                    <v-text-field class="pt-6" v-model="secu"
+                        :rules="secuRules"
+                        counter
+                        hint="セキュリティコードはクレジットカードの裏面の末尾3桁(1部4桁)"
+                        required/>
+                </v-col>
+                <v-col cols="1"></v-col>
+            </v-row>
+            <v-row justify="center">
+                <v-col cols="2">
+                    <v-row justify="end">
+                        <v-col cols="auto">
+                            <h3 class="pt-2">カード名義</h3>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="2">
+                    <v-text-field class="pt-6" v-model="meigi"
+                        :rules="meigiRules"
+                        counter
+                        hint="カード名義"
+                        required/>
+                </v-col>
+                <v-col cols="1"></v-col>
+            </v-row>
             <v-btn 
                 @click="signUp"
                 :disabled="!valid"
@@ -49,7 +98,6 @@
             </v-btn>
         </v-form>
       </v-container>
-    </div>
 </template>
 
 <script>

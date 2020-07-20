@@ -1,9 +1,6 @@
 <template>
     <div>
       <v-container>
-        <h2>
-            パスワード変更  
-        </h2>
         <v-form
             v-model="valid">
             <v-text-field
