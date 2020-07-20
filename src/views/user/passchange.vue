@@ -23,7 +23,7 @@ export default {
     return{
         tab:0,
     }
-  },
+},
     components:{
         Pass,
         Cred
