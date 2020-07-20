@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-      <v-card tile width="600" height="600" class="mt-12">
+      <v-card tile width="600" height="700" class="mt-12">
         <v-tabs>
           <v-tab v-on:click="tab = 0">ログイン</v-tab>
           <v-tab v-on:click="tab = 1">新規登録</v-tab>
@@ -69,22 +69,21 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                <v-col sm="2">
-                  <v-text-field
-                  v-model="frontpost"
-                    label="xxx"
-                  ></v-text-field>
-                </v-col>
-                <div class="mt-10">
-                  ー
-                </div>
-                <v-col sm="2">
-                  <v-text-field
-                    v-model="backpost"
-                    label="xxxx"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+                  <v-col sm="4">
+                    <v-text-field
+                    v-model="password"
+                      label="パスワード"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col sm="4">
+                    <v-text-field
+                    v-model="post"
+                      label="郵便番号"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
                   <v-text-field
                   v-model="address"
                     label="住所"
@@ -165,8 +164,7 @@ export default {
             tel: '',
             seiKana: '',
             meiKana: '',
-            backpost: '',
-            frontpost: '',
+            post: '',
             address: '',
             items:[1,2,3,4,5,6,7,8,9,10,11,12],
             valid: true,
