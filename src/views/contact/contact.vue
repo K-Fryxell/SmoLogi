@@ -151,6 +151,27 @@ export default {
     },
     watch:{
     },
+    amounted() {
+        if (navigator.geolocation) {
+        // callback関数内でthis使えないため
+        let vm = this
+        navigator.geolocation.getCurrentPosition(
+            function(position){
+                let latlng = new window.google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+                );
+                vm.map = new window.google.maps.Map(vm.$refs["map"], {
+                    center: latlng,
+                    zoom: 4
+                })
+                new window.google.maps.Marker({
+                    position: latlng,
+                    map: vm.map
+                })
+            })
+        }
+    },
     created:function(){
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
           await snapshot.forEach(doc => {
