@@ -2,7 +2,7 @@
     <content>
         <div>
             <!-- ログインボタン -->
-            <v-btn text color="blue lighten-2" @click="dialog = true">
+            <v-btn text color="green lighten-2" @click="dialog = true">
                 ログイン
             </v-btn>
             <v-dialog
@@ -46,7 +46,7 @@
             </v-dialog>
 
             <!-- 新規登録ページボタン -->
-            <v-btn color="blue lighten-2" dark to="regist">
+            <v-btn color="green lighten-2" dark to="regist">
                 新規登録
             </v-btn>
         </div>
