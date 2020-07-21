@@ -1,8 +1,8 @@
 <template>
-    <v-container class="ma-0 pa-0" >
-        <v-layout class="ma-0 pa-0">
+    <v-container class="ma-0 pa-0" fluid>
+        <v-layout class="ma-0 pa-0" wrap>
             <v-flex xs12 lg12>
-                <v-row justify="center" class="ma-0 pa-0">
+                <v-row justify="center" class="mt-12 pa-0">
                     <v-card tile width="600" class="mt-12 mx-2 mb-12" outlined>
                         <v-tabs>
                             <v-tab v-on:click="tab = 0">パスワード変更</v-tab>

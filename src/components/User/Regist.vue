@@ -36,7 +36,7 @@
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
-                                <v-col cols="12" lg="4">
+                                <v-col cols="12" lg="12">
                                     <v-radio-group
                                         prepend-icon="mdi-human-male-female"
                                         v-model="sex" :mandatory="false" row>
@@ -44,7 +44,6 @@
                                         <v-radio label="女性"/>
                                     </v-radio-group>
                                 </v-col>
-
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
@@ -63,7 +62,7 @@
                                     v-model="passwd"
                                     :type="showPassword ? 'text' : 'password'"
                                     prepend-icon="mdi-lock-outline"
-                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                     @click:append="showPassword = !showPassword"
                                     label="パスワード"
                                     counter
@@ -73,10 +72,10 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                    <v-text-field 
+                                    <v-text-field
                                         v-model="againpasswd"
-                                        :type="showAgainPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                                        :append-icon="showAgainPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                        :type="showAgainPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                                        :append-icon="showAgainPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                         @click:append="showAgainPassword = !showAgainPassword"
                                         :rules="againpassRules"
                                         counter
@@ -173,7 +172,7 @@
                                     セキュリティコード
                                 </v-col>
                             </v-row>
-                            <v-row class="ma-0 pa-0"> 
+                            <v-row class="ma-0 pa-0">
                                 <v-col cols="3" lg="3">
                                     <v-text-field v-model="secu"
                                         :rules="secuRules"
@@ -195,7 +194,7 @@
                 </v-row>
             </v-flex>
         </v-layout>
-    </v-container>  
+    </v-container>
 </template>
 <script>
 export default {
