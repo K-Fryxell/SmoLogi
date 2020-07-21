@@ -9,8 +9,8 @@ const routes = [{
             import ('../views/top.vue')
     },
     {
-        path: '/regist',
-        name: 'Registration',
+        path: '/user_regist',
+        name: 'userRegistUser',
         component: () =>
             import ('@/views/user/registration')
     },
