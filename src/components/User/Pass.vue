@@ -1,45 +1,59 @@
 <template>
-    <div>
-      <v-container>
-        <v-form
-            v-model="valid">
-            <v-text-field
-                v-model="oldpassword"
-                prepend-icon="mdi-lock-outline"
-                :rules="registpassRules"
-                counter
-                label="古いパスワード"/>
-            <v-text-field 
-                v-model="newpassword"
-                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
-                @click:append="showPassword = !showPassword"
-                :rules="registpassRules"
-                counter
-                label="新しいパスワード"
-                hint="パスワードは8字以上20字以下にしてください。"
-                required/>
-            <v-text-field 
-                v-model="newpasswordagain"
-                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
-                @click:append="showPassword = !showPassword"
-                :rules="registpassRules"
-                counter
-                label="パスワード確認"
-                hint="パスワードは8字以上20字以下にしてください。"
-                required/>
-            <v-btn 
-                @click="signUp"
-                :disabled="!valid"
-                color="blue"
-                class="mr-4 white--text"
-                width="120">
-                登録
-            </v-btn>
-        </v-form>
-      </v-container>
-    </div>
+    <v-container class="ma-0 pa-0" >
+        <v-layout class="ma-0 pa-0">
+            <v-flex xs12 lg12>
+                <v-form v-model="valid">
+                    <v-row class="ma-0 pa-0">
+                        <v-col>
+                            <v-text-field
+                                v-model="oldpassword"
+                                prepend-icon="mdi-lock-outline"
+                                :rules="registpassRules"
+                                counter
+                                label="古いパスワード"/>
+                        </v-col>
+                    </v-row>
+                    <v-row class="ma-0 pa-0">
+                        <v-col>
+                            <v-text-field 
+                                v-model="newpassword"
+                                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                @click:append="showPassword = !showPassword"
+                                :rules="registpassRules"
+                                counter
+                                label="新しいパスワード"
+                                hint="パスワードは8字以上20字以下にしてください。"
+                                required/>
+                        </v-col>
+                    </v-row>
+                    <v-row class="ma-0 pa-0">
+                        <v-col>
+                            <v-text-field 
+                                v-model="newpasswordagain"
+                                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                @click:append="showPassword = !showPassword"
+                                :rules="registpassRules"
+                                counter
+                                label="パスワード確認"
+                                hint="パスワードは8字以上20字以下にしてください。"
+                                required/>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2    ">
+                        <v-btn
+                        :disabled="!valid"
+                        color="blue"
+                        class="mr-4 white--text mb-5"
+                        width="120">
+                            登録
+                        </v-btn>
+                    </v-row>
+                </v-form>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>

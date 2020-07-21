@@ -3,7 +3,7 @@
         <v-layout class="ma-0 pa-0">
             <v-flex xs12 lg12>
                 <v-row justify="center" class="ma-0 pa-0">
-                    <v-card tile width="600" height="auto" class="mt-12">
+                    <v-card tile width="600" class="mt-12 mx-2 mb-12" outlined>
                         <v-tabs>
                             <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
                             <v-tab v-on:click="tab = 1">クレジットカード情報変更</v-tab>

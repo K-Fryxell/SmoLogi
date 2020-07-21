@@ -28,7 +28,7 @@
                                         <v-btn
                                             :disabled="!valid"
                                             color="blue"
-                                            class="mr-4 white--text"
+                                            class="mr-4 white--text mb-5"
                                             width="120"
                                         >
                                             | Login |

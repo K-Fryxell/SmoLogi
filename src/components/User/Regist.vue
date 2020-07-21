@@ -66,7 +66,7 @@
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
-                                <v-col cols="12" lg="5">
+                                <v-col cols="5" lg="5">
                                     <v-text-field
                                     v-model="post"
                                     prepend-icon="mdi-currency-kzt"
@@ -156,7 +156,7 @@
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0"> 
-                                <v-col cols="12" xs="3" sm="3" md="3" lg="3">
+                                <v-col cols="3" lg="3">
                                     <v-text-field v-model="secu"
                                         :rules="secuRules"
                                         hint="セキュリティコードはクレジットカード裏面の末尾3桁(1部4桁)"
@@ -167,7 +167,7 @@
                                 <v-btn
                                 :disabled="!valid"
                                 color="blue"
-                                class="mr-4 white--text"
+                                class="mr-4 white--text mb-5"
                                 width="120">
                                     登録
                                 </v-btn>
