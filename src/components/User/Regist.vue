@@ -9,60 +9,79 @@
                                 <v-col cols="6" lg="4">
                                     <v-text-field
                                     prepend-icon="mdi-account-circle"
-                                    v-model="sei"
+                                    v-model="firstname"
                                     label="姓"
-                                    :rules="seiRules"/>
+                                    :rules="firstnameRules"/>
                                 </v-col>
                                 <v-col cols="6" lg="4">
                                     <v-text-field
-                                    v-model="mei"
+                                    v-model="lastname"
                                     label="名"
-                                    :rules="meiRules"/>
+                                    :rules="lastnameRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="6" lg="4">
                                     <v-text-field
                                     prepend-icon="mdi-account-circle-outline"
-                                    v-model="seiKana"
+                                    v-model="firstkana"
                                     label="セイ"
-                                    :rules="seikanaRules"/>
+                                    :rules="firstkanaRules"/>
                                 </v-col>
                                 <v-col cols="6" lg="4">
                                     <v-text-field
-                                    v-model="meiKana"
+                                    v-model="lastkana"
                                     label="メイ"
-                                    :rules="meikanaRules"/>
+                                    :rules="lastkanaRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
-                                <v-col cols="6" lg="4">
-                                    <v-radio-group v-model="seibetu" :mandatory="false" row>
+                                <v-col cols="12" lg="4">
+                                    <v-radio-group
+                                        prepend-icon="mdi-human-male-female"
+                                        v-model="sex" :mandatory="false" row>
                                         <v-radio label="男性"/>
                                         <v-radio label="女性"/>
                                     </v-radio-group>
                                 </v-col>
+
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                 <v-text-field
                                     prepend-icon="mdi-email"
-                                    v-model="mailaddress"
+                                    v-model="email"
                                     counter
                                     label="メールアドレス"
-                                    :rules="mailRules"
+                                    :rules="emailRules"
                                     hint="メールアドレスは50字以下で記入してください。"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                     <v-text-field
-                                    prepend-icon="mdi-lock"
-                                    v-model="password"
+                                    v-model="passwd"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    prepend-icon="mdi-lock-outline"
+                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                    @click:append="showPassword = !showPassword"
                                     label="パスワード"
                                     counter
                                     hint="パスワードは8字以上20字以下にしてください。"
                                     :rules="registpassRules"/>
+                                </v-col>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col>
+                                    <v-text-field 
+                                        v-model="againpasswd"
+                                        :type="showAgainPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                                        :append-icon="showAgainPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                        @click:append="showAgainPassword = !showAgainPassword"
+                                        :rules="againpassRules"
+                                        counter
+                                        label="パスワード確認"
+                                        required/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -101,7 +120,6 @@
                                 <v-col>
                                     <v-text-field  v-model="meigi"
                                         :rules="meigiRules"
-                                        hint="カード名義"
                                         required/>
                                 </v-col>
                             </v-row>
@@ -184,16 +202,17 @@ export default {
     data(){
         return{
             array: {},
-            mailaddress: '',
-            password: '',
-            sei: '',
-            mei: '',
-            tel: '',
-            seiKana: '',
-            meiKana: '',
-            seibetu: '',
+            email: '',
+            passwd: '',
+            againpasswd: '',
+            firstname:'',
+            lastname:'',
+            firstkana:'',
+            lastkana:'',
+            sex: '',
             post: '',
             address: '',
+            tel:'',
             card: '',
             secu:'',
             meigi:'',
@@ -203,6 +222,7 @@ export default {
             month:[1,2,3,4,5,6,7,8,9,10,11,12],
             valid: true,
             showPassword:false,
+            showAgainPassword:false,
             // メールアドレスの登録
             registemailRules: [
                 v => !!v || '入力欄が空白です。',
@@ -217,18 +237,22 @@ export default {
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
                 v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
             ],
-            seiRules:[
+            againpassRules:[
+                v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
+                v => v === this.passwd || 'パスワードが一致していません。',
+            ],
+            firstnameRules:[
             v => !!v || '入力欄が空白です。',
             ],
-            meiRules:[
+            lastnameRules:[
                 v => !!v || '入力欄が空白です。',
             ],
             //セイメイ
-            seikanaRules: [
+            firstkanaRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
             ],
-            meikanaRules: [
+            lastkanaRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /[ァ-ヴ]$/.test(v) || 'カタカナで入力してください。'
             ],
@@ -244,7 +268,7 @@ export default {
                 v => /^[^A-Za-z0-]+$/.test(v) || '全角で入力してください。',
             ],
             //メールアドレス
-            mailRules: [
+            emailRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
                 v => (v && v.length <= 50) || '50字以内で入力してください。',
@@ -263,7 +287,7 @@ export default {
             secuRules:[
                 v => !!v || '入力欄が空白です。',
                 v => /^[0-9]+$/.test(v) || '入力できるのは半角数字のみです',
-                v => (v&& (v.length>=3)(v.length<=4)) || '3桁または4桁ので入力してください',
+                v => (v&& (v.length==3)||(v.length==4)) || '3桁または4桁ので入力してください',
             ],
             meigiRules:[
                 v => !!v || '入力欄が空白です。',
@@ -275,7 +299,7 @@ export default {
             methods: {
                 signUp:async function(){
                     this.$store.errorCode = ''
-                    this.array['email'] = this.mailaddress
+                    this.array['email'] = this.email
                     this.array['password'] = this.password
                     await this.$store.commit('registUser',this.array)
                 }

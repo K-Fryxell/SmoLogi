@@ -30,18 +30,18 @@
                     <v-row class="ma-0 pa-0">
                         <v-col>
                             <v-text-field 
-                                v-model="newpasswordagain"
-                                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
-                                @click:append="showPassword = !showPassword"
-                                :rules="registpassRules"
+                                v-model="againnewpassword"
+                                :type="showAgainPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
+                                :append-icon="showAgainPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                @click:append="showAgainPassword = !showAgainPassword"
+                                :rules="againpassRules"
                                 counter
                                 label="パスワード確認"
                                 hint="パスワードは8字以上20字以下にしてください。"
                                 required/>
                         </v-col>
                     </v-row>
-                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2    ">
+                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                         <v-btn
                         :disabled="!valid"
                         color="blue"
@@ -63,9 +63,10 @@ export default {
             array: {},
             oldpassword: '',
             newpassword: '',
-            newpasswordagain: '',
+            againnewpassword: '',
             valid: true,
             showPassword:false,
+            showAgainPassword:false,
             // パスワードの登録
             registpassRules:[
                 v => !!v || '入力欄が空白です。',
@@ -73,6 +74,10 @@ export default {
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
                 v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
             ],
+            againpassRules:[
+                v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
+                v => v === this.password || 'パスワードが一致していません。',
+            ]
         }
     },
     methods: {

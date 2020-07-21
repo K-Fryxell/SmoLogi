@@ -1,34 +1,47 @@
 <template>
-    <v-container>
-        <v-row justify="center" class="ma-0 pa-0">   
-          <v-card-title class="mt-12 display-3">ようこそ！<br/>○○○さん</v-card-title>
-        </v-row>
-        <v-row justify="center">
-            <v-btn class="mt-12" rounded color="primary" large>お手伝いを頼む</v-btn>
-        </v-row>
-        <v-row justify="center"> 
-            <v-card class="mt-12" min-width="700" outlined>
-                <v-banner
-                    class="justify-center title font-weight-light"
-                    sticky>
-                    利用履歴
-                </v-banner>
-                <v-card
-                elevation="0"
-                class="overflow-y-auto"
-                    max-height="400">
-                    <v-card-text v-for="item in items"
-                        :key="item.id"
-                        class="mb-4">
-                            <span class="pr-4">{{item.name}}{{message1}}</span>{{item.weight}}{{message2}}
-                    </v-card-text>
-                </v-card>
-            </v-card>
-        </v-row>
-        <v-row>
-            <v-spacer></v-spacer>
-            <v-btn class="mt-12">登録情報の変更</v-btn>
-        </v-row>
+    <v-container class="ma-0 pa-0" >
+        <v-layout class="ma-0 pa-0">
+            <v-flex xs12 lg12>
+                <v-row justify="center" class="ma-0 pa-0">
+                    <v-card-title class="mt-12 display-3">ようこそ！</v-card-title>
+                </v-row>
+                <v-row justify="center" class="ma-0 pa-0">
+                    <v-card-title class="mt-12 display-3">{{username}}</v-card-title>
+                    <v-card-title class="mt-12 display-1">さん</v-card-title>
+                </v-row>
+                <v-row justify="center" class="ma-0 pa-0">
+                    <v-btn class="mt-12" rounded color="primary" large>お手伝いを頼む</v-btn>
+                </v-row>
+                <v-row justify="center" class="ma-0 pa-0">
+                     <v-col cols="12" lg="8">
+                            <v-card class="mt-12" outlined>
+                                <v-banner
+                                    class="justify-center title font-weight-light"
+                                    sticky>
+                                    利用履歴
+                                </v-banner>
+                                <v-card
+                                    elevation="0"
+                                    class="overflow-y-auto"
+                                    max-height="400">
+                                    <v-card-text v-for="item in items"
+                                        :key="item.id"
+                                        class="mb-4">
+                                            <span class="pr-4">{{item.name}}{{message1}}</span>{{item.weight}}{{message2}}
+                                    </v-card-text>
+                                </v-card>
+                            </v-card>
+                        </v-col>
+                </v-row>
+                <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                    <v-btn
+                     class="mb-5"
+                    width="120">
+                         登録情報の変更
+                    </v-btn>
+                </v-row>
+            </v-flex>
+        </v-layout>
     </v-container>
 </template>
 <script>
@@ -38,6 +51,7 @@ export default {
         return {
             message1:"さん",
             message2:"kg",
+            username:"まるい",
             user: {
                 email: "",
                 pass: "",

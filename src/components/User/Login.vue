@@ -3,7 +3,7 @@
         <v-layout class="ma-0 pa-0">
             <v-flex xs12 lg12 >
                 <v-row justify="center">
-                        <v-col cols="7" class="mx-12">
+                        <v-col cols="11" class="mx-12">
                             <v-form
                             ref="form"
                             v-model="valid">
