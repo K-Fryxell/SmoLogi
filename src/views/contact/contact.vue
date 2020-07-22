@@ -9,18 +9,34 @@
                                 <v-card class="green" elevation="0" height="650" tile >
                                     <!-- ここにグーグルマップの表示 -->
                                     <GmapMap
-                                        :center="{lat:latitude, lng:longitude}"
+                                        :center="{lat:user_latitude, lng:user_longitude}"
                                         :zoom="zoom"
                                         style="width: 100%; height: 100%;"
                                         :options="mapStyle">
-                                        <!-- <GmapMarker v-for="(m, id) in marker_items"
-                                        :position="m.position"
-                                        :title="m.title"
-                                        :key="id"
-                                        :icon="m.icon"
-                                        :clickable="true"
-                                        :draggable="true">
-                                        </GmapMarker> -->
+
+                                        <GmapInfoWindow
+                                            :options="infoOptions"
+                                            :position="{lat:user_latitude, lng:user_longitude}"
+                                            :opened="infoWinOpen"
+                                            @closeclick="infoWinOpen=false"
+                                        >あなたの現在地</GmapInfoWindow>
+                                        <GmapMarker
+                                        @click="toggleInfoWindow(0)"
+                                        :position="{lat:user_latitude, lng:user_longitude}"
+                                        :clickable="true">
+                                        </GmapMarker>
+
+                                        <GmapInfoWindow
+                                            :options="infoOptions"
+                                            :position="{lat:user_latitude, lng:user_longitude+0.0001}"
+                                            :opened="infoWinOpen2"
+                                            @closeclick="infoWinOpen2=false"
+                                        >配達者の現在地</GmapInfoWindow>
+                                        <GmapMarker
+                                        @click="toggleInfoWindow(1)"
+                                        :position="{lat:user_latitude, lng:user_longitude+0.0001}"
+                                        :clickable="true">
+                                        </GmapMarker>
                                     </GmapMap>
                                 </v-card>
                             </v-card>
@@ -98,7 +114,6 @@
                     </v-row>
                 </v-col>
             </v-row>
-            緯度：{{latitude}}<br/>経度：{{longitude}}
         </v-flex>
     </v-layout>
 </template>
@@ -108,8 +123,19 @@ export default {
     name: 'MapComponent',
     data() {
         return {
-            latitude: 0,
-            longitude: 0,
+            infoOptions: {
+                pixelOffset: {
+                width: 0,
+                height: -35
+                }
+            },
+            infoWindowPos: null,
+            infoWinOpen: false,
+            infoWinOpen2: false,
+            user_latitude: 0,
+            user_longitude: 0,
+            part_latitude: 0,
+            part_longitude: 0,
             coment:"",
             center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
@@ -128,6 +154,18 @@ export default {
         }
     },
     methods:{
+        toggleInfoWindow(flg) {
+            // this.infoWindowPos = marker.position
+            if(flg == 0){
+                this.infoWinOpen = true
+                this.infoWinOpen2 = false
+            }
+            else{
+                this.infoWinOpen2 = true
+                this.infoWinOpen = false
+            }
+            // console.log("markerClick")
+        },
         change:function(){
             this.tab = !this.tab
         },
@@ -162,8 +200,8 @@ export default {
             function(position){
                 let coords = position.coords;
                 // 緯度経度だけ取得
-                this.latitude = coords.latitude;
-                this.longitude = coords.longitude;
+                this.user_latitude = coords.latitude;
+                this.user_longitude = coords.longitude;
             }.bind(this))
         }
     },

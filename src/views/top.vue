@@ -31,9 +31,10 @@
                                     </v-card-text>
                                 </v-card>
                             </v-col>
+                            
                             <v-col cols="12" lg="6">
                                 <v-card elevation="0">
-                                    <v-img height="300px" :src="imageurl"></v-img>
+                                    <v-img height="300px" :src="imageurl"/>
                                 </v-card>
                             </v-col>
 
@@ -41,12 +42,11 @@
                                 <v-card elevation="0">
                                     <v-card-text>
                                         <v-card-title   class="headline
-                                    ">配達者に向けたサイト特徴</v-card-title>
-                                        働ける時間と場所を自分で決めることができる。
+                                            ">配達者に向けたサイト特徴</v-card-title>
+                                            働ける時間と場所を自分で決めることができる。
                                     </v-card-text>
                                 </v-card>
                             </v-col>
-
                             <v-col cols="12" lg="6">
                                 <v-card elevation="0" class="ma-0 pa-0">
                                     <v-img height="300px" :src="imageurl"></v-img>
@@ -55,22 +55,38 @@
                             <!-- <v-btn x-large dark>新規会員登録</v-btn> -->
                         </v-row>
                     </v-flex>
+                </v-col>
             </v-row>
         </v-flex>
     </v-layout>
     <Ufooter/>
 </v-container>
+    </content>
 </template>
 <script>
+import TopHeader from '../components/User/TopHeader'
 import Ufooter from '../components/User/Ufooter'
 export default {
     data(){
         return{
-            imageurl:require("../assets/nimoti.jpg"),
+            imageurl:require("../assets/delivery.jpg"),
+            x:0,
+            y:0,
+                }
+            },
+            mounted(){
+                window.addEventListener('resize', this.onResize)
+            },
+            beforeDestory(){
+                window.removeEventListener('resize',this.onResize)
+            },methods: {
+                onResize(){
+                    this.x =  window.innerWidth;
+                    this.y = window.innerHeight;
+                },
+                },components:{
+                    TopHeader,
+                    Ufooter,
+                    }
         }
-    },components:{
-        Ufooter,
-    },
-}
-
 </script>
