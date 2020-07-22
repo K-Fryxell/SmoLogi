@@ -1,69 +1,52 @@
 <template>
-    <div>
-        <h2>
-            パートナーユーザ登録
-        </h2>
-        <v-form
-            v-model="valid">
-            <v-text-field
-                v-model="mailaddress"
-                prepend-icon="mdi-email"
-                :rules="registemailRules"
-                counter
-                label="E-mail"
-                hint="メールアドレスは50字以下で記入してください。"/>
-            <v-text-field
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="showPassword = !showPassword"
-                :rules="registpassRules"
-                counter
-                label="password"
-                hint="パスワードは8字以上20字以下にしてください。"
-                required/>
-            <v-btn
-                @click="signUp"
-                :disabled="!valid"
-                color="blue"
-                class="mr-4 white--text"
-                width="120">
-                登録
-            </v-btn>
-        </v-form>
-    </div>
+    <v-container class="ma-0 pa-0" fluid>
+        <Header/>
+        <v-layout class="ma-0 pa-0" column>
+            
+              <v-row class="ma-0 pa-0" justify="center">
+                    <v-flex  xs12 lg4>
+                        <v-card class="mt-12 mb-5 ma-3 pa-0" tile outlined>
+                            <v-tabs v-model="tabs">
+                                <v-tab v-on:click="tab = 0" :href="`#tab-0`">ログイン</v-tab>
+                                <v-tab v-on:click="tab = 1" :href="`#tab-1`">新規登録</v-tab>
+                            </v-tabs>
+                            <v-row class="ma-0 pa-0">
+                                <partLogin v-if="tab == 0"/>
+                                <partRegist v-if="tab == 1"/>
+                            </v-row>
+                        </v-card>
+                    </v-flex>
+              </v-row>
+        </v-layout>
+        <Footer/>
+    </v-container>
 </template>
 
 <script>
+import partRegist from '../../components/Part/Top/partRegist';
+import partLogin from '../../components/Part/Top/partLogin';
+import Header from '../../components/Part/Header';
+import Footer from '../../components/Part/Footer';
 export default {
     data(){
         return{
             array: {},
-            mailaddress: '',
-            password: '',
-            valid: true,
-            showPassword:false,
-            // メールアドレスの登録
-            registemailRules: [
-                v => !!v || '入力欄が空白です。',
-                v => /.+@.+\..+/.test(v) || '想定していない文字形式で入力されました。',
-                v => (v && v.length <= 50) || '50字以内で入力してください。',
-                v => /^\S+@\S+\.\S+$/.test(v) || '想定していない文字形式で入力されました。'
-            ],
-            // パスワードの登録
-            registpassRules:[
-                v => !!v || '入力欄が空白です。',
-                v => (v&& 8<=v.length) || '',
-                v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-                v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
-            ],
+            tabs: 'tab-1',
+            tab:1
         }
+    },
+    components:{
+        partRegist,
+        partLogin,
+        Header,
+        Footer
     },
     methods: {
         signUp:async function(){
+            this.$store.errorCode = ''
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
-            await this.$store.commit('partRegistUser',this.array)
+            await this.$store.commit('registUser',this.array)
         }
     },
 }

@@ -2,11 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import vuetify from './plugins/vuetify';
+import vuetify from './plugins/vuetify'
 import firebase from 'firebase'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.config.productionTip = false
-
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: process.env['VUE_APP_API_MAP'],
+    libraries: "places",
+    region: "JP",
+    language: "ja",
+  },
+});
 const firebaseConfig = {
     apiKey: "AIzaSyCpCsMLL85xc3lQjoXJ94dH1jTfdkjXNck",
     authDomain: "smologi-85055.firebaseapp.com",

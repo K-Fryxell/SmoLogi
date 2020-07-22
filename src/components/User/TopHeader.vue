@@ -1,21 +1,21 @@
 <template>
-  <v-card elevation="0" outlined tile>
-    <v-toolbar dense elevation="0">
+  <v-card elevation="0" tile height="85">
+    <v-toolbar dense>
         <v-toolbar-title>
-            <router-link to="/part_top">
-                <img height="55" src="@/assets/partTop_header/logokari.png">
+            <router-link to="/">
+              <!--ロゴ <img> -->
             </router-link>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
         <!-- ログイン・新規登録 -->
-        <PartSign/>
+        <Sign/>
     </v-toolbar>
   </v-card>
 </template>
 
 <script>
-import PartSign from '@/components/Part/PartSign'
+import Sign from '../../components/User/Sign'
 export default {
     data(){
         return{
@@ -23,7 +23,7 @@ export default {
         }
     },
     components:{
-        PartSign
+        Sign
     }
 }
 </script>

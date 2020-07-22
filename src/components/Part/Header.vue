@@ -1,21 +1,21 @@
 <template>
-  <v-card elevation="0" outlined tile>
-    <v-toolbar dense elevation="0">
+  <v-card tile elevation="0" outlined>
+    <v-toolbar elevation="0">
         <v-toolbar-title>
-            <router-link to="/part_top">
+            <router-link to="/part_mypage">
                 <img height="55" src="@/assets/partTop_header/logokari.png">
             </router-link>
         </v-toolbar-title>
 
-        <v-spacer></v-spacer>
-        <!-- ログイン・新規登録 -->
-        <PartSign/>
+        <!-- <v-spacer></v-spacer>
+        <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn> -->
     </v-toolbar>
   </v-card>
 </template>
 
 <script>
-import PartSign from '@/components/Part/PartSign'
 export default {
     data(){
         return{
@@ -23,7 +23,6 @@ export default {
         }
     },
     components:{
-        PartSign
     }
 }
 </script>

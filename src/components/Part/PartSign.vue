@@ -2,9 +2,10 @@
     <content>
         <div>
             <!-- ログインボタン -->
-            <v-btn text color="green lighten-2" @click="dialog = true">
+            <v-btn text color="green" @click="dialog = true">
                 ログイン
             </v-btn>
+            <!-- ログインボタン押下時処理 -->
             <v-dialog
                 v-model="dialog" width="500">
                 <v-card>
@@ -46,7 +47,7 @@
             </v-dialog>
 
             <!-- 新規登録ページボタン -->
-            <v-btn color="green lighten-2" dark to="regist">
+            <v-btn color="green" dark to="part_registuser">
                 新規登録
             </v-btn>
         </div>
