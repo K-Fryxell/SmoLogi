@@ -37,7 +37,7 @@ export default ({
         // },
     },
     mutations: {
-        registUser(state, array) {
+        registUser(state,array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
                     array['password']
@@ -63,14 +63,16 @@ export default ({
                         }
                     })
                 })
-                // .catch(function(error) {
-                //     console.log('err');
-                //     // Handle Errors here.
-                //     state.errorCode = error.code;
-                //     state.errorMessage = error.message;
-                //     router.push('/')
-                //         // ...
-                // })
+                
+        },
+        login(array)
+        {
+            firebase.auth().signInWithEmailAndPassword(
+                array['email'],
+                array['password'])
+            .then(()=>{
+                // ログインしたら登録情報引き出し
+            })
         },
         // onAuthStateChanged(state, user) {
         //     state.user = user; //firebaseが返したユーザー情報
