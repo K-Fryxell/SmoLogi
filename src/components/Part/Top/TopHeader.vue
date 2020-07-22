@@ -1,6 +1,6 @@
 <template>
-  <v-card elevation="0" tile height="85">
-    <v-toolbar dense>
+  <v-card elevation="0" outlined tile>
+    <v-toolbar dense elevation="0">
         <v-toolbar-title>
             <router-link to="/part_top">
                 <img height="55" src="@/assets/partTop_header/logokari.png">
