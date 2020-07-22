@@ -323,7 +323,6 @@ export default {
             // 名
             this.array['lastname'] = this.lastname
             // セイ
-            // firstkana:'',
             this.array['firstkana'] = this.firstkana
             // メイ
             this.array['lastkana'] = this.lastkana

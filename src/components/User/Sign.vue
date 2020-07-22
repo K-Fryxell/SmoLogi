@@ -97,11 +97,10 @@ export default {
         login(){
             if (this.mailaddress === '' || this.password === '') return
             this.loading = true
-            this.array['email'] = this.login_email
-            this.array['password'] = this.login_password
+            this.array['email'] = this.mailaddress
+            this.array['password'] = this.password
             this.$store.commit('login', this.array)
-            this.mailaddress = ''
-            this.password = ''
+            
             // if (this.mailaddress === '' || this.password === '') return
             // firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
             // .then(()=>{
@@ -141,6 +140,8 @@ export default {
                 if(this.authenticatedUser == true)
                 {
                     alert('ログイン成功')
+                    this.mailaddress = ''
+                    this.password = ''
                 }
                 else{
                     alert('ログイン失敗');
