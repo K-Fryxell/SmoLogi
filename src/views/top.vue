@@ -3,7 +3,7 @@
 <v-container class="ma-0 pa-0" fluid>
     <v-layout class="ma-0 pa-0" wrap>
         <v-flex xs12 lg12>
-            <v-row>
+            <v-row class="ma-0 pa-0">
                 <v-col cols="12" lg="12">
                     <v-card elevation="0">
                         <v-card-text>
