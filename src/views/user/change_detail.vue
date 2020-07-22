@@ -10,6 +10,11 @@
             <v-row justify="center" class="ma-0 pa-0">
               <v-col cols="auto" lg="9" class="mx-12">
                 <v-form ref="form" v-model="update">
+                  <v-row class="ma-0 pa-0" justify="center">
+                    <v-col>
+
+                    </v-col>
+                  </v-row>
                   <v-row class="ma-0 pa-0">
                     <v-col cols="6" lg="4">
                       <v-text-field
