@@ -26,10 +26,10 @@
                                         {{name}}:{{item.user_name}}<br/>
                                         {{usage_day}}:{{item.day}}<br/>
                                         {{evaluation}}:
-                                        <v-btn class="ma-2" icon color="blue lighten-2">
+                                        <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
                                             <v-icon>mdi-thumb-up</v-icon>
                                         </v-btn>
-                                        <v-btn class="ma-2" icon color="red lighten-2">
+                                        <v-btn class="ma-2" @click="clickEvaluation(1)" icon color="red lighten-2">
                                             <v-icon>mdi-thumb-down</v-icon>
                                         </v-btn>
                                     </v-col>
@@ -48,6 +48,7 @@ import Ufooter from '../../components/User/Ufooter'
 export default {
     data(){
         return {
+            t:0,
             //名前
             name:'名前',
             //利用日
@@ -97,6 +98,12 @@ export default {
             this.x = window.innerWidth;
             this.y = window.innerHeight;
         },
+        // clickEvaluation(a){
+        //     if(t == 0 && a == 1){
+
+        //     }
+        //     this.t= a
+        // }
     },
     watch:{
         x:function(){
