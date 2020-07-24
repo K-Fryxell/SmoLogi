@@ -45,6 +45,16 @@
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
+                            <!-- <v-row class="ma-0 pa-0">
+                                <v-col cols="3" lg="3">
+                                    <v-text-field
+                                    prepend-icon="mdi-calendar-account"
+                                    v-model="age"
+                                    label="年齢"
+                                    :rules="ageRules"
+                                    hint="半角数字で記入してください。"/>
+                                </v-col>
+                            </v-row> -->
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                 <v-text-field
@@ -235,6 +245,8 @@ export default {
             lastkana:'',
             // 性別
             sex: '',
+            // 年齢
+            age: '',
             // 郵便番号
             post: '',
             // 住所
@@ -314,6 +326,11 @@ export default {
                 v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
                 v => (v && v.length <= 50) || '50字以内で入力してください。',
                 v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。'
+            ],
+            //年齢
+            ageRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
             ],
             //電話番号
             telRules: [
