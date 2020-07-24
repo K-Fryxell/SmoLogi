@@ -28,7 +28,7 @@
                             <v-row align="center">
                                 <v-col class="text-center" cols="12" sm="12">
                                     <div class="my-1">
-                                        <v-btn>この依頼を受ける<v-icon>mdi-thumb-up</v-icon></v-btn>
+                                        <v-btn to="/contact">この依頼を受ける<v-icon>mdi-thumb-up</v-icon></v-btn>
                                     </div>
                                 </v-col>
                             </v-row>
