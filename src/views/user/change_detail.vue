@@ -18,7 +18,7 @@
                                     </v-row>
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
-                                            <img v-if="this.$store.state.img!='no_image' &!uploadImageUrl"
+                                            <!-- <img v-if="this.$store.state.img!='no_image' &!uploadImageUrl"
                                                 :src="this.$store.state.img"
                                                 alt="アイコンa"
                                                 style="border-radius: 8em;
@@ -30,8 +30,8 @@
                                                 alt="アイコンb"
                                                 style="border-radius: 8em;
                                                 width:500px;
-                                                height:00px;"
-                                            >
+                                                height:500px;"
+                                            > -->
                                             <img v-if="uploadImageUrl"
                                                 :src="uploadImageUrl"
                                                 alt="アイコンc"
@@ -161,7 +161,7 @@
                                         更新
                                     </v-btn>
                                 </v-row>
-																
+
                                 <!-- クレジットカード情報変更ボタン -->
                                 <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
                                     <v-btn
