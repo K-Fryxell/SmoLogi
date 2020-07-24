@@ -367,12 +367,6 @@ export default {
             await this.$store.commit('registUser',this.array)
         }
     },
-            this.$store.errorCode = ''
-            this.array['email'] = this.email
-            this.array['password'] = this.password
-            await this.$store.commit('registUser',this.array)
-        }
-    },
     directives: {
         mask
     },
