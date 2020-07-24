@@ -59,8 +59,8 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="12" lg="12">
                                     <v-radio-group v-model="sex" :mandatory="false" row prepend-icon="mdi-human-male-female">
-                                        <v-radio label="男性"/>
-                                        <v-radio label="女性"/>
+                                        <v-radio label="男性" value="0"/>
+                                        <v-radio label="女性" value="1"/>
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
@@ -364,7 +364,7 @@ export default {
         lastname:'',
         firstkana:'',
         lastkana:'',
-        sex:'',
+        sex:0,
         email:'',
         passwd:'',
         showpp:false,
@@ -413,7 +413,7 @@ export default {
         againpasswdRules:[
             v => !!v || '入力欄が空白です。',
             v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => v === this.passwd || 'パスワードが一致していません。',
+            v => (v&& v === this.passwd) || 'パスワードが一致していません。',
         ],
         //郵便番号(前)
         postRules: [

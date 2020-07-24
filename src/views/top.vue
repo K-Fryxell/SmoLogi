@@ -55,13 +55,11 @@
                             <!-- <v-btn x-large dark>新規会員登録</v-btn> -->
                         </v-row>
                     </v-flex>
-                </v-col>
             </v-row>
         </v-flex>
     </v-layout>
     <Ufooter/>
 </v-container>
-    </content>
 </template>
 <script>
 import TopHeader from '../components/User/TopHeader'
