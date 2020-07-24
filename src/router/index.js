@@ -63,12 +63,6 @@ const routes = [{
             import ('../views/part/partRegistration')
     },
     {
-        path: '/part_credit',
-        name: 'partRegistUser',
-        component: () =>
-            import ('../views/part/partCredit')
-    },
-    {
         path: '/part_mypage',
         name: 'partMypage',
         component: () =>
@@ -87,22 +81,10 @@ const routes = [{
             import('../views/contact/contact.vue')
     },
     {
-        path: '/part_changedetails',
-        name: 'partChangedetails',
+        path: '/part_request',
+        name: 'partRequest',
         component: () =>
-            import ('../views/part/partChangedetails')
-    },
-    {
-        path: '/part_requestdetails',
-        name: 'partRequestdetails',
-        component: () =>
-            import ('../views/part/partRequestdetails')
-    },
-    {
-        path: '/change_passwd',
-        name: 'partChangepasswd',
-        component: () =>
-            import ('../views/part/partChangepasswd')
+            import ('../views/part/partRequest')
     }
 ]
 const router = new VueRouter({
