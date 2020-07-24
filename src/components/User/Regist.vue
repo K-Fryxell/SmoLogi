@@ -148,7 +148,7 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                        カード有効期限
+                                    カード有効期限
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -159,7 +159,8 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line/>
+                                        single-line
+                                    />
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     年
@@ -171,7 +172,8 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line/>
+                                        single-line
+                                    />
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     月
@@ -184,10 +186,12 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="3" lg="3">
-                                    <v-text-field v-model="secu"
+                                    <v-text-field
+                                        v-model="secu"
                                         :rules="secuRules"
                                         hint="セキュリティコードはクレジットカード裏面の末尾3桁(1部4桁)"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
@@ -266,10 +270,12 @@ export default {
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
                 v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
             ],
+            // パスワード再入力
             againpassRules:[
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
                 v => (v&& v === this.passwd) || 'パスワードが一致していません。',
             ],
+            // 姓名
             firstnameRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
@@ -307,7 +313,7 @@ export default {
                 v => !!v || '入力欄が空白です。',
                 v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
                 v => (v && v.length <= 50) || '50字以内で入力してください。',
-                v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
+                v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。'
             ],
             //電話番号
             telRules: [
@@ -322,12 +328,12 @@ export default {
             secuRules:[
                 v => !!v || '入力欄が空白です。',
                 v => /^[0-9]+$/.test(v) || '入力できるのは半角数字のみです',
-                v => (v&& (v.length==3)||(v.length==4)) || '3桁または4桁ので入力してください',
+                v => (v&& (v.length==3)||(v.length==4)) || '3桁または4桁ので入力してください'
             ],
             meigiRules:[
                 v => !!v || '入力欄が空白です。',
                 v => /^[ぁ-んァ-ン一-龥a-zA-Z0-9・/]+$/.test(v) || '無効な記号が入力されています。',
-                v => (v&& v.length<=80) || '80字以内で入力してください',
+                v => (v&& v.length<=80) || '80字以内で入力してください'
             ]
         }
     },

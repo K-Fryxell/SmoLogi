@@ -18,7 +18,7 @@
                                     </v-row>
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
-                                            <img v-if="this.$store.state.img!='no_image' &!uploadImageUrl"
+                                            <!-- <img v-if="this.$store.state.img!='no_image' &!uploadImageUrl"
                                                 :src="this.$store.state.img"
                                                 alt="アイコンa"
                                                 style="border-radius: 8em;
@@ -31,10 +31,10 @@
                                                 style="border-radius: 8em;
                                                 width:500px;
                                                 height:00px;"
-                                            >
+                                            > -->
                                             <img v-if="uploadImageUrl"
                                                 :src="uploadImageUrl"
-                                                alt="アイコンc"
+                                                alt="アイコン"
                                                 style="border-radius: 8em;
                                                 width:200px;
                                                 height:200px;"
@@ -92,17 +92,6 @@
                                                 :rules="lastkanaRules"/>
                                         </v-col>
                                     </v-row>
-                                    <!-- 性別 -->
-                                    <v-row class="ma-0 pa-0">
-                                        <v-col cols="12" lg="4">
-                                            <v-radio-group
-                                                prepend-icon="mdi-human-male-female"
-                                                v-model="sex" :mandatory="false" row>
-                                                <v-radio label="男性"/>
-                                                <v-radio label="女性"/>
-                                            </v-radio-group>
-                                        </v-col>
-                                    </v-row>
                                     <!-- メールアドレス -->
                                     <v-row class="ma-0 pa-0">
                                         <v-col>
@@ -121,9 +110,9 @@
                                             <v-text-field
                                                 prepend-icon="mdi-currency-kzt"
                                                 v-model="post"
+                                                v-mask="POST"
                                                 label="郵便番号"
-                                                :rules="postRules"
-                                                hint="郵便番号は(-)を含んで入力してください。"/>
+                                                :rules="postRules"/>
                                         </v-col>
                                     </v-row>
                                     <!-- 住所 -->
@@ -142,9 +131,10 @@
                                             <v-text-field
                                                 prepend-icon="mdi-phone-in-talk"
                                                 v-model="tel"
+                                                v-mask="TEL"
                                                 label="電話"
                                                 :rules="telRules"
-                                                hint="電話番号は(-)を含んで入力してください。"/>
+                                            />
                                         </v-col>
                                     </v-row>
                                 </v-form>
@@ -196,25 +186,26 @@
     </v-container>
 </template>
 <script>
+const { mask } = require('vue-the-mask')
 import Uheader  from '../../components/User/Uheader'
 import Ufooter from '../../components/User/Ufooter'
 export default {
     data(){
         return{
+            POST: '###-####',
+            TEL: '###-####-####',
             array:{},
             //プロフィール写真
             uploadImageUrl: '',
             inputImage: '',
             //姓
             firstname: '',
-              //名
+            //名
             lastname: '',
             //姓カナ
             firstkana: '',
             //名カナ
             lastkana: '',
-            //性別
-            sex: '',
             //メールアドレス
             email: '',
             //郵便番号
@@ -229,47 +220,51 @@ export default {
 						x:0,
             y:0,
             //Rules
-            //姓
-            firstnameRules:[
-              v => !!v || '入力欄が空白です。',
+            // 姓名
+            firstnameRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
-            //名
             lastnameRules:[
-              v => !!v || '入力欄が空白です。',
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             //姓カナ
             firstkanaRules: [
-              v => !!v || '入力欄が空白です。',
-              v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+                v => !!v || '入力欄が空白です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
             ],
             //名カナ
             lastkanaRules: [
-              v => !!v || '入力欄が空白です。',
-              v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+                v => !!v || '入力欄が空白です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
             ],
             //メールアドレス
             emailRules: [
-              v => !!v || '入力欄が空白です。',
-              v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
-              v => (v && v.length <= 50) || '50字以内で入力してください。',
-              v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
+                v => !!v || '入力欄が空白です。',
+                v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
+                v => (v && v.length <= 50) || '50字以内で入力してください。',
+                v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。'
             ],
             //郵便番号
             postRules: [
-							v => !!v || '入力欄が空白です。',
-              v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います',
-
+                v => !!v || '入力欄が空白です。',
+                v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
             ],
             //住所
             addressRules: [
-							v => !!v || '入力欄が空白です。',
-              v => /^[^A-Za-z0-]+$/.test(v) || '全角で入力してください。',
+                v => !!v || '住所は必ず入力してください。',
+                v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+                // eslint-disable-next-line no-irregular-whitespace
+                v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+                // eslint-disable-next-line no-control-regex
+                v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
             ],
             //電話番号
             telRules: [
-              v => !!v || '入力欄が空白です。',
-              v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-              v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+                v => !!v || '入力欄が空白です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
         }
 		},
@@ -298,8 +293,6 @@ export default {
             this.array['firstkana'] = this.firstkana
             //名カナ
             this.array['lastkana'] = this.lastkana
-            //性別
-            this.array['sex'] = this.sex
             //メールアドレス
             this.array['email'] = this.email
             //郵便番号
@@ -315,7 +308,6 @@ export default {
         },
         async selectedFile() {
 						this.isUploading = true;
-
 						const file = this.$refs.input.files[0]
 								if (!file) {
 										return;
@@ -342,6 +334,9 @@ export default {
     components: {
         Ufooter,
         Uheader,
-    }
+    },
+    directives: {
+        mask
+    },
 }
 </script>
