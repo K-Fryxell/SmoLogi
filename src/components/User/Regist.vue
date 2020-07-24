@@ -196,10 +196,11 @@
                             </v-row>
                             <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                                 <v-btn
-                                    :disabled="!valid"
-                                    color="blue"
-                                    class="mr-4 white--text mb-5"
-                                    width="120">
+                                :disabled="!valid"
+                                color="blue"
+                                class="mr-4 white--text mb-5"
+                                @click="signUp"
+                                width="120">
                                     登録
                                 </v-btn>
                             </v-row>
@@ -218,22 +219,38 @@ export default {
             POST: '###-####',
             TEL: '###-####-####',
             array: {},
+            // メールアドレス
             email: '',
+            // パスワード
             passwd: '',
+            // パスワード確認
             againpasswd: '',
+            // 姓
             firstname:'',
+            // 名
             lastname:'',
+            // セイ
             firstkana:'',
+            // メイ
             lastkana:'',
+            // 性別
             sex: '',
+            // 郵便番号
             post: '',
+            // 住所
             address: '',
+            // 電話番号
             tel:'',
+            // クレジットカード
             card: '',
+            // セキュリティコード
             secu:'',
+            // 名義
             meigi:'',
+            // 年
             isYear:2020,
             year:[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030],
+            // 月
             isMonth:1,
             month:[1,2,3,4,5,6,7,8,9,10,11,12],
             valid: true,
@@ -256,7 +273,7 @@ export default {
             // パスワード再入力
             againpassRules:[
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-                v => v === this.passwd || 'パスワードが一致していません。'
+                v => (v&& v === this.passwd) || 'パスワードが一致していません。',
             ],
             // 姓名
             firstnameRules: [
@@ -322,9 +339,37 @@ export default {
     },
     methods: {
         signUp:async function(){
-            this.$store.errorCode = ''
+            // メールアドレス
             this.array['email'] = this.email
-            this.array['password'] = this.password
+            // パスワード
+            this.array['password'] = this.passwd
+            // 姓
+            this.array['firstname'] = this.firstname
+            // 名
+            this.array['lastname'] = this.lastname
+            // セイ
+            this.array['firstkana'] = this.firstkana
+            // メイ
+            this.array['lastkana'] = this.lastkana
+            // 性別
+            this.array['sex'] = this.sex
+            // 郵便番号
+            this.array['post'] = this.post
+            // 住所
+            this.array['address'] = this.address
+            // 電話番号
+            this.array['tel'] = this.tel
+            // クレジットカード
+            this.array['card'] = this.card
+            // セキュリティコード
+            this.array['secu'] = this.secu
+            // 名義
+            this.array['meigi'] = this.meigi
+            // 年
+            this.array['isYear'] = this.isYear
+            // 月
+            this.array['isMonth'] = this.isMonth
+
             await this.$store.commit('registUser',this.array)
         }
     },

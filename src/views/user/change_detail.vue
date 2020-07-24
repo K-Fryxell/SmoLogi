@@ -146,14 +146,14 @@
                                         outlined
                                         x-large
                                         :disabled="!update"
-                                        @click="updat()"
+                                        @click="clickUpdate()"
                                     >
                                         更新
                                     </v-btn>
                                 </v-row>
-
+																
                                 <!-- クレジットカード情報変更ボタン -->
-                                <v-row justify="center" class="ma-0 pa-0">
+                                <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
                                     <v-btn
                                         class="mt-12"
                                         color="grey darken-2"
@@ -166,7 +166,7 @@
                                 </v-row>
 
                                 <!--パスワード変更ボタン -->
-                                <v-row justify="center" class="ma-0 pa-0">
+                                <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
                                     <v-btn
                                         class="mt-12"
                                         color="grey darken-2"
@@ -215,8 +215,10 @@ export default {
             //電話番号
             tel: '',
             //v-formのv-model
-            update :true,
-
+						update :true,
+						btnLayout:'end',
+						x:0,
+            y:0,
             //Rules
             // 姓名
             firstnameRules: [
@@ -265,13 +267,23 @@ export default {
                 v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
         }
+		},
+		mounted(){
+      window.addEventListener('resize', this.onResize)
+    },
+    beforeDestory(){
+        window.removeEventListener('resize',this.onResize)
     },
     methods:{
         validate(){
             this.$refs.form.validate()
+				},
+				onResize(){
+            this.x = window.innerWidth;
+            this.y = window.innerHeight;
         },
         //更新ボタン
-        updat(){
+        clickUpdate(){
             //プロフィール写真
             //姓
             this.array['firstname'] = this.firstname
@@ -295,18 +307,28 @@ export default {
             this.$refs.input.click()
         },
         async selectedFile() {
-          this.isUploading = true;
-
-          const file = this.$refs.input.files[0]
-          if (!file) {
-            return;
-          }
-          const fr = new FileReader()
-          fr.readAsDataURL(file)
-          fr.addEventListener('load', () => {
-              this.uploadImageUrl = fr.result
-              // alert(this.uploadImageUrl);
-              })
+						this.isUploading = true;
+						const file = this.$refs.input.files[0]
+								if (!file) {
+										return;
+								}
+						const fr = new FileReader()
+								fr.readAsDataURL(file)
+								fr.addEventListener('load', () => {
+										this.uploadImageUrl = fr.result
+										// alert(this.uploadImageUrl);
+								})
+					}
+		},
+		watch:{
+        x:function(){
+            if(this.x<=600)
+            {
+              this.btnLayout= 'center'
+            }else
+            {
+              this.btnLayout='end'
+            }
         }
     },
     components: {
