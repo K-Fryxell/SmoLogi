@@ -17,20 +17,16 @@
                             <v-card-title class="mt-12 display-1">さん</v-card-title>
                         </v-row>
                         <v-row justify="center" class="ma-0 pa-0">
-                            <router-link to="user_transport">
-                            <v-btn class="mt-12" rounded color="primary" large>お手伝いを頼む</v-btn>
-                            </router-link>
+                            <v-btn class="mt-12" rounded color="primary" large to="/user_transport">お手伝いを頼む</v-btn>
                         </v-row>
                         <v-row justify="center" class="ma-0 pa-0">
                             <v-col cols="12" lg="8">
                                 <v-card class="mt-12" width="1000" outlined>
-                                    <router-link to="/user_history" elevation="0">
                                     <v-banner
                                         class="justify-center title font-weight-light"
                                         sticky>
                                         利用履歴
                                     </v-banner>
-                                    </router-link>
                                     <v-card
                                         elevation="0"
                                         class="overflow-y-auto"
@@ -46,15 +42,27 @@
                         </v-row>
                 </v-card>
             </v-row>
-            <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
-                <router-link to="user_change">
-                    <v-btn
-                        class="mb-5"
-                        width="120">
-                        登録情報の変更
-                    </v-btn>
-                </router-link>
-            </v-row>
+            <v-card class="ma-0 pa-0" elevation="0">
+                <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                    <v-col>
+                        <v-btn
+                            to="user_change"
+                            class="mb-5"
+                            width="120">
+                            登録情報の変更
+                        </v-btn>
+                    </v-col>
+                    <v-col justify="end" align="end" class="ma-0 pa-0 mt-2">
+                        <v-btn
+                            class="mb-5"
+                            width="120">
+                            利用履歴
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-card>
+                    <v-row justify="end" class="ma-0 pa-0 mt-2">
+                    </v-row>
         </v-flex>
     </v-layout>
 </v-container>
