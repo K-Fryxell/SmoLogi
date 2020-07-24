@@ -80,34 +80,40 @@
                                         :rules="againpassRules"
                                         counter
                                         label="パスワード確認"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="5" lg="5">
                                     <v-text-field
-                                    v-model="post"
-                                    prepend-icon="mdi-currency-kzt"
-                                    label="郵便番号"
-                                    :rules="postRules"/>
+                                        v-model="post"
+                                        v-mask="POST"
+                                        prepend-icon="mdi-currency-kzt"
+                                        label="郵便番号"
+                                        :rules="postRules"
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                     <v-text-field
-                                    v-model="address"
-                                    prepend-icon="mdi-home"
-                                    label="住所"
-                                    :rules="addressRules"/>
+                                        v-model="address"
+                                        prepend-icon="mdi-home"
+                                        label="住所"
+                                        :rules="addressRules"
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                     <v-text-field
-                                    prepend-icon="mdi-phone-in-talk"
-                                    v-model="tel"
-                                    label="電話"
-                                    :rules="telRules"/>
+                                        prepend-icon="mdi-phone-in-talk"
+                                        v-model="tel"
+                                        v-mask="TEL"
+                                        label="電話"
+                                        :rules="telRules"
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -117,9 +123,11 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                    <v-text-field  v-model="meigi"
+                                    <v-text-field
+                                        v-model="meigi"
                                         :rules="meigiRules"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -129,11 +137,13 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                    <v-text-field v-model="card"
+                                    <v-text-field
+                                        v-model="card"
                                         :rules="cardRules"
                                         counter
                                         hint="使えるカードはVISAカードのみです"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -197,9 +207,12 @@
     </v-container>
 </template>
 <script>
+const { mask } = require('vue-the-mask')
 export default {
     data(){
         return{
+            POST: '###-####',
+            TEL: '###-####-####',
             array: {},
             email: '',
             passwd: '',
@@ -240,11 +253,13 @@ export default {
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
                 v => v === this.passwd || 'パスワードが一致していません。',
             ],
-            firstnameRules:[
-            v => !!v || '入力欄が空白です。',
+            firstnameRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             lastnameRules:[
                 v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             //セイメイ
             firstkanaRules: [
@@ -263,8 +278,12 @@ export default {
             ],
             //住所
             addressRules: [
-                v => !!v || '入力欄が空白です。',
-                v => /^[^A-Za-z0-]+$/.test(v) || '全角で入力してください。',
+                v => !!v || '住所は必ず入力してください。',
+                v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+                // eslint-disable-next-line no-irregular-whitespace
+                v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+                // eslint-disable-next-line no-control-regex
+                v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
             ],
             //メールアドレス
             emailRules: [
@@ -277,7 +296,7 @@ export default {
             telRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-                v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+                v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
             cardRules:[
                 v => !!v || '入力欄が空白です。',
@@ -295,13 +314,16 @@ export default {
             ]
         }
     },
-            methods: {
-                signUp:async function(){
-                    this.$store.errorCode = ''
-                    this.array['email'] = this.email
-                    this.array['password'] = this.password
-                    await this.$store.commit('registUser',this.array)
-                }
-            },
+    methods: {
+        signUp:async function(){
+            this.$store.errorCode = ''
+            this.array['email'] = this.email
+            this.array['password'] = this.password
+            await this.$store.commit('registUser',this.array)
+        }
+    },
+    directives: {
+        mask
+    },
 }
 </script>
