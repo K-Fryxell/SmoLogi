@@ -25,6 +25,10 @@ export default ({
         user_tel:"",
         // 性別
         user_gender:0,
+        // 誕生日
+        year:0,
+        month:0,
+        day:0,
         // クレジットカードナンバー
         user_credit_number: '',
         // セキュリティコード
@@ -50,6 +54,15 @@ export default ({
         },
         user_name(state) {
             return state.user_name
+        },
+        year(state) {
+            return state.year
+        },
+        month(state) {
+            return state.month
+        },
+        day(state) {
+            return state.day
         },
         user_fname_kana(state) {
             return state.user_fname_kana
@@ -134,7 +147,10 @@ export default ({
                         state.user_address = doc.data().address
                         /// 性別
                         state.user_gender = doc.data().sex
-                        // user_gender: 0,
+                        // 誕生日
+                        state.year = doc.data().birthYear
+                        state.month = doc.data().birthMonth
+                        state.day = doc.data().birthDay
                         // クレジットカードナンバー
                         state.user_credit_number = doc.data().card
                         // // 電話番号
@@ -160,8 +176,7 @@ export default ({
         // },
         logout() {
             firebase.auth().signOut()
-        },
-
+        }
     },
     actions: {
         // onAuth(store) {

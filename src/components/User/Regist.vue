@@ -262,9 +262,9 @@ export default {
             // 性別
             sex: '',
             // 誕生日
-            birthValueYear: '',
-            birthValueMonth: '',
-            birthValueDay: '',
+            birthValueYear: 0,
+            birthValueMonth: 0,
+            birthValueDay: 0,
             dropdown: [],
             dropdown1: [],
             dropdown2: [],
@@ -330,6 +330,7 @@ export default {
                 v => !!v || '入力欄が空白です。',
                 v => /[ァ-ヴ]$/.test(v) || 'カタカナで入力してください。'
             ],
+            //誕生日
             yearRules: [
                 v => !!v || '生年は必ず入力してください。'
             ],
