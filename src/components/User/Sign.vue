@@ -46,7 +46,7 @@
             </v-dialog>
 
             <!-- 新規登録ページボタン -->
-            <v-btn dark style="background-color: #57bd7d" to="regist">
+            <v-btn dark style="background-color: #57bd7d" to="registration/">
                 新規登録
             </v-btn>
         </div>
@@ -59,6 +59,7 @@ import firebase from 'firebase'
 export default {
     data(){
         return{
+            array:{},
             mailaddress: '',
             password: '',
             // モーダル表示・非表示
@@ -96,18 +97,23 @@ export default {
         login(){
             if (this.mailaddress === '' || this.password === '') return
             this.loading = true
-            firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
-            .then(()=>{
-                this.mailaddress = '';
-                this.password = '';
-            })
-            .catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
+            this.array['email'] = this.mailaddress
+            this.array['password'] = this.password
+            this.$store.commit('login', this.array)
+            
+            // if (this.mailaddress === '' || this.password === '') return
+            // firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
+            // .then(()=>{
+            //     this.mailaddress = '';
+            //     this.password = '';
+            // })
+            // .catch(function(error) {
+            //     // Handle Errors here.
+            //     var errorCode = error.code;
+            //     var errorMessage = error.message;
+            //     console.log(errorCode);
+            //     console.log(errorMessage);
+            // });
         },
         // モーダルを閉じる
         close(){
@@ -134,6 +140,8 @@ export default {
                 if(this.authenticatedUser == true)
                 {
                     alert('ログイン成功')
+                    this.mailaddress = ''
+                    this.password = ''
                 }
                 else{
                     alert('ログイン失敗');

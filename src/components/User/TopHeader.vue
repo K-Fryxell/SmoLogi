@@ -1,8 +1,9 @@
 <template>
-    <v-toolbar dense>
+    <v-toolbar dense elevation="0">
         <v-toolbar-title>
             <router-link to="/">
             <!-- img -->
+                <img height="55"  src="@/assets/logo_Sample.jpg">
             </router-link>
         </v-toolbar-title>
 

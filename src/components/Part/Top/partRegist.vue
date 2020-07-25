@@ -11,7 +11,7 @@
                                     <v-col lg="12" cols="12">
                                         <v-text-field
                                         v-model="firstname"
-                                        :rules="nameRules"
+                                        :rules="firstnameRules"
                                         prepend-icon="mdi-account-circle"
                                         required
                                         label="姓"
@@ -23,7 +23,7 @@
                                     <v-col lg="12" cols="12">
                                         <v-text-field
                                         v-model="lastname"
-                                        :rules="nameRules"
+                                        :rules="lastnameRules"
                                         required
                                         label="名"
                                     ></v-text-field>
@@ -59,8 +59,8 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="12" lg="12">
                                     <v-radio-group v-model="sex" :mandatory="false" row prepend-icon="mdi-human-male-female">
-                                        <v-radio label="男性"/>
-                                        <v-radio label="女性"/>
+                                        <v-radio label="男性" value="0"/>
+                                        <v-radio label="女性" value="1"/>
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
@@ -125,9 +125,10 @@
                                 <v-col lg="6" cols="8">
                                     <v-text-field
                                     v-model="post"
+                                    v-mask="POST"
                                     :rules="postRules"
                                     prepend-icon="mdi-currency-kzt"
-                                    label="郵便番号(ハイフン(-)を含めて入力してください)"
+                                    label="郵便番号"
                                     required
                                     ></v-text-field>
                                 </v-col>
@@ -137,7 +138,7 @@
                                 <v-col lg="12" cols="12">
                                     <v-text-field
                                     v-model="address"
-                                    :rules="nameRules"
+                                    :rules="addressRules"
                                     prepend-icon="mdi-home"
                                     label="住所"
                                     required
@@ -149,9 +150,10 @@
                                 <v-col lg="10" cols="8">
                                     <v-text-field
                                     v-model="tel"
+                                    v-mask="TEL"
                                     :rules="telRules"
                                     prepend-icon="mdi-phone-in-talk"
-                                    label="電話番号(ハイフン(-)を含めて入力してください)"
+                                    label="電話番号"
                                     required
                                     ></v-text-field>
                                 </v-col>
@@ -276,14 +278,14 @@
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
-                                    
-                                    
-                                     
-                            
-                            
 
-    
-                            
+
+
+
+
+
+
+
                             <!-- ここから顔写真の登録   -->
                             <v-row class="ma-0 mt-5 pa-0" justify="center">
                                 <v-card-text align="center"  v-resize='onResize' :class='size_title'>
@@ -292,12 +294,12 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl" 
+                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;" 
+                                        height:200px;"
                                     >
                                     <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                         src="#"
@@ -306,12 +308,12 @@
                                         width:200px;
                                         height:200px;"
                                     >
-                                    <img v-if="uploadImageUrl" 
+                                    <img v-if="uploadImageUrl"
                                         :src="uploadImageUrl"
                                         alt="アイコンc"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;" 
+                                        height:200px;"
                                     >
                                 </v-avatar>
                             </v-row>
@@ -357,14 +359,17 @@
 
 
 <script>
+const { mask } = require('vue-the-mask')
 export default {
   data() {
     return {
+        POST:'###-####',
+        TEL:'###-####-####',
         firstname:'',
         lastname:'',
         firstkana:'',
         lastkana:'',
-        sex:'',
+        sex:0,
         email:'',
         passwd:'',
         showpp:false,
@@ -393,9 +398,23 @@ export default {
         x:window.innerWidth,
         y:window.innerHeight ,
         size_title:'title',
-        //姓・名・住所
-        nameRules: [
-            v => !!v || '入力欄が空白です。'
+        // 姓名
+        firstnameRules: [
+            v => !!v || '入力欄が空白です。',
+            v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
+        ],
+        lastnameRules:[
+            v => !!v || '入力欄が空白です。',
+            v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
+        ],
+        //住所
+        addressRules: [
+            v => !!v || '住所は必ず入力してください。',
+            v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+            // eslint-disable-next-line no-irregular-whitespace
+            v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+            // eslint-disable-next-line no-control-regex
+            v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
         ],
         //セイ・メイ
         kanaRules: [
@@ -413,9 +432,9 @@ export default {
         againpasswdRules:[
             v => !!v || '入力欄が空白です。',
             v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => v === this.passwd || 'パスワードが一致していません。',
+            v => (v&& v === this.passwd) || 'パスワードが一致していません。',
         ],
-        //郵便番号(前)
+        //郵便番号
         postRules: [
             v => !!v || '入力欄が空白です。',
             v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
@@ -543,7 +562,7 @@ export default {
           const file = this.$refs.input.files[0]
           if (!file) {
             return;
-          }  
+          }
           const fr = new FileReader()
             fr.readAsDataURL(file)
             fr.addEventListener('load', () => {
@@ -558,7 +577,10 @@ export default {
   created(){
     this.username  = this.$store.state.username
     this.email  = this.$store.state.email
-  }
+  },
+  directives: {
+    mask
+  },
 
 }
 </script>

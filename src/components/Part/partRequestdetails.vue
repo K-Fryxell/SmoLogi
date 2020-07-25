@@ -11,15 +11,15 @@
                             </v-card-title>
                         </v-card>
                         <v-card>
-                            {{message1}}:{{item.place}}m<br/>
+                            {{message1}}:{{place}}m<br/>
                             <v-img
                                 v-resize='onResize' :height='size_card'
                                 :src="item.illust"
                                 class="my-3"
                                 contain
                                 />
-                            {{message2}}:{{item.time}}分<br/>
-                            {{message3}}:{{item.weight}}kg
+                            {{message2}}:{{time}}分<br/>
+                            {{message3}}:{{weight}}kg
                         </v-card>
                         <v-card>
                             <v-row justify="space-around">
@@ -40,7 +40,7 @@
                             </v-row>
                         </v-card>
                         <v-card>
-                            <v-card-text class="text-center black--text title">本日の依頼重量：○○○ kg</v-card-text>
+                            <v-card-text class="text-center black--text title">本日の依頼重量：{{sumweight}} kg</v-card-text>
                         </v-card>
                     </div>
                 </v-flex>
@@ -50,7 +50,5 @@
 </template>
 <script>
 export default {
-  name: 'props',
-  props: ['items']
 };
 </script>

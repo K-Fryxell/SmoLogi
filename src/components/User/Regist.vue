@@ -45,6 +45,16 @@
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
+                            <!-- <v-row class="ma-0 pa-0">
+                                <v-col cols="3" lg="3">
+                                    <v-text-field
+                                    prepend-icon="mdi-calendar-account"
+                                    v-model="age"
+                                    label="年齢"
+                                    :rules="ageRules"
+                                    hint="半角数字で記入してください。"/>
+                                </v-col>
+                            </v-row> -->
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                 <v-text-field
@@ -80,34 +90,40 @@
                                         :rules="againpassRules"
                                         counter
                                         label="パスワード確認"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="5" lg="5">
                                     <v-text-field
-                                    v-model="post"
-                                    prepend-icon="mdi-currency-kzt"
-                                    label="郵便番号"
-                                    :rules="postRules"/>
+                                        v-model="post"
+                                        v-mask="POST"
+                                        prepend-icon="mdi-currency-kzt"
+                                        label="郵便番号"
+                                        :rules="postRules"
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                     <v-text-field
-                                    v-model="address"
-                                    prepend-icon="mdi-home"
-                                    label="住所"
-                                    :rules="addressRules"/>
+                                        v-model="address"
+                                        prepend-icon="mdi-home"
+                                        label="住所"
+                                        :rules="addressRules"
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                     <v-text-field
-                                    prepend-icon="mdi-phone-in-talk"
-                                    v-model="tel"
-                                    label="電話"
-                                    :rules="telRules"/>
+                                        prepend-icon="mdi-phone-in-talk"
+                                        v-model="tel"
+                                        v-mask="TEL"
+                                        label="電話"
+                                        :rules="telRules"
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -117,9 +133,11 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                    <v-text-field  v-model="meigi"
+                                    <v-text-field
+                                        v-model="meigi"
                                         :rules="meigiRules"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -129,16 +147,18 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                    <v-text-field v-model="card"
+                                    <v-text-field
+                                        v-model="card"
                                         :rules="cardRules"
                                         counter
                                         hint="使えるカードはVISAカードのみです"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
-                                        カード有効期限
+                                    カード有効期限
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -149,7 +169,8 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line/>
+                                        single-line
+                                    />
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     年
@@ -161,7 +182,8 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line/>
+                                        single-line
+                                    />
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     月
@@ -174,10 +196,12 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="3" lg="3">
-                                    <v-text-field v-model="secu"
+                                    <v-text-field
+                                        v-model="secu"
                                         :rules="secuRules"
                                         hint="セキュリティコードはクレジットカード裏面の末尾3桁(1部4桁)"
-                                        required/>
+                                        required
+                                    />
                                 </v-col>
                             </v-row>
                             <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
@@ -185,6 +209,7 @@
                                 :disabled="!valid"
                                 color="blue"
                                 class="mr-4 white--text mb-5"
+                                @click="signUp"
                                 width="120">
                                     登録
                                 </v-btn>
@@ -197,26 +222,47 @@
     </v-container>
 </template>
 <script>
+const { mask } = require('vue-the-mask')
 export default {
     data(){
         return{
+            POST: '###-####',
+            TEL: '###-####-####',
             array: {},
+            // メールアドレス
             email: '',
+            // パスワード
             passwd: '',
+            // パスワード確認
             againpasswd: '',
+            // 姓
             firstname:'',
+            // 名
             lastname:'',
+            // セイ
             firstkana:'',
+            // メイ
             lastkana:'',
+            // 性別
             sex: '',
+            // 年齢
+            age: '',
+            // 郵便番号
             post: '',
+            // 住所
             address: '',
+            // 電話番号
             tel:'',
+            // クレジットカード
             card: '',
+            // セキュリティコード
             secu:'',
+            // 名義
             meigi:'',
+            // 年
             isYear:2020,
             year:[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030],
+            // 月
             isMonth:1,
             month:[1,2,3,4,5,6,7,8,9,10,11,12],
             valid: true,
@@ -236,15 +282,19 @@ export default {
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
                 v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
             ],
+            // パスワード再入力
             againpassRules:[
                 v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-                v => v === this.passwd || 'パスワードが一致していません。',
+                v => (v&& v === this.passwd) || 'パスワードが一致していません。',
             ],
-            firstnameRules:[
-            v => !!v || '入力欄が空白です。',
+            // 姓名
+            firstnameRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             lastnameRules:[
                 v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             //セイメイ
             firstkanaRules: [
@@ -263,21 +313,30 @@ export default {
             ],
             //住所
             addressRules: [
-                v => !!v || '入力欄が空白です。',
-                v => /^[^A-Za-z0-]+$/.test(v) || '全角で入力してください。',
+                v => !!v || '住所は必ず入力してください。',
+                v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+                // eslint-disable-next-line no-irregular-whitespace
+                v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+                // eslint-disable-next-line no-control-regex
+                v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
             ],
             //メールアドレス
             emailRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
                 v => (v && v.length <= 50) || '50字以内で入力してください。',
-                v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
+                v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。'
+            ],
+            //年齢
+            ageRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
             ],
             //電話番号
             telRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-                v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+                v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
             cardRules:[
                 v => !!v || '入力欄が空白です。',
@@ -286,22 +345,53 @@ export default {
             secuRules:[
                 v => !!v || '入力欄が空白です。',
                 v => /^[0-9]+$/.test(v) || '入力できるのは半角数字のみです',
-                v => (v&& (v.length==3)||(v.length==4)) || '3桁または4桁ので入力してください',
+                v => (v&& (v.length==3)||(v.length==4)) || '3桁または4桁ので入力してください'
             ],
             meigiRules:[
                 v => !!v || '入力欄が空白です。',
                 v => /^[ぁ-んァ-ン一-龥a-zA-Z0-9・/]+$/.test(v) || '無効な記号が入力されています。',
-                v => (v&& v.length<=80) || '80字以内で入力してください',
+                v => (v&& v.length<=80) || '80字以内で入力してください'
             ]
         }
     },
-            methods: {
-                signUp:async function(){
-                    this.$store.errorCode = ''
-                    this.array['email'] = this.email
-                    this.array['password'] = this.password
-                    await this.$store.commit('registUser',this.array)
-                }
-            },
+    methods: {
+        signUp:async function(){
+            // メールアドレス
+            this.array['email'] = this.email
+            // パスワード
+            this.array['password'] = this.passwd
+            // 姓
+            this.array['firstname'] = this.firstname
+            // 名
+            this.array['lastname'] = this.lastname
+            // セイ
+            this.array['firstkana'] = this.firstkana
+            // メイ
+            this.array['lastkana'] = this.lastkana
+            // 性別
+            this.array['sex'] = this.sex
+            // 郵便番号
+            this.array['post'] = this.post
+            // 住所
+            this.array['address'] = this.address
+            // 電話番号
+            this.array['tel'] = this.tel
+            // クレジットカード
+            this.array['card'] = this.card
+            // セキュリティコード
+            this.array['secu'] = this.secu
+            // 名義
+            this.array['meigi'] = this.meigi
+            // 年
+            this.array['isYear'] = this.isYear
+            // 月
+            this.array['isMonth'] = this.isMonth
+
+            await this.$store.commit('registUser',this.array)
+        }
+    },
+    directives: {
+        mask
+    },
 }
 </script>

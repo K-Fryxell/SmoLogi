@@ -106,7 +106,7 @@ export default {
         againpasswdRules:[
             v => !!v || '入力欄が空白です。',
             v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => v === this.passwd || 'パスワードが一致していません。',
+            v => (v&& v === this.passwd) || 'パスワードが一致していません。',
         ],
         x:window.innerWidth,
         y:window.innerHeight ,

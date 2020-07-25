@@ -8,7 +8,7 @@
                     <v-flex lg4 xs6 v-for="item in items" :key="item.id">
                         <v-row class="ma-0 pa-0" justify="center">
                         <v-col class="ma-6 pa-0" cols="10" lg="7">
-                        <v-card>
+                        <v-card to="/part_requestdetails">
                             {{message1}}:{{item.place}}m<br/>
                             <v-img
                                 v-resize='onResize' :height='size_card'
