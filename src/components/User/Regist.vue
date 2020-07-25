@@ -418,6 +418,10 @@ export default {
             this.array['lastkana'] = this.lastkana
             // 性別
             this.array['sex'] = this.sex
+            // 誕生日
+            this.array['birthYear'] = this.birthValueYear
+            this.array['birthMonth'] = this.birthValueMonth
+            this.array['birthDay'] = this.birthValueDay
             // 郵便番号
             this.array['post'] = this.post
             // 住所
