@@ -9,13 +9,13 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <!-- ログアウト -->
-            <v-btn
+            <!-- <v-btn
                 text
                 dark
                 style="background-color: #57bd7d"
             >
                 ログアウト
-            </v-btn>
+            </v-btn> -->
             <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -45,15 +45,14 @@
                             <v-divider insert/>
                         </v-list-content>
                     </v-list-item>
-
-                    <v-list-item
-                        v-for="menu in menus"
-                        :key="menu.title"
-                        :to="menu.to"
-                    >
-                        <v-list-item-content>
-                            <v-list-item-title>{{ menu.title }}</v-list-item-title>
-                        </v-list-item-content>
+                    <v-list-item to='/user_mypage'>
+                        マイページへ
+                    </v-list-item>
+                    <v-list-item to='/user_change'>
+                        アカウント設定
+                    </v-list-item>
+                    <v-list-item @click="logout">
+                        ログアウト
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -69,13 +68,16 @@ export default {
             imgurl:require("../../assets/people.jpg"),
             //ユーザの名前
             name:'田中昭雄',
-            menus: [
-                { title: 'マイページ',to:'user_mypage'},
-                { title: '詳細変更',to:'user_change'},
-            ],
+            // menus: [
+            //     { title: 'マイページ',to:'user_mypage'},
+            //     { title: '詳細変更',to:'user_change'},
+            // ],
         }
     },
-    components:{
+    methods:{
+        logout:function(){
+            this.$store.commit('user_logout')
+        }
     }
 }
 </script>

@@ -4,7 +4,7 @@
             <v-flex xs12 lg12>
                 <v-row justify="center" class="mt-12 pa-0">
                     <v-card tile width="600" class="mt-12 mx-2 mb-12" outlined>
-                        <v-tabs active-class="tab-active">
+                        <v-tabs>
                             <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
                             <v-tab v-on:click="tab = 1" :center-active="true">クレジットカード情報変更</v-tab>
                         </v-tabs>

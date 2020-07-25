@@ -167,6 +167,7 @@ export default ({
                     })
                 } else {
                     // User not logged in or has just logged out.
+                    // router.push('/')
                 }
             })
         },
@@ -174,8 +175,9 @@ export default ({
         // onUserStatusChanged(state, status) {
         //     state.status = status; //ログインしてるかどうか true or false
         // },
-        logout() {
+        user_logout() {
             firebase.auth().signOut()
+            router.push('/')
         }
     },
     actions: {
