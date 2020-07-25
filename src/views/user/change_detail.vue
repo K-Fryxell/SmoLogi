@@ -21,15 +21,11 @@
                                             <img v-if="uploadImageUrl"
                                                 :src="uploadImageUrl"
                                                 alt="アイコン"
-                                                width="500"
-                                                height="500"
                                             >
                                             <img
-                                                v-if="!uploadImageUrl"
+                                                v-if="uploadImageUrl==null"
                                                 :src="img"
                                                 alt="アイコンa"
-                                                width="500"
-                                                height="500"
                                             >
                                         </v-avatar>
                                     </v-row>
@@ -191,7 +187,7 @@ export default {
             uploadImageUrl: null,
             inputImage: '',
             //姓
-            firstname: '',
+            firstname: this.$store.state.user_fname,
             //名
             lastname: '',
             //姓カナ
@@ -302,9 +298,9 @@ export default {
         async selectedFile() {
             this.isUploading = true;
             const file = this.$refs.input.files[0]
-                    if (!file) {
-                            return;
-                    }
+                if (!file) {
+                        return;
+                }
             const fr = new FileReader()
                 fr.readAsDataURL(file)
                 fr.addEventListener('load', () => {

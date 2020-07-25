@@ -47,6 +47,9 @@ export default ({
         },
         user_fname(state){
             return state.user_fname
+        },
+        user_name(state) {
+            return state.user_name
         }
         // user(state) {
         //     return state.user;
@@ -104,9 +107,9 @@ export default ({
                         state.user_email = doc.data().email
                         // // 氏名・かな
                         state.user_fname = doc.data().firstname
-                        state.user_fname_kana = doc.data().lastname
-                        state.user_name = doc.data().firstname
-                        state.user_name_kana = doc.data().firstname
+                        state.user_fname_kana = doc.data().firstkane
+                        state.user_name = doc.data().lastname
+                        state.user_name_kana = doc.data().lastkana
                         // 郵便番号
                         state.user_post = doc.data().post
                         // // 住所
