@@ -11,58 +11,60 @@
                     </v-btn>
                 <v-card class="ma-0 pa-0" elevation="0">
                     <v-card-title class="mt-12 justify-center" v-resize="onResize" :class="size">ようこそ！</v-card-title>
-                        <v-row justify="center" class="ma-0 pa-0">
-
-                            <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">{{user_fname}}</v-card-title>
+                    <v-row justify="center" class="ma-0 pa-0">
+                        <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">{{username}}</v-card-title>
                             <v-card-title class="mt-12 display-1">さん</v-card-title>
-                        </v-row>
-                        <v-row justify="center" class="ma-0 pa-0">
-                            <v-btn class="mt-12" rounded color="primary" large to="/user_transport">お手伝いを頼む</v-btn>
-                        </v-row>
-                        <v-row justify="center" class="ma-0 pa-0">
-                            <v-col cols="12" lg="8">
-                                <v-card class="mt-12" width="1000" outlined>
-                                    <v-banner
-                                        class="justify-center title font-weight-light"
-                                        sticky>
+                    </v-row>
+                    <v-row justify="center" class="ma-0 pa-0">
+                        <v-btn class="mt-12" rounded color="primary" large to="/user_transport">お手伝いを頼む</v-btn>
+                    </v-row>
+                    <v-row justify="center" class="ma-0 pa-0">
+                        <v-col cols="12" lg="8">
+                            <v-card class="mt-12" width="1000" outlined>
+                                <v-banner
+                                    class="justify-center title font-weight-light"
+                                    sticky>
                                         利用履歴
-                                    </v-banner>
-                                    <v-card
-                                        elevation="0"
-                                        class="overflow-y-auto"
-                                        max-height="400">
-                                        <v-card-text v-for="item in items"
-                                            :key="item.id"
-                                            class="mb-4">
-                                            <span class="pr-4">{{item.name}}{{message1}}</span>{{item.weight}}{{message2}}
-                                        </v-card-text>
-                                    </v-card>
+                                </v-banner>
+                                <v-card
+                                    elevation="0"
+                                    class="overflow-y-auto"
+                                    max-height="400">
+                                    <v-card-text v-for="item in items"
+                                        :key="item.id"
+                                        class="mb-4">
+                                        <span class="pr-4">名前:{{item.name}}</span><br>利用日:{{item.day}}<br>
+                                    </v-card-text>
                                 </v-card>
-                            </v-col>
-                        </v-row>
+                            </v-card>
+                        </v-col>
+                    </v-row>
                 </v-card>
             </v-row>
-            <v-card class="ma-0 pa-0" elevation="0">
-                <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
-                    <v-col>
-                        <v-btn
-                            to="user_change"
-                            class="mb-5"
-                            width="120">
-                            登録情報の変更
-                        </v-btn>
-                    </v-col>
-                    <v-col justify="end" align="end" class="ma-0 pa-0 mt-2">
-                        <v-btn
-                            class="mb-5"
-                            width="120">
-                            利用履歴
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-card>
-                    <v-row justify="end" class="ma-0 pa-0 mt-2">
+            <v-row justify="center" class="ma-0 pa-0">
+                <v-card class="ma-0 pa-0" elevation="0">
+                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                        <v-col>
+                            <v-btn
+                                to="user_change"
+                                class="mb-5 mt-2"
+                                width="120">
+                                    登録情報の変更
+                            </v-btn>
+                        </v-col>
+                        <v-row justify="end" align="end" class="ma-0 pa-0 mt-2">
+                            <v-col>
+                                <v-btn
+                                    to="user_history"
+                                    class="mb-5 "
+                                    width="120">
+                                        利用履歴
+                                </v-btn>
+                            </v-col>
+                        </v-row>
                     </v-row>
+                </v-card>
+            </v-row>
         </v-flex>
     </v-layout>
 </v-container>
@@ -72,24 +74,45 @@ import firebase from 'firebase'
 export default {
     data() {
         return {
-            message1:"さん",
-            message2:"kg",
-            // username:"まるい",
+            //ユーザーの名前
+            username:"まるい",
             x:0,
             y:0,
             size:"display-3",
-            user: {
-                email: "",
-                pass: "",
-                //name: ""
-                // sex:""
-            },
-            user_id:"",
             items: [
-                {
-                    name:'たろう',
-                    weight:'2',
-                },
+                    {
+                        name:'たろう',
+                        day:'2020年3月27日',
+
+                    },
+                    {
+                        name:'ねむい',
+                        day:'2020年3月27日',
+                    },
+                    {
+                        name:'ねむい',
+                        day:'2020年3月27日',
+                    },
+                    {
+                        name:'ねむい',
+                        day:'2020年3月27日',
+                    },
+                    {
+                        name:'ねむい',
+                        day:'2020年3月27日',
+                    },
+                    {
+                        name:'ねむい',
+                        day:'2020年3月27日',
+                    },
+                    {
+                        name:'ねむい',
+                        day:'2020年3月27日',
+                    }
+                ]
+            }
+        },
+            computed: {},
                 {
                     name:'ねむい',
                     weight:'2'
@@ -150,7 +173,7 @@ export default {
             {
                 this.size='display-3'
             }
-        },
+        })
     },
     created:function(){
         this.onAuth()

@@ -23,9 +23,9 @@
                                         :class="size"
                                         class="font-weight-light"
                                     >
-                                        {{name}}:{{item.user_name}}<br/>
-                                        {{usage_day}}:{{item.day}}<br/>
-                                        {{evaluation}}:
+                                        名前:{{item.user_name}}<br/>
+                                        利用日:{{item.day}}<br/>
+                                        評価:
                                         <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
                                             <v-icon>mdi-thumb-up</v-icon>
                                         </v-btn>
@@ -48,47 +48,43 @@ import Ufooter from '../../components/User/Ufooter'
 export default {
     data(){
         return {
-            t:0,
-            //名前
-            name:'名前',
-            //利用日
-            usage_day:'利用日',
             //評価
-            evaluation:'評価',
+            evaluation: 2,
+            //画像
             imageurl:require("../../assets/people.jpg"),
             x:0,
             y:0,
             size:"display-1",
             items: [
                 {
-                  user_name:'田中太郎',
-                  day:'2020年03月25日',
+                    user_name:'田中太郎',
+                    day:'2020年03月25日',
                 },
                 {
-                  user_name:'中川武',
-                  day:'2020年05月25日',
+                    user_name:'中川武',
+                    day:'2020年05月25日',
                 },
                 {
-                  user_name:'中川聖',
-                  day:'2020年02月25日',
+                    user_name:'中川聖',
+                    day:'2020年02月25日',
                 },
                 {
-                user_name:'中川聖',
-                  day:'2020年02月25日',
+                    user_name:'中川聖',
+                    day:'2020年02月25日',
                 },
                 {
-                  user_name:'中川聖',
-                  day:'2020年02月25日',
+                    user_name:'中川聖',
+                    day:'2020年02月25日',
                 },
                 {
-                  user_name:'中川聖',
-                  day:'2020年02月25日',
+                    user_name:'中川聖',
+                    day:'2020年02月25日',
                 }
             ]
         }
     },
     mounted(){
-      window.addEventListener('resize', this.onResize)
+        window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
@@ -98,21 +94,18 @@ export default {
             this.x = window.innerWidth;
             this.y = window.innerHeight;
         },
-        // clickEvaluation(a){
-        //     if(t == 0 && a == 1){
-
-        //     }
-        //     this.t= a
-        // }
+        clickEvaluation(a){
+            this.evaluation = a
+            }
     },
     watch:{
         x:function(){
             if(this.x<=600)
             {
-              this.size= 'display-6'
+                this.size= 'display-6'
             }else
             {
-              this.size='display-1'
+                this.size='display-1'
             }
         }
     },

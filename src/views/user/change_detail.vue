@@ -30,7 +30,7 @@
                                                 alt="アイコンb"
                                                 style="border-radius: 8em;
                                                 width:500px;
-                                                height:00px;"
+                                                height:500px;"
                                             > -->
                                             <img v-if="uploadImageUrl"
                                                 :src="uploadImageUrl"
@@ -151,7 +151,7 @@
                                         更新
                                     </v-btn>
                                 </v-row>
-																
+
                                 <!-- クレジットカード情報変更ボタン -->
                                 <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
                                     <v-btn
