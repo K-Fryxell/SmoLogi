@@ -64,6 +64,33 @@
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
+                            <!-- 誕生日 -->
+                            <v-row class="ma-0 pa-0">
+                                <v-col :cols="birthCol" sm="4">
+                                    <v-select
+                                    v-model="birthValueYear"
+                                    :items="dropdown"
+                                    :rules="yearRules"
+                                    label="生年"
+                                    ></v-select>
+                                </v-col>
+                                <v-col :cols="birthCol" sm="4">
+                                    <v-select
+                                    v-model="birthValueMonth"
+                                    :items="dropdown1"
+                                    :rules="monthRules"
+                                    label="月"
+                                    ></v-select>
+                                </v-col>
+                                <v-col :cols="birthCol" sm="4">
+                                    <v-select
+                                    v-model="birthValueDay"
+                                    :items="dropdown2"
+                                    :rules="dayRules"
+                                    label="日"
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
                             <!-- ユーザ名textarea -->
                             <v-row class="ma-0 pa-0">
                                 <v-col lg="6" cols="8">
@@ -370,6 +397,12 @@ export default {
         firstkana:'',
         lastkana:'',
         sex:0,
+        birthValueYear: 0,
+        birthValueMonth: 0,
+        birthValueDay: 0,
+        dropdown: [],
+        dropdown1: [],
+        dropdown2: [],
         email:'',
         passwd:'',
         showpp:false,
@@ -420,6 +453,16 @@ export default {
         kanaRules: [
             v => !!v || '入力欄が空白です。',
             v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+        ],
+        //誕生日
+        yearRules: [
+            v => !!v || '生年は必ず入力してください。'
+        ],
+        monthRules: [
+            v => !!v || '生月は必ず入力してください。'
+        ],
+        dayRules: [
+            v => !!v || '生日は必ず入力してください。'
         ],
         //パスワード
         passwdRules:[
@@ -535,6 +578,9 @@ export default {
             this.array['firstkana'] = this.firstkana
             this.array['lastkana'] = this.lastkana
             this.array['sex'] = this.sex
+            this.array['birthYear'] = this.birthValueYear
+            this.array['birthMonth'] = this.birthValueMonth
+            this.array['birthDay'] = this.birthValueDay
             this.array['post'] = this.post
             this.array['address'] = this.address
             this.array['tel'] = this.tel
@@ -577,6 +623,18 @@ export default {
   created(){
     this.username  = this.$store.state.username
     this.email  = this.$store.state.email
+    for (let index = 0; index < 120; index++) {
+        const year = 2019
+        this.dropdown.push(String(year - index))
+        for (let index1 = 0; index1 < 12; index1++) {
+            const month = 1
+            this.dropdown1.push(String(month + index1))
+            for (let index2 = 0; index2 < 31; index2++) {
+                const day = 1
+                this.dropdown2.push(String(day + index2))
+            }
+        }
+    }
   },
   directives: {
     mask
