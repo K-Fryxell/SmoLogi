@@ -186,8 +186,6 @@ export default {
             //プロフィール写真
             uploadImageUrl: null,
             inputImage: '',
-            //姓
-            firstname: this.$store.state.user_fname,
             //名
             lastname: '',
             //姓カナ
@@ -263,6 +261,15 @@ export default {
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
     },
+    computed:{
+        //姓
+        user_fname(){
+            return this.$store.getters.user_fname
+        },
+        firstname(){
+            return this.user_fname
+        }
+    },
     methods:{
         validate(){
             this.$refs.form.validate()
@@ -326,6 +333,9 @@ export default {
     },
     directives: {
         mask
+    },
+    created() {
+        this.$store.commit('onAuthStateChanged')
     },
 }
 </script>
