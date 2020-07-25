@@ -185,21 +185,6 @@ export default {
             array:{},
             //プロフィール写真
             uploadImageUrl: null,
-            inputImage: '',
-            //名
-            lastname: '',
-            //姓カナ
-            firstkana: '',
-            //名カナ
-            lastkana: '',
-            //メールアドレス
-            email: '',
-            //郵便番号
-            post: '',
-            //住所
-            address: '',
-            //電話番号
-            tel: '',
             //v-formのv-model
             update :true,
             btnLayout:'end',
@@ -268,7 +253,56 @@ export default {
         },
         firstname(){
             return this.user_fname
-        }
+        },
+        //名
+        user_name(){
+            return this.$store.getters.user_name
+        },
+        lastname(){
+            return this.user_name
+        },
+        //姓カナ
+        user_fname_kana(){
+            return this.$store.getters.user_fname_kana
+        },
+        firstkana(){
+            return this.user_fname_kana
+        },
+        //名カナ
+        user_name_kana(){
+            return this.$store.getters.user_name_kana
+        },
+        lastkana(){
+            return this.user_name_kana
+        },
+        //メールアドレス
+        user_email(){
+            return this.$store.getters.user_email
+        },
+        email(){
+            return this.user_email
+        },
+        //郵便番号
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        post(){
+            return this.user_post
+        },
+        //住所
+        user_address(){
+            return this.$store.getters.user_address
+        },
+        address(){
+            return this.user_address
+        },
+        //電話番号
+        user_tel(){
+            return this.$store.getters.user_tel
+        },
+        tel(){
+            return this.user_tel
+        },
     },
     methods:{
         validate(){
