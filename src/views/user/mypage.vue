@@ -3,6 +3,12 @@
     <v-layout class="ma-0 pa-0" wrap>
         <v-flex xs12 lg12>
             <v-row justify="center" class="ma-0 pa-0">
+                <v-btn
+                        class="mb-5"
+                        width="120"
+                        @click="logout">
+                        ログアウト
+                    </v-btn>
                 <v-card class="ma-0 pa-0" elevation="0">
                     <v-card-title class="mt-12 justify-center" v-resize="onResize" :class="size">ようこそ！</v-card-title>
                     <v-row justify="center" class="ma-0 pa-0">
@@ -106,64 +112,71 @@ export default {
                 ]
             }
         },
-            computed: {
+            computed: {},
+                {
+                    name:'ねむい',
+                    weight:'2'
                 },
-            mounted(){
-                window.addEventListener('resize', this.onResize)
-            },
-            beforeDestory(){
-                window.removeEventListener('resize',this.onResize)
-            },
-            methods:{
-            logout:function(){
-                firebase.auth().signOut()
-            },
-            onResize(){
-                this.x = window.innerWidth;
-                this.y = window.innerHeight;
-            },
+                {
+                    name:'ねむい',
+                    weight:'2'
+                },
+                {
+                    name:'ねむい',
+                    weight:'2'
+                },
+                {
+                    name:'ねむい',
+                    weight:'2'
+                },
+                {
+                    name:'ねむい',
+                    weight:'2'
+                },
+                {
+                    name:'ねむい',
+                    weight:'2'
+                }
+            ]
+        }
+    },
+    computed:{
+        user_fname(){
+            return this.$store.getters.user_fname
+        }
+    },
+    mounted(){
+        window.addEventListener('resize', this.onResize)
+    },
+    beforeDestory(){
+        window.removeEventListener('resize',this.onResize)
+    },
+    methods:{
+        logout:function(){
+            firebase.auth().signOut()
+            alert('ログアウト')
         },
-            watch:{
-                x:function(){
-                    if(this.x<=600)
-                    {
-                        this.size= 'display-1'
-                    }else
-                    {
-                        this.size='display-3'
-                    }
-                },
-
-        created:function(){
-        // this.$store.onAuth()
-        // firebase.firestore().collection('comments').get().then(snapshot => {
-        //   snapshot.forEach(doc => {
-        //     //contentは要素
-        //     //pushは配列データそのもの
-        //     // this.allData.push(doc.data().content)
-        //     this.allData = doc().data().content
-        //   })
-        // })
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User logged in already or has just logged in.
-                // ユーザーIDの取得
-                console.log(user.uid);
-                this.user_id = user.uid
-                // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
-                firebase.firestore().collection('users').doc(this.user_id).get().then( doc => {
-                console.log(doc.data())
-                this.user.email = doc.data().email
-                this.user.pass = doc.data().password
-                // this.user.name = doc.data().fname
-                // this.user.sex = doc.data().sex
-            })
-            } else {
-                // User not logged in or has just logged out.
+        onResize(){
+            this.x = window.innerWidth;
+            this.y = window.innerHeight;
+        },
+        onAuth : function(){
+            this.$store.commit('onAuthStateChanged')
+        }
+    },
+    watch:{
+        x:function(){
+            if(this.x<=600)
+            {
+                this.size= 'display-1'
+            }else
+            {
+                this.size='display-3'
             }
         })
     },
-
-    },
+    created:function(){
+        this.onAuth()
+    }
 }
 </script>
