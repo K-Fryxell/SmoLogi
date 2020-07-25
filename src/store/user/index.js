@@ -56,6 +56,9 @@ export default ({
         // },
     },
     mutations: {
+        a(state,payload){
+            state.user_fname = payload
+        },
         registUser(state,array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
@@ -82,7 +85,7 @@ export default ({
                         }
                     })
                 })
-                
+
         },
         login(state,array)
         {
@@ -129,7 +132,7 @@ export default ({
                         state.isYear = doc.data().isYear
                         // 月
                         state.isMounth = doc.data().isMounth
-                        
+
                     })
                 } else {
                     // User not logged in or has just logged out.
