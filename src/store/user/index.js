@@ -63,10 +63,25 @@ export default ({
         },
         day(state) {
             return state.day
-        }
-        // user(state) {
-        //     return state.user;
-        // },
+        },
+        user_fname_kana(state) {
+            return state.user_fname_kana
+        },
+        user_name_kana(state) {
+            return state.user_name_kana
+        },
+        user_email(state) {
+            return state.user_email
+        }, 
+        user_post(state) {
+            return state.user_post
+        },
+        user_address(state) {
+            return state.user_address
+        },
+        user_tel(state) {
+            return state.user_tel
+        },
     },
     mutations: {
         a(state,payload){
@@ -123,7 +138,7 @@ export default ({
                         state.user_email = doc.data().email
                         // // 氏名・かな
                         state.user_fname = doc.data().firstname
-                        state.user_fname_kana = doc.data().firstkane
+                        state.user_fname_kana = doc.data().firstkana
                         state.user_name = doc.data().lastname
                         state.user_name_kana = doc.data().lastkana
                         // 郵便番号
