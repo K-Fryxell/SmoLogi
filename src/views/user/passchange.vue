@@ -6,11 +6,11 @@
                     <v-card tile width="600" class="mt-12 mx-2 mb-12" outlined>
                         <v-tabs>
                             <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
-                            <v-tab v-on:click="tab = 1">クレジットカード情報変更</v-tab>
+                            <v-tab v-on:click="tab = 1" :center-active="true">クレジットカード情報変更</v-tab>
                         </v-tabs>
                         <v-row class="ma-0 pa-0">
-                            <Pass v-if="tab == 0"/>
-                            <Cred v-if="tab == 1"/>
+                            <Pass v-if="tab === 0"/>
+                            <Cred v-else-if="tab === 1"/>
                         </v-row>
                     </v-card>
                 </v-row>
@@ -24,14 +24,13 @@ import Pass from '../../components/User/Pass.vue';
 import Cred from '../../components/User/Cred.vue';
 export default {
     data (){
-    return{
-        tab:0,
-    }
-},
+        return{
+            tab:0,
+        }
+    },
     components:{
         Pass,
         Cred
     },
-    methods:{}
 }
 </script>
