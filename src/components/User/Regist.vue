@@ -45,16 +45,32 @@
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
-                            <!-- <v-row class="ma-0 pa-0">
-                                <v-col cols="3" lg="3">
-                                    <v-text-field
-                                    prepend-icon="mdi-calendar-account"
-                                    v-model="age"
-                                    label="年齢"
-                                    :rules="ageRules"
-                                    hint="半角数字で記入してください。"/>
+                            <v-row class="ma-0 pa-0">
+                                <v-col :cols="birthCol" sm="4">
+                                    <v-select
+                                    v-model="birthValueYear"
+                                    :items="dropdown"
+                                    :rules="yearRules"
+                                    label="生年"
+                                    ></v-select>
                                 </v-col>
-                            </v-row> -->
+                                <v-col :cols="birthCol" sm="4">
+                                    <v-select
+                                    v-model="birthValueMonth"
+                                    :items="dropdown1"
+                                    :rules="monthRules"
+                                    label="月"
+                                    ></v-select>
+                                </v-col>
+                                <v-col :cols="birthCol" sm="4">
+                                    <v-select
+                                    v-model="birthValueDay"
+                                    :items="dropdown2"
+                                    :rules="dayRules"
+                                    label="日"
+                                    ></v-select>
+                                </v-col>
+                            </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                 <v-text-field
@@ -245,8 +261,13 @@ export default {
             lastkana:'',
             // 性別
             sex: '',
-            // 年齢
-            age: '',
+            // 誕生日
+            birthValueYear: '',
+            birthValueMonth: '',
+            birthValueDay: '',
+            dropdown: [],
+            dropdown1: [],
+            dropdown2: [],
             // 郵便番号
             post: '',
             // 住所
@@ -268,6 +289,9 @@ export default {
             valid: true,
             showPassword:false,
             showAgainPassword:false,
+            x:window.innerWidth,
+            y:window.innerHeight,
+            birthCol:'',
             // メールアドレスの登録
             registemailRules: [
                 v => !!v || '入力欄が空白です。',
@@ -301,9 +325,19 @@ export default {
                 v => !!v || '入力欄が空白です。',
                 v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
             ],
+            // 誕生日
             lastkanaRules: [
                 v => !!v || '入力欄が空白です。',
                 v => /[ァ-ヴ]$/.test(v) || 'カタカナで入力してください。'
+            ],
+            yearRules: [
+                v => !!v || '生年は必ず入力してください。'
+            ],
+            monthRules: [
+                v => !!v || '生月は必ず入力してください。'
+            ],
+            dayRules: [
+                v => !!v || '生日は必ず入力してください。'
             ],
             //郵便番号
             postRules: [
@@ -327,11 +361,6 @@ export default {
                 v => (v && v.length <= 50) || '50字以内で入力してください。',
                 v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。'
             ],
-            //年齢
-            ageRules: [
-                v => !!v || '入力欄が空白です。',
-                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            ],
             //電話番号
             telRules: [
                 v => !!v || '入力欄が空白です。',
@@ -354,7 +383,26 @@ export default {
             ]
         }
     },
+    mounted () {
+      this.onResize
+    },
+    watch:{
+        x:function(){
+            if(this.x<=400)
+            {
+                this.birthCol = '12'
+            }
+            else
+            {
+                this.birthCol = '4'
+            }
+        }
+    },
     methods: {
+        onResize () {
+            this.x = window.innerWidth
+            this.y = window.innerHeight
+        },
         signUp:async function(){
             // メールアドレス
             this.array['email'] = this.email
@@ -388,6 +436,20 @@ export default {
             this.array['isMonth'] = this.isMonth
 
             await this.$store.commit('registUser',this.array)
+        }
+    },
+    created() {
+        for (let index = 0; index < 120; index++) {
+            const year = 2019
+            this.dropdown.push(String(year - index))
+            for (let index1 = 0; index1 < 12; index1++) {
+                const month = 1
+                this.dropdown1.push(String(month + index1))
+                for (let index2 = 0; index2 < 31; index2++) {
+                    const day = 1
+                    this.dropdown2.push(String(day + index2))
+                }
+            }
         }
     },
     directives: {
