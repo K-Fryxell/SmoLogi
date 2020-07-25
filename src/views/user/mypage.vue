@@ -111,34 +111,6 @@ export default {
                     }
                 ]
             }
-        },
-            computed: {},
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                }
-            ]
-        }
     },
     computed:{
         user_fname(){
@@ -173,7 +145,7 @@ export default {
             {
                 this.size='display-3'
             }
-        })
+        }
     },
     created:function(){
         this.onAuth()
