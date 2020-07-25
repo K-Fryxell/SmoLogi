@@ -2,13 +2,19 @@ import firebase from 'firebase'
 import router from '../../router/index'
 export default ({
     state: {
+        errorCode: '',
+        errorMessage: '',
         // パートナーデータ
         array:{},
         part_user: {},
         part_user_id:'',
+        // ログイン情報のフラグ
+        status: false,
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
+        // パートナー顔画像
+        part_image: "",
         // 氏名・かな
         part_fname: "",
         part_fname_kana: "",
@@ -17,15 +23,24 @@ export default ({
         // ニックネーム
         nickname: "",
         // 住所
+        part_post:"",
         part_address: "",
+        // 電話番号
+        part_tel:"",
+        // 性別
+        part_gender:0,
+        // 誕生日
+        part_year:0,
+        part_month:0,
+        part_day:0,
         // 口座へのアクセスフラグ
         part_account_flg: 0,
-        // 銀行口座
-        part_account_number: 0,
+        // ゆうちょ情報
+        y_synbol: 0,
+        y_number: 0,
+        y_host:'',
         // 車種
         part_cartype_number: 0,
-        // パートナー顔画像
-        part_image: "",
         // 通知内容(フィールドにより対応必須(増える可能性大5.6個))
         part_notification_content: "",
         // 通知数
@@ -36,9 +51,54 @@ export default ({
 
         // レビュー機能星など1-5段階（仮）・余裕あればコメントも
         part_review_evaluation: 0,
-
     },
-    getters: {},
+    getters: {
+        isSignedIn(state) {
+            return state.status
+        },
+        part_image(state){
+            return state.part_image
+        },
+        part_fname(state){
+            return state.part_fname
+        },
+        part_name(state) {
+            return state.part_name
+        },
+        part_fname_kana(state) {
+            return state.part_fname_kana
+        },
+        part_name_kana(state) {
+            return state.part_name_kana
+        },
+        nickname(state) {
+            return state.nickname
+        },
+        part_year(state) {
+            return state.part_year
+        },
+        part_month(state) {
+            return state.part_month
+        },
+        part_day(state) {
+            return state.part_day
+        },
+        part_email(state) {
+            return state.part_email
+        },
+        part_post(state) {
+            return state.part_post
+        },
+        part_address(state) {
+            return state.part_address
+        },
+        part_tel(state) {
+            return state.part_tel
+        },
+        history(state) {
+            return state.part_usage_history
+        },
+    },
     mutations: {
         partRegistUser(state, array) {
             firebase.auth().createUserWithEmailAndPassword(
@@ -47,26 +107,79 @@ export default ({
                 )
                 .then(function() {
                     // ユーザ情報の変更などに検知
-                    firebase.auth().onAuthStateChanged((part_user) => {
-                        if (part_user) {
+                    firebase.auth().onAuthStateChanged((user) => {
+                        if (user) {
                             // User logged in already or has just logged in.
                             // ユーザーIDの取得
-                            console.log(part_user.uid);
+                            console.log(user.uid);
                             // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                            state.part_user_id = part_user.uid
+                            state.part_user_id = user.uid
                             firebase.firestore().collection("part_users").doc(state.part_user_id)
                             .set(array)
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
+                                router.push('/part_mypage')
                             })
                         } else {
                             // User not logged in or has just logged out.
                         }
                     })
-                    router.push('/part_mypage')
                 })
-            }
+        },
+        login(state,array)
+        {
+            firebase.auth().signInWithEmailAndPassword(
+                array['email'],
+                array['password'])
+            .then(()=>{
+                router.push('/part_mypage')
+            })
+        },
+        onAuthStateChanged(state) {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // User logged in already or has just logged in.
+                    // ユーザーIDの取得
+                    // console.log(user.uid);
+                    // this.user_id = user.uid
+                    // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
+                    firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
+                        console.log(doc.data())
+                        // メールアドレス
+                        state.part_email = doc.data().email
+                        // // 氏名・かな
+                        state.part_fname = doc.data().firstname
+                        state.part_fname_kana = doc.data().firstkana
+                        state.part_name = doc.data().lastname
+                        state.part_name_kana = doc.data().lastkana
+                        // 郵便番号
+                        state.part_post = doc.data().post
+                        // // 住所
+                        state.part_address = doc.data().address
+                        /// 性別
+                        state.part_gender = doc.data().sex
+                        // 誕生日
+                        state.part_year = doc.data().birthYear
+                        state.part_month = doc.data().birthMonth
+                        state.part_day = doc.data().birthDay
+                        // // 電話番号
+                        state.part_tel = doc.data().tel
+                        // ニックネーム
+                        state.nickname = doc.data().username
+                        // ゆうちょ銀行
+                        state.y_synbol = doc.data().y_synbol
+                        state.y_number = doc.data().y_number
+                        state.y_host = doc.data().y_host
+                    })
+                } else {
+                    // User not logged in or has just logged out.
+                }
+            })
+        },
+        logout() {
+            firebase.auth().signOut()
+        },
     },
     actions: {
 

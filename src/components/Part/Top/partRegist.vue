@@ -199,7 +199,7 @@
                                     <!-- 銀行の種類で分岐 -->
                                     <v-radio-group v-model="whichbank" :mandatory="false" row>
                                         <v-radio value="0" label="ゆうちょ銀行"/>
-                                        <v-radio value="1" label="その他"/>
+                                        <!-- <v-radio value="1" label="その他"/> -->
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
@@ -238,7 +238,7 @@
                             </v-row>
 
                             <!-- その他の銀行 -->
-                            <v-row class="ma-0 pa-0" v-if="whichbank==1">
+                            <!-- <v-row class="ma-0 pa-0" v-if="whichbank==1">
                                 <v-flex lg5 xs6>
                                     <v-col lg="12" cols="12">
                                         <v-text-field
@@ -304,15 +304,7 @@
                                     required
                                     ></v-text-field>
                                 </v-col>
-                            </v-row>
-
-
-
-
-
-
-
-
+                            </v-row> -->
                             <!-- ここから顔写真の登録   -->
                             <v-row class="ma-0 mt-5 pa-0" justify="center">
                                 <v-card-text align="center"  v-resize='onResize' :class='size_title'>
@@ -412,17 +404,17 @@ export default {
         address:'',
         tel:'',
         username:'',
-        //ここから銀行
         whichbank:null,
         y_symbol:'',
         y_number:'',
         y_host:'',
-        bankname:'',
-        bankcode:'',
-        branch:'',
-        branchcode:'',
-        number:'',
-        host:'',
+        // ここから銀行
+        // bankname:'',
+        // bankcode:'',
+        // branch:'',
+        // branchcode:'',
+        // number:'',
+        // host:'',
         // ここまで銀行
         uploadImageUrl: '',
         array: {},
@@ -517,35 +509,35 @@ export default {
             v => !!v || '入力欄が空欄です。',
             v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
         ],
-        //金融機関名
-        banknameRules:[
-             v => !!v || '入力欄が空欄です。',
-        ],
-        //金融機関コード
-        bankcodeRules:[
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length == 4) || '4字で入力してください。'
-        ],
-        //支店名
-        branchRules:[
-             v => !!v || '入力欄が空欄です。',
-        ],
-        //支店コード
-        branchcodeRules:[
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length == 3) || '3字で入力してください。'
-        ],
-        //口座番号
-        numberRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => (v &&  6 <= v.length <= 7) || '番号が違います。'
-        ],
-        //口座名義
-        hostRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
+        // //金融機関名
+        // banknameRules:[
+        //      v => !!v || '入力欄が空欄です。',
+        // ],
+        // //金融機関コード
+        // bankcodeRules:[
+        //     v => !!v || '入力欄が空白です。',
+        //     v => (v && v.length == 4) || '4字で入力してください。'
+        // ],
+        // //支店名
+        // branchRules:[
+        //      v => !!v || '入力欄が空欄です。',
+        // ],
+        // //支店コード
+        // branchcodeRules:[
+        //     v => !!v || '入力欄が空白です。',
+        //     v => (v && v.length == 3) || '3字で入力してください。'
+        // ],
+        // //口座番号
+        // numberRules:[
+        //     v => !!v || '入力欄が空欄です。',
+        //     v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+        //     v => (v &&  6 <= v.length <= 7) || '番号が違います。'
+        // ],
+        // //口座名義
+        // hostRules:[
+        //     v => !!v || '入力欄が空欄です。',
+        //     v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+        // ],
         inputImage: null,
     }
   },
@@ -586,17 +578,17 @@ export default {
             this.array['tel'] = this.tel
             this.array['email'] = this.email
             this.array['username'] = this.username
-            this.array['passwd'] = this.passwd
+            this.array['password'] = this.passwd
             this.array['y_symbol'] = this.y_symbol
             this.array['y_number'] = this.y_number
             this.array['y_host'] = this.y_host
-            this.array['bankname'] = this.bankname
-            this.array['bankcode'] = this.bankcode
-            this.array['branch'] = this.branch
-            this.array['branchcode'] = this.branchcode
-            this.array['number'] = this.number
-            this.array['host'] = this.host
-            this.$store.commit('register', this.array)
+            // this.array['bankname'] = this.bankname
+            // this.array['bankcode'] = this.bankcode
+            // this.array['branch'] = this.branch
+            // this.array['branchcode'] = this.branchcode
+            // this.array['number'] = this.number
+            // this.array['host'] = this.host
+            this.$store.commit('partRegistUser', this.array)
         },
         // selectfileボタン押下時
         btnclick() {
