@@ -26,9 +26,9 @@ export default ({
         // 性別
         user_gender:0,
         // 誕生日
-        year:0,
-        month:0,
-        day:0,
+        user_year:0,
+        user_month:0,
+        user_day:0,
         // クレジットカードナンバー
         user_credit_number: '',
         // セキュリティコード
@@ -43,9 +43,6 @@ export default ({
         user_usage_history: 0,
     },
     getters: {
-        history(state) {
-            return state.user_usage_history
-        },
         isSignedIn(state) {
             return state.status
         },
@@ -54,6 +51,12 @@ export default ({
         },
         user_name(state) {
             return state.user_name
+        },
+        user_fname_kana(state) {
+            return state.user_fname_kana
+        },
+        user_name_kana(state) {
+            return state.user_name_kana
         },
         year(state) {
             return state.year
@@ -64,15 +67,9 @@ export default ({
         day(state) {
             return state.day
         },
-        user_fname_kana(state) {
-            return state.user_fname_kana
-        },
-        user_name_kana(state) {
-            return state.user_name_kana
-        },
         user_email(state) {
             return state.user_email
-        }, 
+        },
         user_post(state) {
             return state.user_post
         },
@@ -82,11 +79,11 @@ export default ({
         user_tel(state) {
             return state.user_tel
         },
+        history(state) {
+            return state.user_usage_history
+        },
     },
     mutations: {
-        a(state,payload){
-            state.user_fname = payload
-        },
         registUser(state,array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
@@ -148,9 +145,9 @@ export default ({
                         /// 性別
                         state.user_gender = doc.data().sex
                         // 誕生日
-                        state.year = doc.data().birthYear
-                        state.month = doc.data().birthMonth
-                        state.day = doc.data().birthDay
+                        state.user_year = doc.data().birthYear
+                        state.user_month = doc.data().birthMonth
+                        state.user_day = doc.data().birthDay
                         // クレジットカードナンバー
                         state.user_credit_number = doc.data().card
                         // // 電話番号
@@ -170,10 +167,6 @@ export default ({
                 }
             })
         },
-        // ログイン状態の確認
-        // onUserStatusChanged(state, status) {
-        //     state.status = status; //ログインしてるかどうか true or false
-        // },
         logout() {
             firebase.auth().signOut()
         }
