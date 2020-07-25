@@ -2,6 +2,7 @@ import firebase from 'firebase'
 import router from '../../router/index'
 export default ({
     state: {
+        tab:0,
         errorCode: '',
         errorMessage: '',
         // ユーザデータ

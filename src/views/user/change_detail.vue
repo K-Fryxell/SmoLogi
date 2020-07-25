@@ -148,21 +148,9 @@
                                         outlined
                                         x-large
                                         rounded
+                                        to="/user_passchange"
                                     >
-                                        クレジットカード情報変更
-                                    </v-btn>
-                                </v-row>
-
-                                <!--パスワード変更ボタン -->
-                                <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
-                                    <v-btn
-                                        class="mt-12"
-                                        color="grey darken-2"
-                                        outlined
-                                        x-large
-                                        rounded
-                                    >
-                                        パスワード変更
+                                        パスワード・クレジットカード情報変更
                                     </v-btn>
                                 </v-row>
                             </v-col>
@@ -348,7 +336,7 @@ export default {
                     this.uploadImageUrl = fr.result
                     // alert(this.uploadImageUrl);
                 })
-        }
+        },
     },
     watch:{
         x:function(){
