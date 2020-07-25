@@ -18,13 +18,14 @@
                                     </v-row>
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
-                                            <!-- <img v-if="this.$store.state.img!='no_image' &!uploadImageUrl"
-                                                :src="this.$store.state.img"
+                                            <img
+                                                :src="img"
                                                 alt="アイコンa"
-                                                style="border-radius: 8em;
-                                                width:500px;
-                                                height:500px;"
+                                                style="border-radius: 8em;"
+                                                width="500"
+                                                height="500"
                                             >
+                                            <!--
                                             <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                                 src="#"
                                                 alt="アイコンb"
@@ -215,10 +216,11 @@ export default {
             //電話番号
             tel: '',
             //v-formのv-model
-						update :true,
-						btnLayout:'end',
-						x:0,
+            update :true,
+            btnLayout:'end',
+            x:0,
             y:0,
+            img:require("@/assets/icon.jpg"),
             //Rules
             // 姓名
             firstnameRules: [
@@ -267,8 +269,8 @@ export default {
                 v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
         }
-		},
-		mounted(){
+    },
+    mounted(){
       window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
@@ -277,8 +279,8 @@ export default {
     methods:{
         validate(){
             this.$refs.form.validate()
-				},
-				onResize(){
+        },
+        onResize(){
             this.x = window.innerWidth;
             this.y = window.innerHeight;
         },
@@ -307,20 +309,20 @@ export default {
             this.$refs.input.click()
         },
         async selectedFile() {
-						this.isUploading = true;
-						const file = this.$refs.input.files[0]
-								if (!file) {
-										return;
-								}
-						const fr = new FileReader()
-								fr.readAsDataURL(file)
-								fr.addEventListener('load', () => {
-										this.uploadImageUrl = fr.result
-										// alert(this.uploadImageUrl);
-								})
-					}
-		},
-		watch:{
+            this.isUploading = true;
+            const file = this.$refs.input.files[0]
+                    if (!file) {
+                            return;
+                    }
+            const fr = new FileReader()
+                fr.readAsDataURL(file)
+                fr.addEventListener('load', () => {
+                    this.uploadImageUrl = fr.result
+                    // alert(this.uploadImageUrl);
+                })
+        }
+    },
+    watch:{
         x:function(){
             if(this.x<=600)
             {
