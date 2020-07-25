@@ -18,27 +18,18 @@
                                     </v-row>
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
-                                            <img
-                                                :src="img"
-                                                alt="アイコンa"
-                                                style="border-radius: 8em;"
-                                                width="500"
-                                                height="500"
-                                            >
-                                            <!--
-                                            <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
-                                                src="#"
-                                                alt="アイコンb"
-                                                style="border-radius: 8em;
-                                                width:500px;
-                                                height:500px;"
-                                            > -->
                                             <img v-if="uploadImageUrl"
                                                 :src="uploadImageUrl"
                                                 alt="アイコン"
-                                                style="border-radius: 8em;
-                                                width:200px;
-                                                height:200px;"
+                                                width="500"
+                                                height="500"
+                                            >
+                                            <img
+                                                v-if="!uploadImageUrl"
+                                                :src="img"
+                                                alt="アイコンa"
+                                                width="500"
+                                                height="500"
                                             >
                                         </v-avatar>
                                     </v-row>
@@ -197,7 +188,7 @@ export default {
             TEL: '###-####-####',
             array:{},
             //プロフィール写真
-            uploadImageUrl: '',
+            uploadImageUrl: null,
             inputImage: '',
             //姓
             firstname: '',
