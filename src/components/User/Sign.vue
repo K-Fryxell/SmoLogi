@@ -46,7 +46,7 @@
             </v-dialog>
 
             <!-- 新規登録ページボタン -->
-            <v-btn dark style="background-color: #57bd7d" to="registration/">
+            <v-btn dark style="background-color: #57bd7d" to="/user_regist">
                 新規登録
             </v-btn>
         </div>

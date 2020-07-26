@@ -64,24 +64,26 @@ import Ufooter from '../components/User/Ufooter'
 export default {
     data(){
         return{
-            imageurl:require("../assets/delivery.jpg"),
-            x:0,
-            y:0,
-                }
+                imageurl:require("../assets/delivery.jpg"),
+                x:0,
+                y:0,
+            }
+        },
+        mounted(){
+            window.addEventListener('resize', this.onResize)
+        },
+        beforeDestory(){
+            window.removeEventListener('resize',this.onResize)
+        },
+        methods: {
+            onResize(){
+                this.x =  window.innerWidth;
+                this.y = window.innerHeight;
             },
-            mounted(){
-                window.addEventListener('resize', this.onResize)
-            },
-            beforeDestory(){
-                window.removeEventListener('resize',this.onResize)
-            },methods: {
-                onResize(){
-                    this.x =  window.innerWidth;
-                    this.y = window.innerHeight;
-                },
-                },components:{
-                    TopHeader,
-                    Ufooter,
-                    }
+        },
+        components:{
+            TopHeader,
+            Ufooter,
         }
+    }
 </script>
