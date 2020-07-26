@@ -109,7 +109,7 @@ export default ({
                 })
 
         },
-        login(state,array)
+        user_login(state,array)
         {
             firebase.auth().signInWithEmailAndPassword(
                 array['email'],
@@ -176,6 +176,8 @@ export default ({
                     state.user_id = user.uid
                     array['userid'] = state.user_id
                     array['gender'] = state.user_gender
+                    // array['name'] = this.getters.user_fname
+                    console.log(state.user_fname)
                     firebase.firestore().collection("users").doc(state.user_id).collection('room')
                         .add({
                             weight: array['weight'],
@@ -192,7 +194,8 @@ export default ({
                             isMinute: array['isMinute'],
                             isTime: array['isTime'],
                             userid: array['userid'],
-                            gender: array['gender']
+                            gender: array['gender'],
+                            // name:array['name']
                         })
                         .then(function () {
                             // 正常にデータ保存できた時の処理

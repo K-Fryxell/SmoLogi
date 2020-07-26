@@ -55,7 +55,7 @@
                                             </v-col>
                                         </v-row>
                                         <v-row class="ma-0 pa-0" justify="center">
-                                            <v-btn class="white--text pa-6" color="green"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
+                                            <v-btn class="white--text pa-6" color="green" to="/part_request"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
                                         </v-row>
                                     </v-tab-item>
 

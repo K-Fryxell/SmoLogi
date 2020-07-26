@@ -99,7 +99,7 @@ export default {
             this.loading = true
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
-            this.$store.commit('login', this.array)
+            this.$store.commit('user_login', this.array)
             
             // if (this.mailaddress === '' || this.password === '') return
             // firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)

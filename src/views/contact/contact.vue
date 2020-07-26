@@ -72,7 +72,7 @@
                         <v-card class="white display-1 overflow-y-auto" max-height="470" height="470" min-width="375" max-width="375" elevation="0" tile>
                             <v-card-text
                                 v-for="(item,index) in chat"
-                                :key="item.content"
+                                :key="index"
                                 :index="index"
                                 class="black--text"
                             >

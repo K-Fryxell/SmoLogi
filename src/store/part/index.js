@@ -51,6 +51,12 @@ export default ({
 
         // レビュー機能星など1-5段階（仮）・余裕あればコメントも
         part_review_evaluation: 0,
+        // 依頼一覧
+        trans:[],
+        // 総重量
+        part_weight: 0,
+        // 受諾したユーザ情報
+        user_info:[]
     },
     getters: {
         isSignedIn(state) {
@@ -98,6 +104,12 @@ export default ({
         history(state) {
             return state.part_usage_history
         },
+        trans(state) {
+            return state.trans
+        },
+        part_weight(state) {
+            return state.part_weight
+        },
     },
     mutations: {
         partRegistUser(state, array) {
@@ -127,7 +139,7 @@ export default ({
                     })
                 })
         },
-        login(state,array)
+        part_login(state,array)
         {
             firebase.auth().signInWithEmailAndPassword(
                 array['email'],
@@ -136,7 +148,7 @@ export default ({
                 router.push('/part_mypage')
             })
         },
-        onAuthStateChanged(state) {
+        part_onAuthStateChanged(state) {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     // User logged in already or has just logged in.
@@ -175,6 +187,24 @@ export default ({
                 } else {
                     // User not logged in or has just logged out.
                 }
+            })
+        },
+        getTtransport(state){
+            state.trans = []
+            firebase.firestore().collection('transport').get().then(async snapshot => {
+                await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // console.log(doc.data())
+                    state.trans.push({
+                        user_id: doc.data().userid,
+                        gender:doc.data().gender,
+                        isTime:doc.data().isTime,
+                        isMinute: doc.data().isMinute,
+                        weight: doc.data().weight,
+                        name: doc.data().weight
+                    })
+                })
             })
         },
         logout() {
