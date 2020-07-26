@@ -41,6 +41,9 @@ export default ({
         isMounth:0,
         // 利用回数履歴
         user_usage_history: 0,
+        // 緯度経度
+        user_lat:0,
+        user_lng:0,
     },
     getters: {
         user_fname(state){
@@ -55,14 +58,14 @@ export default ({
         user_name_kana(state) {
             return state.user_name_kana
         },
-        year(state) {
-            return state.year
+        user_year(state) {
+            return state.user_year
         },
-        month(state) {
-            return state.month
+        user_month(state) {
+            return state.user_month
         },
-        day(state) {
-            return state.day
+        user_day(state) {
+            return state.user_day
         },
         user_email(state) {
             return state.user_email
@@ -75,6 +78,12 @@ export default ({
         },
         user_tel(state) {
             return state.user_tel
+        },
+        user_lat(state) {
+            return state.user_lat
+        },
+        user_lng(state) {
+            return state.user_lng
         },
         // history(state) {
         //     return state.user_usage_history
@@ -176,8 +185,6 @@ export default ({
                     state.user_id = user.uid
                     array['userid'] = state.user_id
                     array['gender'] = state.user_gender
-                    // array['name'] = this.getters.user_fname
-                    console.log(state.user_fname)
                     firebase.firestore().collection("users").doc(state.user_id).collection('room')
                         .add({
                             weight: array['weight'],
@@ -195,7 +202,9 @@ export default ({
                             isTime: array['isTime'],
                             userid: array['userid'],
                             gender: array['gender'],
-                            // name:array['name']
+                            name:array['name'],
+                            user_lat:array['user_lat'],
+                            user_lng:array['user_lng']
                         })
                         .then(function () {
                             // 正常にデータ保存できた時の処理

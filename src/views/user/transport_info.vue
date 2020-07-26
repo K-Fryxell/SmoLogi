@@ -144,6 +144,9 @@ export default {
             x:0,
             y:0,
             btnLayout:'end',
+            //緯度経度
+            user_latitude:0,
+            user_longitude:0,
             //ダイアログ
             dialog: false,
             array:{},
@@ -155,6 +158,11 @@ export default {
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
     },
+    computed: {
+        name() {
+            return this.$store.getters.user_fname
+        }
+    },
     methods:{
         select(kg){
             this.weight = kg
@@ -163,12 +171,18 @@ export default {
             this.$refs.form.validate()
         },
         decide(){
+            //名前
+            this.array['name'] = this.name
             //時
             this.array['isTime'] = this.isTime
             //分
             this.array['isMinute'] = this.isMinute
             //重さ
             this.array['weight'] = this.weight
+            //緯度経度
+            this.array['user_lat'] = this.user_latitude
+            this.array['user_lng'] = this.user_longitude
+            
             this.$store.commit('transport', this.array)
         },
         onResize(){
@@ -190,6 +204,17 @@ export default {
     components: {
         Ufooter,
         Uheader,
+    },
+    created() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+            function(position){
+                let coords = position.coords;
+                // 緯度経度だけ取得
+                this.user_latitude = coords.latitude;
+                this.user_longitude = coords.longitude;
+            }.bind(this))
+        }
     },
 }
 </script>

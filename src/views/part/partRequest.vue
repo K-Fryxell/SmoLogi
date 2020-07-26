@@ -9,7 +9,7 @@
                         <v-row class="ma-0 pa-0" justify="center">
                         <v-col class="ma-6 pa-0" cols="10" lg="7">
                         <v-card @click="request(index)">
-                            {{message1}}:{{item.place}}m<br/>
+                            依頼場所まで:{{item.place}}m<br/>
                             <v-img
                                 v-resize='onResize' :height='size_card'
                                 v-if="item.gender==0"
@@ -24,8 +24,8 @@
                                 class="my-3"
                                 contain
                             />
-                            {{message2}}:{{item.isTime}}時{{item.isMinute}}分<br/>
-                            {{message3}}:{{item.weight}}kg
+                            配達希望時間:{{item.isTime}}時{{item.isMinute}}分<br/>
+                            荷物の重量:{{item.weight}}kg
                         </v-card>
                         </v-col>
                         </v-row>
@@ -59,9 +59,6 @@ export default {
             size_title:'title',
             size_subtitle:'subtitle-1',
             size_body:'body-1',
-            message1:'依頼場所まで',
-            message2:'配達希望時間',
-            message3:'荷物の重力',
             sumweight:0,
             img:require('@/assets/part/obaachan.png'),
             illust:require('@/assets/part/ojiichan.png'),

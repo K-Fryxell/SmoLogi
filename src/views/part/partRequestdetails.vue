@@ -20,10 +20,10 @@
                                 />
                             </v-avatar>
                         </v-row>
-                        <v-card-text class="text-center black--text subtitle-1">{{username}}さん</v-card-text>
+                        <v-card-text class="text-center black--text subtitle-1">{{items.name}}さん</v-card-text>
                         <v-card-text class="text-center black--text subtitle-1">依頼場所まで：{{place}} ㎞</v-card-text>
-                        <v-card-text class="text-center black--text subtitle-1">配達希望時間：{{time}}</v-card-text>
-                        <v-card-text class="text-center black--text subtitle-1">荷物の重量：{{weight}} kg</v-card-text>
+                        <v-card-text class="text-center black--text subtitle-1">配達希望時間：{{items.isTime}}時{{ items.isMinute }}分</v-card-text>
+                        <v-card-text class="text-center black--text subtitle-1">荷物の重量：{{items.weight}} kg</v-card-text>
                         <v-row align="center">
                             <v-col class="text-center" cols="12" sm="12">
                                 <div class="my-1">
@@ -45,7 +45,7 @@
 import Header from '../../components/Part/Header';
 import Footer from '../../components/Part/Footer';
 export default {
-    data() {    
+    data() {
         return {
             x:window.innerWidth,
             y:window.innerHeight,
@@ -55,15 +55,11 @@ export default {
             size_title:'title',
             size_subtitle:'subtitle-1',
             size_body:'body-1',
-            message1:'依頼場所まで',
-            message2:'配達希望時間',
-            message3:'荷物の重力',
             sumweight:0,
-            username:'ハムカツ！！！',
             illust:require('@/assets/part/obaachan.png'),
-            place:'2000',
-            time:'120',
-            weight:'2',
+            part_latitude:0,
+            part_longitude:0,
+            place:0,
             items:[]
         }
     },
@@ -104,8 +100,22 @@ export default {
         }
     },
     created:function(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+            function(position){
+                let coords = position.coords;
+                // 緯度経度だけ取得
+                this.part_latitude = coords.latitude;
+                this.part_longitude = coords.longitude;
+            }.bind(this))
+        }
         console.log(this.$store.state.user_info['user_id'])
         this.items = this.$store.state.user_info
+        this.part_latitude *= Math.PI / 180;
+        this.part_longitude *= Math.PI / 180;
+        this.items['user_lat'] *= Math.PI / 180;
+        this.items['user_lng'] *= Math.PI / 180;
+        this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']));
     }
 }
 </script>
