@@ -43,9 +43,6 @@ export default ({
         user_usage_history: 0,
     },
     getters: {
-        isSignedIn(state) {
-            return state.status
-        },
         user_fname(state){
             return state.user_fname
         },
@@ -79,9 +76,9 @@ export default ({
         user_tel(state) {
             return state.user_tel
         },
-        history(state) {
-            return state.user_usage_history
-        },
+        // history(state) {
+        //     return state.user_usage_history
+        // },
     },
     mutations: {
         registUser(state,array) {

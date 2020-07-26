@@ -51,7 +51,7 @@
             </v-row>
             <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center">
                 <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="70" class="display-1" elevation="0">
+                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
                         配達完了
                     </v-btn>
                 </v-col>
@@ -69,27 +69,27 @@
                         >
                             Mapに戻る
                         </v-btn>
-                        <v-card class="display-1 overflow-y-auto" max-height="500" max-width="375" elevation="0" tile>
+                        <v-card class="white display-1 overflow-y-auto" max-height="470" height="470" min-width="375" max-width="375" elevation="0" tile>
                             <v-card-text
                                 v-for="(item,index) in chat"
                                 :key="item.content"
                                 :index="index"
+                                class="black--text"
                             >
-                                ニックネーム:<v-card-text
-                                        class="title pt-0 ma-0">
-                                        {{item.content}}
-                                    </v-card-text>
+                                ニックネーム:
+                                <v-card-text
+                                    class="title pt-0 ma-0">
+                                    {{item.content}}
+                                </v-card-text>
                             </v-card-text>
                         </v-card>
                         
-                        <v-card class="white black--text display-1 py-2 pl-5 ma-0" outlined max-height="60" elevation="0">
+                        <v-card class="display-1 py-2 pl-5 ma-0" outlined max-height="60" elevation="0">
                             <v-row class="ma-0 pa-0" justify="end">
                                 <v-col cols="10" class="ma-0 pa-0">
                                     <v-text-field
                                         label="Message"
-                                        class="ma-0"
-                                        color="black"
-                                        background-color="white"
+                                        class="ma-0 black--text"
                                         v-model="coment"
                                     ></v-text-field>
                                 </v-col>
@@ -103,6 +103,29 @@
                     </v-col>
                 </v-row>
             </v-overlay>
+            <v-dialog v-model="dialog" width="500">
+                <v-card>
+                    <v-row justify="center" class="pa-0 ma-0">
+                        <v-col cols="auto">
+                            <v-card-title>
+                                依頼を完了しますか?
+                            </v-card-title>
+                            <v-row justify="center" class="pa-0 ma-0">
+                                <v-col cols="auto">
+                                    <v-btn width="50" @click="dialog=false">
+                                        いいえ
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="auto">
+                                    <v-btn width="50">
+                                        はい
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-dialog>
         </v-flex>
     </v-layout>
 </template>
@@ -142,7 +165,8 @@ export default {
             // ],
             absolute: true,
             opacity: 0.4,
-            overlay: true,
+            overlay: false,
+            dialog:false
         }
     },
     methods:{
