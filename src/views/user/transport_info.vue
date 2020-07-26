@@ -150,7 +150,7 @@ export default {
         }
     },
     mounted(){
-      window.addEventListener('resize', this.onResize)
+        window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)

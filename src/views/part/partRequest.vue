@@ -13,16 +13,16 @@
                             <v-img
                                 v-resize='onResize' :height='size_card'
                                 v-if="item.gender==0"
-                                :src="img"
+                                :src="illust"
                                 class="my-3"
                                 contain
                                 />
                             <v-img
-                            v-resize='onResize' :height='size_card'
-                            v-else-if="item.gender==1"
-                            :src="img"
-                            class="my-3"
-                            contain
+                                v-resize='onResize' :height='size_card'
+                                v-else-if="item.gender==1"
+                                :src="img"
+                                class="my-3"
+                                contain
                             />
                             {{message2}}:{{item.isTime}}時{{item.isMinute}}分<br/>
                             {{message3}}:{{item.weight}}kg
