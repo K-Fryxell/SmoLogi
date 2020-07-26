@@ -115,7 +115,7 @@
                                     <v-card-actions>
                                         <v-spacer/>
                                         <v-btn color="green darken-1" text @click="dialog = false">戻る</v-btn>
-                                        <v-btn color="green darken-1" text>確定</v-btn>
+                                        <v-btn color="green darken-1" text @click="decide()">確定</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
@@ -169,6 +169,7 @@ export default {
             this.array['isMinute'] = this.isMinute
             //重さ
             this.array['weight'] = this.weight
+            this.$store.commit('transport', this.array)
         },
         onResize(){
             this.x = window.innerWidth;

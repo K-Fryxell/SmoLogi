@@ -165,6 +165,44 @@ export default ({
                 }
             })
         },
+        // 依頼する
+        transport(state, array) {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // User logged in already or has just logged in.
+                    // ユーザーIDの取得
+                    console.log(user.uid);
+                    // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                    state.user_id = user.uid
+                    array['userid'] = state.user_id
+                    array['gender'] = state.user_gender
+                    firebase.firestore().collection("users").doc(state.user_id).collection('room')
+                        .add({
+                            weight: array['weight'],
+                            isMinute: array['isMinute'],
+                            isTime: array['isTime'],
+                        })
+                        .then(function () {
+                            // 正常にデータ保存できた時の処理
+                            console.log('success')
+                        })
+                    firebase.firestore().collection("transport").doc(state.user_id)
+                        .set({
+                            weight: array['weight'],
+                            isMinute: array['isMinute'],
+                            isTime: array['isTime'],
+                            userid: array['userid'],
+                            gender: array['gender']
+                        })
+                        .then(function () {
+                            // 正常にデータ保存できた時の処理
+                            console.log('success')
+                        })
+                } else {
+                    // User not logged in or has just logged out.
+                }
+            })
+        },
         // ログイン状態の確認
         // onUserStatusChanged(state, status) {
         //     state.status = status; //ログインしてるかどうか true or false
