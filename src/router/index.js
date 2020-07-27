@@ -48,13 +48,13 @@ const routes = [{
         path: '/kiyaku',
         name: 'Kiyaku',
         component: () =>
-            import ('../views/footer/Kiyaku.vue')
+            import ('../views/footer/kiyaku.vue')
     },
     {
         path: '/question',
         name: 'Question',
         component: () =>
-            import ('../views/footer/Question.vue')
+            import ('../views/footer/question.vue')
     },
     {
         path: '/part_registuser',

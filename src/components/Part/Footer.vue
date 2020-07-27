@@ -44,7 +44,7 @@
                 </v-btn>
               </v-row>
             </v-col>
-
+            
             <v-col class="text-center py-12 overline" cols="12">
               copylight &copy; nimoti
             </v-col>
