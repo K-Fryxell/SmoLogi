@@ -202,7 +202,9 @@ export default ({
                         isTime:doc.data().isTime,
                         isMinute: doc.data().isMinute,
                         weight: doc.data().weight,
-                        name: doc.data().weight
+                        name: doc.data().name,
+                        user_lat: doc.data().user_lat,
+                        user_lng: doc.data().user_lng
                     })
                 })
             })
