@@ -60,6 +60,7 @@ import firebase from 'firebase'
 export default {
     data(){
         return{
+            array:{},
             mailaddress: '',
             password: '',
             // モーダル表示・非表示
@@ -95,19 +96,9 @@ export default {
         },
         // ログイン
         login(){
-            if (this.mailaddress === '' || this.password === '') return
-            this.loading = true
-            firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
-            .then(()=>{
-                this.$router.push('/part_mypage')
-            })
-            .catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
+            this.array['email'] = this.mailaddress
+            this.array['password'] = this.password
+            this.$store.commit('part_login',this.array)
         },
         // モーダルを閉じる
         close(){

@@ -186,8 +186,6 @@
                                 </v-col>
                             </v-row>
 
-
-
                             <!-- 銀行情報 -->
                             <v-row class="ma-0 mt-5 pa-0">
                                 <v-card-text v-resize='onResize' :class='size_title'>
@@ -313,7 +311,7 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
+                                    <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
@@ -326,8 +324,8 @@
                                         style="border-radius: 8em;
                                         width:200px;
                                         height:200px;"
-                                    >
-                                    <img v-if="uploadImageUrl"
+                                    > -->
+                                    <img
                                         :src="uploadImageUrl"
                                         alt="アイコンc"
                                         style="border-radius: 8em;
@@ -392,6 +390,7 @@ export default {
         birthValueYear: 0,
         birthValueMonth: 0,
         birthValueDay: 0,
+        birthCol:0,
         dropdown: [],
         dropdown1: [],
         dropdown2: [],
@@ -416,7 +415,7 @@ export default {
         // number:'',
         // host:'',
         // ここまで銀行
-        uploadImageUrl: '',
+        uploadImageUrl: require("@/assets/icon.jpg"),
         array: {},
         regist: true,
         //文字サイズ
@@ -560,9 +559,6 @@ export default {
         onResize () {
         this.x = window.innerWidth
         this.y = window.innerHeight
-        },
-        validate () {
-            this.$refs.form.validate()
         },
         register(){
             this.array['firstname'] = this.firstname

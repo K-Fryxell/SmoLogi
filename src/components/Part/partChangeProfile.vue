@@ -61,7 +61,6 @@
                             </v-row>
                             <!-- ここまで顔写真の登録 -->
 
-                            
                             <v-row class="ma-0 pa-0">
                             <!-- 姓textarea -->
                                 <v-flex lg6 xs6>

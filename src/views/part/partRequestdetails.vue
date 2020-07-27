@@ -95,6 +95,7 @@ export default {
             this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']))
             this.place = Math.floor(this.place)
         }
+        
     },
     watch:{
         x:function(){
