@@ -60,7 +60,8 @@ export default {
             part_latitude:0,
             part_longitude:0,
             place:0,
-            items:[]
+            items:[],
+            flg: false
         }
     },
     components:{
@@ -68,14 +69,32 @@ export default {
         Header,
         Footer
     },
-    mounted () {
-      this.onResize
+    mounted:async function() {
+        this.onResize
     },
     methods: {
-      onResize () {
-        this.x = window.innerWidth
-        this.y = window.innerHeight
-      },
+        onResize () {
+            this.x = window.innerWidth
+            this.y = window.innerHeight
+        },
+        calc() {
+            console.log(this.part_latitude)
+            console.log(this.part_longitude)
+            console.log(this.$store.state.user_info['user_lat'])
+            console.log(this.$store.state.user_info['user_lng'])
+
+            this.items = this.$store.state.user_info
+
+            //緯度経度取得
+            this.part_latitude *= Math.PI / 180;
+            this.part_longitude *= Math.PI / 180;
+            this.items['user_lat'] *= Math.PI / 180;
+            this.items['user_lng'] *= Math.PI / 180;
+
+            //計算
+            this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']))
+            this.place = Math.floor(this.place)
+        }
     },
     watch:{
         x:function(){
@@ -97,9 +116,15 @@ export default {
                 this.size_subtitele = 'subtitle-1',
                 this.size_body = 'body-1'
             }
+        },
+        part_latitude: function(){
+            this.flg = true
+        },
+        flg: function(){
+            this.calc()
         }
     },
-    created:function(){
+    created() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
@@ -109,13 +134,6 @@ export default {
                 this.part_longitude = coords.longitude;
             }.bind(this))
         }
-        console.log(this.$store.state.user_info['user_id'])
-        this.items = this.$store.state.user_info
-        this.part_latitude *= Math.PI / 180;
-        this.part_longitude *= Math.PI / 180;
-        this.items['user_lat'] *= Math.PI / 180;
-        this.items['user_lng'] *= Math.PI / 180;
-        this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']));
-    }
+    },
 }
 </script>
