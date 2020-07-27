@@ -40,7 +40,7 @@
             <v-col class="ma-0 pa-0">
               <v-row justify="center">
                 <v-btn to="/" class="overline lighten-1" :elevation=0 color="white" text>
-                  <span v-resize='onResize' :class='size'>パートへ</span>
+                  <span v-resize='onResize' :class='size'>ユーザトップへ</span>
                 </v-btn>
               </v-row>
             </v-col>
