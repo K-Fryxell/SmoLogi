@@ -37,7 +37,13 @@
                 </v-btn>
               </v-row>
             </v-col>
-
+            <v-col class="ma-0 pa-0">
+              <v-row justify="center">
+                <v-btn to="/part_top" height="27" width="40" class="overline lighten-1" :elevation="0" color="white" text>
+                  パートへ
+                </v-btn>
+              </v-row>
+            </v-col>
             <v-col class="text-center py-2 overline" cols="12">
               copylight &copy; nimoti
             </v-col>
