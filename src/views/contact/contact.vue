@@ -83,7 +83,7 @@
                                 </v-card-text>
                             </v-card-text>
                         </v-card>
-                        
+
                         <v-card class="display-1 py-2 pl-5 ma-0" outlined max-height="60" elevation="0">
                             <v-row class="ma-0 pa-0" justify="end">
                                 <v-col cols="10" class="ma-0 pa-0">
@@ -152,7 +152,8 @@ export default {
             center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
             mapStyle: {
-                disableDefaultUI: true, // 表示のオプションを指定できます。
+                disableDefaultUI: false, // 表示のオプションを指定できます。
+                gestureHandling: 'cooperative',
                 styles: [
                     // console.log(process.env['VUE_APP_API_MAP']),
                     // カスタマイズで使用したスタイルなどはここに。
