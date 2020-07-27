@@ -15,13 +15,8 @@
 </template>
 
 <script>
-import PartSign from '@/components/Part/PartSign'
+import PartSign from '@/components/Part/Top/PartSign'
 export default {
-    data(){
-        return{
-
-        }
-    },
     components:{
         PartSign
     }

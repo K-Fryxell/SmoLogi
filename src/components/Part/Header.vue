@@ -14,15 +14,3 @@
     </v-toolbar>
   </v-card>
 </template>
-
-<script>
-export default {
-    data(){
-        return{
-
-        }
-    },
-    components:{
-    }
-}
-</script>

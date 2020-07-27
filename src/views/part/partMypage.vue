@@ -108,7 +108,7 @@
 import firebase from 'firebase'
 import Header from '@/components/Part/Header'
 import Footer from '@/components/Part/Footer'
-import partChangeProfile from '@/components/Part/partChangeProfile.vue'
+import partChangeProfile from '@/components/Part/PartChangeProfile.vue'
 
 export default {
     data() {

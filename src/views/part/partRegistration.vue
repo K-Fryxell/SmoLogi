@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import partRegist from '../../components/Part/Top/partRegist';
-import partLogin from '../../components/Part/Top/partLogin';
+import partRegist from '../../components/Part/Regist/PartRegist';
+import partLogin from '../../components/Part/Regist/PartLogin';
 import Header from '../../components/Part/Header';
 import Footer from '../../components/Part/Footer';
 export default {

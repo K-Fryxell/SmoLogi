@@ -205,8 +205,8 @@
 
 
 <script>
-import partChangePasswd from '../../components/Part/partChangePasswd.vue'
-import partChangeBank from '@/components/Part/partChangeBank.vue'
+import partChangePasswd from '@/components/Part/PartChangePasswd.vue'
+import partChangeBank from '@/components/Part/PartChangeBank.vue'
 
 export default {
     data (){
