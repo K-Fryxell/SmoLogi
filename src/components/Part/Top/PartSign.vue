@@ -99,8 +99,7 @@ export default {
             this.loading = true
             firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
             .then(()=>{
-                this.mailaddress = '';
-                this.password = '';
+                this.$router.push('/part_mypage')
             })
             .catch(function(error) {
                 // Handle Errors here.
