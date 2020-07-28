@@ -49,7 +49,7 @@
                                             </v-col>
                                             <v-col lg="12" cols="12">
                                                 <v-row class="ma-0 pa-0" justify="center">
-                                                    <v-card-text class="text-center" v-resize='onResize' :class='size_title'>{{Hostname}}{{sann}}</v-card-text>
+                                                    <v-card-text class="text-center" v-resize='onResize' :class='size_title'>{{part_fname}}さん</v-card-text>
                                                     <v-card-text class="text-center" v-resize='onResize' :class='size_subtitle'>{{message}}</v-card-text>
                                                 </v-row>
                                             </v-col>
@@ -93,7 +93,7 @@
                                     :key="item.id"
                                     class="mb-4"
                                     v-resize='onResize' :class='size_title'>
-                                        <span class="pr-4">{{item.month}}{{tuki}}{{item.date}}{{hi}}{{item.time}}</span><span class="pr-4">{{item.name}}{{sann}}</span>{{item.weight}}{{kg}}
+                                        <span class="pr-4">{{item.month}}月{{item.date}}日/{{item.time}}</span><span class="pr-4">{{item.name}}さん</span>{{item.weight}}kg
                                 </v-card-text>
                             </v-card>
                         </v-card>
@@ -113,12 +113,7 @@ import partChangeProfile from '@/components/Part/partChangeProfile'
 export default {
     data() {
         return {
-            Hostname:"いやや",
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
-            sann:"さん",
-            kg:"kg",
-            tuki:"月",
-            hi:"日/",
             items: [
                     {
                         month:'7',
@@ -184,13 +179,9 @@ export default {
         Footer,
         partChangeProfile
     },
-    computed: {
-        user() {
-        return this.$store.getters.user;
-        },
-        userStatus() {
-        // ログインするとtrue
-        return this.$store.getters.isSignedIn;
+    computed:{
+        part_fname(){
+            return this.$store.getters.part_fname
         }
     },
     // created:function(){

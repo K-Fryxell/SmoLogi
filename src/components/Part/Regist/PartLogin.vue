@@ -68,7 +68,7 @@ export default {
         signUp:async function(){
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
-            await this.$store.commit('partRegistUser',this.array)
+            await this.$store.commit('part_login',this.array)
         }
     },
 }

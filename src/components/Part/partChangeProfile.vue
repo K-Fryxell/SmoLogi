@@ -208,70 +208,127 @@ import partChangeBank from '@/components/Part/PartChangeBank.vue'
 
 export default {
     data (){
-    return{
-        btn:0,
-        firstname:'',
-        lastname:'',
-        firstkana:'',
-        lastkana:'',
-        post:'',
-        address:'',
-        tel:'',
-        username:'',
-        uploadImageUrl: '',
-        array: {},
-        update: true,
-        //姓・名・住所
-        nameRules: [
+        return{
+            btn:0,
+            firstname:'',
+            lastname:'',
+            firstkana:'',
+            lastkana:'',
+            post:'',
+            address:'',
+            tel:'',
+            username:'',
+            uploadImageUrl: '',
+            array: {},
+            update: true,
+            //姓・名・住所
+            nameRules: [
             v => !!v || '入力欄が空白です。'
-        ],
-        //セイ・メイ
-        kanaRules: [
+            ],
+            //セイ・メイ
+            kanaRules: [
             v => !!v || '入力欄が空白です。',
             v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
-        //郵便番号(前)
-        postRules: [
+            ],
+            //郵便番号(前)
+            postRules: [
             v => !!v || '入力欄が空白です。',
             v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
-        ],
-        //電話番号
-        telRules: [
+            ],
+            //電話番号
+            telRules: [
             v => !!v || '入力欄が空欄です。',
             v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
             v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
-        ],
-        //ユーザ名
-        usernameRules: [
+            ],
+            //ユーザ名
+            usernameRules: [
             v => !!v || '入力欄が空白です。',
             v => (v && v.length <= 8) || '8字以内で入力してください。'
-        ],
-        inputImage: null,
+            ],
+            inputImage: null,
 
-      x:window.innerWidth,
-      y:window.innerHeight ,
-      size_display:'display-1',
-      size_headline:'headline',
-      size_title:'title',
-      size_subtitle:'subtitle-1',
-      size_body:'body-1',
-      size_btn:'body-1',
-    }
-  },
-    computed: {},
+            x:window.innerWidth,
+            y:window.innerHeight ,
+            size_display:'display-1',
+            size_headline:'headline',
+            size_title:'title',
+            size_subtitle:'subtitle-1',
+            size_body:'body-1',
+            size_btn:'body-1',
+        }
+    },
+    computed:{
+        //姓
+        user_fname(){
+            return this.$store.getters.user_fname
+        },
+        firstname(){
+            return this.user_fname
+        },
+        //名
+        user_name(){
+            return this.$store.getters.user_name
+        },
+        lastname(){
+            return this.user_name
+        },
+        //姓カナ
+        user_fname_kana(){
+            return this.$store.getters.user_fname_kana
+        },
+        firstkana(){
+            return this.user_fname_kana
+        },
+        //名カナ
+        user_name_kana(){
+            return this.$store.getters.user_name_kana
+        },
+        lastkana(){
+            return this.user_name_kana
+        },
+        //メールアドレス
+        user_email(){
+            return this.$store.getters.user_email
+        },
+        email(){
+            return this.user_email
+        },
+        //郵便番号
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        post(){
+            return this.user_post
+        },
+        //住所
+        user_address(){
+            return this.$store.getters.user_address
+        },
+        address(){
+            return this.user_address
+        },
+        //電話番号
+        user_tel(){
+            return this.$store.getters.user_tel
+        },
+        tel(){
+            return this.user_tel
+        },
+    },
     components:{
         partChangePasswd,
         partChangeBank
     },
     mounted () {
-      this.onResize
+        this.onResize
     },
     methods: {
-      onResize () {
-        this.x = window.innerWidth
-        this.y = window.innerHeight
-      },
-      validate () {
+        onResize () {
+            this.x = window.innerWidth
+            this.y = window.innerHeight
+        },
+        validate () {
             this.$refs.form.validate()
         },
         updater(){
@@ -288,20 +345,20 @@ export default {
         },
         // selectfileボタン押下時
         btnclick() {
-          this.$refs.input.click()
+            this.$refs.input.click()
         },
         async selectedFile() {
-          this.isUploading = true;
+            this.isUploading = true;
 
-          const file = this.$refs.input.files[0]
-          if (!file) {
-            return;
-          }
-          const fr = new FileReader()
+            const file = this.$refs.input.files[0]
+            if (!file) {
+                return;
+            }
+            const fr = new FileReader()
             fr.readAsDataURL(file)
             fr.addEventListener('load', () => {
-              this.uploadImageUrl = fr.result
-              // alert(this.uploadImageUrl);
+                this.uploadImageUrl = fr.result
+                // alert(this.uploadImageUrl);
             })
         },
     },

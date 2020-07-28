@@ -363,7 +363,7 @@
                                     width="170"
                                     height="50"
                                 >
-                                次へ
+                                登録
                                 </v-btn>
                             </v-row>
                         </v-form>
@@ -608,8 +608,6 @@ export default {
   components:{
   },
   created(){
-    this.username  = this.$store.state.username
-    this.email  = this.$store.state.email
     for (let index = 0; index < 120; index++) {
         const year = 2019
         this.dropdown.push(String(year - index))

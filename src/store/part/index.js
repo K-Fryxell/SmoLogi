@@ -125,14 +125,14 @@ export default ({
                             // ユーザーIDの取得
                             console.log(user.uid);
                             // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                            state.part_user_id = user.uid
-                            firebase.firestore().collection("part_users").doc(state.part_user_id)
-                            .set(array)
-                            .then(function () {
-                                // 正常にデータ保存できた時の処理
-                                console.log('success')
-                                router.push('/part_mypage')
-                            })
+                            state.user_id = user.uid
+                            firebase.firestore().collection("part_users").doc(state.user_id)
+                                .set(array)
+                                .then(function () {
+                                    // 正常にデータ保存できた時の処理
+                                    console.log('success')
+                                    router.push('/part_mypage')
+                                })
                         } else {
                             // User not logged in or has just logged out.
                         }
@@ -151,6 +151,7 @@ export default ({
         part_onAuthStateChanged(state) {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
+
                     // User logged in already or has just logged in.
                     // ユーザーIDの取得
                     // console.log(user.uid);
@@ -165,6 +166,7 @@ export default ({
                         state.part_email = doc.data().email
                         // // 氏名・かな
                         state.part_fname = doc.data().firstname
+                        console.log(state.part_fname)
                         state.part_fname_kana = doc.data().firstkana
                         state.part_name = doc.data().lastname
                         state.part_name_kana = doc.data().lastkana
@@ -220,8 +222,9 @@ export default ({
                 part_id:array['part_id']
             })
         },
-        logout() {
+        part_logout() {
             firebase.auth().signOut()
+            router.push('/part_top')
         },
     },
     actions: {
