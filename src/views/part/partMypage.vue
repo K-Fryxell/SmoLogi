@@ -235,6 +235,9 @@ export default {
                 this.size_body = 'body-1'
             }
         }
+    },
+    created:function(){
+        this.$store.commit('part_onAuthStateChanged')
     }
 }
 </script>

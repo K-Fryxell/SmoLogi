@@ -104,6 +104,7 @@ export default {
             this.array['part_id'] = this.$store.state.part_id
             this.$store.commit()
         }
+        
     },
     watch:{
         x:function(){

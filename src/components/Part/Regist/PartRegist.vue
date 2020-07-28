@@ -186,8 +186,6 @@
                                 </v-col>
                             </v-row>
 
-
-
                             <!-- 銀行情報 -->
                             <v-row class="ma-0 mt-5 pa-0">
                                 <v-card-text v-resize='onResize' :class='size_title'>
@@ -313,7 +311,7 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
+                                    <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
@@ -326,8 +324,8 @@
                                         style="border-radius: 8em;
                                         width:200px;
                                         height:200px;"
-                                    >
-                                    <img v-if="uploadImageUrl"
+                                    > -->
+                                    <img
                                         :src="uploadImageUrl"
                                         alt="アイコンc"
                                         style="border-radius: 8em;
@@ -380,169 +378,170 @@
 <script>
 const { mask } = require('vue-the-mask')
 export default {
-  data() {
-    return {
-        POST:'###-####',
-        TEL:'###-####-####',
-        firstname:'',
-        lastname:'',
-        firstkana:'',
-        lastkana:'',
-        sex:0,
-        birthValueYear: 0,
-        birthValueMonth: 0,
-        birthValueDay: 0,
-        dropdown: [],
-        dropdown1: [],
-        dropdown2: [],
-        email:'',
-        passwd:'',
-        showpp:false,
-        showss:false,
-        againpasswd:'',
-        post:'',
-        address:'',
-        tel:'',
-        username:'',
-        whichbank:null,
-        y_symbol:'',
-        y_number:'',
-        y_host:'',
-        // ここから銀行
-        // bankname:'',
-        // bankcode:'',
-        // branch:'',
-        // branchcode:'',
-        // number:'',
-        // host:'',
-        // ここまで銀行
-        uploadImageUrl: '',
-        array: {},
-        regist: true,
-        //文字サイズ
-        x:window.innerWidth,
-        y:window.innerHeight ,
-        size_title:'title',
-        // 姓名
-        firstnameRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
-        ],
-        lastnameRules:[
-            v => !!v || '入力欄が空白です。',
-            v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
-        ],
-        //住所
-        addressRules: [
-            v => !!v || '住所は必ず入力してください。',
-            v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
-            // eslint-disable-next-line no-irregular-whitespace
-            v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
-            // eslint-disable-next-line no-control-regex
-            v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
-        ],
-        //セイ・メイ
-        kanaRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
-        //誕生日
-        yearRules: [
-            v => !!v || '生年は必ず入力してください。'
-        ],
-        monthRules: [
-            v => !!v || '生月は必ず入力してください。'
-        ],
-        dayRules: [
-            v => !!v || '生日は必ず入力してください。'
-        ],
-        //パスワード
-        passwdRules:[
-            v => !!v || '入力欄が空白です。',
-            v => (v&& 8<=v.length) || '8文字以上で入力してください。',
-            v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
-        ],
-        //再入力パスワード
-        againpasswdRules:[
-            v => !!v || '入力欄が空白です。',
-            v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
-            v => (v&& v === this.passwd) || 'パスワードが一致していません。',
-        ],
-        //郵便番号
-        postRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
-        ],
-        //電話番号
-        telRules: [
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '携帯電話の番号の形式が違います'
-        ],
-        //メール
-        emailRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
-            v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
-            v => (v && v.length <= 50) || '有効桁を超えた不正な値が入力されました。'
-        ],
-        //ユーザ名
-        usernameRules: [
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length <= 8) || '8字以内で入力してください。'
-        ],
-        //ゆうちょ通帳記号
-        y_symbolRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^1\d{3}0{1}\d$/.test(v) || /^1\d{3}0$/.test(v) || '通帳記号の形式が違います。'
-        ],
-        //ゆうちょ通帳番号
-        y_numberRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => (v &&  7 <= v.length <= 8) || '番号が違います。'
-        ],
-        //ゆうちょ口座名義
-        y_hostRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
-        // //金融機関名
-        // banknameRules:[
-        //      v => !!v || '入力欄が空欄です。',
-        // ],
-        // //金融機関コード
-        // bankcodeRules:[
-        //     v => !!v || '入力欄が空白です。',
-        //     v => (v && v.length == 4) || '4字で入力してください。'
-        // ],
-        // //支店名
-        // branchRules:[
-        //      v => !!v || '入力欄が空欄です。',
-        // ],
-        // //支店コード
-        // branchcodeRules:[
-        //     v => !!v || '入力欄が空白です。',
-        //     v => (v && v.length == 3) || '3字で入力してください。'
-        // ],
-        // //口座番号
-        // numberRules:[
-        //     v => !!v || '入力欄が空欄です。',
-        //     v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-        //     v => (v &&  6 <= v.length <= 7) || '番号が違います。'
-        // ],
-        // //口座名義
-        // hostRules:[
-        //     v => !!v || '入力欄が空欄です。',
-        //     v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        // ],
-        inputImage: null,
-    }
-  },
-  mounted () {
-      this.onResize
+    data() {
+        return {
+            POST:'###-####',
+            TEL:'###-####-####',
+            firstname:'',
+            lastname:'',
+            firstkana:'',
+            lastkana:'',
+            sex:0,
+            birthValueYear: 0,
+            birthValueMonth: 0,
+            birthValueDay: 0,
+            birthCol:0,
+            dropdown: [],
+            dropdown1: [],
+            dropdown2: [],
+            email:'',
+            passwd:'',
+            showpp:false,
+            showss:false,
+            againpasswd:'',
+            post:'',
+            address:'',
+            tel:'',
+            username:'',
+            whichbank:null,
+            y_symbol:'',
+            y_number:'',
+            y_host:'',
+            // ここから銀行
+            // bankname:'',
+            // bankcode:'',
+            // branch:'',
+            // branchcode:'',
+            // number:'',
+            // host:'',
+            // ここまで銀行
+            uploadImageUrl: require("@/assets/icon.jpg"),
+            array: {},
+            regist: true,
+            //文字サイズ
+            x:window.innerWidth,
+            y:window.innerHeight ,
+            size_title:'title',
+            // 姓名
+            firstnameRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
+            ],
+            lastnameRules:[
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
+            ],
+            //住所
+            addressRules: [
+                v => !!v || '住所は必ず入力してください。',
+                v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+                // eslint-disable-next-line no-irregular-whitespace
+                v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+                // eslint-disable-next-line no-control-regex
+                v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
+            ],
+            //セイ・メイ
+            kanaRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+            ],
+            //誕生日
+            yearRules: [
+                v => !!v || '生年は必ず入力してください。'
+            ],
+            monthRules: [
+                v => !!v || '生月は必ず入力してください。'
+            ],
+            dayRules: [
+                v => !!v || '生日は必ず入力してください。'
+            ],
+            //パスワード
+            passwdRules:[
+                v => !!v || '入力欄が空白です。',
+                v => (v&& 8<=v.length) || '8文字以上で入力してください。',
+                v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
+                v => /[a-zA-Z\d]$/.test(v) || '半角英数字のみで入力してください。'
+            ],
+            //再入力パスワード
+            againpasswdRules:[
+                v => !!v || '入力欄が空白です。',
+                v => (v&& v.length<=20) || '有効桁を超えた不正な値が入力されました。',
+                v => (v&& v === this.passwd) || 'パスワードが一致していません。',
+            ],
+            //郵便番号
+            postRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
+            ],
+            //電話番号
+            telRules: [
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '携帯電話の番号の形式が違います'
+            ],
+            //メール
+            emailRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /[a-zA-Z\d]$/.test(v) ||'半角英数字のみで入力してください。',
+                v => /.+@.+\..+/.test(v) || 'メールアドレスの入力形式が異なっています。',
+                v => (v && v.length <= 50) || '有効桁を超えた不正な値が入力されました。'
+            ],
+            //ユーザ名
+            usernameRules: [
+                v => !!v || '入力欄が空白です。',
+                v => (v && v.length <= 8) || '8字以内で入力してください。'
+            ],
+            //ゆうちょ通帳記号
+            y_symbolRules:[
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => /^1\d{3}0{1}\d$/.test(v) || /^1\d{3}0$/.test(v) || '通帳記号の形式が違います。'
+            ],
+            //ゆうちょ通帳番号
+            y_numberRules:[
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => (v &&  7 <= v.length <= 8) || '番号が違います。'
+            ],
+            //ゆうちょ口座名義
+            y_hostRules:[
+                v => !!v || '入力欄が空欄です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+            ],
+            // //金融機関名
+            // banknameRules:[
+            //      v => !!v || '入力欄が空欄です。',
+            // ],
+            // //金融機関コード
+            // bankcodeRules:[
+            //     v => !!v || '入力欄が空白です。',
+            //     v => (v && v.length == 4) || '4字で入力してください。'
+            // ],
+            // //支店名
+            // branchRules:[
+            //      v => !!v || '入力欄が空欄です。',
+            // ],
+            // //支店コード
+            // branchcodeRules:[
+            //     v => !!v || '入力欄が空白です。',
+            //     v => (v && v.length == 3) || '3字で入力してください。'
+            // ],
+            // //口座番号
+            // numberRules:[
+            //     v => !!v || '入力欄が空欄です。',
+            //     v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+            //     v => (v &&  6 <= v.length <= 7) || '番号が違います。'
+            // ],
+            // //口座名義
+            // hostRules:[
+            //     v => !!v || '入力欄が空欄です。',
+            //     v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+            // ],
+            inputImage: null,
+        }
+    },
+    mounted () {
+        this.onResize
     },
     watch:{
         x:function(){
@@ -560,9 +559,6 @@ export default {
         onResize () {
         this.x = window.innerWidth
         this.y = window.innerHeight
-        },
-        validate () {
-            this.$refs.form.validate()
         },
         register(){
             this.array['firstname'] = this.firstname
@@ -608,7 +604,6 @@ export default {
               // alert(this.uploadImageUrl);
             })
         },
-
       },
   components:{
   },
@@ -630,7 +625,6 @@ export default {
   },
   directives: {
     mask
-  },
-
+  }
 }
 </script>
