@@ -155,9 +155,12 @@ export default ({
                     // ユーザーIDの取得
                     // console.log(user.uid);
                     // this.user_id = user.uid
+                    //パートidを取得
+                    state.part_user_id = user.uid
                     // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
                     firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
                         console.log(doc.data())
+
                         // メールアドレス
                         state.part_email = doc.data().email
                         // // 氏名・かな
@@ -207,6 +210,14 @@ export default ({
                         user_lng: doc.data().user_lng
                     })
                 })
+            })
+        },
+        send(state,array){
+            firebase.firestore().collection('users').doc(array['user_id']).collection('room')
+            .add({
+                part_lat: array['part_latitude'],
+                part_lng: array['part_longitude'],
+                part_id:array['part_id']
             })
         },
         logout() {

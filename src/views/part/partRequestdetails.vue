@@ -27,7 +27,7 @@
                         <v-row align="center">
                             <v-col class="text-center" cols="12" sm="12">
                                 <div class="my-1">
-                                    <v-btn to="/contact">この依頼を受ける<v-icon>mdi-thumb-up</v-icon></v-btn>
+                                    <v-btn @click="send">この依頼を受ける<v-icon>mdi-thumb-up</v-icon></v-btn>
                                 </div>
                             </v-col>
                         </v-row>
@@ -60,6 +60,7 @@ export default {
             part_latitude:0,
             part_longitude:0,
             place:0,
+            array:{},
             items:[],
             flg: false
         }
@@ -94,6 +95,14 @@ export default {
             //計算
             this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']))
             this.place = Math.floor(this.place)
+        },
+        send() {
+            this.$store.commit('part_onAuthStateChanged')
+            this.array['part_latitude'] = this.part_latitude
+            this.array['part_longitude'] = this.part_longitude
+            this.array['user_id'] = this.items['user_id']
+            this.array['part_id'] = this.$store.state.part_id
+            this.$store.commit()
         }
     },
     watch:{
