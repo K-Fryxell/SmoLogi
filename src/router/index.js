@@ -72,7 +72,7 @@ const routes = [{
         path: '/part_requestdetails',
         name: 'partRequestdetails',
         component: () =>
-        import ('../views/part/partRequestDetails')
+        import ('../views/part/partRequestDetails.vue')
     },
     {
         path: '/contact',
