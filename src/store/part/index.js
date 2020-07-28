@@ -59,9 +59,6 @@ export default ({
         user_info:[]
     },
     getters: {
-        isSignedIn(state) {
-            return state.status
-        },
         part_image(state){
             return state.part_image
         },
@@ -203,7 +200,7 @@ export default ({
                     // console.log(doc.data())
                     state.trans.push({
                         user_id: doc.data().userid,
-                        gender:doc.data().gender,
+                        gender: doc.data().gender,
                         isTime:doc.data().isTime,
                         isMinute: doc.data().isMinute,
                         weight: doc.data().weight,
@@ -211,6 +208,7 @@ export default ({
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
+                
                 })
             })
         },

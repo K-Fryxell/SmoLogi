@@ -214,6 +214,7 @@ export default ({
                     // User not logged in or has just logged out.
                 }
             })
+            router.push('/contact')
         },
         // ログイン状態の確認
         // onUserStatusChanged(state, status) {

@@ -7,27 +7,27 @@
                 <v-row class="ma-0 pa-0" justify="center">
                     <v-flex lg4 xs6 v-for="(item,index) in items" :key="index">
                         <v-row class="ma-0 pa-0" justify="center">
-                        <v-col class="ma-6 pa-0" cols="10" lg="7">
-                        <v-card @click="request(index)">
-                            依頼場所まで:{{item.place}}m<br/>
-                            <v-img
-                                v-resize='onResize' :height='size_card'
-                                v-if="item.gender==0"
-                                :src="illust"
-                                class="my-3"
-                                contain
-                                />
-                            <v-img
-                                v-resize='onResize' :height='size_card'
-                                v-else-if="item.gender==1"
-                                :src="img"
-                                class="my-3"
-                                contain
-                            />
-                            配達希望時間:{{item.isTime}}時{{item.isMinute}}分<br/>
-                            荷物の重量:{{item.weight}}kg
-                        </v-card>
-                        </v-col>
+                            <v-col class="ma-6 pa-0" cols="10" lg="7">
+                                <v-card @click="request(index)">
+                                    依頼場所まで:{{item.place}}m<br/>
+                                    <v-img
+                                        v-resize='onResize' :height='size_card'
+                                        v-if="item.gender==0"
+                                        :src="illust"
+                                        class="my-3"
+                                        contain
+                                        />
+                                    <v-img
+                                        v-resize='onResize' :height='size_card'
+                                        v-else-if="item.gender==1"
+                                        :src="img"
+                                        class="my-3"
+                                        contain
+                                    />
+                                    配達希望時間:{{item.isTime}}時{{item.isMinute}}分<br/>
+                                    荷物の重量:{{item.weight}}kg
+                                </v-card>
+                            </v-col>
                         </v-row>
                     </v-flex>
                 </v-row>

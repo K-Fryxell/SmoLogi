@@ -65,7 +65,7 @@
                                 <v-flex lg6 xs6>
                                     <v-col lg="12" cols="12">
                                         <v-text-field
-                                        v-model="firstname"
+                                        v-model="fname"
                                         :rules="nameRules"
                                         prepend-icon="mdi-account-circle"
                                         required
@@ -128,11 +128,11 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col lg="6" cols="8">
                                     <v-text-field
-                                    v-model="post"
-                                    :rules="postRules"
-                                    prepend-icon="mdi-currency-kzt"
-                                    label="郵便番号(ハイフン(-)を含めて入力してください)"
-                                    required
+                                        v-model="post"
+                                        :rules="postRules"
+                                        prepend-icon="mdi-currency-kzt"
+                                        label="郵便番号(ハイフン(-)を含めて入力してください)"
+                                        required
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -172,7 +172,7 @@
                                     width="170"
                                     height="50"
                                 >
-                                変更
+                                更新
                                 </v-btn>
                             </v-row>
                         </v-form>
@@ -210,13 +210,6 @@ export default {
     data (){
         return{
             btn:0,
-            firstname:'',
-            lastname:'',
-            firstkana:'',
-            lastkana:'',
-            post:'',
-            address:'',
-            tel:'',
             username:'',
             uploadImageUrl: '',
             array: {},
@@ -260,60 +253,60 @@ export default {
     },
     computed:{
         //姓
-        user_fname(){
-            return this.$store.getters.user_fname
+        part_fname(){
+            return this.$store.getters.part_fname
         },
-        firstname(){
-            return this.user_fname
+        fname(){
+            return this.part_fname
         },
         //名
-        user_name(){
-            return this.$store.getters.user_name
+        part_name(){
+            return this.$store.getters.part_name
         },
         lastname(){
-            return this.user_name
+            return this.part_name
         },
         //姓カナ
-        user_fname_kana(){
-            return this.$store.getters.user_fname_kana
+        part_fname_kana(){
+            return this.$store.getters.part_fname_kana
         },
         firstkana(){
-            return this.user_fname_kana
+            return this.part_fname_kana
         },
         //名カナ
-        user_name_kana(){
-            return this.$store.getters.user_name_kana
+        part_name_kana(){
+            return this.$store.getters.part_name_kana
         },
         lastkana(){
-            return this.user_name_kana
+            return this.part_name_kana
         },
         //メールアドレス
-        user_email(){
-            return this.$store.getters.user_email
+        part_email(){
+            return this.$store.getters.part_email
         },
         email(){
-            return this.user_email
+            return this.part_email
         },
         //郵便番号
-        user_post(){
-            return this.$store.getters.user_post
+        part_post(){
+            return this.$store.getters.part_post
         },
         post(){
-            return this.user_post
+            return this.part_post
         },
         //住所
-        user_address(){
-            return this.$store.getters.user_address
+        part_address(){
+            return this.$store.getters.part_address
         },
         address(){
-            return this.user_address
+            return this.part_address
         },
         //電話番号
-        user_tel(){
-            return this.$store.getters.user_tel
+        part_tel(){
+            return this.$store.getters.part_tel
         },
         tel(){
-            return this.user_tel
+            return this.part_tel
         },
     },
     components:{
@@ -332,7 +325,7 @@ export default {
             this.$refs.form.validate()
         },
         updater(){
-            this.array['firstname'] = this.firstname
+            this.array['firstname'] = this.fname
             this.array['lastname'] = this.lastname
             this.array['firstkana'] = this.firstkana
             this.array['lastkana'] = this.lastkana

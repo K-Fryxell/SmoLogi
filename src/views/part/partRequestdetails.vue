@@ -13,10 +13,18 @@
                         <v-row justify="space-around">
                             <v-avatar color="blue light5" size="164">
                                 <v-img
-                                v-resize='onResize' :height='size_card'
-                                :src="illust"
-                                class="my-3"
-                                contain
+                                    v-resize='onResize' :height='size_card'
+                                    v-if="items.gender==0"
+                                    :src="illust"
+                                    class="my-3"
+                                    contain
+                                    />
+                                <v-img
+                                    v-resize='onResize' :height='size_card'
+                                    v-else-if="items.gender==1"
+                                    :src="img"
+                                    class="my-3"
+                                    contain
                                 />
                             </v-avatar>
                         </v-row>
@@ -56,7 +64,8 @@ export default {
             size_subtitle:'subtitle-1',
             size_body:'body-1',
             sumweight:0,
-            illust:require('@/assets/part/obaachan.png'),
+            img:require('@/assets/part/obaachan.png'),
+            illust:require('@/assets/part/ojiichan.png'),
             part_latitude:0,
             part_longitude:0,
             place:0,

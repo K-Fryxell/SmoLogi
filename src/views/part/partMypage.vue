@@ -206,6 +206,9 @@ export default {
             this.x = window.innerWidth
             this.y = window.innerHeight
         },
+        onAuth(){
+            this.$store.commit('part_onAuthStateChanged')
+        }
     },
     watch:{
         x:function(){
@@ -228,7 +231,7 @@ export default {
         }
     },
     created:function(){
-        this.$store.commit('part_onAuthStateChanged')
+        this.onAuth()
     }
 }
 </script>
