@@ -19,12 +19,12 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl" 
+                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;" 
+                                        height:200px;"
                                     >
                                     <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                         src="#"
@@ -33,12 +33,12 @@
                                         width:200px;
                                         height:200px;"
                                     >
-                                    <img v-if="uploadImageUrl" 
+                                    <img v-if="uploadImageUrl"
                                         :src="uploadImageUrl"
                                         alt="アイコンc"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;" 
+                                        height:200px;"
                                     >
                                 </v-avatar>
                             </v-row>
@@ -60,7 +60,6 @@
                                 </v-col>
                             </v-row>
                             <!-- ここまで顔写真の登録 -->
-
                             <v-row class="ma-0 pa-0">
                             <!-- 姓textarea -->
                                 <v-flex lg6 xs6>
@@ -124,7 +123,7 @@
                                 ></v-text-field>
                                 </v-col>
                             </v-row>
-                            
+
                             <!-- 郵便番号textarea -->
                             <v-row class="ma-0 pa-0">
                                 <v-col lg="6" cols="8">
@@ -248,7 +247,7 @@ export default {
             v => (v && v.length <= 8) || '8字以内で入力してください。'
         ],
         inputImage: null,
-    
+
       x:window.innerWidth,
       y:window.innerHeight ,
       size_display:'display-1',
@@ -297,7 +296,7 @@ export default {
           const file = this.$refs.input.files[0]
           if (!file) {
             return;
-          }  
+          }
           const fr = new FileReader()
             fr.readAsDataURL(file)
             fr.addEventListener('load', () => {

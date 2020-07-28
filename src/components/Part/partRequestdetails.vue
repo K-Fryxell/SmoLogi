@@ -1,6 +1,5 @@
 <template>
     <v-content class="ma-0 pa-0">
-
         <v-container>
             <v-layout wrap>
                 <v-flex xs12 sm6 lg12>
