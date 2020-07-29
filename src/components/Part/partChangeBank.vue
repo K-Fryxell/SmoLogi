@@ -60,7 +60,7 @@
                             </v-row>
 
                             <!-- その他の銀行 -->
-                            <v-row class="ma-0 pa-0" v-if="whichbank==1">
+                            <!-- <v-row class="ma-0 pa-0" v-if="whichbank==1">
                                 <v-flex lg5 xs6>
                                     <v-col lg="12" cols="12">
                                         <v-text-field
@@ -126,7 +126,7 @@
                                     required
                                     ></v-text-field>
                                 </v-col>
-                            </v-row>
+                            </v-row> -->
 
                             <!-- 更新ボタン -->
                             <v-row class="mt-6" justify="center">
@@ -184,35 +184,35 @@ export default {
             v => !!v || '入力欄が空欄です。',
             v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
         ],
-        //金融機関名
-        bankRules:[
-             v => !!v || '入力欄が空欄です。',
-        ],
-        //金融機関コード
-        bankcodeRules:[
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length == 4) || '4字で入力してください。'
-        ],
-        //支店名
-        branchRules:[
-             v => !!v || '入力欄が空欄です。',
-        ],
-        //支店コード
-        branchcodeRules:[
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length == 3) || '3字で入力してください。'
-        ],
-        //口座番号
-        numberRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => (v &&  6 <= v.length <= 7) || '番号が違います。'
-        ],
-        //口座名義
-        hostRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
+        // //金融機関名
+        // bankRules:[
+        //      v => !!v || '入力欄が空欄です。',
+        // ],
+        // //金融機関コード
+        // bankcodeRules:[
+        //     v => !!v || '入力欄が空白です。',
+        //     v => (v && v.length == 4) || '4字で入力してください。'
+        // ],
+        // //支店名
+        // branchRules:[
+        //      v => !!v || '入力欄が空欄です。',
+        // ],
+        // //支店コード
+        // branchcodeRules:[
+        //     v => !!v || '入力欄が空白です。',
+        //     v => (v && v.length == 3) || '3字で入力してください。'
+        // ],
+        // //口座番号
+        // numberRules:[
+        //     v => !!v || '入力欄が空欄です。',
+        //     v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+        //     v => (v &&  6 <= v.length <= 7) || '番号が違います。'
+        // ],
+        // //口座名義
+        // hostRules:[
+        //     v => !!v || '入力欄が空欄です。',
+        //     v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+        // ],
         x:window.innerWidth,
         y:window.innerHeight ,
         size_display:'display-1',
@@ -241,12 +241,12 @@ export default {
             this.array['y_symbol'] = this.y_symbol
             this.array['y_number'] = this.y_number
             this.array['y_host'] = this.y_host
-            this.array['bankname'] = this.bankname
-            this.array['bankcode'] = this.bankcode
-            this.array['branch'] = this.branch
-            this.array['branchcode'] = this.branchcode
-            this.array['number'] = this.number
-            this.array['host'] = this.host
+            // this.array['bankname'] = this.bankname
+            // this.array['bankcode'] = this.bankcode
+            // this.array['branch'] = this.branch
+            // this.array['branchcode'] = this.branchcode
+            // this.array['number'] = this.number
+            // this.array['host'] = this.host
             this.$store.commit('updater', this.array)
         },
         // selectfileボタン押下時
@@ -259,7 +259,7 @@ export default {
           const file = this.$refs.input.files[0]
           if (!file) {
             return;
-          }  
+          }
           const fr = new FileReader()
             fr.readAsDataURL(file)
             fr.addEventListener('load', () => {
