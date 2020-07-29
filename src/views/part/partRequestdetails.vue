@@ -111,7 +111,8 @@ export default {
             this.array['part_longitude'] = this.part_longitude
             this.array['user_id'] = this.items['user_id']
             this.array['part_id'] = this.$store.state.part_id
-            this.$store.commit()
+            // this.$store.commit()
+            this.$router.push('/contact')
         }
     },
     watch:{

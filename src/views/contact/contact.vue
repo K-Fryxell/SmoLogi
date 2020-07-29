@@ -27,13 +27,13 @@
 
                                     <GmapInfoWindow
                                         :options="infoOptions"
-                                        :position="{lat:user_latitude, lng:user_longitude+0.0001}"
+                                        :position="{lat:35.8219776, lng:139.8013952}"
                                         :opened="infoWinOpen2"
                                         @closeclick="infoWinOpen2=false"
                                     >配達者の現在地</GmapInfoWindow>
                                     <GmapMarker
                                     @click="toggleInfoWindow(1)"
-                                    :position="{lat:user_latitude, lng:user_longitude+0.0001}"
+                                    :position="{lat:35.8219776, lng:139.8013952}"
                                     :clickable="true">
                                     </GmapMarker>
                                 </GmapMap>
