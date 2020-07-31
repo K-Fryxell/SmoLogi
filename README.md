@@ -1,4 +1,4 @@
-# test-vue
+# SmoLogi
 
 ## Project setup
 ```
