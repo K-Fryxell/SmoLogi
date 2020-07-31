@@ -106,64 +106,63 @@
 </template>
 <script>
 import firebase from 'firebase'
-import Header from '@/components/Part/Header'
-import Footer from '@/components/Part/Footer'
-import partChangeProfile from '@/components/Part/partChangeProfile'
-
+import Header from '@/components/Part/PartHeader'
+import Footer from '@/components/Part/PartFooter'
+import partChangeProfile from '@/components/Part/PartChangeProfile'
 export default {
     data() {
         return {
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
             items: [
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:07',
-                        name:'ユーザ',
-                        weight:'2',
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:06',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:05',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:04',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:03',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:02',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:01',
-                        name:'ユーザ',
-                        weight:'2'
-                    }
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:07',
+                    name:'ユーザ',
+                    weight:'2',
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:06',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:05',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:04',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:03',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:02',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:01',
+                    name:'ユーザ',
+                    weight:'2'
+                }
             ],
             x:window.innerWidth,
             y:window.innerHeight ,

@@ -363,7 +363,7 @@
                                     width="170"
                                     height="50"
                                 >
-                                登録
+                                    登録
                                 </v-btn>
                             </v-row>
                         </v-form>
@@ -373,8 +373,6 @@
         </v-container>
     </v-content>
 </template>
-
-
 <script>
 const { mask } = require('vue-the-mask')
 export default {
@@ -556,75 +554,75 @@ export default {
             }
         }
     },
-  methods: {
-        onResize () {
-            this.x = window.innerWidth
-            this.y = window.innerHeight
-        },
-        register(){
-            this.array['firstname'] = this.firstname
-            this.array['lastname'] = this.lastname
-            this.array['firstkana'] = this.firstkana
-            this.array['lastkana'] = this.lastkana
-            this.array['sex'] = this.sex
-            this.array['birthYear'] = this.birthValueYear
-            this.array['birthMonth'] = this.birthValueMonth
-            this.array['birthDay'] = this.birthValueDay
-            this.array['post'] = this.post
-            this.array['address'] = this.address
-            this.array['tel'] = this.tel
-            this.array['email'] = this.email
-            this.array['username'] = this.username
-            this.array['password'] = this.passwd
-            this.array['y_symbol'] = this.y_symbol
-            this.array['y_number'] = this.y_number
-            this.array['y_host'] = this.y_host
-            this.array['part_image'] = this.part_image
-            // this.array['bankname'] = this.bankname
-            // this.array['bankcode'] = this.bankcode
-            // this.array['branch'] = this.branch
-            // this.array['branchcode'] = this.branchcode
-            // this.array['number'] = this.number
-            // this.array['host'] = this.host
-            this.$store.commit('partRegistUser', this.array)
-        },
-        // selectfileボタン押下時
-        btnclick() {
-          this.$refs.input.click()
-        },
-        async selectedFile() {
-          this.isUploading = true;
+    methods: {
+            onResize () {
+                this.x = window.innerWidth
+                this.y = window.innerHeight
+            },
+            register(){
+                this.array['firstname'] = this.firstname
+                this.array['lastname'] = this.lastname
+                this.array['firstkana'] = this.firstkana
+                this.array['lastkana'] = this.lastkana
+                this.array['sex'] = this.sex
+                this.array['birthYear'] = this.birthValueYear
+                this.array['birthMonth'] = this.birthValueMonth
+                this.array['birthDay'] = this.birthValueDay
+                this.array['post'] = this.post
+                this.array['address'] = this.address
+                this.array['tel'] = this.tel
+                this.array['email'] = this.email
+                this.array['username'] = this.username
+                this.array['password'] = this.passwd
+                this.array['y_symbol'] = this.y_symbol
+                this.array['y_number'] = this.y_number
+                this.array['y_host'] = this.y_host
+                this.array['part_image'] = this.part_image
+                // this.array['bankname'] = this.bankname
+                // this.array['bankcode'] = this.bankcode
+                // this.array['branch'] = this.branch
+                // this.array['branchcode'] = this.branchcode
+                // this.array['number'] = this.number
+                // this.array['host'] = this.host
+                this.$store.commit('partRegistUser', this.array)
+            },
+            // selectfileボタン押下時
+            btnclick() {
+            this.$refs.input.click()
+            },
+            async selectedFile() {
+            this.isUploading = true;
 
-          const file = this.$refs.input.files[0]
-          if (!file) {
-            return;
-          }
-          const fr = new FileReader()
-            fr.readAsDataURL(file)
-            fr.addEventListener('load', () => {
-              this.uploadImageUrl = fr.result
-              // alert(this.uploadImageUrl);
-            })
+            const file = this.$refs.input.files[0]
+            if (!file) {
+                return;
+            }
+            const fr = new FileReader()
+                fr.readAsDataURL(file)
+                fr.addEventListener('load', () => {
+                this.uploadImageUrl = fr.result
+                // alert(this.uploadImageUrl);
+                })
+            },
         },
-      },
-  components:{
-  },
-  created(){
-    for (let index = 0; index < 120; index++) {
-        const year = 2019
-        this.dropdown.push(String(year - index))
-        for (let index1 = 0; index1 < 12; index1++) {
-            const month = 1
-            this.dropdown1.push(String(month + index1))
-            for (let index2 = 0; index2 < 31; index2++) {
-                const day = 1
-                this.dropdown2.push(String(day + index2))
+    components:{
+    },
+    created(){
+        for (let index = 0; index < 120; index++) {
+            const year = 2019
+            this.dropdown.push(String(year - index))
+            for (let index1 = 0; index1 < 12; index1++) {
+                const month = 1
+                this.dropdown1.push(String(month + index1))
+                for (let index2 = 0; index2 < 31; index2++) {
+                    const day = 1
+                    this.dropdown2.push(String(day + index2))
+                }
             }
         }
+    },
+    directives: {
+        mask
     }
-  },
-  directives: {
-    mask
-  }
 }
 </script>

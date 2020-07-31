@@ -50,8 +50,8 @@
     </v-content>
 </template>
 <script>
-import Header from '../../components/Part/Header';
-import Footer from '../../components/Part/Footer';
+import Header from '@/components/Part/PartHeader'
+import Footer from '@/components/Part/PartFooter'
 export default {
     data() {
         return {

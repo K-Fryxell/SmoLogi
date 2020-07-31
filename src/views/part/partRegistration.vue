@@ -21,12 +21,11 @@
         <Footer/>
     </v-container>
 </template>
-
 <script>
-import partRegist from '../../components/Part/Regist/PartRegist';
-import partLogin from '../../components/Part/Regist/PartLogin';
-import Header from '../../components/Part/Header';
-import Footer from '../../components/Part/Footer';
+import partRegist from '@/components/Part/Regist/PartRegist'
+import partLogin from '@/components/Part/Regist/PartLogin'
+import Header from '@/components/Part/PartHeader'
+import Footer from '@/components/Part/PartFooter'
 export default {
     data(){
         return{

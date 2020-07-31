@@ -10,7 +10,6 @@
                                     プロフィール変更
                                 </v-card-text>
                             </v-row>
-
                             <!-- ここから顔写真の登録   -->
                             <v-row class="ma-0 mt-5 pa-0" justify="center">
                                 <v-card-text align="center"  v-resize='onResize' :class='size_title'>
@@ -24,22 +23,19 @@
                                         alt="アイコンa"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;"
-                                    >
+                                        height:200px;">
                                     <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                         src="#"
                                         alt="アイコンb"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;"
-                                    >
+                                        height:200px;">
                                     <img v-if="uploadImageUrl"
                                         :src="uploadImageUrl"
                                         alt="アイコンc"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;"
-                                    >
+                                        height:200px;">
                                 </v-avatar>
                             </v-row>
                             <!-- ここからテスト -->
@@ -200,11 +196,9 @@
         </v-container>
     </v-content>
 </template>
-
-
 <script>
-import partChangePasswd from '@/components/Part/PartChangePasswd.vue'
-import partChangeBank from '@/components/Part/PartChangeBank.vue'
+import partChangePasswd from '@/components/Part/PartChangePassword'
+import partChangeBank from '@/components/Part/PartChangeBank'
 
 export default {
     data (){
@@ -216,28 +210,28 @@ export default {
             update: true,
             //姓・名・住所
             nameRules: [
-            v => !!v || '入力欄が空白です。'
+                v => !!v || '入力欄が空白です。'
             ],
             //セイ・メイ
             kanaRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+                v => !!v || '入力欄が空白です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
             ],
             //郵便番号(前)
             postRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
+                v => !!v || '入力欄が空白です。',
+                v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
             ],
             //電話番号
             telRules: [
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
             //ユーザ名
             usernameRules: [
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length <= 8) || '8字以内で入力してください。'
+                v => !!v || '入力欄が空白です。',
+                v => (v && v.length <= 8) || '8字以内で入力してください。'
             ],
             inputImage: null,
 

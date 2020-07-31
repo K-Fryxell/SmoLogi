@@ -66,8 +66,8 @@
 </v-container>
 </template>
 <script>
-import Uheader  from '../../components/User/Uheader'
-import Ufooter from '../../components/User/Ufooter'
+import Uheader  from '@/components/User/Header'
+import Ufooter from '@/components/User/Footer'
 import firebase from 'firebase'
 export default {
     data() {

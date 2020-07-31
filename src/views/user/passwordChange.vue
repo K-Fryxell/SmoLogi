@@ -18,10 +18,9 @@
         </v-layout>
     </v-container>
 </template>
-
 <script>
-import Pass from '../../components/User/Pass.vue';
-import Cred from '../../components/User/Cred.vue';
+import Pass from '@/components/User/Password'
+import Cred from '@/components/User/Cred'
 export default {
     data (){
         return{

@@ -138,7 +138,7 @@
                                     width="170"
                                     height="50"
                                 >
-                                変更
+                                    変更
                                 </v-btn>
                             </v-row>
                         </v-form>
@@ -148,93 +148,88 @@
         </v-container>
     </v-content>
 </template>
-
-
 <script>
 export default {
     data (){
-    return{
-        btn:0,
-        whichbank:null,
-        y_symbol:'',
-        y_number:'',
-        y_host:'',
-        // bankname:'',
-        // bankcode:'',
-        // branch:'',
-        // branchcode:'',
-        // number:'',
-        // host:'',
-        array: {},
-        update: true,
-        //ゆうちょ通帳記号
-        y_symbolRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^1\d{3}0{1}\d$/.test(v) || /^1\d{3}0$/.test(v) || '通帳記号の形式が違います。'
-        ],
-        //ゆうちょ通帳番号
-        y_numberRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => (v &&  7 <= v.length <= 8) || '番号が違います。'
-        ],
-        //ゆうちょ口座名義
-        y_hostRules:[
-            v => !!v || '入力欄が空欄です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
-        // //金融機関名
-        // bankRules:[
-        //      v => !!v || '入力欄が空欄です。',
-        // ],
-        // //金融機関コード
-        // bankcodeRules:[
-        //     v => !!v || '入力欄が空白です。',
-        //     v => (v && v.length == 4) || '4字で入力してください。'
-        // ],
-        // //支店名
-        // branchRules:[
-        //      v => !!v || '入力欄が空欄です。',
-        // ],
-        // //支店コード
-        // branchcodeRules:[
-        //     v => !!v || '入力欄が空白です。',
-        //     v => (v && v.length == 3) || '3字で入力してください。'
-        // ],
-        // //口座番号
-        // numberRules:[
-        //     v => !!v || '入力欄が空欄です。',
-        //     v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-        //     v => (v &&  6 <= v.length <= 7) || '番号が違います。'
-        // ],
-        // //口座名義
-        // hostRules:[
-        //     v => !!v || '入力欄が空欄です。',
-        //     v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        // ],
-        x:window.innerWidth,
-        y:window.innerHeight ,
-        size_display:'display-1',
-        size_headline:'headline',
-        size_title:'title',
-        size_subtitle:'subtitle-1',
-        size_body:'body-1',
-        size_btn:'body-1',
-    }
-  },
-    computed: {},
-    components:{
+        return{
+            btn:0,
+            whichbank:null,
+            y_symbol:'',
+            y_number:'',
+            y_host:'',
+            // bankname:'',
+            // bankcode:'',
+            // branch:'',
+            // branchcode:'',
+            // number:'',
+            // host:'',
+            array: {},
+            update: true,
+            //ゆうちょ通帳記号
+            y_symbolRules:[
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => /^1\d{3}0{1}\d$/.test(v) || /^1\d{3}0$/.test(v) || '通帳記号の形式が違います。'
+            ],
+            //ゆうちょ通帳番号
+            y_numberRules:[
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => (v &&  7 <= v.length <= 8) || '番号が違います。'
+            ],
+            //ゆうちょ口座名義
+            y_hostRules:[
+                v => !!v || '入力欄が空欄です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+            ],
+            // //金融機関名
+            // bankRules:[
+            //      v => !!v || '入力欄が空欄です。',
+            // ],
+            // //金融機関コード
+            // bankcodeRules:[
+            //     v => !!v || '入力欄が空白です。',
+            //     v => (v && v.length == 4) || '4字で入力してください。'
+            // ],
+            // //支店名
+            // branchRules:[
+            //      v => !!v || '入力欄が空欄です。',
+            // ],
+            // //支店コード
+            // branchcodeRules:[
+            //     v => !!v || '入力欄が空白です。',
+            //     v => (v && v.length == 3) || '3字で入力してください。'
+            // ],
+            // //口座番号
+            // numberRules:[
+            //     v => !!v || '入力欄が空欄です。',
+            //     v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+            //     v => (v &&  6 <= v.length <= 7) || '番号が違います。'
+            // ],
+            // //口座名義
+            // hostRules:[
+            //     v => !!v || '入力欄が空欄です。',
+            //     v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+            // ],
+            x:window.innerWidth,
+            y:window.innerHeight ,
+            size_display:'display-1',
+            size_headline:'headline',
+            size_title:'title',
+            size_subtitle:'subtitle-1',
+            size_body:'body-1',
+            size_btn:'body-1',
+        }
     },
     mounted () {
-      this.onResize
+        this.onResize
     },
     methods: {
-      onResize () {
-        this.x = window.innerWidth
-        this.y = window.innerHeight
-      },
-      validate () {
+        onResize () {
+            this.x = window.innerWidth
+            this.y = window.innerHeight
+        },
+        validate () {
             this.$refs.form.validate()
         },
         updater(){
@@ -251,21 +246,20 @@ export default {
         },
         // selectfileボタン押下時
         btnclick() {
-          this.$refs.input.click()
+            this.$refs.input.click()
         },
         async selectedFile() {
-          this.isUploading = true;
+            this.isUploading = true
 
-          const file = this.$refs.input.files[0]
-          if (!file) {
-            return;
-          }
-          const fr = new FileReader()
-            fr.readAsDataURL(file)
-            fr.addEventListener('load', () => {
-              this.uploadImageUrl = fr.result
-              // alert(this.uploadImageUrl);
-            })
+            const file = this.$refs.input.files[0]
+            if (!file)return
+            
+            const fr = new FileReader()
+                fr.readAsDataURL(file)
+                fr.addEventListener('load', () => {
+                    this.uploadImageUrl = fr.result
+                    // alert(this.uploadImageUrl);
+                })
         },
     },
     watch:{

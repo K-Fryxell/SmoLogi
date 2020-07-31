@@ -8,31 +8,31 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="6" lg="4">
                                     <v-text-field
-                                    prepend-icon="mdi-account-circle"
-                                    v-model="firstname"
-                                    label="姓"
-                                    :rules="firstnameRules"/>
+                                        prepend-icon="mdi-account-circle"
+                                        v-model="firstname"
+                                        label="姓"
+                                        :rules="firstnameRules"/>
                                 </v-col>
                                 <v-col cols="6" lg="4">
                                     <v-text-field
-                                    v-model="lastname"
-                                    label="名"
-                                    :rules="lastnameRules"/>
+                                        v-model="lastname"
+                                        label="名"
+                                        :rules="lastnameRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="6" lg="4">
                                     <v-text-field
-                                    prepend-icon="mdi-account-circle-outline"
-                                    v-model="firstkana"
-                                    label="セイ"
-                                    :rules="firstkanaRules"/>
+                                        prepend-icon="mdi-account-circle-outline"
+                                        v-model="firstkana"
+                                        label="セイ"
+                                        :rules="firstkanaRules"/>
                                 </v-col>
                                 <v-col cols="6" lg="4">
                                     <v-text-field
-                                    v-model="lastkana"
-                                    label="メイ"
-                                    :rules="lastkanaRules"/>
+                                        v-model="lastkana"
+                                        label="メイ"
+                                        :rules="lastkanaRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -48,52 +48,49 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col :cols="birthCol" sm="4">
                                     <v-select
-                                    v-model="birthValueYear"
-                                    :items="dropdown"
-                                    :rules="yearRules"
-                                    label="生年"
-                                    ></v-select>
+                                        v-model="birthValueYear"
+                                        :items="dropdown"
+                                        :rules="yearRules"
+                                        label="生年"/>
                                 </v-col>
                                 <v-col :cols="birthCol" sm="4">
                                     <v-select
-                                    v-model="birthValueMonth"
-                                    :items="dropdown1"
-                                    :rules="monthRules"
-                                    label="月"
-                                    ></v-select>
+                                        v-model="birthValueMonth"
+                                        :items="dropdown1"
+                                        :rules="monthRules"
+                                        label="月"/>
                                 </v-col>
                                 <v-col :cols="birthCol" sm="4">
                                     <v-select
-                                    v-model="birthValueDay"
-                                    :items="dropdown2"
-                                    :rules="dayRules"
-                                    label="日"
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row class="ma-0 pa-0">
-                                <v-col>
-                                <v-text-field
-                                    prepend-icon="mdi-email"
-                                    v-model="email"
-                                    counter
-                                    label="メールアドレス"
-                                    :rules="emailRules"
-                                    hint="メールアドレスは50字以下で記入してください。"/>
+                                        v-model="birthValueDay"
+                                        :items="dropdown2"
+                                        :rules="dayRules"
+                                        label="日"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col>
                                     <v-text-field
-                                    v-model="passwd"
-                                    :type="showPassword ? 'text' : 'password'"
-                                    prepend-icon="mdi-lock-outline"
-                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                    @click:append="showPassword = !showPassword"
-                                    label="パスワード"
-                                    counter
-                                    hint="パスワードは8字以上20字以下にしてください。"
-                                    :rules="registpassRules"/>
+                                        prepend-icon="mdi-email"
+                                        v-model="email"
+                                        counter
+                                        label="メールアドレス"
+                                        :rules="emailRules"
+                                        hint="メールアドレスは50字以下で記入してください。"/>
+                                </v-col>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col>
+                                    <v-text-field
+                                        v-model="passwd"
+                                        :type="showPassword ? 'text' : 'password'"
+                                        prepend-icon="mdi-lock-outline"
+                                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                        @click:append="showPassword = !showPassword"
+                                        label="パスワード"
+                                        counter
+                                        hint="パスワードは8字以上20字以下にしてください。"
+                                        :rules="registpassRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -106,8 +103,7 @@
                                         :rules="againpassRules"
                                         counter
                                         label="パスワード確認"
-                                        required
-                                    />
+                                        required/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -117,8 +113,7 @@
                                         v-mask="POST"
                                         prepend-icon="mdi-currency-kzt"
                                         label="郵便番号"
-                                        :rules="postRules"
-                                    />
+                                        :rules="postRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -127,8 +122,7 @@
                                         v-model="address"
                                         prepend-icon="mdi-home"
                                         label="住所"
-                                        :rules="addressRules"
-                                    />
+                                        :rules="addressRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -138,8 +132,7 @@
                                         v-model="tel"
                                         v-mask="TEL"
                                         label="電話"
-                                        :rules="telRules"
-                                    />
+                                        :rules="telRules"/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -152,8 +145,7 @@
                                     <v-text-field
                                         v-model="meigi"
                                         :rules="meigiRules"
-                                        required
-                                    />
+                                        required/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -168,8 +160,7 @@
                                         :rules="cardRules"
                                         counter
                                         hint="使えるカードはVISAカードのみです"
-                                        required
-                                    />
+                                        required/>
                                 </v-col>
                             </v-row>
                             <v-row class="ma-0 pa-0">
@@ -185,8 +176,7 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line
-                                    />
+                                        single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     年
@@ -198,8 +188,7 @@
                                         menu-props="auto"
                                         label="Select"
                                         hide-details
-                                        single-line
-                                    />
+                                        single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
                                     月
@@ -216,17 +205,16 @@
                                         v-model="secu"
                                         :rules="secuRules"
                                         hint="セキュリティコードはクレジットカード裏面の末尾3桁(1部4桁)"
-                                        required
-                                    />
+                                        require/>
                                 </v-col>
                             </v-row>
                             <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                                 <v-btn
-                                :disabled="!valid"
-                                color="blue"
-                                class="mr-4 white--text mb-5"
-                                @click="signUp"
-                                width="120">
+                                    :disabled="!valid"
+                                    color="blue"
+                                    class="mr-4 white--text mb-5"
+                                    @click="signUp"
+                                    width="120">
                                     登録
                                 </v-btn>
                             </v-row>

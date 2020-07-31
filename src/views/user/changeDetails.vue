@@ -163,8 +163,8 @@
 </template>
 <script>
 const { mask } = require('vue-the-mask')
-import Uheader  from '../../components/User/Uheader'
-import Ufooter from '../../components/User/Ufooter'
+import Uheader  from '@/components/User/Header'
+import Ufooter from '@/components/User/Footer'
 export default {
     data(){
         return{
