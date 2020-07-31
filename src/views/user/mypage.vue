@@ -1,18 +1,13 @@
 <template>
 <v-container class="ma-0 pa-0" fluid>
+    <Uheader/>
     <v-layout class="ma-0 pa-0" wrap>
         <v-flex xs12 lg12>
             <v-row justify="center" class="ma-0 pa-0">
-                <v-btn
-                        class="mb-5"
-                        width="120"
-                        @click="logout">
-                        ログアウト
-                    </v-btn>
                 <v-card class="ma-0 pa-0" elevation="0">
                     <v-card-title class="mt-12 justify-center" v-resize="onResize" :class="size">ようこそ！</v-card-title>
                     <v-row justify="center" class="ma-0 pa-0">
-                        <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">{{username}}</v-card-title>
+                        <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">{{user_fname}}</v-card-title>
                             <v-card-title class="mt-12 display-1">さん</v-card-title>
                     </v-row>
                     <v-row justify="center" class="ma-0 pa-0">
@@ -67,9 +62,12 @@
             </v-row>
         </v-flex>
     </v-layout>
+    <ufooter/>
 </v-container>
 </template>
 <script>
+import Uheader  from '@/components/User/Header'
+import Ufooter from '@/components/User/Footer'
 import firebase from 'firebase'
 export default {
     data() {
@@ -111,34 +109,6 @@ export default {
                     }
                 ]
             }
-        },
-            computed: {},
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                },
-                {
-                    name:'ねむい',
-                    weight:'2'
-                }
-            ]
-        }
     },
     computed:{
         user_fname(){
@@ -173,10 +143,14 @@ export default {
             {
                 this.size='display-3'
             }
-        })
+        }
     },
     created:function(){
         this.onAuth()
-    }
+    },
+    components: {
+        Ufooter,
+        Uheader,
+    },
 }
 </script>

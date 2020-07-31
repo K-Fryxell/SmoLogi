@@ -24,74 +24,74 @@ const routes = [{
         path: '/user_history',
         name: 'History',
         component: () =>
-            import('@/views/user/usage_history.vue')
+            import('@/views/user/usageHistory.vue')
     },
     {
         path: '/user_transport',
         name: 'Transport',
         component: () =>
-            import('@/views/user/transport_info.vue')
+            import('@/views/user/transportInfo.vue')
     },
     {
         path: '/user_change',
         name: 'Change',
         component: () =>
-            import('@/views/user/change_detail.vue')
+            import('@/views/user/changeDetails')
     },
     {
         path: '/user_passchange',
         name: 'UserPasschange',
         component: () =>
-            import ('@/views/user/passchange.vue')
-    },
-    {
-        path: '/kiyaku',
-        name: 'Kiyaku',
-        component: () =>
-            import ('../views/footer/Kiyaku.vue')
-    },
-    {
-        path: '/question',
-        name: 'Question',
-        component: () =>
-            import ('../views/footer/Question.vue')
-    },
-    {
-        path: '/part_registuser',
-        name: 'partRegistUser',
-        component: () =>
-            import ('../views/part/partRegistration')
-    },
-    {
-        path: '/part_mypage',
-        name: 'partMypage',
-        component: () =>
-            import ('../views/part/partMypage')
+            import ('../views/user/passwordChange.vue')
     },
     {
         path: '/part_top',
         name: 'partTop',
         component: () =>
-            import ('../views/part/partTop')
+        import ('../views/part/partTop')
     },
     {
-        path: '/contact',
-        name: 'Contact',
+        path: '/part_registuser',
+        name: 'partRegistUser',
         component: () =>
-            import('../views/contact/contact.vue')
+        import ('../views/part/partRegistration')
+    },
+    {
+        path: '/part_mypage',
+        name: 'partMypage',
+        component: () =>
+        import ('../views/part/partMypage')
     },
     {
         path: '/part_request',
         name: 'partRequest',
         component: () =>
-            import ('../views/part/partRequest')
+        import ('../views/part/partRequest')
     },
     {
         path: '/part_requestdetails',
         name: 'partRequestdetails',
         component: () =>
-            import ('../views/part/partRequestdetails')
-    }
+        import ('../views/part/partRequestDetails.vue')
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        component: () =>
+        import('../views/contact/contact.vue')
+    },
+    {
+        path: '/terms',
+        name: 'Terms',
+        component: () =>
+            import ('../views/footer/terms.vue')
+    },
+    {
+        path: '/inquery',
+        name: 'Inquery',
+        component: () =>
+            import ('../views/footer/inquery.vue')
+    },
 ]
 const router = new VueRouter({
     mode: 'history',

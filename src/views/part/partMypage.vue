@@ -49,13 +49,13 @@
                                             </v-col>
                                             <v-col lg="12" cols="12">
                                                 <v-row class="ma-0 pa-0" justify="center">
-                                                    <v-card-text class="text-center" v-resize='onResize' :class='size_title'>{{Hostname}}{{sann}}</v-card-text>
+                                                    <v-card-text class="text-center" v-resize='onResize' :class='size_title'>{{part_fname}}さん</v-card-text>
                                                     <v-card-text class="text-center" v-resize='onResize' :class='size_subtitle'>{{message}}</v-card-text>
                                                 </v-row>
                                             </v-col>
                                         </v-row>
                                         <v-row class="ma-0 pa-0" justify="center">
-                                            <v-btn class="white--text pa-6" color="green"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
+                                            <v-btn class="white--text pa-6" color="green" to="/part_request"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
                                         </v-row>
                                     </v-tab-item>
 
@@ -93,7 +93,7 @@
                                     :key="item.id"
                                     class="mb-4"
                                     v-resize='onResize' :class='size_title'>
-                                        <span class="pr-4">{{item.month}}{{tuki}}{{item.date}}{{hi}}{{item.time}}</span><span class="pr-4">{{item.name}}{{sann}}</span>{{item.weight}}{{kg}}
+                                        <span class="pr-4">{{item.month}}月{{item.date}}日/{{item.time}}</span><span class="pr-4">{{item.name}}さん</span>{{item.weight}}kg
                                 </v-card-text>
                             </v-card>
                         </v-card>
@@ -106,69 +106,63 @@
 </template>
 <script>
 import firebase from 'firebase'
-import Header from '@/components/Part/Header'
-import Footer from '@/components/Part/Footer'
-import partChangeProfile from '@/components/Part/partChangeProfile.vue'
-
+import Header from '@/components/Part/PartHeader'
+import Footer from '@/components/Part/PartFooter'
+import partChangeProfile from '@/components/Part/PartChangeProfile'
 export default {
     data() {
         return {
-            Hostname:"いやや",
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
-            sann:"さん",
-            kg:"kg",
-            tuki:"月",
-            hi:"日/",
             items: [
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:07',
-                        name:'ユーザ',
-                        weight:'2',
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:06',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:05',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:04',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:03',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:02',
-                        name:'ユーザ',
-                        weight:'2'
-                    },
-                    {
-                        month:'7',
-                        date:'19',
-                        time:'13:01',
-                        name:'ユーザ',
-                        weight:'2'
-                    }
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:07',
+                    name:'ユーザ',
+                    weight:'2',
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:06',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:05',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:04',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:03',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:02',
+                    name:'ユーザ',
+                    weight:'2'
+                },
+                {
+                    month:'7',
+                    date:'19',
+                    time:'13:01',
+                    name:'ユーザ',
+                    weight:'2'
+                }
             ],
             x:window.innerWidth,
             y:window.innerHeight ,
@@ -184,13 +178,9 @@ export default {
         Footer,
         partChangeProfile
     },
-    computed: {
-        user() {
-        return this.$store.getters.user;
-        },
-        userStatus() {
-        // ログインするとtrue
-        return this.$store.getters.isSignedIn;
+    computed:{
+        part_fname(){
+            return this.$store.getters.part_fname
         }
     },
     // created:function(){
@@ -215,6 +205,9 @@ export default {
             this.x = window.innerWidth
             this.y = window.innerHeight
         },
+        onAuth(){
+            this.$store.commit('part_onAuthStateChanged')
+        }
     },
     watch:{
         x:function(){
@@ -235,6 +228,9 @@ export default {
                 this.size_body = 'body-1'
             }
         }
+    },
+    created:function(){
+        this.onAuth()
     }
 }
 </script>

@@ -18,26 +18,14 @@
                                     </v-row>
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
-                                            <!-- <img v-if="this.$store.state.img!='no_image' &!uploadImageUrl"
-                                                :src="this.$store.state.img"
-                                                alt="アイコンa"
-                                                style="border-radius: 8em;
-                                                width:500px;
-                                                height:500px;"
-                                            >
-                                            <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
-                                                src="#"
-                                                alt="アイコンb"
-                                                style="border-radius: 8em;
-                                                width:500px;
-                                                height:500px;"
-                                            > -->
                                             <img v-if="uploadImageUrl"
                                                 :src="uploadImageUrl"
                                                 alt="アイコン"
-                                                style="border-radius: 8em;
-                                                width:200px;
-                                                height:200px;"
+                                            >
+                                            <img
+                                                v-if="uploadImageUrl==null"
+                                                :src="img"
+                                                alt="アイコンa"
                                             >
                                         </v-avatar>
                                     </v-row>
@@ -160,21 +148,9 @@
                                         outlined
                                         x-large
                                         rounded
+                                        to="/user_passchange"
                                     >
-                                        クレジットカード情報変更
-                                    </v-btn>
-                                </v-row>
-
-                                <!--パスワード変更ボタン -->
-                                <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
-                                    <v-btn
-                                        class="mt-12"
-                                        color="grey darken-2"
-                                        outlined
-                                        x-large
-                                        rounded
-                                    >
-                                        パスワード変更
+                                        パスワード・クレジットカード情報変更
                                     </v-btn>
                                 </v-row>
                             </v-col>
@@ -187,8 +163,8 @@
 </template>
 <script>
 const { mask } = require('vue-the-mask')
-import Uheader  from '../../components/User/Uheader'
-import Ufooter from '../../components/User/Ufooter'
+import Uheader  from '@/components/User/Header'
+import Ufooter from '@/components/User/Footer'
 export default {
     data(){
         return{
@@ -196,29 +172,13 @@ export default {
             TEL: '###-####-####',
             array:{},
             //プロフィール写真
-            uploadImageUrl: '',
-            inputImage: '',
-            //姓
-            firstname: '',
-            //名
-            lastname: '',
-            //姓カナ
-            firstkana: '',
-            //名カナ
-            lastkana: '',
-            //メールアドレス
-            email: '',
-            //郵便番号
-            post: '',
-            //住所
-            address: '',
-            //電話番号
-            tel: '',
+            uploadImageUrl: null,
             //v-formのv-model
-						update :true,
-						btnLayout:'end',
-						x:0,
+            update :true,
+            btnLayout:'end',
+            x:0,
             y:0,
+            img:require("@/assets/icon.jpg"),
             //Rules
             // 姓名
             firstnameRules: [
@@ -267,18 +227,76 @@ export default {
                 v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
             ],
         }
-		},
-		mounted(){
+    },
+    mounted(){
       window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
     },
+    computed:{
+        //姓
+        user_fname(){
+            return this.$store.getters.user_fname
+        },
+        firstname(){
+            return this.user_fname
+        },
+        //名
+        user_name(){
+            return this.$store.getters.user_name
+        },
+        lastname(){
+            return this.user_name
+        },
+        //姓カナ
+        user_fname_kana(){
+            return this.$store.getters.user_fname_kana
+        },
+        firstkana(){
+            return this.user_fname_kana
+        },
+        //名カナ
+        user_name_kana(){
+            return this.$store.getters.user_name_kana
+        },
+        lastkana(){
+            return this.user_name_kana
+        },
+        //メールアドレス
+        user_email(){
+            return this.$store.getters.user_email
+        },
+        email(){
+            return this.user_email
+        },
+        //郵便番号
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        post(){
+            return this.user_post
+        },
+        //住所
+        user_address(){
+            return this.$store.getters.user_address
+        },
+        address(){
+            return this.user_address
+        },
+        //電話番号
+        user_tel(){
+            return this.$store.getters.user_tel
+        },
+        tel(){
+            return this.user_tel
+        },
+    },
     methods:{
         validate(){
             this.$refs.form.validate()
-				},
-				onResize(){
+        },
+        onResize(){
             this.x = window.innerWidth;
             this.y = window.innerHeight;
         },
@@ -307,20 +325,20 @@ export default {
             this.$refs.input.click()
         },
         async selectedFile() {
-						this.isUploading = true;
-						const file = this.$refs.input.files[0]
-								if (!file) {
-										return;
-								}
-						const fr = new FileReader()
-								fr.readAsDataURL(file)
-								fr.addEventListener('load', () => {
-										this.uploadImageUrl = fr.result
-										// alert(this.uploadImageUrl);
-								})
-					}
-		},
-		watch:{
+            this.isUploading = true;
+            const file = this.$refs.input.files[0]
+                if (!file) {
+                        return;
+                }
+            const fr = new FileReader()
+                fr.readAsDataURL(file)
+                fr.addEventListener('load', () => {
+                    this.uploadImageUrl = fr.result
+                    // alert(this.uploadImageUrl);
+                })
+        },
+    },
+    watch:{
         x:function(){
             if(this.x<=600)
             {
@@ -337,6 +355,9 @@ export default {
     },
     directives: {
         mask
+    },
+    created() {
+        this.$store.commit('onAuthStateChanged')
     },
 }
 </script>

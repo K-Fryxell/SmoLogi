@@ -9,8 +9,7 @@
                         <v-card-text>この利用規約（以下，「本規約」といいます。）は，ニモチ（以下，「当社」といいます。）
                             がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。 
                             登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
-                            </v-card-text>
-
+                        </v-card-text>
                     </v-col>
                     <!-- 表示ボタン -->
                     <v-row justify="center" v-if="open == true">
@@ -36,18 +35,14 @@
             </v-row>
         </v-container>
         <v-card-title class="justify-center mt-12">規約制定日 2020年7月</v-card-title>
-
-
     </content>
 </template>
-
 <script>
 export default{
-  data() {
-    return {
-      open:true
-    }
-  },
+    data() {
+        return {
+            open:true
+        }
+    },
 }
-
 </script>

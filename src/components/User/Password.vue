@@ -43,10 +43,10 @@
                     </v-row>
                     <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                         <v-btn
-                        :disabled="!valid"
-                        color="blue"
-                        class="mr-4 white--text mb-5"
-                        width="120">
+                            :disabled="!valid"
+                            color="blue"
+                            class="mr-4 white--text mb-5"
+                            width="120">
                             登録
                         </v-btn>
                     </v-row>

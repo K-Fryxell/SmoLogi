@@ -3,45 +3,44 @@
         <v-layout class="ma-0 pa-0">
             <v-flex xs12 lg12 >
                 <v-row justify="center">
-                        <v-col cols="11" class="mx-12">
-                            <v-form
-                            ref="form"
-                            v-model="valid">
-                                <!-- mail入力 -->
-                                <v-text-field prepend-icon="mdi-email" class="pt-6" v-model="mailaddress"
-                                    :rules="registemailRules"
-                                    counter
-                                    label="E-mail"
-                                    hint="メールアドレスは50字以下で記入してください。"
-                                    required />
-                                <!-- パスワード入力 -->
-                                <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
-                                    v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                    @click:append="showPassword = !showPassword" v-model="password"
-                                    :rules="registpassRules"
-                                    counter
-                                    label="password"
-                                    hint="パスワードは8字以上20字以下にしてください。"
-                                    required/>
-                                    <!-- ログインボタン -->
-                                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
-                                        <v-btn
-                                            :disabled="!valid"
-                                            color="blue"
-                                            class="mr-4 white--text mb-5"
-                                            width="120"
-                                        >
-                                            | Login |
-                                        </v-btn>
-                                    </v-row>
-                      </v-form>
+                    <v-col cols="11" class="mx-12">
+                        <v-form ref="form" v-model="valid">
+                            <!-- mail入力 -->
+                            <v-text-field prepend-icon="mdi-email" class="pt-6" 
+                                v-model="mailaddress"
+                                :rules="registemailRules"
+                                counter
+                                label="E-mail"
+                                hint="メールアドレスは50字以下で記入してください。"
+                                required />
+                            <!-- パスワード入力 -->
+                            <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                                v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                @click:append="showPassword = !showPassword" 
+                                v-model="password"
+                                :rules="registpassRules"
+                                counter
+                                label="password"
+                                hint="パスワードは8字以上20字以下にしてください。"
+                                required/>
+                            <!-- ログインボタン -->
+                            <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                                <v-btn
+                                    :disabled="!valid"
+                                    color="blue"
+                                    class="mr-4 white--text mb-5"
+                                    width="120"
+                                >
+                                    | Login |
+                                </v-btn>
+                            </v-row>
+                        </v-form>
                     </v-col>
                 </v-row>
             </v-flex>
         </v-layout>
     </v-container> 
 </template>
-
 <script>
 export default {
     data(){

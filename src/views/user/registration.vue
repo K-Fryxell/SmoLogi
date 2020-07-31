@@ -18,10 +18,9 @@
         </v-layout>
     </v-container>
 </template>
-
 <script>
-import Regist from '../../components/User/Regist.vue';
-import Login from '../../components/User/Login.vue';
+import Regist from '@/components/User/Regist'
+import Login from '@/components/User/Login'
 export default {
     data(){
         return{

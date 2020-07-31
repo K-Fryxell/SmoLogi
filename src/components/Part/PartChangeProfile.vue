@@ -10,7 +10,6 @@
                                     プロフィール変更
                                 </v-card-text>
                             </v-row>
-
                             <!-- ここから顔写真の登録   -->
                             <v-row class="ma-0 mt-5 pa-0" justify="center">
                                 <v-card-text align="center"  v-resize='onResize' :class='size_title'>
@@ -19,27 +18,24 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl" 
+                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;" 
-                                    >
+                                        height:200px;">
                                     <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                         src="#"
                                         alt="アイコンb"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;"
-                                    >
-                                    <img v-if="uploadImageUrl" 
+                                        height:200px;">
+                                    <img v-if="uploadImageUrl"
                                         :src="uploadImageUrl"
                                         alt="アイコンc"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;" 
-                                    >
+                                        height:200px;">
                                 </v-avatar>
                             </v-row>
                             <!-- ここからテスト -->
@@ -60,14 +56,12 @@
                                 </v-col>
                             </v-row>
                             <!-- ここまで顔写真の登録 -->
-
-                            
                             <v-row class="ma-0 pa-0">
                             <!-- 姓textarea -->
                                 <v-flex lg6 xs6>
                                     <v-col lg="12" cols="12">
                                         <v-text-field
-                                        v-model="firstname"
+                                        v-model="fname"
                                         :rules="nameRules"
                                         prepend-icon="mdi-account-circle"
                                         required
@@ -125,16 +119,16 @@
                                 ></v-text-field>
                                 </v-col>
                             </v-row>
-                            
+
                             <!-- 郵便番号textarea -->
                             <v-row class="ma-0 pa-0">
                                 <v-col lg="6" cols="8">
                                     <v-text-field
-                                    v-model="post"
-                                    :rules="postRules"
-                                    prepend-icon="mdi-currency-kzt"
-                                    label="郵便番号(ハイフン(-)を含めて入力してください)"
-                                    required
+                                        v-model="post"
+                                        :rules="postRules"
+                                        prepend-icon="mdi-currency-kzt"
+                                        label="郵便番号(ハイフン(-)を含めて入力してください)"
+                                        required
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -174,7 +168,7 @@
                                     width="170"
                                     height="50"
                                 >
-                                変更
+                                更新
                                 </v-btn>
                             </v-row>
                         </v-form>
@@ -202,82 +196,130 @@
         </v-container>
     </v-content>
 </template>
-
-
 <script>
-import partChangePasswd from '../../components/Part/partChangePasswd.vue'
-import partChangeBank from '@/components/Part/partChangeBank.vue'
+import partChangePasswd from '@/components/Part/PartChangePassword'
+import partChangeBank from '@/components/Part/PartChangeBank'
 
 export default {
     data (){
-    return{
-        btn:0,
-        firstname:'',
-        lastname:'',
-        firstkana:'',
-        lastkana:'',
-        post:'',
-        address:'',
-        tel:'',
-        username:'',
-        uploadImageUrl: '',
-        array: {},
-        update: true,
-        //姓・名・住所
-        nameRules: [
-            v => !!v || '入力欄が空白です。'
-        ],
-        //セイ・メイ
-        kanaRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
-        ],
-        //郵便番号(前)
-        postRules: [
-            v => !!v || '入力欄が空白です。',
-            v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
-        ],
+        return{
+            btn:0,
+            username:'',
+            uploadImageUrl: '',
+            array: {},
+            update: true,
+            //姓・名・住所
+            nameRules: [
+                v => !!v || '入力欄が空白です。'
+            ],
+            //セイ・メイ
+            kanaRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /[ァ-ヴ]$/.test(v)  ||'カタカナで入力してください。'
+            ],
+            //郵便番号(前)
+            postRules: [
+                v => !!v || '入力欄が空白です。',
+                v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
+            ],
+            //電話番号
+            telRules: [
+                v => !!v || '入力欄が空欄です。',
+                v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
+                v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+            ],
+            //ユーザ名
+            usernameRules: [
+                v => !!v || '入力欄が空白です。',
+                v => (v && v.length <= 8) || '8字以内で入力してください。'
+            ],
+            inputImage: null,
+
+            x:window.innerWidth,
+            y:window.innerHeight ,
+            size_display:'display-1',
+            size_headline:'headline',
+            size_title:'title',
+            size_subtitle:'subtitle-1',
+            size_body:'body-1',
+            size_btn:'body-1',
+        }
+    },
+    computed:{
+        //姓
+        part_fname(){
+            return this.$store.getters.part_fname
+        },
+        fname(){
+            return this.part_fname
+        },
+        //名
+        part_name(){
+            return this.$store.getters.part_name
+        },
+        lastname(){
+            return this.part_name
+        },
+        //姓カナ
+        part_fname_kana(){
+            return this.$store.getters.part_fname_kana
+        },
+        firstkana(){
+            return this.part_fname_kana
+        },
+        //名カナ
+        part_name_kana(){
+            return this.$store.getters.part_name_kana
+        },
+        lastkana(){
+            return this.part_name_kana
+        },
+        //メールアドレス
+        part_email(){
+            return this.$store.getters.part_email
+        },
+        email(){
+            return this.part_email
+        },
+        //郵便番号
+        part_post(){
+            return this.$store.getters.part_post
+        },
+        post(){
+            return this.part_post
+        },
+        //住所
+        part_address(){
+            return this.$store.getters.part_address
+        },
+        address(){
+            return this.part_address
+        },
         //電話番号
-        telRules: [
-            v => !!v || '入力欄が空欄です。',
-            v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-            v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
-        ],
-        //ユーザ名
-        usernameRules: [
-            v => !!v || '入力欄が空白です。',
-            v => (v && v.length <= 8) || '8字以内で入力してください。'
-        ],
-        inputImage: null,
-    
-      x:window.innerWidth,
-      y:window.innerHeight ,
-      size_display:'display-1',
-      size_headline:'headline',
-      size_title:'title',
-      size_subtitle:'subtitle-1',
-      size_body:'body-1',
-      size_btn:'body-1',
-    }
-  },
-    computed: {},
+        part_tel(){
+            return this.$store.getters.part_tel
+        },
+        tel(){
+            return this.part_tel
+        },
+    },
     components:{
         partChangePasswd,
         partChangeBank
     },
     mounted () {
-      this.onResize
+        this.onResize
     },
     methods: {
-      onResize () {
-        this.x = window.innerWidth
-        this.y = window.innerHeight
-      },
-      validate () {
+        onResize () {
+            this.x = window.innerWidth
+            this.y = window.innerHeight
+        },
+        validate () {
             this.$refs.form.validate()
         },
         updater(){
-            this.array['firstname'] = this.firstname
+            this.array['firstname'] = this.fname
             this.array['lastname'] = this.lastname
             this.array['firstkana'] = this.firstkana
             this.array['lastkana'] = this.lastkana
@@ -290,20 +332,20 @@ export default {
         },
         // selectfileボタン押下時
         btnclick() {
-          this.$refs.input.click()
+            this.$refs.input.click()
         },
         async selectedFile() {
-          this.isUploading = true;
+            this.isUploading = true;
 
-          const file = this.$refs.input.files[0]
-          if (!file) {
-            return;
-          }  
-          const fr = new FileReader()
+            const file = this.$refs.input.files[0]
+            if (!file) {
+                return;
+            }
+            const fr = new FileReader()
             fr.readAsDataURL(file)
             fr.addEventListener('load', () => {
-              this.uploadImageUrl = fr.result
-              // alert(this.uploadImageUrl);
+                this.uploadImageUrl = fr.result
+                // alert(this.uploadImageUrl);
             })
         },
     },

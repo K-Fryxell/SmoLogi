@@ -1,9 +1,10 @@
 <template>
     <content>
         <!-- ログインボタン -->
-        <v-btn text  @click="dialog = true">
+        <v-btn text color="green" @click="dialog = true">
             ログイン
         </v-btn>
+        <!-- ログインボタン押下時処理 -->
         <v-dialog v-model="dialog" width="500">
             <v-card>
                 <v-form ref="form" v-model="valid">
@@ -15,7 +16,8 @@
                         hint="メールアドレスは50字以下で記入してください。"
                         required />
                     <!-- パスワード入力 -->
-                    <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                    <v-text-field 
+                        :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
                         v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword" v-model="password"
                         :rules="registpassRules"
@@ -24,28 +26,31 @@
                         hint="パスワードは8字以上20字以下にしてください。"
                         required/>
                         <!-- ログインボタン -->
-                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
-                        <v-btn
-                            :disabled="!valid"
-                            color="blue"
-                            class="mr-4 white--text"
-                            @click="login"
-                            :loading="loading"
-                            width="120"
-                        >
-                            | Login |
-                        </v-btn>
-                        <v-progress-linear :active="loading" :indeterminate="loading" top color="blue accent-4"></v-progress-linear>
-                    </v-row>
-                </v-form>
+                        <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                            <v-btn
+                                :disabled="!valid"
+                                color="blue"
+                                class="mr-4 white--text"
+                                @click="login"
+                                :loading="loading"
+                                width="120"
+                            >
+                                | Login |
+                            </v-btn>
+                            <v-progress-linear :active="loading" :indeterminate="loading" top color="blue accent-4"></v-progress-linear>
+                        </v-row>
+                    </v-form>
             </v-card>
         </v-dialog>
+
         <!-- 新規登録ページボタン -->
-        <v-btn dark style="background-color: #57bd7d" to="/user_regist">
+        <v-btn color="green" dark to="part_registuser">
             新規登録
         </v-btn>
     </content>
 </template>
+
+
 <script>
 import firebase from 'firebase'
 export default {
@@ -87,25 +92,9 @@ export default {
         },
         // ログイン
         login(){
-            if (this.mailaddress === '' || this.password === '') return
-            this.loading = true
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
-            this.$store.commit('user_login', this.array)
-            
-            // if (this.mailaddress === '' || this.password === '') return
-            // firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
-            // .then(()=>{
-            //     this.mailaddress = '';
-            //     this.password = '';
-            // })
-            // .catch(function(error) {
-            //     // Handle Errors here.
-            //     var errorCode = error.code;
-            //     var errorMessage = error.message;
-            //     console.log(errorCode);
-            //     console.log(errorMessage);
-            // });
+            this.$store.commit('part_login',this.array)
         },
         // モーダルを閉じる
         close(){
@@ -132,8 +121,6 @@ export default {
                 if(this.authenticatedUser == true)
                 {
                     alert('ログイン成功')
-                    this.mailaddress = ''
-                    this.password = ''
                 }
                 else{
                     alert('ログイン失敗');
