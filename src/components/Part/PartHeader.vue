@@ -2,7 +2,7 @@
     <v-card tile elevation="0" height="85">
         <v-toolbar dense flat>
             <v-toolbar-title>
-                <router-link to="/user_mypage">
+                <router-link to="/part_mypage">
                     <!--ロゴ <img> -->
                     <img height="55"  src="@/assets/logo_Sample.jpg">
                 </router-link>

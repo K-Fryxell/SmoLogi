@@ -578,6 +578,8 @@ export default {
                 this.array['y_number'] = this.y_number
                 this.array['y_host'] = this.y_host
                 this.array['part_image'] = this.part_image
+                // ログインの種別判定
+                this.array['judge'] = 1
                 // this.array['bankname'] = this.bankname
                 // this.array['bankcode'] = this.bankcode
                 // this.array['branch'] = this.branch
