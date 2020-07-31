@@ -407,6 +407,7 @@ export default {
             y_symbol:'',
             y_number:'',
             y_host:'',
+            part_image:'',
             // ここから銀行
             // bankname:'',
             // bankcode:'',
@@ -557,8 +558,8 @@ export default {
     },
   methods: {
         onResize () {
-        this.x = window.innerWidth
-        this.y = window.innerHeight
+            this.x = window.innerWidth
+            this.y = window.innerHeight
         },
         register(){
             this.array['firstname'] = this.firstname
@@ -578,6 +579,7 @@ export default {
             this.array['y_symbol'] = this.y_symbol
             this.array['y_number'] = this.y_number
             this.array['y_host'] = this.y_host
+            this.array['part_image'] = this.part_image
             // this.array['bankname'] = this.bankname
             // this.array['bankcode'] = this.bankcode
             // this.array['branch'] = this.branch

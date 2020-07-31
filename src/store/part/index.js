@@ -163,7 +163,7 @@ export default ({
                         state.part_email = doc.data().email
                         // // 氏名・かな
                         state.part_fname = doc.data().firstname
-                        console.log(state.part_fname)
+                        // console.log(state.part_fname)
                         state.part_fname_kana = doc.data().firstkana
                         state.part_name = doc.data().lastname
                         state.part_name_kana = doc.data().lastkana
@@ -185,6 +185,8 @@ export default ({
                         state.y_synbol = doc.data().y_synbol
                         state.y_number = doc.data().y_number
                         state.y_host = doc.data().y_host
+                        // 顔写真
+                        state.part_image = doc.data().part_image
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -208,7 +210,7 @@ export default ({
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
-                
+
                 })
             })
         },

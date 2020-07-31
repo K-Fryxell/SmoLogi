@@ -1,17 +1,17 @@
 <template>
     <v-layout>
         <v-flex xs=12 sm=6 md=6>
-            <v-row class="ma-0 pa-0">
+            <v-row class="ma-0 pa-0" v-if="tab == false">
                 <v-col class="ma-0 pa-0">
                     <v-row class="ma-0 pa-0" justify="center">
                         <v-col cols="12" class="ma-0 pa-0">
                             <v-card class="green" elevation="0" height="650" tile >
-                                    <!-- ここにグーグルマップの表示  -->
+                                <!-- ここにグーグルマップの表示  -->
                                 <GmapMap
                                     :center="{lat:user_latitude, lng:user_longitude}"
                                     :zoom="zoom"
-                                    style="width: 100%; height: 100%;"
-                                    :options="mapStyle">
+                                    :options="mapStyle"
+                                    style="width: 100%; height: 100%;">
 
                                     <GmapInfoWindow
                                         :options="infoOptions"
@@ -20,21 +20,21 @@
                                         @closeclick="infoWinOpen=false"
                                     >あなたの現在地</GmapInfoWindow>
                                     <GmapMarker
-                                    @click="toggleInfoWindow(0)"
-                                    :position="{lat:user_latitude, lng:user_longitude}"
-                                    :clickable="true">
+                                        @click="toggleInfoWindow(0)"
+                                        :position="{lat:user_latitude, lng:user_longitude}"
+                                        :clickable="true">
                                     </GmapMarker>
 
                                     <GmapInfoWindow
                                         :options="infoOptions"
-                                        :position="{lat:35.8219776, lng:139.8013952}"
+                                        :position="{lat:part_latitude, lng:part_longitude}"
                                         :opened="infoWinOpen2"
                                         @closeclick="infoWinOpen2=false"
                                     >配達者の現在地</GmapInfoWindow>
                                     <GmapMarker
-                                    @click="toggleInfoWindow(1)"
-                                    :position="{lat:35.8219776, lng:139.8013952}"
-                                    :clickable="true">
+                                        @click="toggleInfoWindow(1)"
+                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :clickable="true">
                                     </GmapMarker>
                                 </GmapMap>
                             </v-card>
@@ -42,14 +42,14 @@
                     </v-row>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center">
+            <v-row class="ma-0 pa-0" justify="center" v-if="tab == false">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
                         配達者と話す
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center">
+            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == false">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
                         配達完了
@@ -59,6 +59,7 @@
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
+                v-if="tab == false"
                 >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
@@ -76,7 +77,7 @@
                                 :index="index"
                                 class="black--text"
                             >
-                                ニックネーム:
+                                {{ item.name }}:
                                 <v-card-text
                                     class="title pt-0 ma-0">
                                     {{item.content}}
@@ -103,7 +104,111 @@
                     </v-col>
                 </v-row>
             </v-overlay>
-            <v-dialog v-model="dialog" width="500">
+
+            <v-row class="ma-0 pa-0" v-if="tab == true">
+                <v-col class="ma-0 pa-0">
+                    <v-row class="ma-0 pa-0" justify="center">
+                        <v-col cols="12" class="ma-0 pa-0">
+                            <v-card class="green" elevation="0" height="650" tile >
+                                <!-- ここにグーグルマップの表示  -->
+                                <GmapMap
+                                    :center="{lat:user_latitude, lng:user_longitude}"
+                                    :zoom="zoom"
+                                    :options="mapStyle"
+                                    style="width: 100%; height: 100%;">
+
+                                    <GmapInfoWindow
+                                        :options="infoOptions"
+                                        :position="{lat:user_latitude, lng:user_longitude}"
+                                        :opened="infoWinOpen"
+                                        @closeclick="infoWinOpen=false"
+                                    >あなたの現在地</GmapInfoWindow>
+                                    <GmapMarker
+                                        @click="toggleInfoWindow(0)"
+                                        :position="{lat:user_latitude, lng:user_longitude}"
+                                        :clickable="true">
+                                    </GmapMarker>
+
+                                    <GmapInfoWindow
+                                        :options="infoOptions"
+                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :opened="infoWinOpen2"
+                                        @closeclick="infoWinOpen2=false"
+                                    >配達者の現在地</GmapInfoWindow>
+                                    <GmapMarker
+                                        @click="toggleInfoWindow(1)"
+                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :clickable="true">
+                                    </GmapMarker>
+                                </GmapMap>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0 pa-0" justify="center" v-if="tab == true">
+                <v-col class="ma-0 pa-0" cols="auto">
+                    <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
+                        配達者と話す
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == true">
+                <v-col class="ma-0 pa-0" cols="auto">
+                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
+                        配達完了
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-overlay
+                :opacity="opacity"
+                :value="overlay"
+                v-if="tab == true"
+                >
+                <v-row class="ma-0 pa-0" align="end">
+                    <v-col cols="auto">
+                        <v-btn
+                            color="orange lighten-2"
+                            @click="overlay = false"
+                            tile
+                        >
+                            Mapに戻る
+                        </v-btn>
+                        <v-card class="white display-1 overflow-y-auto" max-height="470" height="470" min-width="375" max-width="375" elevation="0" tile>
+                            <v-card-text
+                                v-for="(item,index) in chat"
+                                :key="index"
+                                :index="index"
+                                class="black--text"
+                            >
+                                {{ item.name }}:
+                                <v-card-text
+                                    class="title pt-0 ma-0">
+                                    {{item.content}}
+                                </v-card-text>
+                            </v-card-text>
+                        </v-card>
+
+                        <v-card class="display-1 py-2 pl-5 ma-0" outlined max-height="60" elevation="0">
+                            <v-row class="ma-0 pa-0" justify="end">
+                                <v-col cols="10" class="ma-0 pa-0">
+                                    <v-text-field
+                                        label="Message"
+                                        class="ma-0 black--text"
+                                        v-model="coment"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="2" class="ma-0 pa-0 py-1">
+                                    <v-btn class="pa-0 ma-0 ml-1" tile large color="teal" icon @click="send">
+                                        <v-icon class="pa-0 ma-0">mdi-send</v-icon>
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-overlay>
+            <v-dialog v-model="dialog" width="500" v-if="tab == true">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -135,6 +240,7 @@ export default {
     name: 'MapComponent',
     data() {
         return {
+            tab:false,
             infoOptions: {
                 pixelOffset: {
                     width: 0,
@@ -149,7 +255,7 @@ export default {
             part_latitude: 0,
             part_longitude: 0,
             coment:"",
-            center: { lat: 35.698304, lng: 139.766325 },
+            // center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
             mapStyle: {
                 disableDefaultUI: false, // 表示のオプションを指定できます。
@@ -159,7 +265,6 @@ export default {
                     // カスタマイズで使用したスタイルなどはここに。
                 ]
             },
-            tab:false,
             chat:[],
             // marker_items: [
             //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
@@ -224,7 +329,7 @@ export default {
     },
     created:function(){
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
-          await snapshot.forEach(doc => {
+            await snapshot.forEach(doc => {
             //contentは要素
             //pushは配列データそのもの
             // this.allData.push(doc.data().content)
@@ -232,7 +337,7 @@ export default {
             this.chat.push({
                 content:doc.data().content
                 })
-          })
+            })
         })
     }
 }
