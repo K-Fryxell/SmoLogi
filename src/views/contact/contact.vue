@@ -1,7 +1,7 @@
 <template>
     <v-layout>
         <v-flex xs=12 sm=6 md=6>
-            <v-row class="ma-0 pa-0" v-if="tab == false">
+            <v-row class="ma-0 pa-0" v-if="tab == 0">
                 <v-col class="ma-0 pa-0">
                     <v-row class="ma-0 pa-0" justify="center">
                         <v-col cols="12" class="ma-0 pa-0">
@@ -42,14 +42,14 @@
                     </v-row>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" v-if="tab == false">
+            <v-row class="ma-0 pa-0" justify="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
                         配達者と話す
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == false">
+            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
                         配達完了
@@ -59,7 +59,7 @@
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
-                v-if="tab == false"
+                v-if="tab == 0"
                 >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
@@ -105,7 +105,7 @@
                 </v-row>
             </v-overlay>
 
-            <v-row class="ma-0 pa-0" v-if="tab == true">
+            <v-row class="ma-0 pa-0" v-if="tab == 1">
                 <v-col class="ma-0 pa-0">
                     <v-row class="ma-0 pa-0" justify="center">
                         <v-col cols="12" class="ma-0 pa-0">
@@ -146,14 +146,14 @@
                     </v-row>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" v-if="tab == true">
+            <v-row class="ma-0 pa-0" justify="center" v-if="tab == 1">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
                         配達者と話す
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == true">
+            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 1">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
                         配達完了
@@ -163,7 +163,7 @@
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
-                v-if="tab == true"
+                v-if="tab == 1"
                 >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
@@ -208,7 +208,7 @@
                     </v-col>
                 </v-row>
             </v-overlay>
-            <v-dialog v-model="dialog" width="500" v-if="tab == true">
+            <v-dialog v-model="dialog" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -240,7 +240,7 @@ export default {
     name: 'MapComponent',
     data() {
         return {
-            tab:false,
+            tab:0,
             infoOptions: {
                 pixelOffset: {
                     width: 0,
@@ -339,6 +339,7 @@ export default {
                 })
             })
         })
+        this.tab = this.$store.state.judge
     }
 }
 </script>

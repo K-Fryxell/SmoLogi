@@ -427,7 +427,8 @@ export default {
             this.array['isYear'] = this.isYear
             // 月
             this.array['isMonth'] = this.isMonth
-
+            // ログインの種別判定
+            this.array['judge'] = 0
             await this.$store.commit('registUser',this.array)
         }
     },

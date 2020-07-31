@@ -187,6 +187,8 @@ export default ({
                         state.y_host = doc.data().y_host
                         // 顔写真
                         state.part_image = doc.data().part_image
+                        // 判定
+                        state.judge = doc.data().judge
                     })
                 } else {
                     // User not logged in or has just logged out.

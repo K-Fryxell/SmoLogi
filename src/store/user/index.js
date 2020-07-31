@@ -10,6 +10,8 @@ export default ({
         user_id:'',
         // ログイン情報のフラグ
         status: false,
+        // ユーザでのログインであることの判定
+        judge: 0,
         // メールアドレス・パスワード
         user_email: "",
         user_pass: "",
@@ -166,7 +168,8 @@ export default ({
                         state.isYear = doc.data().isYear
                         // 月
                         state.isMounth = doc.data().isMounth
-
+                        // 判定
+                        state.judge = doc.data().judge
                     })
                 } else {
                     // User not logged in or has just logged out.
