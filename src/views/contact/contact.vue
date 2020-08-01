@@ -319,12 +319,10 @@ export default {
             //         })
             //     })
             // )
-            
             this.chat.push({
                 content:this.coment,
                 name:this.name
             })
-            
             this.coment = ""
         },
     },
@@ -343,10 +341,10 @@ export default {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
-                let coords = position.coords;
+                let coords = position.coords
                 // 緯度経度だけ取得
-                this.user_latitude = coords.latitude;
-                this.user_longitude = coords.longitude;
+                this.user_latitude = coords.latitude
+                this.user_longitude = coords.longitude
             }.bind(this))
         }
     },
