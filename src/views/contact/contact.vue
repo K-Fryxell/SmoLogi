@@ -164,7 +164,7 @@
                 :opacity="opacity"
                 :value="overlay"
                 v-if="tab == 1"
-                >
+            >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
                         <v-btn
@@ -295,11 +295,11 @@ export default {
             // this.chat = []
             if(this.tab == 0)
             {
-                this.name = this.$store.getters.user_fname
+                this.name = this.user_name
             }
             else
             {
-                this.name = this.$store.getter.nickname
+                this.name = this.part_name
             }
             firebase.firestore().collection("comments").add({
                 content: this.coment,
@@ -319,13 +319,11 @@ export default {
             //         })
             //     })
             // )
-            if(this.tab == 0)
-            {
-                this.chat.push({
-                    content:this.coment,
-                    name:this.name
-                })
-            }
+            
+            this.chat.push({
+                content:this.coment,
+                name:this.name
+            })
             
             this.coment = ""
         },
@@ -365,6 +363,7 @@ export default {
                 })
             })
         })
+        this.$store.commit('onAuthStateChanged')
     }
 }
 </script>
