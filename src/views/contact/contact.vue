@@ -240,7 +240,6 @@ export default {
     name: 'MapComponent',
     data() {
         return {
-            tab:0,
             infoOptions: {
                 pixelOffset: {
                     width: 0,
@@ -316,6 +315,11 @@ export default {
             this.coment = ""
         },
     },
+    computed:{
+        tab(){
+            return this.$store.getters.judge
+        }
+    },
     mounted() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -339,7 +343,6 @@ export default {
                 })
             })
         })
-        this.tab = this.$store.state.judge
     }
 }
 </script>
