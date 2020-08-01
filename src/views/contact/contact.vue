@@ -164,7 +164,7 @@
                 :opacity="opacity"
                 :value="overlay"
                 v-if="tab == 1"
-                >
+            >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
                         <v-btn
@@ -271,7 +271,8 @@ export default {
             absolute: true,
             opacity: 0.4,
             overlay: false,
-            dialog:false
+            dialog:false,
+            name:""
         }
     },
     methods:{
@@ -292,9 +293,18 @@ export default {
         },
         send:function(){
             // this.chat = []
+            if(this.tab == 0)
+            {
+                this.name = this.user_name
+            }
+            else
+            {
+                this.name = this.part_name
+            }
             firebase.firestore().collection("comments").add({
                 content: this.coment,
-                createdAt: new Date()
+                createdAt: new Date(),
+                name:this.name
             })
             // .then(
             //     firebase.firestore().collection('comments').get().then(async snapshot => {
@@ -309,15 +319,24 @@ export default {
             //         })
             //     })
             // )
+            
             this.chat.push({
-                content:this.coment
-                })
+                content:this.coment,
+                name:this.name
+            })
+            
             this.coment = ""
         },
     },
     computed:{
         tab(){
             return this.$store.getters.judge
+        },
+        user_name(){
+            return this.$store.getters.user_fname
+        },
+        part_name(){
+            return this.$store.getters.nickname
         }
     },
     mounted() {
@@ -337,12 +356,14 @@ export default {
             //contentは要素
             //pushは配列データそのもの
             // this.allData.push(doc.data().content)
-            console.log(doc.data().content)
-            this.chat.push({
-                content:doc.data().content
+                console.log(doc.data().content)
+                this.chat.push({
+                    content:doc.data().content,
+                    name:doc.data().name
                 })
             })
         })
+        this.$store.commit('onAuthStateChanged')
     }
 }
 </script>
