@@ -7,8 +7,10 @@
                 <v-card class="ma-0 pa-0" elevation="0">
                     <v-card-title class="mt-12 justify-center" v-resize="onResize" :class="size">ようこそ！</v-card-title>
                     <v-row justify="center" class="ma-0 pa-0">
-                        <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">{{user_fname}}</v-card-title>
-                            <v-card-title class="mt-12 display-1">さん</v-card-title>
+                        <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">
+                            {{user_fname}}
+                            <span class="mt-12 display-1">さん</span>
+                        </v-card-title>
                     </v-row>
                     <v-row justify="center" class="ma-0 pa-0">
                         <v-btn class="mt-12" rounded color="primary" large to="/user_transport">お手伝いを頼む</v-btn>

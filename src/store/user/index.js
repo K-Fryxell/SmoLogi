@@ -87,6 +87,9 @@ export default ({
         user_lng(state) {
             return state.user_lng
         },
+        judge(state){
+            return state.judge
+        }
         // history(state) {
         //     return state.user_usage_history
         // },
@@ -137,7 +140,7 @@ export default ({
                     // console.log(user.uid);
                     // this.user_id = user.uid
                     // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
-                    firebase.firestore().collection('users').doc(user.uid).get().then(doc => {
+                    firebase.firestore().collection('users').doc(user.uid).get().then( doc => {
                         console.log(doc.data())
                         // メールアドレス
                         state.user_email = doc.data().email
@@ -170,6 +173,7 @@ export default ({
                         state.isMounth = doc.data().isMounth
                         // 判定
                         state.judge = doc.data().judge
+                        console.log(state.judge)
                     })
                 } else {
                     // User not logged in or has just logged out.
