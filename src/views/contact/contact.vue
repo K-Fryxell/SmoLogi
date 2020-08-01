@@ -271,7 +271,8 @@ export default {
             absolute: true,
             opacity: 0.4,
             overlay: false,
-            dialog:false
+            dialog:false,
+            name:""
         }
     },
     methods:{
@@ -292,9 +293,18 @@ export default {
         },
         send:function(){
             // this.chat = []
+            if(this.tab == 0)
+            {
+                this.name = this.$store.getters.user_fname
+            }
+            else
+            {
+                this.name = this.$store.getter.nickname
+            }
             firebase.firestore().collection("comments").add({
                 content: this.coment,
-                createdAt: new Date()
+                createdAt: new Date(),
+                name:this.name
             })
             // .then(
             //     firebase.firestore().collection('comments').get().then(async snapshot => {
@@ -309,15 +319,26 @@ export default {
             //         })
             //     })
             // )
-            this.chat.push({
-                content:this.coment
+            if(this.tab == 0)
+            {
+                this.chat.push({
+                    content:this.coment,
+                    name:this.name
                 })
+            }
+            
             this.coment = ""
         },
     },
     computed:{
         tab(){
             return this.$store.getters.judge
+        },
+        user_name(){
+            return this.$store.getters.user_fname
+        },
+        part_name(){
+            return this.$store.getters.nickname
         }
     },
     mounted() {
@@ -337,9 +358,10 @@ export default {
             //contentは要素
             //pushは配列データそのもの
             // this.allData.push(doc.data().content)
-            console.log(doc.data().content)
-            this.chat.push({
-                content:doc.data().content
+                console.log(doc.data().content)
+                this.chat.push({
+                    content:doc.data().content,
+                    name:doc.data().name
                 })
             })
         })
