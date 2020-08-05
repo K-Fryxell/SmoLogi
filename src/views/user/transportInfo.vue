@@ -45,24 +45,24 @@
                             <v-row class="mt-0 pa-0" justify="center" >
                                 <v-col cols="4" lg="auto">
                                     <v-btn
-                                        @click="firstTime(9);lastTime(12)"
+                                        @click="isTime(0)"
                                         width="100"
                                         height="50"
                                         large
                                         outlined
-                                        color="grey darken-2"
+                                        :color="gozen"
                                     >
                                         午前
                                     </v-btn>
                                 </v-col>
                                 <v-col cols="4" lg="auto">
                                     <v-btn
-                                        @click="firstTime(14);lastTime(16)"
+                                        @click="isTime(1)"
                                         width="100"
                                         height="50"
                                         large
                                         outlined
-                                        color="grey darken-2"
+                                        :color="yugata"
                                     >
                                         夕方
                                     </v-btn>
@@ -71,10 +71,10 @@
                                     <v-btn
                                         width="100"
                                         height="50"
-                                        @click="firstTime(17);lastTime(20)"
+                                        @click="isTime(2)"
                                         large
                                         outlined
-                                        color="grey darken-2"
+                                        :color="yakan"
                                     >
                                         夜間
                                     </v-btn>
@@ -83,13 +83,13 @@
                             <v-row class="mt-0 pa-0" justify="center">
                                 <v-col lg="auto">
                                     <v-radio-group v-model="detailTime" :mandatory="false" row>
-                                            <v-radio value="0" label="詳しく時間指定をする"/>
+                                        <v-radio @click="isTrans" label="詳しく時間指定をする"/>
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
                             <v-row lg="12" v-if="detailTime==0" class="mt-0 pa-0" justify="center">
                                 <v-col lg="auto">
-                                        <h2 class="pt-2 display-6 font-weight-light">配達希望時刻</h2>
+                                    <h2 class="pt-2 display-6 font-weight-light">配達希望時刻</h2>
                                 </v-col>
                                 <v-col cols="auto" style="width:110px;">
                                     <v-select
@@ -274,9 +274,14 @@ export default {
             back_time:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
             //分
             back_minute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            //ボタンの色
+            gozen:"grey darken-2",
+            yugata:"grey darken-2",
+            yakan:"grey darken-2",
+
             //荷物のサイズ
             valid: true,
-            isSize:'',
+            isSize:'小(A2サイズ以内、40cm×15cm×60cm以内)',
             size:['小(A2サイズ以内、40cm×15cm×60cm以内)','中(35cm×54cm×48cm以内)','大(110cm×165cm×105cm以内)'],
             //重さ
             weight:1,
@@ -307,11 +312,39 @@ export default {
         }
     },
     methods:{
-        firstTime(first){
-            this.first_time = first
+        isTime(a){
+            //午前が押された時
+            if(a==0){
+                this.first_time = 9
+                this.last_time = 12
+                this.gozen = "green"
+                this.yugata = "grey darken-2"
+                this.yakan = "grey darken-2"
+            }
+            //夕方が押された時
+            else if(a==1){
+                this.first_time = 14
+                this.last_time = 16
+                this.gozen = "grey darken-2"
+                this.yugata = "green"
+                this.yakan = "grey darken-2"
+            }
+            //夜間が押された時
+            else{
+                this.first_time = 17
+                this.last_time = 20
+                this.gozen = "grey darken-2"
+                this.yugata = "grey darken-2"
+                this.yakan = "green"
+            }
         },
-        lastTime(last){
-            this.last_time = last
+        isTrans(){
+            if(this.detailTime==0){
+                this.detailTime = null
+            }
+            else{
+                this.detailTime = 0
+            }
         },
         select(kg){
             this.weight = kg
