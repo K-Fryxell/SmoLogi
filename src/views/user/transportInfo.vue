@@ -342,10 +342,10 @@ export default {
         x:function(){
             if(this.x<=600)
             {
-              this.btnLayout= 'center'
+                this.btnLayout= 'center'
             }else
             {
-              this.btnLayout='end'
+                this.btnLayout='end'
             }
         }
     },
