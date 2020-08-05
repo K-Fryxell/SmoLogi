@@ -82,82 +82,76 @@
                             </v-row>
                             <v-row class="mt-0 pa-0" justify="center">
                                 <v-col lg="auto">
-                                    <v-btn
-                                        v-on:click="show=!show"
-                                        width="200"
-                                        height="50"
-                                        large
-                                        outlined
-                                        color="grey darken-2"
-                                    >
-                                        時間指定をする
-                                    </v-btn>
+                                    <v-radio-group v-model="detailTime" :mandatory="false" row>
+                                            <v-radio value="0" label="詳しく時間指定をする"/>
+                                    </v-radio-group>
                                 </v-col>
                             </v-row>
-                            <transition>
-                                <v-row lg="12" v-if="show" class="mt-0 pa-0" justify="center">
-                                    <v-col lg="auto">
-                                            <h2 class="pt-2 display-6 font-weight-light">配達希望時刻</h2>
-                                        </v-col>
-                                    <v-col cols="auto" style="width:110px;">
-                                        <v-select
-                                            v-model="first_time"
-                                            :items="front_time"
-                                            single-line/>
-                                    </v-col>
-                                    <v-col cols="auto" class="mt-5 ml-n4">
-                                        時
-                                    </v-col>
-                                    <v-col cols="auto" style="width:110px;">
-                                        <v-select
-                                            v-model="first_minute"
-                                            :items="front_minute"
-                                            single-line/>
-                                    </v-col>
-                                    <v-col cols="auto" class="mt-5 ml-n4">
-                                        分
-                                    </v-col>
-                                    <v-col cols="auto" class="mt-5 ml-n4">
-                                        〜
-                                    </v-col>
-                                    <v-col cols="auto" style="width:110px;">
-                                        <v-select
-                                            v-model="last_time"
-                                            :items="back_time"
-                                            single-line/>
-                                    </v-col>
-                                    <v-col cols="auto" class="mt-5 ml-n4">
-                                        時
-                                    </v-col>
-                                    <v-col cols="auto" style="width:110px;">
-                                        <v-select
-                                            v-model="last_minute"
-                                            :items="back_minute"
-                                            single-line/>
-                                    </v-col>
-                                    <v-col cols="auto" class="mt-5 ml-n4">
-                                        分
-                                    </v-col>
-                                </v-row>
-                            </transition>
+                            <v-row lg="12" v-if="detailTime==0" class="mt-0 pa-0" justify="center">
+                                <v-col lg="auto">
+                                        <h2 class="pt-2 display-6 font-weight-light">配達希望時刻</h2>
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="first_time"
+                                        :items="front_time"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    時
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="first_minute"
+                                        :items="front_minute"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    分
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    〜
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="last_time"
+                                        :items="back_time"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    時
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="last_minute"
+                                        :items="back_minute"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    分
+                                </v-col>
+                            </v-row>
                         </v-col>
                     </v-row>
                     <!-- 荷物のサイズ -->
-                    <v-row justify="center" class="ma-0 pa-0">
-                        <v-col cols="12" lg="12" >
-                            <v-row justify="center" class="ma-0 pa-0">
-                                <v-col lg="auto">
-                                    <h2 class=" pt-3 font-weight-light" display-6>荷物のサイズ</h2>
-                                </v-col>
-                                <v-col cols="auto">
-                                    <v-select
-                                        v-model="isSize"
-                                        :items="size"
-                                        single-line/>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                    <v-form ref="form" v-model="valid">
+                        <v-row justify="center" class="ma-0 pa-0">
+                            <v-col cols="12" lg="12" >
+                                <v-row justify="center" class="ma-0 pa-0">
+                                    <v-col lg="auto">
+                                        <h2 class=" pt-3 font-weight-light" display-6>荷物のサイズ</h2>
+                                    </v-col>
+                                    <v-col cols="4">
+                                        <v-select
+                                            :rules="sizeRules"
+                                            v-model="isSize"
+                                            :items="size"
+                                            single-line/>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-form>
                     <!-- 荷物の重量 -->
                     <v-row justify="center" class="ma-0 pa-0">
                         <v-col cols="12" lg="12" >
@@ -221,6 +215,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <!-- 決定 -->
                                     <v-btn
+                                        :disabled="!valid"
                                         width="100"
                                         height="60"
                                         v-bind="attrs"
@@ -268,7 +263,7 @@ export default {
             last_time:12,
             last_minute:0,
             //詳しい配達希望時刻
-            show:false,
+            detailTime:null,
             //最初
             //時
             front_time:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
@@ -280,7 +275,8 @@ export default {
             //分
             back_minute:[0,5,10,15,20,25,30,35,40,45,50,55],
             //荷物のサイズ
-            isSize:0,
+            valid: true,
+            isSize:'',
             size:['小(A2サイズ以内、40cm×15cm×60cm以内)','中(35cm×54cm×48cm以内)','大(110cm×165cm×105cm以内)'],
             //重さ
             weight:1,
@@ -293,6 +289,10 @@ export default {
             //ダイアログ
             dialog: false,
             array:{},
+            //荷物のサイズ
+            sizeRules:[
+                v => !!v || 'サイズを選択してください',
+            ]
         }
     },
     mounted(){
