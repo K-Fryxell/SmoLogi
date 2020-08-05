@@ -16,6 +16,17 @@
 
                                         <!-- パートナー側マイページ -->
                                     <v-tab-item class="pt-6 pb-10">
+                                        <v-row class="ma-0 pa-0">
+                                            <v-col lg="4" cols="6" class="ml-auto">
+                                                <v-select
+                                                :items="cars"
+                                                label="配達車種"
+                                                color="green"
+                                                outlined
+                                                dense
+                                                ></v-select>
+                                            </v-col>
+                                        </v-row>
                                         <v-row class="ma-0 pa-0" justify="center">
                                             <v-col lg="12" cols="12">
                                                 <v-row class="ma-0 pa-0" justify="center">
@@ -112,6 +123,7 @@ import partChangeProfile from '@/components/Part/PartChangeProfile'
 export default {
     data() {
         return {
+            cars: ['自転車', '自動二輪車', '軽自動車', '普通自動車'],
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
             items: [
                 {

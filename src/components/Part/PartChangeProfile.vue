@@ -127,7 +127,7 @@
                                         v-model="post"
                                         :rules="postRules"
                                         prepend-icon="mdi-currency-kzt"
-                                        label="郵便番号(ハイフン(-)を含めて入力してください)"
+                                        label="郵便番号"
                                         required
                                     ></v-text-field>
                                 </v-col>
@@ -137,7 +137,7 @@
                                 <v-col lg="12" cols="12">
                                     <v-text-field
                                     v-model="address"
-                                    :rules="nameRules"
+                                    :rules="addressRules"
                                     prepend-icon="mdi-home"
                                     label="住所"
                                     required
@@ -151,7 +151,7 @@
                                     v-model="tel"
                                     :rules="telRules"
                                     prepend-icon="mdi-phone-in-talk"
-                                    label="電話番号(ハイフン(-)を含めて入力してください)"
+                                    label="電話番号"
                                     required
                                     ></v-text-field>
                                 </v-col>
@@ -263,7 +263,8 @@ export default {
             update: true,
             //姓・名・住所
             nameRules: [
-                v => !!v || '入力欄が空白です。'
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             //セイ・メイ
             kanaRules: [
@@ -275,11 +276,20 @@ export default {
                 v => !!v || '入力欄が空白です。',
                 v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
             ],
+            //住所
+            addressRules: [
+                v => !!v || '住所は必ず入力してください。',
+                v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+                // eslint-disable-next-line no-irregular-whitespace
+                v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+                // eslint-disable-next-line no-control-regex
+                v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
+            ],
             //電話番号
             telRules: [
                 v => !!v || '入力欄が空欄です。',
                 v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-                v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+                v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '携帯電話の番号の形式が違います'
             ],
             //ユーザ名
             usernameRules: [
