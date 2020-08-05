@@ -57,7 +57,7 @@
                                 </v-col>
                                 <v-col cols="4" lg="auto">
                                     <v-btn
-                                        @click="firstTime(16);lastTime(18)"
+                                        @click="firstTime(14);lastTime(16)"
                                         width="100"
                                         height="50"
                                         large
@@ -71,7 +71,7 @@
                                     <v-btn
                                         width="100"
                                         height="50"
-                                        @click="firstTime(19);lastTime(20)"
+                                        @click="firstTime(17);lastTime(20)"
                                         large
                                         outlined
                                         color="grey darken-2"
@@ -94,7 +94,7 @@
                                     </v-btn>
                                 </v-col>
                             </v-row>
-                            <tramsition>
+                            <transition>
                                 <v-row lg="12" v-if="show" class="mt-0 pa-0" justify="center">
                                     <v-col lg="auto">
                                             <h2 class="pt-2 display-6 font-weight-light">配達希望時刻</h2>
@@ -139,7 +139,7 @@
                                         分
                                     </v-col>
                                 </v-row>
-                            </tramsition>
+                            </transition>
                         </v-col>
                     </v-row>
                     <!-- 荷物のサイズ -->
@@ -280,6 +280,7 @@ export default {
             //分
             back_minute:[0,5,10,15,20,25,30,35,40,45,50,55],
             //荷物のサイズ
+            isSize:0,
             size:['小(A2サイズ以内、40cm×15cm×60cm以内)','中(35cm×54cm×48cm以内)','大(110cm×165cm×105cm以内)'],
             //重さ
             weight:1,
