@@ -186,6 +186,59 @@
                                 </v-col>
                             </v-row>
 
+                            <!-- 利用車種 -->
+                            <v-row class="ma-0 mt-5 pa-0">
+                                <v-card-text v-resize='onResize' :class='size_title'>
+                                    利用車種
+                                </v-card-text>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col cols="12" lg="12">
+                                    <p>{{ cars }}</p>
+                                    <!-- 自転車 -->
+                                    <v-checkbox v-model="cars" label="自転車" value='0'></v-checkbox>
+                                    <!-- 自動二輪車 -->
+                                    <v-checkbox v-model="cars" label="自動二輪車" value='1'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('1')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="carNumber1"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <!-- 軽自動車 -->
+                                    <v-checkbox v-model="cars" label="軽自動車" value='2'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('2')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="carNumber2"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <!-- 普通自動車 -->
+                                    <v-checkbox v-model="cars" label="普通自動車" value='3'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('3')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="carNumber3"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+
                             <!-- 銀行情報 -->
                             <v-row class="ma-0 mt-5 pa-0">
                                 <v-card-text v-resize='onResize' :class='size_title'>
@@ -401,6 +454,12 @@ export default {
             address:'',
             tel:'',
             username:'',
+            //ここから車種選択
+            cars:[],
+            carNumber1:'',
+            carNumber2:'',
+            carNumber3:'',
+            //ここからゆうちょ銀行
             whichbank:null,
             y_symbol:'',
             y_number:'',
@@ -413,7 +472,7 @@ export default {
             // branchcode:'',
             // number:'',
             // host:'',
-            // ここまで銀行
+            // ここから画像
             uploadImageUrl: require("@/assets/icon.jpg"),
             array: {},
             regist: true,
@@ -489,6 +548,11 @@ export default {
             usernameRules: [
                 v => !!v || '入力欄が空白です。',
                 v => (v && v.length <= 8) || '8字以内で入力してください。'
+            ],
+            //利用車種選択
+            carNumberRules:[
+                // 文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順
+                v => /^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+[a-zA-Z0-9]{1,3}[\u3040-\u309f]{1}[0-9]{1,4}$/.test(v)  ||'例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）',
             ],
             //ゆうちょ通帳記号
             y_symbolRules:[

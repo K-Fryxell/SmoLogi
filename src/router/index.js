@@ -52,7 +52,7 @@ const routes = [{
 },
 {
     path: '/part_regist',
-    name: 'partRegistUser',
+    name: 'partRegist',
     component: () =>
         import('../views/part/partRegistration')
 },

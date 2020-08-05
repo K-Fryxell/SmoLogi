@@ -156,7 +156,59 @@
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
-
+                            <!-- 利用車種選択 -->
+                            <!-- 利用車種 -->
+                            <v-row class="ma-0 mt-5 pa-0">
+                                <v-card-text v-resize='onResize' :class='size_title'>
+                                    利用車種
+                                </v-card-text>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col cols="12" lg="12">
+                                    <p>{{ cars }}</p>
+                                    <!-- 自転車 -->
+                                    <v-checkbox v-model="cars" label="自転車" value='0'></v-checkbox>
+                                    <!-- 自動二輪車 -->
+                                    <v-checkbox v-model="cars" label="自動二輪車" value='1'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('1')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="cars_number1"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <!-- 軽自動車 -->
+                                    <v-checkbox v-model="cars" label="軽自動車" value='2'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('2')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="cars_number2"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <!-- 普通自動車 -->
+                                    <v-checkbox v-model="cars" label="普通自動車" value='3'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('3')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="cars_number3"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
 
                             <!-- 更新ボタン -->
                             <v-row class="mt-6" justify="center">
@@ -206,6 +258,7 @@ export default {
             btn:0,
             username:'',
             uploadImageUrl: '',
+            cars:[],
             array: {},
             update: true,
             //姓・名・住所
@@ -232,6 +285,11 @@ export default {
             usernameRules: [
                 v => !!v || '入力欄が空白です。',
                 v => (v && v.length <= 8) || '8字以内で入力してください。'
+            ],
+            //利用車種選択
+            carNumberRules:[
+                // 文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順
+                v => /^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+[a-zA-Z0-9]{1,3}[\u3040-\u309f]{1}[0-9]{1,4}$/.test(v)  ||'例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）',
             ],
             inputImage: null,
 
@@ -302,6 +360,34 @@ export default {
         tel(){
             return this.part_tel
         },
+        //利用車種(書き方間違ってたらごめん)ここ配列で取得したいんだけどまだ出来てない
+        // part_cars(){
+        //     return this.$store.getters.part_cars
+        // },
+        // cars(){
+        //     return this.part_cars
+        // },
+        //利用車種ナンバー１
+        part_cars_number1(){
+            return this.$store.getters.part_cars_number1
+        },
+        cars_number1(){
+            return this.part_cars_number1
+        },
+        //利用車種ナンバー2
+        part_cars_number2(){
+            return this.$store.getters.part_cars_number2
+        },
+        cars_number2(){
+            return this.part_cars_number2
+        },
+        //利用車種ナンバー3
+        part_cars_number3(){
+            return this.$store.getters.part_cars_number3
+        },
+        cars_number3(){
+            return this.part_cars_number3
+        },
     },
     components:{
         partChangePasswd,
@@ -328,6 +414,10 @@ export default {
             this.array['tel'] = this.tel
             this.array['email'] = this.email
             this.array['username'] = this.username
+            this.array['cars'] = this.cars
+            this.array['cars_number1'] = this.cars_number1
+            this.array['cars_number2'] = this.cars_number2
+            this.array['cars_number3'] = this.cars_number3
             this.$store.commit('updater', this.array)
         },
         // selectfileボタン押下時
