@@ -49,13 +49,6 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
-                        配達完了
-                    </v-btn>
-                </v-col>
-            </v-row>
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
@@ -361,7 +354,9 @@ export default {
                 })
             })
         })
-        this.$store.commit('onAuthStateChanged')
+        // 共通項ページでは、judgeを呼び出す
+        this.$store.commit('judge_onAuthStateChanged')
+        console.log()
     }
 }
 </script>

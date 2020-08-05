@@ -10,8 +10,6 @@ export default ({
         user_id:'',
         // ログイン情報のフラグ
         status: false,
-        // ユーザでのログインであることの判定
-        judge: 0,
         // メールアドレス・パスワード
         user_email: "",
         user_pass: "",
@@ -87,9 +85,6 @@ export default ({
         user_lng(state) {
             return state.user_lng
         },
-        judge(state){
-            return state.judge
-        }
         // history(state) {
         //     return state.user_usage_history
         // },
@@ -114,8 +109,15 @@ export default ({
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
-                                router.push('/user_mypage')
+                                firebase.firestore().collection("judge").doc(state.user_id)
+                                .set({judge:0})
+                                .then(function () {
+                                    // 正常にデータ保存できた時の処理
+                                    console.log('success')
+                                    router.push('/user_mypage')
+                                })
                             })
+
                         } else {
                             // User not logged in or has just logged out.
                         }
@@ -171,9 +173,6 @@ export default ({
                         state.isYear = doc.data().isYear
                         // 月
                         state.isMounth = doc.data().isMounth
-                        // 判定
-                        state.judge = doc.data().judge
-                        console.log(state.judge)
                     })
                 } else {
                     // User not logged in or has just logged out.
