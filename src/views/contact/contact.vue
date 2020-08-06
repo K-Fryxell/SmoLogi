@@ -24,7 +24,6 @@
                                         :position="{lat:user_latitude, lng:user_longitude}"
                                         :clickable="true">
                                     </GmapMarker>
-
                                     <GmapInfoWindow
                                         :options="infoOptions"
                                         :position="{lat:part_latitude, lng:part_longitude}"
@@ -319,12 +318,12 @@ export default {
             //         })
             //     })
             // )
-            
+
             this.chat.push({
                 content:this.coment,
                 name:this.name
             })
-            
+
             this.coment = ""
         },
     },
