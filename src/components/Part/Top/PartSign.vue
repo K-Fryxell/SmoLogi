@@ -44,7 +44,7 @@
         </v-dialog>
 
         <!-- 新規登録ページボタン -->
-        <v-btn color="green" dark to="part_registuser">
+        <v-btn color="green" dark to="part_regist">
             新規登録
         </v-btn>
     </content>
