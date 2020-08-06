@@ -356,7 +356,7 @@ export default {
             //分
             this.array['last_minute'] = this.last_minute
             //荷物のサイズ
-            this.array['isSize'] = this.isSize
+            this.array['size'] = this.size
             //重さ
             this.array['weight'] = this.weight
             //緯度経度
