@@ -94,7 +94,7 @@
                                 <v-col cols="auto" style="width:110px;">
                                     <v-select
                                         v-model="first_time"
-                                        :items="front_time"
+                                        :items="firstTime"
                                         single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
@@ -103,7 +103,7 @@
                                 <v-col cols="auto" style="width:110px;">
                                     <v-select
                                         v-model="first_minute"
-                                        :items="front_minute"
+                                        :items="firstMinute"
                                         single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
@@ -115,7 +115,7 @@
                                 <v-col cols="auto" style="width:110px;">
                                     <v-select
                                         v-model="last_time"
-                                        :items="back_time"
+                                        :items=" lastTime"
                                         single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
@@ -124,7 +124,7 @@
                                 <v-col cols="auto" style="width:110px;">
                                     <v-select
                                         v-model="last_minute"
-                                        :items="back_minute"
+                                        :items="lastMinute"
                                         single-line/>
                                 </v-col>
                                 <v-col cols="auto" class="mt-5 ml-n4">
@@ -134,24 +134,21 @@
                         </v-col>
                     </v-row>
                     <!-- 荷物のサイズ -->
-                    <v-form ref="form" v-model="valid">
-                        <v-row justify="center" class="ma-0 pa-0">
-                            <v-col cols="12" lg="12" >
-                                <v-row justify="center" class="ma-0 pa-0">
-                                    <v-col lg="auto">
-                                        <h2 class=" pt-3 font-weight-light" display-6>荷物のサイズ</h2>
-                                    </v-col>
-                                    <v-col cols="4">
-                                        <v-select
-                                            :rules="sizeRules"
-                                            v-model="isSize"
-                                            :items="size"
-                                            single-line/>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
-                    </v-form>
+                    <v-row justify="center" class="ma-0 pa-0">
+                        <v-col cols="12" lg="12" >
+                            <v-row justify="center" class="ma-0 pa-0">
+                                <v-col lg="auto">
+                                    <h2 class=" pt-3 font-weight-light" display-6>荷物のサイズ</h2>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-select
+                                        v-model="size"
+                                        :items="isSize"
+                                        single-line/>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
                     <!-- 荷物の重量 -->
                     <v-row justify="center" class="ma-0 pa-0">
                         <v-col cols="12" lg="12" >
@@ -215,7 +212,6 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <!-- 決定 -->
                                     <v-btn
-                                        :disabled="!valid"
                                         width="100"
                                         height="60"
                                         v-bind="attrs"
@@ -231,7 +227,7 @@
                                     <v-card-text>
                                         配達希望時刻:{{first_time}}時{{first_minute}}分〜{{last_time}}時{{last_minute}}分
                                         <br>
-                                        荷物のサイズ:{{isSize}}
+                                        荷物のサイズ:{{size}}
                                         <br>
                                         荷物の重量:{{weight}}kg以下
                                     </v-card-text>
@@ -266,23 +262,21 @@ export default {
             detailTime:null,
             //最初
             //時
-            front_time:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+            firstTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
             //分
-            front_minute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            firstMinute:[0,5,10,15,20,25,30,35,40,45,50,55],
             //最後
             //時
-            back_time:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+            lastTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
             //分
-            back_minute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            lastMinute:[0,5,10,15,20,25,30,35,40,45,50,55],
             //ボタンの色
             gozen:"grey darken-2",
             yugata:"grey darken-2",
             yakan:"grey darken-2",
-
             //荷物のサイズ
-            valid: true,
-            isSize:'小(A2サイズ以内、40cm×15cm×60cm以内)',
-            size:['小(A2サイズ以内、40cm×15cm×60cm以内)','中(35cm×54cm×48cm以内)','大(110cm×165cm×105cm以内)'],
+            size:'小(A2サイズ以内、40cm×15cm×60cm以内)',
+            isSize:['小(A2サイズ以内、40cm×15cm×60cm以内)','中(35cm×54cm×48cm以内)','大(110cm×165cm×105cm以内)'],
             //重さ
             weight:1,
             x:0,
@@ -294,10 +288,6 @@ export default {
             //ダイアログ
             dialog: false,
             array:{},
-            //荷物のサイズ
-            sizeRules:[
-                v => !!v || 'サイズを選択してください',
-            ]
         }
     },
     mounted(){
@@ -355,10 +345,18 @@ export default {
         decide(){
             //名前
             this.array['name'] = this.name
+            //最初
             //時
-            this.array['isTime'] = this.isTime
+            this.array['first_time'] = this.first_time
             //分
-            this.array['isMinute'] = this.isMinute
+            this.array['first_minute'] = this.first_minute
+            //最後
+            //時
+            this.array['last_time'] = this.last_time
+            //分
+            this.array['last_minute'] = this.last_minute
+            //荷物のサイズ
+            this.array['isSize'] = this.isSize
             //重さ
             this.array['weight'] = this.weight
             //緯度経度
