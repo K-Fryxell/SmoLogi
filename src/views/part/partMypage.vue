@@ -19,6 +19,7 @@
                                         <v-row class="ma-0 pa-0">
                                             <v-col lg="4" cols="6" class="ml-auto">
                                                 <v-select
+                                                v-model="selectCar"
                                                 :items="cars"
                                                 label="配達車種"
                                                 color="green"
@@ -123,6 +124,7 @@ import partChangeProfile from '@/components/Part/PartChangeProfile'
 export default {
     data() {
         return {
+            selectCar: '',
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
             items: [
                 {
@@ -225,6 +227,9 @@ export default {
         }
     },
     watch:{
+        cars:function() {
+            this.selectCar = this.cars[0]
+        },
         x:function(){
             if(this.x<600)
             {
