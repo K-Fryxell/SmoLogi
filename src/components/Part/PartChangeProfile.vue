@@ -18,24 +18,27 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
+                                    <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;">
+                                        height:200px;"
+                                    >
                                     <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                         src="#"
                                         alt="アイコンb"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;">
-                                    <img v-if="uploadImageUrl"
+                                        height:200px;"
+                                    > -->
+                                    <img
                                         :src="uploadImageUrl"
-                                        alt="アイコンc"
+                                        alt="アイコン"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;">
+                                        height:200px;"
+                                    >
                                 </v-avatar>
                             </v-row>
                             <!-- ここからテスト -->
@@ -165,7 +168,6 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="12" lg="12">
-                                    <p>{{ cars }}</p>
                                     <!-- 自転車 -->
                                     <v-checkbox v-model="cars" label="自転車" value='0'></v-checkbox>
                                     <!-- 自動二輪車 -->
@@ -255,9 +257,9 @@ import partChangeBank from '@/components/Part/PartChangeBank'
 export default {
     data (){
         return{
-            btn:0,
-            username:'',
             uploadImageUrl: '',
+            btn:0,
+            // uploadImageUrl: '',
             cars:[],
             array: {},
             update: true,
@@ -342,6 +344,13 @@ export default {
         lastkana(){
             return this.part_name_kana
         },
+        //ユーザ名
+        nickname(){
+            return this.$store.getters.nickname
+        },
+        username(){
+            return this.nickname
+        },
         //メールアドレス
         part_email(){
             return this.$store.getters.part_email
@@ -370,33 +379,8 @@ export default {
         tel(){
             return this.part_tel
         },
-        //利用車種(書き方間違ってたらごめん)ここ配列で取得したいんだけどまだ出来てない
-        // part_cars(){
-        //     return this.$store.getters.part_cars
-        // },
-        // cars(){
-        //     return this.part_cars
-        // },
-        //利用車種ナンバー１
-        part_cars_number1(){
-            return this.$store.getters.part_cars_number1
-        },
-        cars_number1(){
-            return this.part_cars_number1
-        },
-        //利用車種ナンバー2
-        part_cars_number2(){
-            return this.$store.getters.part_cars_number2
-        },
-        cars_number2(){
-            return this.part_cars_number2
-        },
-        //利用車種ナンバー3
-        part_cars_number3(){
-            return this.$store.getters.part_cars_number3
-        },
-        cars_number3(){
-            return this.part_cars_number3
+        part_image(){
+            return this.$store.getters.part_image
         },
     },
     components:{
@@ -450,6 +434,9 @@ export default {
         },
     },
     watch:{
+        uploadImageUrl:function(){
+            return this.part_image
+        },
         x:function(){
             if(this.x<600)
             {
@@ -470,6 +457,9 @@ export default {
                 this.size_btn = 'body-1'
             }
         }
-    }
+    },
+    created() {
+        this.uploadImageUrl = this.part_image
+    },
 }
 </script>

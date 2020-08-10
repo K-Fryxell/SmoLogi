@@ -79,7 +79,7 @@
 
                                     <!-- パートナー側収益ページ -->
                                     <v-tab-item>
-                                        ここに収益コンポーネントを入れる。
+                                        <chart :height="350" :width="700"/>
                                     </v-tab-item>
                                 </v-tabs>
                             </v-card>
@@ -121,6 +121,7 @@ import firebase from 'firebase'
 import Header from '@/components/Part/PartHeader'
 import Footer from '@/components/Part/PartFooter'
 import partChangeProfile from '@/components/Part/PartChangeProfile'
+import chart from '@/components/Part/Top/PartChart'
 export default {
     data() {
         return {
@@ -189,7 +190,8 @@ export default {
     components:{
         Header,
         Footer,
-        partChangeProfile
+        partChangeProfile,
+        chart
     },
     computed:{
         part_fname(){

@@ -194,7 +194,6 @@
                             </v-row>
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="12" lg="12">
-                                    <p>{{ cars }}</p>
                                     <!-- 自転車 -->
                                     <v-checkbox v-model="cars" label="自転車" value='自転車'></v-checkbox>
                                     <!-- 自動二輪車 -->
@@ -380,7 +379,7 @@
                                     > -->
                                     <img
                                         :src="uploadImageUrl"
-                                        alt="アイコンc"
+                                        alt="アイコン"
                                         style="border-radius: 8em;
                                         width:200px;
                                         height:200px;"
@@ -641,7 +640,7 @@ export default {
                 this.array['y_symbol'] = this.y_symbol
                 this.array['y_number'] = this.y_number
                 this.array['y_host'] = this.y_host
-                this.array['part_image'] = this.part_image
+                this.array['part_image'] = this.uploadImageUrl
                 // 車種
                 this.array['cars'] = this.cars
                 this.array['bikeNumber'] = this.carNumber1
