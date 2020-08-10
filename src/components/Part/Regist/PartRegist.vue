@@ -196,10 +196,10 @@
                                 <v-col cols="12" lg="12">
                                     <p>{{ cars }}</p>
                                     <!-- 自転車 -->
-                                    <v-checkbox v-model="cars" label="自転車" value='0'></v-checkbox>
+                                    <v-checkbox v-model="cars" label="自転車" value='自転車'></v-checkbox>
                                     <!-- 自動二輪車 -->
-                                    <v-checkbox v-model="cars" label="自動二輪車" value='1'></v-checkbox>
-                                    <v-row class="ma-0 pa-0" v-if="cars.includes('1')">
+                                    <v-checkbox v-model="cars" label="自動二輪車" value='自動二輪車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('自動二輪車')">
                                         <v-col lg="10" cols="8">
                                             <v-text-field
                                             v-model="carNumber1"
@@ -211,8 +211,8 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 軽自動車 -->
-                                    <v-checkbox v-model="cars" label="軽自動車" value='2'></v-checkbox>
-                                    <v-row class="ma-0 pa-0" v-if="cars.includes('2')">
+                                    <v-checkbox v-model="cars" label="軽自動車" value='軽自動車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('軽自動車')">
                                         <v-col lg="10" cols="8">
                                             <v-text-field
                                             v-model="carNumber2"
@@ -224,8 +224,8 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 普通自動車 -->
-                                    <v-checkbox v-model="cars" label="普通自動車" value='3'></v-checkbox>
-                                    <v-row class="ma-0 pa-0" v-if="cars.includes('3')">
+                                    <v-checkbox v-model="cars" label="普通自動車" value='普通自動車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('普通自動車')">
                                         <v-col lg="10" cols="8">
                                             <v-text-field
                                             v-model="carNumber3"
@@ -642,6 +642,11 @@ export default {
                 this.array['y_number'] = this.y_number
                 this.array['y_host'] = this.y_host
                 this.array['part_image'] = this.part_image
+                // 車種
+                this.array['cars'] = this.cars
+                this.array['bikeNumber'] = this.carNumber1
+                this.array['light_carNumber'] = this.carNumber2
+                this.array['ordinary_carNumber'] = this.carNumber3
                 // ログインの種別判定
                 this.array['judge'] = 1
                 // this.array['bankname'] = this.bankname
