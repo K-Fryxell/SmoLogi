@@ -40,7 +40,12 @@ export default ({
         y_number: 0,
         y_host:'',
         // 車種
-        part_cartype_number: 0,
+        cars:[],
+        // ナンバー
+        bikeNumber:0,
+        light_carNumber:0,
+        ordinary_carNumber:0,
+
         // 通知内容(フィールドにより対応必須(増える可能性大5.6個))
         part_notification_content: "",
         // 通知数
@@ -107,6 +112,9 @@ export default ({
         part_weight(state) {
             return state.part_weight
         },
+        cars(state) {
+            return state.cars
+        }
     },
     mutations: {
         partRegistUser(state, array) {
@@ -187,6 +195,12 @@ export default ({
                         state.y_host = doc.data().y_host
                         // 顔写真
                         state.part_image = doc.data().part_image
+                        // 車種
+                        state.cars = doc.data().cars
+                        state.bikeNumber = doc.data().bikeNumber
+                        state.light_carNumber = doc.data().light_carNumber
+                        state.ordinary_carNumber = doc.data().ordinary_carNumber
+
                         // 判定
                         state.judge = doc.data().judge
                     })
