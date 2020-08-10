@@ -45,7 +45,6 @@ export default ({
         bikeNumber:0,
         light_carNumber:0,
         ordinary_carNumber:0,
-
         // 通知内容(フィールドにより対応必須(増える可能性大5.6個))
         part_notification_content: "",
         // 通知数
@@ -114,9 +113,21 @@ export default ({
         },
         cars(state) {
             return state.cars
-        }
+        },
+        bikeNumber(state) {
+            return state.bikeNumber
+        },
+        light_carNumber(state) {
+            return state.light_carNumber
+        },
+        ordinary_carNumber(state) {
+            return state.ordinary_carNumber
+        },
     },
     mutations: {
+        SET_PART_FNAME(state,payload){
+            state.part_fname = payload.part_fname
+        },
         partRegistUser(state, array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
@@ -244,6 +255,8 @@ export default ({
         },
     },
     actions: {
-
+        part_fnameUpdate({commit}, part_fname){
+            commit('SET_PART_FNAME',{part_fname})
+        }
     }
 })

@@ -169,13 +169,13 @@
                             <v-row class="ma-0 pa-0">
                                 <v-col cols="12" lg="12">
                                     <!-- 自転車 -->
-                                    <v-checkbox v-model="cars" label="自転車" value='0'></v-checkbox>
+                                    <v-checkbox v-model="cars" label="自転車" value='自転車'></v-checkbox>
                                     <!-- 自動二輪車 -->
-                                    <v-checkbox v-model="cars" label="自動二輪車" value='1'></v-checkbox>
-                                    <v-row class="ma-0 pa-0" v-if="cars.includes('1')">
+                                    <v-checkbox v-model="cars" label="自動二輪車" value='自動二輪車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('自動二輪車')">
                                         <v-col lg="10" cols="8">
                                             <v-text-field
-                                            v-model="cars_number1"
+                                            v-model="carNumber1"
                                             :rules="carNumberRules"
                                             label="車種ナンバー"
                                             hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
@@ -184,11 +184,11 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 軽自動車 -->
-                                    <v-checkbox v-model="cars" label="軽自動車" value='2'></v-checkbox>
-                                    <v-row class="ma-0 pa-0" v-if="cars.includes('2')">
+                                    <v-checkbox v-model="cars" label="軽自動車" value='軽自動車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('軽自動車')">
                                         <v-col lg="10" cols="8">
                                             <v-text-field
-                                            v-model="cars_number2"
+                                            v-model="carNumber2"
                                             :rules="carNumberRules"
                                             label="車種ナンバー"
                                             hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
@@ -197,11 +197,11 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 普通自動車 -->
-                                    <v-checkbox v-model="cars" label="普通自動車" value='3'></v-checkbox>
-                                    <v-row class="ma-0 pa-0" v-if="cars.includes('3')">
+                                    <v-checkbox v-model="cars" label="普通自動車" value='普通自動車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('普通自動車')">
                                         <v-col lg="10" cols="8">
                                             <v-text-field
-                                            v-model="cars_number3"
+                                            v-model="carNumber3"
                                             :rules="carNumberRules"
                                             label="車種ナンバー"
                                             hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
@@ -259,8 +259,6 @@ export default {
         return{
             uploadImageUrl: '',
             btn:0,
-            // uploadImageUrl: '',
-            cars:[],
             array: {},
             update: true,
             //姓・名・住所
@@ -304,7 +302,6 @@ export default {
                 v => /^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+[a-zA-Z0-9]{1,3}[\u3040-\u309f]{1}[0-9]{1,4}$/.test(v)  ||'例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）',
             ],
             inputImage: null,
-
             x:window.innerWidth,
             y:window.innerHeight ,
             size_display:'display-1',
@@ -317,71 +314,61 @@ export default {
     },
     computed:{
         //姓
-        part_fname(){
-            return this.$store.getters.part_fname
-        },
-        fname(){
-            return this.part_fname
+        fname:{
+            get() {
+                return this.$store.getters.part_fname
+            },
+            set(value){
+                this.$store.commit('SET_PART_FNAME',value)
+            }
         },
         //名
-        part_name(){
+        lastname(){
             return this.$store.getters.part_name
         },
-        lastname(){
-            return this.part_name
-        },
         //姓カナ
-        part_fname_kana(){
+        firstkana(){
             return this.$store.getters.part_fname_kana
         },
-        firstkana(){
-            return this.part_fname_kana
-        },
         //名カナ
-        part_name_kana(){
+        lastkana(){
             return this.$store.getters.part_name_kana
         },
-        lastkana(){
-            return this.part_name_kana
-        },
         //ユーザ名
-        nickname(){
+        username(){
             return this.$store.getters.nickname
         },
-        username(){
-            return this.nickname
-        },
         //メールアドレス
-        part_email(){
+        email(){
             return this.$store.getters.part_email
         },
-        email(){
-            return this.part_email
-        },
         //郵便番号
-        part_post(){
+        post(){
             return this.$store.getters.part_post
         },
-        post(){
-            return this.part_post
-        },
         //住所
-        part_address(){
+        address(){
             return this.$store.getters.part_address
         },
-        address(){
-            return this.part_address
-        },
         //電話番号
-        part_tel(){
-            return this.$store.getters.part_tel
-        },
         tel(){
-            return this.part_tel
+            return this.$store.getters.part_tel
         },
         part_image(){
             return this.$store.getters.part_image
         },
+        cars(){
+            return this.$store.getters.cars
+        },
+        carNumber1() {
+            return this.$store.getters.bikeNumber
+        },
+        carNumber2() {
+            return this.$store.getters.light_carNumber
+        },
+        carNumber3() {
+            return this.$store.getters.ordinary_carNumber
+        }
     },
     components:{
         partChangePasswd,
@@ -409,9 +396,9 @@ export default {
             this.array['email'] = this.email
             this.array['username'] = this.username
             this.array['cars'] = this.cars
-            this.array['cars_number1'] = this.cars_number1
-            this.array['cars_number2'] = this.cars_number2
-            this.array['cars_number3'] = this.cars_number3
+            this.array['bikeNumber'] = this.carNumber1
+            this.array['light_carNumber'] = this.carNumber2
+            this.array['ordinary_carNumber'] = this.carNumber3
             this.$store.commit('updater', this.array)
         },
         // selectfileボタン押下時
