@@ -125,9 +125,68 @@ export default ({
         },
     },
     mutations: {
-        SET_PART_FNAME(state,payload){
+        // ここからセッター //
+        set_part_image(state,payload){
+            state.part_image = payload.part_image
+        },
+        set_part_fname(state,payload){
             state.part_fname = payload.part_fname
         },
+        set_part_name(state,payload) {
+            state.part_name = payload.part_name
+        },
+        set_part_fname_kana(state,payload) {
+            state.part_fname_kana = payload.part_fname_kana
+        },
+        set_part_name_kana(state,payload) {
+            state.part_name_kana = payload.part_name_kana
+        },
+        set_nickname(state,payload) {
+            state.nickname = payload.nickname
+        },
+        set_part_year(state,payload) {
+            state.part_year = payload.part_year
+        },
+        set_part_month(state,payload) {
+            state.part_month = payload.part_month
+        },
+        set_part_day(state,payload) {
+            state.part_day = payload.part_day
+        },
+        set_part_email(state,payload) {
+            state.part_email = payload.part_email
+        },
+        set_part_post(state,payload) {
+            state.part_post = payload.part_post
+        },
+        set_part_address(state,payload) {
+            state.part_address = payload.part_address
+        },
+        set_part_tel(state,payload) {
+            state.part_tel = payload.part_tel
+        },
+        set_history(state,payload) {
+            state.history = payload.part_usage_history
+        },
+        set_trans(state,payload) {
+            state.trans = payload.trans
+        },
+        set_part_weight(state,payload) {
+            state.part_weight = payload.part_weight
+        },
+        set_cars(state,payload) {
+            state.cars = payload.cars
+        },
+        set_bikeNumber(state,payload) {
+            state.bikeNumber = payload.bikeNumber
+        },
+        set_light_carNumber(state,payload) {
+            state.light_carNumber = payload.light_carNumber
+        },
+        set_ordinary_carNumber(state,payload) {
+            state.ordinary_carNumber = payload.ordinary_carNumber
+        },
+        // ここまでセッター //
         partRegistUser(state, array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
@@ -254,9 +313,5 @@ export default ({
             router.push('/part_top')
         },
     },
-    actions: {
-        part_fnameUpdate({commit}, part_fname){
-            commit('SET_PART_FNAME',{part_fname})
-        }
-    }
+    actions: {}
 })

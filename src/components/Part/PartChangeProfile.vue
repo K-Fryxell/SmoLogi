@@ -258,6 +258,7 @@ export default {
     data (){
         return{
             uploadImageUrl: '',
+            cars:[],
             btn:0,
             array: {},
             update: true,
@@ -319,55 +320,125 @@ export default {
                 return this.$store.getters.part_fname
             },
             set(value){
-                this.$store.commit('SET_PART_FNAME',value)
+                this.$store.commit('set_part_fname',value)
             }
         },
         //名
-        lastname(){
-            return this.$store.getters.part_name
+        lastname:{
+            get(){
+                return this.$store.getters.part_name
+            },
+            set(value){
+                this.$store.commit('set_part_name',value)
+            }
         },
         //姓カナ
-        firstkana(){
-            return this.$store.getters.part_fname_kana
+        firstkana:{
+            get(){
+                return this.$store.getters.part_fname_kana
+            },
+            set(value){
+                this.$store.commit('set_part_fname_kana',value)
+            }
         },
         //名カナ
-        lastkana(){
-            return this.$store.getters.part_name_kana
+        lastkana:{
+            get(){
+                return this.$store.getters.part_name_kana
+            },
+            set(value){
+                this.$store.commit('set_part_name_kana',value)
+            }
         },
         //ユーザ名
-        username(){
-            return this.$store.getters.nickname
+        username:{
+            get(){
+                return this.$store.getters.nickname
+            },
+            set(value){
+                this.$store.commit('set_nickname',value)
+            }
         },
         //メールアドレス
-        email(){
-            return this.$store.getters.part_email
+        email:{
+            get(){
+                return this.$store.getters.part_email
+            },
+            set(value){
+                this.$store.commit('set_part_email',value)
+            }
         },
         //郵便番号
-        post(){
-            return this.$store.getters.part_post
+        post:{
+            get(){
+                return this.$store.getters.part_post
+            },
+            set(value){
+                this.$store.commit('set_part_post',value)
+            }
         },
         //住所
-        address(){
-            return this.$store.getters.part_address
+        address:{
+            get(){
+                return this.$store.getters.part_address
+            },
+            set(value){
+                this.$store.commit('set_part_address',value)
+            }
         },
         //電話番号
-        tel(){
-            return this.$store.getters.part_tel
+        tel:{
+            get(){
+                return this.$store.getters.part_tel
+            },
+            set(value){
+                this.$store.commit('set_part_tel',value)
+            }
         },
-        part_image(){
-            return this.$store.getters.part_image
+        part_image:{
+            get(){
+                return this.$store.getters.part_image
+            },
+            // set(value){
+            //     this.$store.commit('set_part_image',value)
+            // }
         },
-        cars(){
-            return this.$store.getters.cars
+        carsData:{
+            get(){
+                return this.$store.getters.cars
+            }
         },
-        carNumber1() {
-            return this.$store.getters.bikeNumber
+        // cars:{
+        //     get(){
+        //         return this.$store.getters.cars
+        //     },
+        //     set(value){
+        //         this.$store.commit('set_cars',value)
+        //     }
+        // },
+        carNumber1:{
+            get(){
+                return this.$store.getters.bikeNumber
+            },
+            set(value){
+                this.$store.commit('set_bikeNumber',value)
+            }
         },
-        carNumber2() {
-            return this.$store.getters.light_carNumber
+        carNumber2:{
+            get(){
+                return this.$store.getters.light_carNumber
+            },
+            set(value){
+                this.$store.commit('set_light_carNumber',value)
+            }
         },
-        carNumber3() {
-            return this.$store.getters.ordinary_carNumber
+        carNumber3:{
+            get(){
+                return this.$store.getters.ordinary_carNumber
+            },
+            set(value){
+                this.$store.commit('set_ordinary_carNumber',value)
+            }
         }
     },
     components:{
@@ -424,6 +495,9 @@ export default {
         uploadImageUrl:function(){
             return this.part_image
         },
+        cars:function() {
+            return this.carsData
+        },
         x:function(){
             if(this.x<600)
             {
@@ -447,6 +521,7 @@ export default {
     },
     created() {
         this.uploadImageUrl = this.part_image
+        this.cars = this.carsData
     },
 }
 </script>
