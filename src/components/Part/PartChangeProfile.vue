@@ -216,7 +216,6 @@
                             <v-row class="mt-6" justify="center">
                                 <v-btn
                                     class="grey liten-5 white--text"
-                                    to="/#"
                                     :disabled="!update"
                                     @click="updater()"
                                     width="170"
@@ -457,6 +456,7 @@ export default {
             this.$refs.form.validate()
         },
         updater(){
+            this.btn = 0
             this.array['firstname'] = this.fname
             this.array['lastname'] = this.lastname
             this.array['firstkana'] = this.firstkana
@@ -470,7 +470,8 @@ export default {
             this.array['bikeNumber'] = this.carNumber1
             this.array['light_carNumber'] = this.carNumber2
             this.array['ordinary_carNumber'] = this.carNumber3
-            this.$store.commit('updater', this.array)
+            console.log(this.array)
+            this.$store.commit('partUpdater', this.array)
         },
         // selectfileボタン押下時
         btnclick() {
