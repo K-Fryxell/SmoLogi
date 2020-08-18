@@ -1,6 +1,6 @@
 <template>
-    <v-layout>
-        <v-flex xs=12 sm=6 md=6>
+    <v-layout class="ma-0 pa-0">
+        <v-flex class="ma-0 pa-0 pa-lg-9 pa-md-8" xs12 sm8 md8 lg8>
             <v-row class="ma-0 pa-0" v-if="tab == 0">
                 <v-col class="ma-0 pa-0">
                     <v-row class="ma-0 pa-0" justify="center">
@@ -41,9 +41,49 @@
                     </v-row>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" v-if="tab == 0">
+            <v-row class="ma-0 mt-3 pa-0" justify="center" v-if="tab == 0">
+                <v-col class="ma-0 pa-0" lg="8" cols="11">
+                    <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
+                        ただいま{{partname}}さんが荷物を受け取りに向かっています。
+                    </v-card-text>
+                </v-col>
+            </v-row>
+            <!-- 配達者顔写真と到着予定時刻の表示 -->
+            <v-row class="ma-0 mt-5 pa-0" justify="center">
+                <v-col class="ma-0 pa-0" cols="3">
+                    <!-- レイアウト仮置き -->
+                    <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                        <span class="white--text body-1">アイコン</span>
+                    </v-avatar>
+                    <!-- <img
+                        v-if="this.$store.state.img=='no_image'"
+                        class="mt-5 ml-6"
+                        src="@/assets/icon.jpg"
+                        alt="アイコン"
+                        width="80"
+                        style="border-radius: 50px;"
+                    >
+                    <img
+                        v-if="this.$store.state.img!='no_image'"
+                        class="mt-5 ml-6"
+                        :src="this.$store.state.img"
+                        alt="アイコン"
+                        width="80"
+                        style="border-radius: 50px;"
+                    > -->
+                </v-col>
+                <v-col class="ma-0 mt-2 pa-0" cols="7">
+                    <v-card-title class="ma-0 pa-0">
+                        到着予定時刻<br>
+                    </v-card-title>
+                    <v-card-title class="ma-0 pa-0 pl-12">
+                        {{houre}}時{{minute}}分
+                    </v-card-title>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
+                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
                         配達者と話す
                     </v-btn>
                 </v-col>
@@ -51,7 +91,7 @@
             <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
-                        配達完了
+                        拒否する
                     </v-btn>
                 </v-col>
             </v-row>
@@ -159,6 +199,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
+            <!-- ここからチャット -->
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
@@ -207,6 +248,7 @@
                     </v-col>
                 </v-row>
             </v-overlay>
+            <!-- ここまでチャット -->
             <v-dialog v-model="dialog" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
@@ -239,6 +281,19 @@ export default {
     name: 'MapComponent',
     data() {
         return {
+            username:'おーさき',
+            partname:'kaito',
+            houre:'16',
+            minute:'10',
+            //文字サイズ
+            x:window.innerWidth,
+			y:window.innerHeight ,
+			size_display:'display-1',
+			size_headline:'headline',
+			size_title:'title',
+			size_subtitle:'subtitle-1',
+            size_body:'body-1',
+
             infoOptions: {
                 pixelOffset: {
                     width: 0,
@@ -275,6 +330,10 @@ export default {
         }
     },
     methods:{
+        onResize () {
+			this.x = window.innerWidth
+			this.y = window.innerHeight
+		},
         toggleInfoWindow(flg) {
             // this.infoWindowPos = marker.position
             if(flg == 0){
@@ -327,6 +386,26 @@ export default {
             this.coment = ""
         },
     },
+    watch:{
+		x:function(){
+			if(this.x<600)
+			{
+				this.size_display = 'headline',
+				this.size_headline = 'subtitle-1',
+				this.size_title = 'subtitle-1',
+				this.size_subtitle = 'caption',
+				this.size_body = 'body-1'
+			}
+			else
+			{
+				this.size_display = 'display-1',
+				this.size_headline = 'headline',
+				this.size_titele = 'title',
+				this.size_subtitele = 'subtitle-1',
+				this.size_body = 'body-1'
+			}
+		}
+	},
     computed:{
         tab(){
             return this.$store.getters.judge
