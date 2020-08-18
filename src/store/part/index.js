@@ -200,13 +200,13 @@ export default ({
                             // ユーザーIDの取得
                             console.log(user.uid);
                             // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                            state.user_id = user.uid
-                            firebase.firestore().collection("part_users").doc(state.user_id)
+                            state.part_user_id = user.uid
+                            firebase.firestore().collection("part_users").doc(state.part_user_id)
                             .set(array)
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
-                                firebase.firestore().collection("judge").doc(state.user_id)
+                                firebase.firestore().collection("judge").doc(state.part_user_id)
                                 .set({judge:1})
                                 .then(function () {
                                     // 正常にデータ保存できた時の処理
