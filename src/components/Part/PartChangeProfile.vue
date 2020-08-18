@@ -18,24 +18,27 @@
                             </v-row>
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar size="200">
-                                    <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
+                                    <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                         :src="this.$store.state.img"
                                         alt="アイコンa"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;">
+                                        height:200px;"
+                                    >
                                     <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                         src="#"
                                         alt="アイコンb"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;">
-                                    <img v-if="uploadImageUrl"
+                                        height:200px;"
+                                    > -->
+                                    <img
                                         :src="uploadImageUrl"
-                                        alt="アイコンc"
+                                        alt="アイコン"
                                         style="border-radius: 8em;
                                         width:200px;
-                                        height:200px;">
+                                        height:200px;"
+                                    >
                                 </v-avatar>
                             </v-row>
                             <!-- ここからテスト -->
@@ -127,7 +130,7 @@
                                         v-model="post"
                                         :rules="postRules"
                                         prepend-icon="mdi-currency-kzt"
-                                        label="郵便番号(ハイフン(-)を含めて入力してください)"
+                                        label="郵便番号"
                                         required
                                     ></v-text-field>
                                 </v-col>
@@ -137,7 +140,7 @@
                                 <v-col lg="12" cols="12">
                                     <v-text-field
                                     v-model="address"
-                                    :rules="nameRules"
+                                    :rules="addressRules"
                                     prepend-icon="mdi-home"
                                     label="住所"
                                     required
@@ -151,18 +154,68 @@
                                     v-model="tel"
                                     :rules="telRules"
                                     prepend-icon="mdi-phone-in-talk"
-                                    label="電話番号(ハイフン(-)を含めて入力してください)"
+                                    label="電話番号"
                                     required
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
-
+                            <!-- 利用車種選択 -->
+                            <!-- 利用車種 -->
+                            <v-row class="ma-0 mt-5 pa-0">
+                                <v-card-text v-resize='onResize' :class='size_title'>
+                                    利用車種
+                                </v-card-text>
+                            </v-row>
+                            <v-row class="ma-0 pa-0">
+                                <v-col cols="12" lg="12">
+                                    <!-- 自転車 -->
+                                    <v-checkbox v-model="cars" label="自転車" value='自転車'></v-checkbox>
+                                    <!-- 自動二輪車 -->
+                                    <v-checkbox v-model="cars" label="自動二輪車" value='自動二輪車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('自動二輪車')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="carNumber1"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <!-- 軽自動車 -->
+                                    <v-checkbox v-model="cars" label="軽自動車" value='軽自動車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('軽自動車')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="carNumber2"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <!-- 普通自動車 -->
+                                    <v-checkbox v-model="cars" label="普通自動車" value='普通自動車'></v-checkbox>
+                                    <v-row class="ma-0 pa-0" v-if="cars.includes('普通自動車')">
+                                        <v-col lg="10" cols="8">
+                                            <v-text-field
+                                            v-model="carNumber3"
+                                            :rules="carNumberRules"
+                                            label="車種ナンバー"
+                                            hint="例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）"
+                                            required
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
 
                             <!-- 更新ボタン -->
                             <v-row class="mt-6" justify="center">
                                 <v-btn
                                     class="grey liten-5 white--text"
-                                    to="/#"
                                     :disabled="!update"
                                     @click="updater()"
                                     width="170"
@@ -203,14 +256,15 @@ import partChangeBank from '@/components/Part/PartChangeBank'
 export default {
     data (){
         return{
-            btn:0,
-            username:'',
             uploadImageUrl: '',
+            cars:[],
+            btn:0,
             array: {},
             update: true,
             //姓・名・住所
             nameRules: [
-                v => !!v || '入力欄が空白です。'
+                v => !!v || '入力欄が空白です。',
+                v => /^[a-zA-Zａ-ｚＡ-Ｚぁ-んァ-ン一-龥]+$/.test(v) || '使用できない文字が含まれています。'
             ],
             //セイ・メイ
             kanaRules: [
@@ -222,19 +276,32 @@ export default {
                 v => !!v || '入力欄が空白です。',
                 v => /^[0-9]{3}-[0-9]{4}$/.test(v) || '郵便番号の形式が違います'
             ],
+            //住所
+            addressRules: [
+                v => !!v || '住所は必ず入力してください。',
+                v => (v && v.length <= 50) || '住所は50字以内にて入力してください。',
+                // eslint-disable-next-line no-irregular-whitespace
+                v => /^[^ 　]+$/.test(v) || 'スペースが入力されています。削除してください。',
+                // eslint-disable-next-line no-control-regex
+                v => /^[^\x01-\x7E\xA1-\xDF]+$/.test(v) || '住所は全角にて入力してください。'
+            ],
             //電話番号
             telRules: [
                 v => !!v || '入力欄が空欄です。',
                 v => /[\d]$/.test(v)  ||'半角数字で入力してください。',
-                v => /^0\d{1,4}-\d{1,4}-\d{4}$/.test(v) || /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '電話番号の形式が違います'
+                v => /^0[789]0-[0-9]{4}-[0-9]{4}$/.test(v) || '携帯電話の番号の形式が違います'
             ],
             //ユーザ名
             usernameRules: [
                 v => !!v || '入力欄が空白です。',
                 v => (v && v.length <= 8) || '8字以内で入力してください。'
             ],
+            //利用車種選択
+            carNumberRules:[
+                // 文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順
+                v => /^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+[a-zA-Z0-9]{1,3}[\u3040-\u309f]{1}[0-9]{1,4}$/.test(v)  ||'例）品川100あ1234（文字、３桁までの数字またはアルファベット、ひらがな1文字、4桁までの数字の順）',
+            ],
             inputImage: null,
-
             x:window.innerWidth,
             y:window.innerHeight ,
             size_display:'display-1',
@@ -247,61 +314,131 @@ export default {
     },
     computed:{
         //姓
-        part_fname(){
-            return this.$store.getters.part_fname
-        },
-        fname(){
-            return this.part_fname
+        fname:{
+            get() {
+                return this.$store.getters.part_fname
+            },
+            set(value){
+                this.$store.commit('set_part_fname',value)
+            }
         },
         //名
-        part_name(){
-            return this.$store.getters.part_name
-        },
-        lastname(){
-            return this.part_name
+        lastname:{
+            get(){
+                return this.$store.getters.part_name
+            },
+            set(value){
+                this.$store.commit('set_part_name',value)
+            }
         },
         //姓カナ
-        part_fname_kana(){
-            return this.$store.getters.part_fname_kana
-        },
-        firstkana(){
-            return this.part_fname_kana
+        firstkana:{
+            get(){
+                return this.$store.getters.part_fname_kana
+            },
+            set(value){
+                this.$store.commit('set_part_fname_kana',value)
+            }
         },
         //名カナ
-        part_name_kana(){
-            return this.$store.getters.part_name_kana
+        lastkana:{
+            get(){
+                return this.$store.getters.part_name_kana
+            },
+            set(value){
+                this.$store.commit('set_part_name_kana',value)
+            }
         },
-        lastkana(){
-            return this.part_name_kana
+        //ユーザ名
+        username:{
+            get(){
+                return this.$store.getters.nickname
+            },
+            set(value){
+                this.$store.commit('set_nickname',value)
+            }
         },
         //メールアドレス
-        part_email(){
-            return this.$store.getters.part_email
-        },
-        email(){
-            return this.part_email
+        email:{
+            get(){
+                return this.$store.getters.part_email
+            },
+            set(value){
+                this.$store.commit('set_part_email',value)
+            }
         },
         //郵便番号
-        part_post(){
-            return this.$store.getters.part_post
-        },
-        post(){
-            return this.part_post
+        post:{
+            get(){
+                return this.$store.getters.part_post
+            },
+            set(value){
+                this.$store.commit('set_part_post',value)
+            }
         },
         //住所
-        part_address(){
-            return this.$store.getters.part_address
-        },
-        address(){
-            return this.part_address
+        address:{
+            get(){
+                return this.$store.getters.part_address
+            },
+            set(value){
+                this.$store.commit('set_part_address',value)
+            }
         },
         //電話番号
-        part_tel(){
-            return this.$store.getters.part_tel
+        tel:{
+            get(){
+                return this.$store.getters.part_tel
+            },
+            set(value){
+                this.$store.commit('set_part_tel',value)
+            }
         },
-        tel(){
-            return this.part_tel
+        part_image:{
+            get(){
+                return this.$store.getters.part_image
+            },
+            // set(value){
+            //     this.$store.commit('set_part_image',value)
+            // }
         },
+        carsData:{
+            get(){
+                return this.$store.getters.cars
+            }
+        },
+        // cars:{
+        //     get(){
+        //         return this.$store.getters.cars
+        //     },
+        //     set(value){
+        //         this.$store.commit('set_cars',value)
+        //     }
+        // },
+        carNumber1:{
+            get(){
+                return this.$store.getters.bikeNumber
+            },
+            set(value){
+                this.$store.commit('set_bikeNumber',value)
+            }
+        },
+        carNumber2:{
+            get(){
+                return this.$store.getters.light_carNumber
+            },
+            set(value){
+                this.$store.commit('set_light_carNumber',value)
+            }
+        },
+        carNumber3:{
+            get(){
+                return this.$store.getters.ordinary_carNumber
+            },
+            set(value){
+                this.$store.commit('set_ordinary_carNumber',value)
+            }
+        }
     },
     components:{
         partChangePasswd,
@@ -319,6 +456,7 @@ export default {
             this.$refs.form.validate()
         },
         updater(){
+            this.btn = 0
             this.array['firstname'] = this.fname
             this.array['lastname'] = this.lastname
             this.array['firstkana'] = this.firstkana
@@ -328,7 +466,12 @@ export default {
             this.array['tel'] = this.tel
             this.array['email'] = this.email
             this.array['username'] = this.username
-            this.$store.commit('updater', this.array)
+            this.array['cars'] = this.cars
+            this.array['bikeNumber'] = this.carNumber1
+            this.array['light_carNumber'] = this.carNumber2
+            this.array['ordinary_carNumber'] = this.carNumber3
+            console.log(this.array)
+            this.$store.commit('partUpdater', this.array)
         },
         // selectfileボタン押下時
         btnclick() {
@@ -350,6 +493,12 @@ export default {
         },
     },
     watch:{
+        uploadImageUrl:function(){
+            return this.part_image
+        },
+        cars:function() {
+            return this.carsData
+        },
         x:function(){
             if(this.x<600)
             {
@@ -370,6 +519,10 @@ export default {
                 this.size_btn = 'body-1'
             }
         }
-    }
+    },
+    created() {
+        this.uploadImageUrl = this.part_image
+        this.cars = this.carsData
+    },
 }
 </script>

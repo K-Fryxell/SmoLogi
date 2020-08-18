@@ -24,7 +24,6 @@
                                         :position="{lat:user_latitude, lng:user_longitude}"
                                         :clickable="true">
                                     </GmapMarker>
-
                                     <GmapInfoWindow
                                         :options="infoOptions"
                                         :position="{lat:part_latitude, lng:part_longitude}"

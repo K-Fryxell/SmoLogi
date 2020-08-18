@@ -193,9 +193,16 @@ export default ({
                     array['gender'] = state.user_gender
                     firebase.firestore().collection("users").doc(state.user_id).collection('room')
                         .add({
+                            // 重さ
                             weight: array['weight'],
-                            isMinute: array['isMinute'],
-                            isTime: array['isTime'],
+                            // 何時何分〜
+                            first_hour: array['first_time'],
+                            first_minute: array['first_minute'],
+                            // 〜何時何分
+                            last_hour: array['last_time'],
+                            last_minute: array['last_minute'],
+                            // 大きさ
+                            size: array['size']
                         })
                         .then(function () {
                             // 正常にデータ保存できた時の処理
@@ -203,9 +210,16 @@ export default ({
                         })
                     firebase.firestore().collection("transport").doc(state.user_id)
                         .set({
+                            // 重さ
                             weight: array['weight'],
-                            isMinute: array['isMinute'],
-                            isTime: array['isTime'],
+                            // 大きさ
+                            size: array['size'],
+                            // 何時何分〜
+                            first_hour: array['first_time'],
+                            first_minute: array['first_minute'],
+                            // 〜何時何分
+                            last_hour: array['last_time'],
+                            last_minute: array['last_minute'],
                             userid: array['userid'],
                             gender: array['gender'],
                             name:array['name'],
