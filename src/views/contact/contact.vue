@@ -48,13 +48,6 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="dialog=true">
-                        配達完了
-                    </v-btn>
-                </v-col>
-            </v-row>
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
@@ -318,12 +311,10 @@ export default {
             //         })
             //     })
             // )
-
             this.chat.push({
                 content:this.coment,
                 name:this.name
             })
-
             this.coment = ""
         },
     },
@@ -342,10 +333,10 @@ export default {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
-                let coords = position.coords;
+                let coords = position.coords
                 // 緯度経度だけ取得
-                this.user_latitude = coords.latitude;
-                this.user_longitude = coords.longitude;
+                this.user_latitude = coords.latitude
+                this.user_longitude = coords.longitude
             }.bind(this))
         }
     },
@@ -362,7 +353,9 @@ export default {
                 })
             })
         })
-        this.$store.commit('onAuthStateChanged')
+        // 共通項ページでは、judgeを呼び出す(判定)
+        this.$store.commit('judge_onAuthStateChanged')
+        console.log()
     }
 }
 </script>
