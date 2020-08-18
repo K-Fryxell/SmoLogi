@@ -354,7 +354,7 @@ export default {
                 })
             })
         })
-        // 共通項ページでは、judgeを呼び出す
+        // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
         console.log()
     }
