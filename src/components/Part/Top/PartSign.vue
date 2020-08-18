@@ -92,9 +92,25 @@ export default {
         },
         // ログイン
         login(){
+            if (this.mailaddress === '' || this.password === '') return
+            this.loading = true
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
-            this.$store.commit('part_login',this.array)
+            this.$store.commit('part_login', this.array)
+            
+            // if (this.mailaddress === '' || this.password === '') return
+            // firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
+            // .then(()=>{
+            //     this.mailaddress = '';
+            //     this.password = '';
+            // })
+            // .catch(function(error) {
+            //     // Handle Errors here.
+            //     var errorCode = error.code;
+            //     var errorMessage = error.message;
+            //     console.log(errorCode);
+            //     console.log(errorMessage);
+            // });
         },
         // モーダルを閉じる
         close(){
@@ -103,11 +119,11 @@ export default {
         }
     },
     mounted(){
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.authenticatedUser = true;
+        firebase.auth().onAuthStateChanged((part) => {
+            if (part) {
+                this.authenticatedPart = true;
             } else {
-                this.authenticatedUser = false;
+                this.authenticatedPart = false;
             }
         });
     },
@@ -118,18 +134,20 @@ export default {
             val && setTimeout(async() => {
                 // async await 遅らせる
                 await this.close()
-                if(this.authenticatedUser == true)
+                if(this.authenticatedPart == true)
                 {
                     alert('ログイン成功')
+                    this.mailaddress = ''
+                    this.password = ''
                 }
                 else{
-                    alert('ログイン失敗');
+                    alert('ログイン失敗')
                 }
             }, 3000)
         },
         //   モーダル初期化
         dialog:function(){
-            if(this.authenticatedUser == false)
+            if(this.authenticatedPaer == false)
             {
                 if(this.dialog ===true) return
                     this.$refs.form.reset()

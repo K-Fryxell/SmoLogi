@@ -1,6 +1,6 @@
 <template>
 	<v-card class="pb-6"> 
-		<v-card-title class="text-center justify-center pt-3 pb-2" v-resize='onResize' :class='size_display'>
+		<v-card-title class="justify-center green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
 			サイト利用の流れ
 		</v-card-title>
 		<v-carousel
@@ -62,7 +62,7 @@ export default {
 			if(this.x<600)
 			{
 				this.size_display = 'headline',
-				this.size_headline = 'title',
+				this.size_headline = 'subtitle-1',
 				this.size_title = 'subtitle-1',
 				this.size_subtitle = 'body-2',
 				this.size_body = 'body-1'//まだ
