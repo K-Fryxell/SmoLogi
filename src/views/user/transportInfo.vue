@@ -6,47 +6,163 @@
                 <v-card class="mt-12 pa-0" min-height="561" elevation="0">
                     <v-card-title class="justify-center">運搬情報</v-card-title>
                     <v-row justify="center" class="ma-0 pa-0">
-                        <v-col cols="12" lg="2">
+                        <v-col lg="12">
                             <!-- 配達希望時刻 -->
-                            <v-row justify="end">
+                            <v-row justify="center" class="mt-0 pa-0">
+                                <v-col lg="auto">
+                                    <h2 class="pt-2 display-6 font-weight-light">配達時刻</h2>
+                                </v-col>
+                            </v-row>
+                            <v-row justify="center" class="mt-0 pa-0">
+                                <v-col cols="auto">
+                                    {{first_time}}
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    時
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    {{first_minute}}
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    分
+                                </v-col>
+                                <v-col cols="auto" >
+                                    〜
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    {{last_time}}
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    時
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    {{last_minute}}
+                                </v-col>
+                                <v-col cols="auto" style="width:50px;">
+                                    分
+                                </v-col>
+                            </v-row>
+                            <v-row class="mt-0 pa-0" justify="center" >
+                                <v-col cols="4" lg="auto">
+                                    <v-btn
+                                        @click="isTime(0)"
+                                        width="100"
+                                        height="50"
+                                        large
+                                        outlined
+                                        :color="gozen"
+                                    >
+                                        午前
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="4" lg="auto">
+                                    <v-btn
+                                        @click="isTime(1)"
+                                        width="100"
+                                        height="50"
+                                        large
+                                        outlined
+                                        :color="yugata"
+                                    >
+                                        夕方
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="4" lg="auto">
+                                    <v-btn
+                                        width="100"
+                                        height="50"
+                                        @click="isTime(2)"
+                                        large
+                                        outlined
+                                        :color="yakan"
+                                    >
+                                        夜間
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                            <v-row class="mt-0 pa-0" justify="center">
+                                <v-col lg="auto">
+                                    <v-radio-group v-model="detailTime" :mandatory="false" row>
+                                        <v-radio @click="isTrans" label="詳しく時間指定をする"/>
+                                    </v-radio-group>
+                                </v-col>
+                            </v-row>
+                            <v-row lg="12" v-if="detailTime==0" class="mt-0 pa-0" justify="center">
                                 <v-col lg="auto">
                                     <h2 class="pt-2 display-6 font-weight-light">配達希望時刻</h2>
                                 </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="first_time"
+                                        :items="firstTime"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    時
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="first_minute"
+                                        :items="firstMinute"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    分
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    〜
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="last_time"
+                                        :items=" lastTime"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    時
+                                </v-col>
+                                <v-col cols="auto" style="width:110px;">
+                                    <v-select
+                                        v-model="last_minute"
+                                        :items="lastMinute"
+                                        single-line/>
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    分
+                                </v-col>
                             </v-row>
                         </v-col>
-                        <v-col cols="auto" style="width:110px;">
-                            <v-select
-                                v-model="isTime"
-                                :items="time"
-                                single-line/>
-                        </v-col>
-                        <v-col cols="auto" class="mt-5 ml-n4">
-                            時
-                        </v-col>
-                        <v-col cols="auto" style="width:110px;">
-                            <v-select
-                                v-model="isMinute"
-                                :items="minute"
-                                single-line/>
-                        </v-col>
-                        <v-col cols="auto" class="mt-5 ml-n4">
-                            分
+                    </v-row>
+                    <!-- 荷物のサイズ -->
+                    <v-row justify="center" class="ma-0 pa-0">
+                        <v-col cols="12" lg="12" >
+                            <v-row justify="center" class="ma-0 pa-0">
+                                <v-col lg="auto">
+                                    <h2 class=" pt-3 font-weight-light" display-6>荷物のサイズ</h2>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-select
+                                        v-model="size"
+                                        :items="isSize"
+                                        single-line/>
+                                </v-col>
+                            </v-row>
                         </v-col>
                     </v-row>
                     <!-- 荷物の重量 -->
                     <v-row justify="center" class="ma-0 pa-0">
-                        <v-col cols="12" lg="2" >
-                            <v-row justify="end" class="ma-0 pa-0">
+                        <v-col cols="12" lg="12" >
+                            <v-row justify="center" class="ma-0 pa-0">
                                 <v-col lg="auto">
                                     <h2 class=" pt-3 font-weight-light" display-6>荷物の重量</h2>
                                 </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4" style="width:50px;">
+                                    {{weight}}
+                                </v-col>
+                                <v-col cols="auto" class="mt-5 ml-n4">
+                                    kg以下
+                                </v-col>
                             </v-row>
-                        </v-col>
-                        <v-col cols="auto" class="mt-7 ml-n4" style="width:50px;">
-                            {{weight}}
-                        </v-col>
-                        <v-col cols="auto" class="mt-7 ml-n4">
-                            kg以下
                         </v-col>
                     </v-row>
                     <v-row class="mt-0 pa-0" justify="center" >
@@ -108,8 +224,11 @@
                                 <v-card>
                                     <!-- ダイアログの中身 -->
                                     <v-card-title class="headline">運搬情報</v-card-title>
-                                    <v-card-text >
-                                        配達希望時刻:{{isTime}}時{{isMinute}}分<br>
+                                    <v-card-text>
+                                        配達希望時刻:{{first_time}}時{{first_minute}}分〜{{last_time}}時{{last_minute}}分
+                                        <br>
+                                        荷物のサイズ:{{size}}
+                                        <br>
                                         荷物の重量:{{weight}}kg以下
                                     </v-card-text>
                                     <v-card-actions>
@@ -133,12 +252,31 @@ import Ufooter from '@/components/User/Footer'
 export default {
     data(){
         return{
+            //時間
+            //配達希望時刻(午前、夕方、夜間)
+            first_time:9,
+            first_minute:0,
+            last_time:12,
+            last_minute:0,
+            //詳しい配達希望時刻
+            detailTime:null,
+            //最初
             //時
-            isTime:8,
-            time:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+            firstTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
             //分
-            isMinute:15,
-            minute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            firstMinute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            //最後
+            //時
+            lastTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+            //分
+            lastMinute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            //ボタンの色
+            gozen:"grey darken-2",
+            yugata:"grey darken-2",
+            yakan:"grey darken-2",
+            //荷物のサイズ
+            size:'小(A2サイズ以内、40cm×15cm×60cm以内)',
+            isSize:['小(A2サイズ以内、40cm×15cm×60cm以内)','中(35cm×54cm×48cm以内)','大(110cm×165cm×105cm以内)'],
             //重さ
             weight:1,
             x:0,
@@ -164,6 +302,40 @@ export default {
         }
     },
     methods:{
+        isTime(a){
+            //午前が押された時
+            if(a==0){
+                this.first_time = 9
+                this.last_time = 12
+                this.gozen = "green"
+                this.yugata = "grey darken-2"
+                this.yakan = "grey darken-2"
+            }
+            //夕方が押された時
+            else if(a==1){
+                this.first_time = 14
+                this.last_time = 16
+                this.gozen = "grey darken-2"
+                this.yugata = "green"
+                this.yakan = "grey darken-2"
+            }
+            //夜間が押された時
+            else{
+                this.first_time = 17
+                this.last_time = 20
+                this.gozen = "grey darken-2"
+                this.yugata = "grey darken-2"
+                this.yakan = "green"
+            }
+        },
+        isTrans(){
+            if(this.detailTime==0){
+                this.detailTime = null
+            }
+            else{
+                this.detailTime = 0
+            }
+        },
         select(kg){
             this.weight = kg
         },
@@ -173,16 +345,24 @@ export default {
         decide(){
             //名前
             this.array['name'] = this.name
+            //最初
             //時
-            this.array['isTime'] = this.isTime
+            this.array['first_time'] = this.first_time
             //分
-            this.array['isMinute'] = this.isMinute
+            this.array['first_minute'] = this.first_minute
+            //最後
+            //時
+            this.array['last_time'] = this.last_time
+            //分
+            this.array['last_minute'] = this.last_minute
+            //荷物のサイズ
+            this.array['size'] = this.size
             //重さ
             this.array['weight'] = this.weight
             //緯度経度
             this.array['user_lat'] = this.user_latitude
             this.array['user_lng'] = this.user_longitude
-            
+
             this.$store.commit('transport', this.array)
         },
         onResize(){
@@ -194,10 +374,10 @@ export default {
         x:function(){
             if(this.x<=600)
             {
-              this.btnLayout= 'center'
+                this.btnLayout= 'center'
             }else
             {
-              this.btnLayout='end'
+                this.btnLayout='end'
             }
         }
     },

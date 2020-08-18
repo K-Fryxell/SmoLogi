@@ -16,6 +16,18 @@
 
                                         <!-- パートナー側マイページ -->
                                     <v-tab-item class="pt-6 pb-10">
+                                        <v-row class="ma-0 pa-0">
+                                            <v-col lg="4" cols="6" class="ml-auto">
+                                                <v-select
+                                                v-model="selectCar"
+                                                :items="cars"
+                                                label="配達車種"
+                                                color="green"
+                                                outlined
+                                                dense
+                                                ></v-select>
+                                            </v-col>
+                                        </v-row>
                                         <v-row class="ma-0 pa-0" justify="center">
                                             <v-col lg="12" cols="12">
                                                 <v-row class="ma-0 pa-0" justify="center">
@@ -23,12 +35,12 @@
                                                         <v-avatar color="green light5" size="120">
                                                             <span class="white--text body-1">アイコン</span>
                                                         </v-avatar>
-                                                        <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl" 
+                                                        <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                                             :src="this.$store.state.img"
                                                             alt="アイコン"
                                                             style="border-radius: 8em;
                                                             width:200px;
-                                                            height:200px;" 
+                                                            height:200px;"
                                                         >
                                                         <img v-if="!uploadImageUrl && this.$store.state.img=='no_image'"
                                                             src="#"
@@ -37,12 +49,12 @@
                                                             width:200px;
                                                             height:200px;"
                                                         >
-                                                        <img v-if="uploadImageUrl" 
+                                                        <img v-if="uploadImageUrl"
                                                             :src="uploadImageUrl"
                                                             alt="アイコン"
                                                             style="border-radius: 8em;
                                                             width:200px;
-                                                            height:200px;" 
+                                                            height:200px;"
                                                         > -->
                                                     </v-avatar>
                                                 </v-row>
@@ -67,7 +79,7 @@
 
                                     <!-- パートナー側収益ページ -->
                                     <v-tab-item>
-                                        ここに収益コンポーネントを入れる。
+                                        <chart :height="350" :width="700"/>
                                     </v-tab-item>
                                 </v-tabs>
                             </v-card>
@@ -109,9 +121,11 @@ import firebase from 'firebase'
 import Header from '@/components/Part/PartHeader'
 import Footer from '@/components/Part/PartFooter'
 import partChangeProfile from '@/components/Part/PartChangeProfile'
+import chart from '@/components/Part/Top/PartChart'
 export default {
     data() {
         return {
+            selectCar: '',
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
             items: [
                 {
@@ -176,11 +190,15 @@ export default {
     components:{
         Header,
         Footer,
-        partChangeProfile
+        partChangeProfile,
+        chart
     },
     computed:{
         part_fname(){
             return this.$store.getters.part_fname
+        },
+        cars(){
+            return this.$store.getters.cars
         }
     },
     // created:function(){
@@ -207,9 +225,13 @@ export default {
         },
         onAuth(){
             this.$store.commit('part_onAuthStateChanged')
+            // this.$store.commit('')
         }
     },
     watch:{
+        cars:function() {
+            this.selectCar = this.cars[0]
+        },
         x:function(){
             if(this.x<600)
             {
