@@ -16,7 +16,7 @@
                         hint="メールアドレスは50字以下で記入してください。"
                         required />
                     <!-- パスワード入力 -->
-                    <v-text-field 
+                    <v-text-field
                         :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
                         v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         @click:append="showPassword = !showPassword" v-model="password"
@@ -97,7 +97,7 @@ export default {
             this.array['email'] = this.mailaddress
             this.array['password'] = this.password
             this.$store.commit('part_login', this.array)
-            
+
             // if (this.mailaddress === '' || this.password === '') return
             // firebase.auth().signInWithEmailAndPassword(this.mailaddress, this.password)
             // .then(()=>{
@@ -119,11 +119,11 @@ export default {
         }
     },
     mounted(){
-        firebase.auth().onAuthStateChanged((part) => {
-            if (part) {
-                this.authenticatedPart = true;
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.authenticatedUser = true;
             } else {
-                this.authenticatedPart = false;
+                this.authenticatedUser = false;
             }
         });
     },
@@ -134,7 +134,7 @@ export default {
             val && setTimeout(async() => {
                 // async await 遅らせる
                 await this.close()
-                if(this.authenticatedPart == true)
+                if(this.authenticatedUser == true)
                 {
                     alert('ログイン成功')
                     this.mailaddress = ''
@@ -147,7 +147,7 @@ export default {
         },
         //   モーダル初期化
         dialog:function(){
-            if(this.authenticatedPaer == false)
+            if(this.authenticatedUser == false)
             {
                 if(this.dialog ===true) return
                     this.$refs.form.reset()
