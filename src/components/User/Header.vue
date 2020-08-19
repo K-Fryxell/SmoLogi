@@ -39,11 +39,9 @@
                                 height:50px;"
                             />
                         </v-list-item-action>
-                        <v-list-content>
                             <!-- ユーザの名前 -->
-                            <v-list-item-title>{{ name }}</v-list-item-title>
-                            <v-divider insert/>
-                        </v-list-content>
+                        <v-list-item-title>{{ name }}</v-list-item-title>
+                        <v-divider insert/>
                     </v-list-item>
                     <v-list-item to='/user_mypage'>
                         マイページへ
