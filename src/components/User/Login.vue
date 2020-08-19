@@ -6,32 +6,36 @@
                     <v-col cols="11" class="mx-12">
                         <v-form ref="form" v-model="valid">
                             <!-- mail入力 -->
-                            <v-text-field prepend-icon="mdi-email" class="pt-6" 
+                            <v-text-field prepend-icon="mdi-email" class="pt-6"
                                 v-model="mailaddress"
                                 :rules="registemailRules"
                                 counter
-                                label="E-mail"
+                                label="メールアドレス"
                                 hint="メールアドレスは50字以下で記入してください。"
                                 required />
                             <!-- パスワード入力 -->
                             <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
                                 v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                @click:append="showPassword = !showPassword" 
+                                @click:append="showPassword = !showPassword"
                                 v-model="password"
                                 :rules="registpassRules"
                                 counter
-                                label="password"
+                                label="パスワード"
                                 hint="パスワードは8字以上20字以下にしてください。"
                                 required/>
                             <!-- ログインボタン -->
                             <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                                 <v-btn
+                                    dark
+                                    style="background-color: #83B590"
+                                    outlined
+                                    rounded
                                     :disabled="!valid"
                                     color="blue"
                                     class="mr-4 white--text mb-5"
                                     width="120"
                                 >
-                                    | Login |
+                                    ログイン
                                 </v-btn>
                             </v-row>
                         </v-form>
@@ -39,7 +43,7 @@
                 </v-row>
             </v-flex>
         </v-layout>
-    </v-container> 
+    </v-container>
 </template>
 <script>
 export default {

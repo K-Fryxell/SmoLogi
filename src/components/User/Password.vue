@@ -1,5 +1,5 @@
 <template>
-    <v-container class="ma-0 pa-0" >
+    <v-container class="ma-0 pa-0">
         <v-layout class="ma-0 pa-0">
             <v-flex xs12 lg12>
                 <v-form v-model="valid">
@@ -15,10 +15,10 @@
                     </v-row>
                     <v-row class="ma-0 pa-0">
                         <v-col>
-                            <v-text-field 
+                            <v-text-field
                                 v-model="newpassword"
-                                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                 @click:append="showPassword = !showPassword"
                                 :rules="registpassRules"
                                 counter
@@ -29,10 +29,10 @@
                     </v-row>
                     <v-row class="ma-0 pa-0">
                         <v-col>
-                            <v-text-field 
+                            <v-text-field
                                 v-model="againnewpassword"
-                                :type="showAgainPassword ? 'text' : 'password'" prepend-icon="mdi-lock" 
-                                :append-icon="showAgainPassword ? 'mdi-eye' : 'mdi-eye-off'" 
+                                :type="showAgainPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
+                                :append-icon="showAgainPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                 @click:append="showAgainPassword = !showAgainPassword"
                                 :rules="againpassRules"
                                 counter
@@ -43,11 +43,15 @@
                     </v-row>
                     <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                         <v-btn
+                            dark
+                            style="background-color: #83B590"
+                            outlined
+                            rounded
                             :disabled="!valid"
                             color="blue"
                             class="mr-4 white--text mb-5"
                             width="120">
-                            登録
+                            変更
                         </v-btn>
                     </v-row>
                 </v-form>

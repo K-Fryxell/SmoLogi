@@ -1,18 +1,25 @@
 <template>
     <v-container class="ma-0 pa-0" fluid>
         <v-layout class="ma-0 pa-0" wrap>
-            <v-flex xs12 lg12 >
-                <v-row justify="center" class="ma-0 pa-0">
-                    <v-card tile width="600" class="mt-12 mx-2 mb-12" outlined>
-                        <v-tabs v-model="tabs">
-                        <v-tab v-on:click="tab = 0" :href="`#tab-0`">ログイン</v-tab>
-                        <v-tab v-on:click="tab = 1" :href="`#tab-1`">新規登録</v-tab>
-                        </v-tabs>
-                        <v-row class="ma-0 pa-0">
-                            <Login v-if="tab == 0"/>
-                            <Regist v-if="tab == 1"/>
+            <v-flex xs12 lg12>
+                <v-row justify="center" class="ma-0 pa-0" style="background-color: #F6F6F6">
+                    <v-col cols="auto">
+                        <v-row justify="center" class="ma-0 pa-0">
+                            <v-col cols="auto" class="mt-12">
+                                <img height="55" width="150" src="../../assets/logo_Sample.jpg"/>
+                            </v-col>
                         </v-row>
-                    </v-card>
+                        <v-card tile width="600" class="ma-0 pa-0" outlined>
+                            <v-tabs v-model="tabs" color="green">
+                            <v-tab v-on:click="tab = 0" :href="`#tab-0`">ログイン</v-tab>
+                            <v-tab v-on:click="tab = 1" :href="`#tab-1`">新規登録</v-tab>
+                            </v-tabs>
+                            <v-row class="ma-0 pa-0">
+                                <Login v-if="tab == 0"/>
+                                <Regist v-if="tab == 1"/>
+                            </v-row>
+                        </v-card>
+                    </v-col>
                 </v-row>
             </v-flex>
         </v-layout>
@@ -43,3 +50,8 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+.v-application--wrap{
+    background-color:#F6F6F6
+}
+</style>

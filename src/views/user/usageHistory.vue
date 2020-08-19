@@ -1,46 +1,52 @@
 <template>
-    <v-container class="ma-0 pa-0" fluid>
-        <Uheader/>
+    <content class="ma-0 pa-0">
+        <v-container class="ma-0 pa-0" fluid>
+            <Uheader/>
             <v-layout class="ma-0 pa-0" wrap>
                 <v-flex xs12 lg12>
-                    <v-card-title class="justify-center mt-10">利用履歴</v-card-title>
-                    <v-row class="ma-0 pa-0" justify="center">
-                        <v-col cols="auto" lg="auto" v-for="item in items" :key="item.id">
-                            <v-card class="mx-6 pa-0" max-width="1000">
-                                <v-row class="ma-0 pa-0">
-                                    <!-- 配達者画像 -->
-                                    <v-col cols="12" lg="5">
-                                        <v-img
-                                            class="my-3 pa-0"
-                                            :src="imageurl"
-                                            contain
-                                            height="150"/>
-                                    </v-col>
-                                    <!-- 名前、利用日、評価 -->
-                                    <v-col
-                                        cols="12" lg="6"
-                                        v-resize="onResize"
-                                        :class="size"
-                                        class="font-weight-light"
-                                    >
-                                        名前:{{item.user_name}}<br/>
-                                        利用日:{{item.day}}<br/>
-                                        評価:
-                                        <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
-                                            <v-icon>mdi-thumb-up</v-icon>
-                                        </v-btn>
-                                        <v-btn class="ma-2" @click="clickEvaluation(1)" icon color="red lighten-2">
-                                            <v-icon>mdi-thumb-down</v-icon>
-                                        </v-btn>
-                                    </v-col>
-                                </v-row>
-                            </v-card>
-                        </v-col>
+                    <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
+                        <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
+                            <h2 class=" mb-12 justify-center font-weight-light">
+                                <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">利用履歴</span>
+                            </h2>
+                            <v-col cols="auto" lg="auto" v-for="item in items" :key="item.id">
+                                <v-card class="mx-6 pa-0" outlined max-width="1000">
+                                    <v-row class="ma-0 pa-0">
+                                        <!-- 配達者画像 -->
+                                        <v-col cols="12" lg="5">
+                                            <v-img
+                                                class="my-3 pa-0"
+                                                :src="imageurl"
+                                                contain
+                                                height="150"/>
+                                        </v-col>
+                                        <!-- 名前、利用日、評価 -->
+                                        <v-col
+                                            cols="12" lg="6"
+                                            v-resize="onResize"
+                                            :class="size"
+                                            class="font-weight-light"
+                                        >
+                                            利用日:{{item.day}}<br/>
+                                            名前:{{item.user_name}}<br/>
+                                            評価:
+                                            <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
+                                                <v-icon>mdi-thumb-up</v-icon>
+                                            </v-btn>
+                                            <v-btn class="ma-2" @click="clickEvaluation(1)" icon color="red lighten-2">
+                                                <v-icon>mdi-thumb-down</v-icon>
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-card>
+                            </v-col>
+                        </v-card>
                     </v-row>
                 </v-flex>
             </v-layout>
-        <Ufooter/>
-    </v-container>
+            <Ufooter/>
+        </v-container>
+    </content>
 </template>
 <script>
 import Uheader  from '@/components/User/Header'
@@ -115,3 +121,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+h2{
+    text-align: center;
+}
+</style>
