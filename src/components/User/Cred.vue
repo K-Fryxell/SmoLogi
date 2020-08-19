@@ -10,7 +10,7 @@
                     </v-row>
                     <v-row class="ma-0 pa-0">
                         <v-col>
-                            <v-text-field  
+                            <v-text-field
                                 v-model="meigi"
                                 :rules="meigiRules"
                                 hint="カード名義"
@@ -24,7 +24,7 @@
                     </v-row>
                     <v-row class="ma-0 pa-0">
                         <v-col>
-                            <v-text-field 
+                            <v-text-field
                                 v-model="card"
                                 :rules="cardRules"
                                 counter
@@ -68,9 +68,9 @@
                             セキュリティコード
                         </v-col>
                     </v-row>
-                    <v-row class="ma-0 pa-0"> 
+                    <v-row class="ma-0 pa-0">
                         <v-col cols="3" lg="3">
-                            <v-text-field 
+                            <v-text-field
                                 v-model="secu"
                                 :rules="secuRules"
                                 hint="セキュリティコードはクレジットカード裏面の末尾3桁(1部4桁)"
@@ -79,6 +79,10 @@
                     </v-row>
                     <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                         <v-btn
+                            dark
+                            style="background-color: #83B590"
+                            outlined
+                            rounded
                             :disabled="!valid"
                             color="blue"
                             class="mr-4 white--text mb-5"

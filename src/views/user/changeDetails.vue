@@ -1,21 +1,17 @@
 <template>
-    <v-container class="ma-0 pa-0" fluid>
+    <content class="ma-0 pa-0">
         <Uheader/>
+        <v-container class="ma-0 pa-0" fluid>
             <v-layout class="ma-0 pa-0" wrap>
                 <v-flex xs12 lg12 >
-                    <v-card class="ma-0 pa-0" elevation="0">
-                        <v-card-title class="justify-center font-weight-thin">
-                            詳細変更
-                        </v-card-title>
-                        <v-row justify="center" class="ma-0 pa-0">
-                            <v-col cols="auto" lg="9" class="mx-12">
+                    <v-row justify="center" class="ma-0 pa-0" style="background-color: #F6F6F6">
+                        <v-col cols="auto" lg="9" class="mx-12">
+                            <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
+                                <h2 class=" mb-12 justify-center font-weight-light">
+                                    <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">プロフィール変更</span>
+                                </h2>
                                 <v-form ref="form" v-model="update">
                                     <!-- ここから顔写真 -->
-                                    <v-row class="ma-0 pa-0" justify="center">
-                                        <v-card-text align="center">
-                                            顔写真の登録
-                                        </v-card-text>
-                                    </v-row>
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
                                             <img v-if="uploadImageUrl"
@@ -41,8 +37,8 @@
                                     <v-row class="pa-0 ma-0 mt-4" justify="center">
                                         <v-col class="ma-0 pa-0" cols="auto">
                                             <v-flex xs12>
-                                                    <!-- ファイルの選択 -->
-                                                    <v-btn elevation="2" color="grey liten-5 white--text" @click="btnclick()">画像選択</v-btn>
+                                                <!-- ファイルの選択 -->
+                                                <v-btn elevation="2" dark style="background-color: #83B590" @click="btnclick()">画像選択</v-btn>
                                             </v-flex>
                                         </v-col>
                                     </v-row>
@@ -130,21 +126,25 @@
                                 <!-- 更新ボタン -->
                                 <v-row justify="center" class="ma-0 pa-0">
                                     <v-btn
-                                        color="grey darken-2"
+                                        width="120"
+                                        dark
+                                        style="background-color: #83B590"
                                         outlined
                                         x-large
+                                        rounded
                                         :disabled="!update"
                                         @click="clickUpdate()"
                                     >
-                                        更新
+                                        変更
                                     </v-btn>
                                 </v-row>
 
                                 <!-- クレジットカード情報変更ボタン -->
-                                <v-row :justify="btnLayout" v-resize="onResize" class="ma-0 pa-0">
+                                <v-row :justify="btnLayout" v-resize="onResize" class="mb-12 pb-5">
                                     <v-btn
+                                        dark
                                         class="mt-12"
-                                        color="grey darken-2"
+                                        style="background-color: #83B590"
                                         outlined
                                         x-large
                                         rounded
@@ -153,13 +153,14 @@
                                         パスワード・クレジットカード情報変更
                                     </v-btn>
                                 </v-row>
-                            </v-col>
-                        </v-row>
-                    </v-card>
+                            </v-card>
+                        </v-col>
+                    </v-row>
                 </v-flex>
             </v-layout>
-        <Ufooter/>
-    </v-container>
+            <Ufooter/>
+        </v-container>
+    </content>
 </template>
 <script>
 const { mask } = require('vue-the-mask')
@@ -361,3 +362,8 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+h2{
+    text-align: center;
+}
+</style>
