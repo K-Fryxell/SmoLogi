@@ -24,7 +24,8 @@
 						<v-col class="ma-0 mt-6 pa-0 mb-6" lg="5" md="5">
 							<v-img
 								src="@/assets/partTop/Top画像.jpg"
-								class="ma-0 pa-0"/>
+								class="ma-0 pa-0"
+							/>
 						</v-col>
 					</v-row>
 					<!-- 携帯レイアウト -->
@@ -32,7 +33,8 @@
 						<v-col class="ma-0 pa-0 mb-6" cols="12">
 							<v-img
 								src="@/assets/partTop/Top画像.jpg"
-								class="ma-0 pa-0"/>
+								class="ma-0 pa-0"
+							/>
 						</v-col>
 						<v-col class="ma-0 pa-0 pl-0" cols="12">
 							<v-card-title class="green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
@@ -52,10 +54,12 @@
 				</v-card>
 			</v-layout>
 		</v-container>
-		<hr size="8"
+		<hr 
+			size="8"
 			color="#1B5E20"
 			elevation="2"
-			noshade/>
+			noshade
+		/>
 		<!-- 配達パートナーのメリット -->
 		<v-container class="ma-0 mt-10 mb-10 pa-0" fluid>
 			<v-layout class="ma-0 pa-0" wrap>
@@ -97,16 +101,20 @@
 			</v-layout>
 		</v-container>
 
-		<hr size="8"
+		<hr 
+			size="8"
 			color="#1B5E20"
 			elevation="2"
-			noshade/>
+			noshade
+		/>
 		<!-- スライダー -->
 		<Slider/>
-		<hr size="8"
+		<hr 
+			size="8"
 			color="#1B5E20"
 			elevation="2"
-			noshade/>
+			noshade
+		/>
 
 		<!-- 利用車種例 -->
 		<v-container class="ma-0 pt-5 pb-12" fluid>
@@ -144,7 +152,8 @@
 							:key="item.name"
 							v-slot:default="{ active, toggle }"
 							style="border:solid 2px grey"
-							class="ma-0 pa-0">
+							class="ma-0 pa-0"
+						>
 						<!-- <v-slide-item
 							v-for="n in 25"
 							:key="n"
@@ -167,7 +176,8 @@
 								depressed
 								rounded
 								@click="toggle">
-								<img :src="item.img" width="70" height="55" class="ma-0 pa-0"/>
+								<img :src="item.img" width="70" height="55" class="ma-0 pa-0"
+							/>
 								<p>{{item.name}}</p>
 							</v-card-text>
 						</v-slide-item>
@@ -175,10 +185,12 @@
 				</v-sheet>
 			</v-layout>
 		</v-container>
-		<hr size="8"
+		<hr 
+			size="8"
 			color="#1B5E20"
 			elevation="2"
-			noshade/>
+			noshade
+		/>
 		<v-container class="ma-0 pa-0" fluid>
 			<v-layout class="ma-0 pa-0" column>
 				<v-card class="mt-lg-9 mb-lg-12 ma-0 pa-0" elevation="0">

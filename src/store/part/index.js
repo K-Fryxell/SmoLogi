@@ -202,12 +202,18 @@ export default ({
                             // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
                             state.part_user_id = user.uid
                             firebase.firestore().collection("part_users").doc(state.part_user_id)
-                                .set(array)
+                            .set(array)
+                            .then(function () {
+                                // 正常にデータ保存できた時の処理
+                                console.log('success')
+                                firebase.firestore().collection("judge").doc(state.part_user_id)
+                                .set({judge:1})
                                 .then(function () {
                                     // 正常にデータ保存できた時の処理
                                     console.log('success')
                                     router.push('/part_mypage')
                                 })
+                            })
                         } else {
                             // User not logged in or has just logged out.
                         }
@@ -256,7 +262,6 @@ export default ({
                     // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
                     firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
                         console.log(doc.data())
-
                         // メールアドレス
                         state.part_email = doc.data().email
                         // // 氏名・かな

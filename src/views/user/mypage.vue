@@ -1,71 +1,75 @@
 <template>
-<v-container class="ma-0 pa-0" fluid>
-    <Uheader/>
-    <v-layout class="ma-0 pa-0" wrap>
-        <v-flex xs12 lg12>
-            <v-row justify="center" class="ma-0 pa-0">
-                <v-card class="ma-0 pa-0" elevation="0">
-                    <v-card-title class="mt-12 justify-center" v-resize="onResize" :class="size">ようこそ！</v-card-title>
-                    <v-row justify="center" class="ma-0 pa-0">
-                        <v-card-title class="mt-12 display-3" v-resize="onResize" :class="size">
-                            {{user_fname}}
-                            <span class="mt-12 display-1">さん</span>
-                        </v-card-title>
-                    </v-row>
-                    <v-row justify="center" class="ma-0 pa-0">
-                        <v-btn class="mt-12" rounded color="primary" large to="/user_transport">お手伝いを頼む</v-btn>
-                    </v-row>
-                    <v-row justify="center" class="ma-0 pa-0">
-                        <v-col cols="12" lg="8">
-                            <v-card class="mt-12" width="1000" outlined>
-                                <v-banner
-                                    class="justify-center title font-weight-light"
-                                    sticky>
-                                        利用履歴
-                                </v-banner>
-                                <v-card
-                                    elevation="0"
-                                    class="overflow-y-auto"
-                                    max-height="400">
-                                    <v-card-text v-for="item in items"
-                                        :key="item.id"
-                                        class="mb-4">
-                                        <span class="pr-4">名前:{{item.name}}</span><br>利用日:{{item.day}}<br>
-                                    </v-card-text>
+    <content class="ma-0 pa-0">
+        <Uheader/>
+        <v-container class="ma-0 pa-0" fluid>
+            <v-layout class="ma-0 pa-0" wrap>
+                <v-flex xs12 lg12>
+                    <v-row class="ma-0 pa-0" style="background-color: #F6F6F6">
+                        <v-col cols="12" lg="12">
+                            <v-row justify="center" class="ma-0 pa-0">
+                                <v-col cols="12" lg="12">
+                                    <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
+                                        <p class=" justify-center font-weight-light" v-resize="onResize" :class="size">ようこそ</p>
+                                        <v-row justify="center" class="ma-0 pa-0">
+                                            <p class="mt-12 display-3" v-resize="onResize" :class="size">
+                                                {{user_fname}}
+                                                <span class="display-1">さん</span>
+                                            </p>
+                                        </v-row>
+                                        <v-row justify="center" class="ma-0 pa-0">
+                                            <v-btn class="mt-12" dark rounded style="background-color: #83B590" large to="/user_transport" height="60" width="250"><span style="font-size:25px">お手伝いを頼む</span></v-btn>
+                                        </v-row>
+                                        <v-row justify="center" class="ma-0 pa-0">
+                                            <v-col cols="12" lg="8">
+                                                <v-card class="mt-12" width="1000" outlined>
+                                                    <v-banner
+                                                        class="justify-center title font-weight-light"
+                                                        sticky>
+                                                            利用履歴
+                                                    </v-banner>
+                                                    <v-card
+                                                        elevation="0"
+                                                        class="overflow-y-auto"
+                                                        max-height="400">
+                                                        <v-card-text v-for="item in items"
+                                                            :key="item.id">
+                                                            <span class="display-6">利用日:{{item.day}}名前:{{item.name}}</span>
+                                                            <v-divider class="mt-5"></v-divider>
+                                                        </v-card-text>
+                                                    </v-card>
+                                                </v-card>
+                                            </v-col>
+                                        </v-row>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                            <v-row justify="center" class="ma-0 pa-0">
+                                <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
+                                    <v-row justify="end" align="end" class="ma-0 pa-0 mt-2">
+                                        <v-col>
+                                            <v-btn
+                                                outlined
+                                                large
+                                                style="color: #83B590"
+                                                to="user_history"
+                                                class="mb-5"
+                                                width="150"
+                                            >
+                                            <span style="font-size:18px">
+                                                履歴詳細
+                                            </span>
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
                                 </v-card>
-                            </v-card>
+                            </v-row>
                         </v-col>
                     </v-row>
-                </v-card>
-            </v-row>
-            <v-row justify="center" class="ma-0 pa-0">
-                <v-card class="ma-0 pa-0" elevation="0">
-                    <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
-                        <v-col>
-                            <v-btn
-                                to="user_change"
-                                class="mb-5 mt-2"
-                                width="120">
-                                    登録情報の変更
-                            </v-btn>
-                        </v-col>
-                        <v-row justify="end" align="end" class="ma-0 pa-0 mt-2">
-                            <v-col>
-                                <v-btn
-                                    to="user_history"
-                                    class="mb-5 "
-                                    width="120">
-                                        利用履歴
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-row>
-                </v-card>
-            </v-row>
-        </v-flex>
-    </v-layout>
-    <ufooter/>
-</v-container>
+                </v-flex>
+            </v-layout>
+            <ufooter/>
+        </v-container>
+    </content>
 </template>
 <script>
 import Uheader  from '@/components/User/Header'
@@ -78,7 +82,7 @@ export default {
             username:"まるい",
             x:0,
             y:0,
-            size:"display-3",
+            size:"display-2",
             items: [
                     {
                         name:'たろう',
@@ -143,7 +147,7 @@ export default {
                 this.size= 'display-1'
             }else
             {
-                this.size='display-3'
+                this.size='display-2'
             }
         }
     },
@@ -156,3 +160,8 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+p{
+    text-align: center;
+}
+</style>

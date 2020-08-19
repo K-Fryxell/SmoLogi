@@ -6,7 +6,7 @@
 					<v-row class="ma-0 pa-0" justify="center">
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn  to="#" height="27" width="20" 
+								<v-btn  to="#" height="27" width="20"
 									class="overline lighten-1" :elevation="0" color="white" text>
 									利用規約
 								</v-btn>
