@@ -60,7 +60,7 @@
                                     outlined
                                     large
                                     style="color: #83B590"
-                                    to="user_history"
+                                    to="user_regist"
                                     class="mb-5 font-weight-bold"
                                     width="300"
                                 >
@@ -109,7 +109,7 @@
                                     outlined
                                     large
                                     style="color: #83B590"
-                                    to="user_history"
+                                    to="part_top"
                                     class="mb-5 font-weight-bold"
                                     width="300"
                                 >

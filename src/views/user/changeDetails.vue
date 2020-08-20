@@ -90,7 +90,7 @@
                                     </v-row>
                                     <!-- 郵便番号 -->
                                     <v-row class="ma-0 pa-0">
-                                        <v-col cols="12" lg="5">
+                                        <v-col cols="6" lg="4">
                                             <v-text-field
                                                 prepend-icon="mdi-currency-kzt"
                                                 v-model="post"
@@ -230,7 +230,7 @@ export default {
         }
     },
     mounted(){
-      window.addEventListener('resize', this.onResize)
+        window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
@@ -343,10 +343,10 @@ export default {
         x:function(){
             if(this.x<=600)
             {
-              this.btnLayout= 'center'
+                this.btnLayout= 'center'
             }else
             {
-              this.btnLayout='end'
+                this.btnLayout='end'
             }
         }
     },

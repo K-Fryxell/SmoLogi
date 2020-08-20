@@ -1,10 +1,12 @@
 <template>
-    <v-card class="pb-12" min-height="700">
+    <v-card class="pb-12" min-height="700" elevation="0">
         <v-row justify="center">
             <v-col cols="8">
-                <v-card-title class="display-1">
-                    よくある質問
+                <v-row justify="center" class="mb-12 mt-12 ma-0 pa-0">
+                    <v-card-title class="font-weight-bold display-1">
+                        よくある質問
                 </v-card-title>
+                </v-row>
                 <v-row justify="center">
                     <v-expansion-panels accordion multiple>
                         <v-expansion-panel
@@ -12,7 +14,7 @@
                             :key="item.title"
                             class="mb-4"
                         >
-                            <v-expansion-panel-header class="body-1 light-blue lighten-1 white--text">
+                            <v-expansion-panel-header class="body-1 lighten-1 white--text" style="background-color: #83B590">
                                 {{item.title}}
                                 <template v-slot:actions>
                                     <v-icon color="white">mdi-apple-keyboard-control</v-icon>
@@ -36,7 +38,7 @@
                 <v-row justify="center">
                     <v-col class="auto">
                         <v-row justify="center">
-                            <v-btn color="primary">お問い合わせページへ</v-btn>
+                            <v-btn outlined to="#" style="color: #83B590">お問い合わせページへ</v-btn>
                         </v-row>
                     </v-col>
                 </v-row>
