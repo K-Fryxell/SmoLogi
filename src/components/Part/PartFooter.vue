@@ -2,7 +2,7 @@
 	<v-content class="ma-0 pb-12 green darken-2">
 		<v-footer class="ma-0 pa-0 pt-5 green darken-2">
 			<v-row class="ma-0 pa-0" justify="center">
-				<v-col class="ma-0 pa-0" lg="6" cols="12">
+				<v-col class="ma-0 pa-0" lg="7" cols="12">
 					<v-row class="ma-0 pa-0" justify="center">
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">

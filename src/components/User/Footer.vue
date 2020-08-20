@@ -21,14 +21,14 @@
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="#" height="27" width="40"  class="overline lighten-1" :elevation="0" color="white" text>
+								<v-btn to="/terms" height="27" width="40"  class="overline lighten-1" :elevation="0" color="white" text>
 									ヘルプ
 								</v-btn>
 							</v-row>
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="#" height="27" width="40" class="overline lighten-1" :elevation="0" color="white" text>
+								<v-btn to="/inquery" height="27" width="40" class="overline lighten-1" :elevation="0" color="white" text>
 									お問い合わせ
 								</v-btn>
 							</v-row>

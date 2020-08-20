@@ -12,7 +12,6 @@
                                     :zoom="zoom"
                                     :options="mapStyle"
                                     style="width: 100%; height: 100%;">
-
                                     <GmapInfoWindow
                                         :options="infoOptions"
                                         :position="{lat:user_latitude, lng:user_longitude}"
@@ -99,7 +98,7 @@
                 :opacity="opacity"
                 :value="overlay"
                 v-if="tab == 0"
-                >
+            >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
                         <v-btn

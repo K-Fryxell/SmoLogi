@@ -108,7 +108,7 @@
                                 <v-btn
                                     outlined
                                     large
-                                    style="color: #83B590"
+                                    style="color:#83B590"
                                     to="user_history"
                                     class="mb-5 font-weight-bold"
                                     width="300"
@@ -145,7 +145,7 @@ export default {
         },
         methods: {
             onResize(){
-                this.x =  window.innerWidth;
+                this.x = window.innerWidth;
                 this.y = window.innerHeight;
             },
         },
