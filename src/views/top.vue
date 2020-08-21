@@ -145,7 +145,7 @@ export default {
         },
         methods: {
             onResize(){
-                this.x =  window.innerWidth;
+                this.x = window.innerWidth;
                 this.y = window.innerHeight;
             },
         },

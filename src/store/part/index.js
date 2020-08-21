@@ -45,7 +45,6 @@ export default ({
         bikeNumber:0,
         light_carNumber:0,
         ordinary_carNumber:0,
-
         // 通知内容(フィールドにより対応必須(増える可能性大5.6個))
         part_notification_content: "",
         // 通知数
@@ -114,9 +113,80 @@ export default ({
         },
         cars(state) {
             return state.cars
-        }
+        },
+        bikeNumber(state) {
+            return state.bikeNumber
+        },
+        light_carNumber(state) {
+            return state.light_carNumber
+        },
+        ordinary_carNumber(state) {
+            return state.ordinary_carNumber
+        },
     },
     mutations: {
+        // ここからセッター //
+        set_part_image(state,payload){
+            state.part_image = payload
+        },
+        set_part_fname(state,payload){
+            state.part_fname = payload
+        },
+        set_part_name(state,payload) {
+            state.part_name = payload
+        },
+        set_part_fname_kana(state,payload) {
+            state.part_fname_kana = payload
+        },
+        set_part_name_kana(state,payload) {
+            state.part_name_kana = payload
+        },
+        set_nickname(state,payload) {
+            state.nickname = payload
+        },
+        set_part_year(state,payload) {
+            state.part_year = payload
+        },
+        set_part_month(state,payload) {
+            state.part_month = payload
+        },
+        set_part_day(state,payload) {
+            state.part_day = payload
+        },
+        set_part_email(state,payload) {
+            state.part_email = payload
+        },
+        set_part_post(state,payload) {
+            state.part_post = payload
+        },
+        set_part_address(state,payload) {
+            state.part_address = payload
+        },
+        set_part_tel(state,payload) {
+            state.part_tel = payload
+        },
+        set_history(state,payload) {
+            state.history = payload
+        },
+        set_trans(state,payload) {
+            state.trans = payload
+        },
+        set_part_weight(state,payload) {
+            state.part_weight = payload
+        },
+        set_cars(state,payload) {
+            state.cars = payload
+        },
+        set_bikeNumber(state,payload) {
+            state.bikeNumber = payload
+        },
+        set_light_carNumber(state,payload) {
+            state.light_carNumber = payload
+        },
+        set_ordinary_carNumber(state,payload) {
+            state.ordinary_carNumber = payload
+        },
+        // ここまでセッター //
         partRegistUser(state, array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
@@ -130,19 +200,45 @@ export default ({
                             // ユーザーIDの取得
                             console.log(user.uid);
                             // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                            state.user_id = user.uid
-                            firebase.firestore().collection("part_users").doc(state.user_id)
-                                .set(array)
+                            state.part_user_id = user.uid
+                            firebase.firestore().collection("part_users").doc(state.part_user_id)
+                            .set(array)
+                            .then(function () {
+                                // 正常にデータ保存できた時の処理
+                                console.log('success')
+                                firebase.firestore().collection("judge").doc(state.part_user_id)
+                                .set({judge:1})
                                 .then(function () {
                                     // 正常にデータ保存できた時の処理
                                     console.log('success')
                                     router.push('/part_mypage')
                                 })
+                            })
                         } else {
                             // User not logged in or has just logged out.
                         }
                     })
                 })
+        },
+        partUpdater(state,array){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // User logged in already or has just logged in.
+                    // ユーザーIDの取得
+                    console.log(user.uid);
+                    // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection("part_users").doc(state.part_user_id)
+                        .update(array)
+                        .then(function () {
+                            // 正常にデータ保存できた時の処理
+                            console.log(array)
+                            console.log('success')
+                    })
+                } else {
+                    // User not logged in or has just logged out.
+                }
+            })
         },
         part_login(state,array)
         {
@@ -166,7 +262,6 @@ export default ({
                     // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
                     firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
                         console.log(doc.data())
-
                         // メールアドレス
                         state.part_email = doc.data().email
                         // // 氏名・かな
@@ -235,7 +330,7 @@ export default ({
             .add({
                 part_lat: array['part_latitude'],
                 part_lng: array['part_longitude'],
-                part_id:array['part_id']
+                part_id: array['part_id']
             })
         },
         part_logout() {
@@ -243,7 +338,5 @@ export default ({
             router.push('/part_top')
         },
     },
-    actions: {
-
-    }
+    actions: {}
 })

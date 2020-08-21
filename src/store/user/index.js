@@ -10,8 +10,6 @@ export default ({
         user_id:'',
         // ログイン情報のフラグ
         status: false,
-        // ユーザでのログインであることの判定
-        judge: 0,
         // メールアドレス・パスワード
         user_email: "",
         user_pass: "",
@@ -46,6 +44,8 @@ export default ({
         // 緯度経度
         user_lat:0,
         user_lng:0,
+        // アイコン
+        user_icon:''
     },
     getters: {
         user_fname(state){
@@ -87,14 +87,61 @@ export default ({
         user_lng(state) {
             return state.user_lng
         },
-        judge(state){
-            return state.judge
-        }
         // history(state) {
         //     return state.user_usage_history
         // },
     },
     mutations: {
+        // ここからセッター //
+        set_user_image(state, payload) {
+            state.user_icon = payload
+        },
+        set_user_fname(state, payload) {
+            state.user_fname = payload
+        },
+        set_user_name(state, payload) {
+            state.user_name = payload
+        },
+        set_user_fname_kana(state, payload) {
+            state.user_fname_kana = payload
+        },
+        set_user_name_kana(state, payload) {
+            state.user_name_kana = payload
+        },
+        set_user_email(state, payload) {
+            state.user_email = payload
+        },
+        set_user_post(state, payload) {
+            state.user_post = payload
+        },
+        set_user_address(state, payload) {
+            state.user_address = payload
+        },
+        set_user_tel(state, payload) {
+            state.user_tel = payload
+        },
+        set_user_credit_number(state, payload) {
+            state.user_credit_number = payload
+        },
+        set_user_secu(state, payload) {
+            state.user_secu = payload
+        },
+        set_user_meigi(state, payload) {
+            state.user_meigi = payload
+        },
+        set_isYear(state, payload) {
+            state.isYear = payload
+        },
+        set_isMounth(state, payload) {
+            state.isMounth = payload
+        },
+        set_light_carNumber(state, payload) {
+            state.light_carNumber = payload
+        },
+        set_user_usage_history(state, payload) {
+            state.user_usage_history = payload
+        },
+        // ここまでセッター //
         registUser(state,array) {
             firebase.auth().createUserWithEmailAndPassword(
                     array['email'],
@@ -114,8 +161,15 @@ export default ({
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
-                                router.push('/user_mypage')
+                                firebase.firestore().collection("judge").doc(state.user_id)
+                                .set({judge:0})
+                                .then(function () {
+                                    // 正常にデータ保存できた時の処理
+                                    console.log('success')
+                                    router.push('/user_mypage')
+                                })
                             })
+
                         } else {
                             // User not logged in or has just logged out.
                         }
@@ -171,9 +225,6 @@ export default ({
                         state.isYear = doc.data().isYear
                         // 月
                         state.isMounth = doc.data().isMounth
-                        // 判定
-                        state.judge = doc.data().judge
-                        console.log(state.judge)
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -236,6 +287,27 @@ export default ({
                 }
             })
             router.push('/contact')
+        },
+        // 更新
+        userUpdater(state, array) {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // User logged in already or has just logged in.
+                    // ユーザーIDの取得
+                    console.log(user.uid);
+                    // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection("users").doc(state.part_user_id)
+                        .update(array)
+                        .then(function () {
+                            // 正常にデータ保存できた時の処理
+                            console.log(array)
+                            console.log('success')
+                        })
+                } else {
+                    // User not logged in or has just logged out.
+                }
+            })
         },
         // ログイン状態の確認
         // onUserStatusChanged(state, status) {

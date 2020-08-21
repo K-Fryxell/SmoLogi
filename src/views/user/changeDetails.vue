@@ -49,13 +49,13 @@
                                         <v-col cols="6" lg="4">
                                             <v-text-field
                                                 prepend-icon="mdi-account-circle"
-                                                v-model="firstname"
+                                                v-model="user_fname"
                                                 label="姓"
                                                 :rules="firstnameRules"/>
                                         </v-col>
                                         <v-col cols="6" lg="4">
                                             <v-text-field
-                                                v-model="lastname"
+                                                v-model="user_name"
                                                 label="名"
                                                 :rules="lastnameRules"/>
                                         </v-col>
@@ -65,13 +65,13 @@
                                         <v-col cols="6" lg="4">
                                             <v-text-field
                                                 prepend-icon="mdi-account-circle-outline"
-                                                v-model="firstkana"
+                                                v-model="user_fname_kana"
                                                 label="セイ"
                                                 :rules="firstkanaRules"/>
                                         </v-col>
                                         <v-col cols="6" lg="4">
                                             <v-text-field
-                                                v-model="lastkana"
+                                                v-model="user_name_kana"
                                                 label="メイ"
                                                 :rules="lastkanaRules"/>
                                         </v-col>
@@ -81,7 +81,7 @@
                                         <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-email"
-                                                v-model="email"
+                                                v-model="user_email"
                                                 counter
                                                 label="メールアドレス"
                                                 :rules="emailRules"
@@ -93,7 +93,7 @@
                                         <v-col cols="6" lg="4">
                                             <v-text-field
                                                 prepend-icon="mdi-currency-kzt"
-                                                v-model="post"
+                                                v-model="user_post"
                                                 v-mask="POST"
                                                 label="郵便番号"
                                                 :rules="postRules"/>
@@ -104,7 +104,7 @@
                                         <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-home"
-                                                v-model="address"
+                                                v-model="user_address"
                                                 label="住所"
                                                 :rules="addressRules"/>
                                         </v-col>
@@ -114,7 +114,7 @@
                                         <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-phone-in-talk"
-                                                v-model="tel"
+                                                v-model="user_tel"
                                                 v-mask="TEL"
                                                 label="電話"
                                                 :rules="telRules"
@@ -237,60 +237,76 @@ export default {
     },
     computed:{
         //姓
-        user_fname(){
-            return this.$store.getters.user_fname
-        },
-        firstname(){
-            return this.user_fname
+        user_fname:{
+            get() {
+                return this.$store.getters.user_fname
+            },
+            set(value){
+                this.$store.commit('set_user_fname',value)
+            }
         },
         //名
-        user_name(){
-            return this.$store.getters.user_name
-        },
-        lastname(){
-            return this.user_name
+        user_name:{
+            get() {
+                return this.$store.getters.user_name
+            },
+            set(value){
+                this.$store.commit('set_user_name',value)
+            }
         },
         //姓カナ
-        user_fname_kana(){
-            return this.$store.getters.user_fname_kana
-        },
-        firstkana(){
-            return this.user_fname_kana
+        user_fname_kana:{
+            get() {
+                return this.$store.getters.user_fname_kana
+            },
+            set(value){
+                this.$store.commit('set_user_fname_kana',value)
+            }
         },
         //名カナ
-        user_name_kana(){
-            return this.$store.getters.user_name_kana
-        },
-        lastkana(){
-            return this.user_name_kana
+        user_name_kana:{
+            get() {
+                return this.$store.getters.user_name_kana
+            },
+            set(value){
+                this.$store.commit('set_user_name_kana',value)
+            }
         },
         //メールアドレス
-        user_email(){
-            return this.$store.getters.user_email
-        },
-        email(){
-            return this.user_email
+        user_email:{
+            get() {
+                return this.$store.getters.user_email
+            },
+            set(value){
+                this.$store.commit('set_user_email',value)
+            }
         },
         //郵便番号
-        user_post(){
-            return this.$store.getters.user_post
-        },
-        post(){
-            return this.user_post
+        user_post:{
+            get() {
+                return this.$store.getters.user_post
+            },
+            set(value){
+                this.$store.commit('set_user_post',value)
+            }
         },
         //住所
-        user_address(){
-            return this.$store.getters.user_address
-        },
-        address(){
-            return this.user_address
+        user_address:{
+            get() {
+                return this.$store.getters.user_address
+            },
+            set(value){
+                this.$store.commit('set_user_address',value)
+            }
         },
         //電話番号
-        user_tel(){
-            return this.$store.getters.user_tel
-        },
-        tel(){
-            return this.user_tel
+        user_tel:{
+            get() {
+                return this.$store.getters.user_tel
+            },
+            set(value){
+                this.$store.commit('set_user_tel',value)
+            }
         },
     },
     methods:{
@@ -305,21 +321,22 @@ export default {
         clickUpdate(){
             //プロフィール写真
             //姓
-            this.array['firstname'] = this.firstname
+            this.array['firstname'] = this.user_fname
             //名
-            this.array['lastname'] = this.lastname
+            this.array['lastname'] = this.user_name
             //姓カナ
-            this.array['firstkana'] = this.firstkana
+            this.array['firstkana'] = this.user_fname_kana
             //名カナ
-            this.array['lastkana'] = this.lastkana
+            this.array['lastkana'] = this.user_name_kana
             //メールアドレス
-            this.array['email'] = this.email
+            this.array['email'] = this.user_email
             //郵便番号
-            this.array['post'] = this.post
+            this.array['post'] = this.user_post
             //住所
-            this.array['address'] = this.address
+            this.array['address'] = this.user_address
             //電話番号
-            this.array['tel'] = this.tel
+            this.array['tel'] = this.user_tel
+            this.$store.commit('userUpdater', this.array)
         },
         //ファイルの選択
         btnclick() {
