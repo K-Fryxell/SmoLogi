@@ -12,7 +12,6 @@
                                     :zoom="zoom"
                                     :options="mapStyle"
                                     style="width: 100%; height: 100%;">
-
                                     <GmapInfoWindow
                                         :options="infoOptions"
                                         :position="{lat:user_latitude, lng:user_longitude}"
@@ -100,7 +99,7 @@
                 :opacity="opacity"
                 :value="overlay"
                 v-if="tab == 0"
-                >
+            >
                 <v-row class="ma-0 pa-0" align="end">
                     <v-col cols="auto">
                         <v-btn
@@ -306,6 +305,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
+            <!-- ここからチャット -->
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
@@ -414,11 +414,11 @@ export default {
             minute:'10',
             //文字サイズ
             x:window.innerWidth,
-			y:window.innerHeight ,
-			size_display:'display-1',
-			size_headline:'headline',
-			size_title:'title',
-			size_subtitle:'subtitle-1',
+            y:window.innerHeight ,
+            size_display:'display-1',
+            size_headline:'headline',
+            size_title:'title',
+            size_subtitle:'subtitle-1',
             size_body:'body-1',
 
             infoOptions: {

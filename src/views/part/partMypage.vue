@@ -13,8 +13,7 @@
                                         <v-tab>Profile</v-tab>
                                         <v-tab>Salary</v-tab>
                                     </v-row>
-
-                                        <!-- パートナー側マイページ -->
+                                    <!-- パートナー側マイページ -->
                                     <v-tab-item class="pt-6 pb-10">
                                         <v-row class="ma-0 pa-0">
                                             <v-col lg="4" cols="6" class="ml-auto">
