@@ -10,7 +10,7 @@
                                     プロフィール変更
                                 </v-card-text>
                             </v-row>
-                            <!-- ここから顔写真の登録   -->
+                            <!-- ここから顔写真の変更   -->
                             <v-row class="ma-0 mt-5 pa-0" justify="center">
                                 <v-card-text align="center"  v-resize='onResize' :class='size_title'>
                                     アイコンの変更
@@ -128,6 +128,7 @@
                                 <v-col lg="6" cols="8">
                                     <v-text-field
                                         v-model="post"
+                                        v-mask="POST"
                                         :rules="postRules"
                                         prepend-icon="mdi-currency-kzt"
                                         label="郵便番号"
@@ -152,6 +153,7 @@
                                 <v-col lg="10" cols="8">
                                     <v-text-field
                                     v-model="tel"
+                                    v-mask="TEL"
                                     :rules="telRules"
                                     prepend-icon="mdi-phone-in-talk"
                                     label="電話番号"
@@ -252,10 +254,13 @@
 <script>
 import partChangePasswd from '@/components/Part/PartChangePassword'
 import partChangeBank from '@/components/Part/PartChangeBank'
+const { mask } = require('vue-the-mask')
 
 export default {
     data (){
         return{
+            POST:'###-####',
+            TEL:'###-####-####',
             uploadImageUrl: '',
             cars:[],
             btn:0,
@@ -313,6 +318,15 @@ export default {
         }
     },
     computed:{
+        //画像
+        part_image:{
+            get(){
+                return this.$store.getters.part_image
+            },
+            set(value){
+                this.$store.commit('set_part_image',value)
+            }
+        },
         //姓
         fname:{
             get() {
@@ -394,27 +408,12 @@ export default {
                 this.$store.commit('set_part_tel',value)
             }
         },
-        part_image:{
-            get(){
-                return this.$store.getters.part_image
-            },
-            // set(value){
-            //     this.$store.commit('set_part_image',value)
-            // }
-        },
         carsData:{
+            //セッター不要
             get(){
                 return this.$store.getters.cars
             }
         },
-        // cars:{
-        //     get(){
-        //         return this.$store.getters.cars
-        //     },
-        //     set(value){
-        //         this.$store.commit('set_cars',value)
-        //     }
-        // },
         carNumber1:{
             get(){
                 return this.$store.getters.bikeNumber
@@ -457,6 +456,7 @@ export default {
         },
         updater(){
             this.btn = 0
+            this.array['part_image'] = this.uploadImageUrl
             this.array['firstname'] = this.fname
             this.array['lastname'] = this.lastname
             this.array['firstkana'] = this.firstkana
@@ -524,5 +524,8 @@ export default {
         this.uploadImageUrl = this.part_image
         this.cars = this.carsData
     },
+    directives: {
+        mask
+    }
 }
 </script>
