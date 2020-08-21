@@ -35,7 +35,7 @@
                             <v-img
                                 :src="imgurl"
                                 style="border-radius: 8em;
-                                width:50px;
+                                width:100px;
                                 height:50px;"
                             />
                         </v-list-item-action>
