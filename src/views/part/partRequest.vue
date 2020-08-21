@@ -9,7 +9,9 @@
                         <v-row class="ma-0 pa-0" justify="center">
                             <v-col class="ma-6 pa-0" cols="10" lg="7">
                                 <v-card @click="request(index)">
-                                    依頼場所まで:{{item.place}}m<br/>
+                                    <v-card-title>
+                                        {{ item.name }}さん
+                                    </v-card-title>
                                     <v-img
                                         v-resize='onResize' :height='size_card'
                                         v-if="item.gender==0"
@@ -24,7 +26,7 @@
                                         class="my-3"
                                         contain
                                     />
-                                    配達希望時間:{{item.isTime}}時{{item.isMinute}}分<br/>
+                                    配達希望時間:{{item.first_hour}}時{{item.first_minute}}分～{{item.last_hour}}時{{item.last_minute}}分<br/>
                                     荷物の重量:{{item.weight}}kg
                                 </v-card>
                             </v-col>
@@ -96,7 +98,7 @@ export default {
       request(a){
         //   console.log(this.items[a])
           this.$store.state.user_info = this.items[a]
-          this.$router.push('/part_requestdetails')
+          this.$store.commit('request_info', this.items[a])
       }
     },
     watch:{

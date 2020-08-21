@@ -52,7 +52,6 @@ export default ({
         // 利用回数履歴
         part_usage_history: 0,
         // 給項目は後回し
-
         // レビュー機能星など1-5段階（仮）・余裕あればコメントも
         part_review_evaluation: 0,
         // 依頼一覧
@@ -63,6 +62,9 @@ export default ({
         user_info:[]
     },
     getters: {
+        user_info(state){
+            return state.user_info
+        },
         part_image(state){
             return state.part_image
         },
@@ -252,7 +254,6 @@ export default ({
         part_onAuthStateChanged(state) {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-
                     // User logged in already or has just logged in.
                     // ユーザーIDの取得
                     // console.log(user.uid);
@@ -295,7 +296,6 @@ export default ({
                         state.bikeNumber = doc.data().bikeNumber
                         state.light_carNumber = doc.data().light_carNumber
                         state.ordinary_carNumber = doc.data().ordinary_carNumber
-
                         // 判定
                         state.judge = doc.data().judge
                     })
@@ -303,6 +303,10 @@ export default ({
                     // User not logged in or has just logged out.
                 }
             })
+        },
+        request_info(state,a){
+            state.user_info = a
+            router.push('/part_requestdetails')
         },
         getTtransport(state){
             state.trans = []
@@ -314,14 +318,15 @@ export default ({
                     state.trans.push({
                         user_id: doc.data().userid,
                         gender: doc.data().gender,
-                        isTime:doc.data().isTime,
-                        isMinute: doc.data().isMinute,
+                        first_hour:doc.data().first_hour,
+                        first_minute: doc.data().first_minute,
+                        last_hour:doc.data().last_hour,
+                        last_minute: doc.data().last_minute,
                         weight: doc.data().weight,
                         name: doc.data().name,
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
-
                 })
             })
         },

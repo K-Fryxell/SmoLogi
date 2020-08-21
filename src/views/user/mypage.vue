@@ -74,7 +74,6 @@
 <script>
 import Uheader  from '@/components/User/Header'
 import Ufooter from '@/components/User/Footer'
-import firebase from 'firebase'
 export default {
     data() {
         return {
