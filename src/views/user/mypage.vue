@@ -128,6 +128,10 @@ export default {
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
+        logout:function(){
+            firebase.auth().signOut()
+            alert('ログアウト')
+        },
         onResize(){
             this.x = window.innerWidth;
             this.y = window.innerHeight;
