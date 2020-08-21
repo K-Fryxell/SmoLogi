@@ -44,7 +44,7 @@
             <v-row class="ma-0 mt-3 pa-0" justify="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" lg="8" cols="11">
                     <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                        ただいま{{ part_Name }}さんが荷物を受け取りに向かっています。
+                        ただいま{{ part_Name }}さんが荷物を配達中です。
                     </v-card-text>
                 </v-col>
             </v-row>
@@ -77,7 +77,7 @@
                         到着予定時刻<br>
                     </v-card-title>
                     <v-card-title class="ma-0 pa-0 pl-12">
-                        {{ houre }}時{{ minute }}分
+                        {{houre}}時{{minute}}分
                     </v-card-title>
                 </v-col>
             </v-row>
@@ -85,13 +85,6 @@
                 <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
                         配達者と話す
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="user_Refusal=true" v-resize='onResize' :class='size_headline'>
-                        拒否する
                     </v-btn>
                 </v-col>
             </v-row>
@@ -144,63 +137,18 @@
                     </v-col>
                 </v-row>
             </v-overlay>
-            <!-- 最初から表示マッチング待機画面_ローディングマークつける前だよ -->
-            <!-- <v-dialog v-model="user_Matching" width="500" v-if="tab == 0">
-                <v-card>
-                    <v-row justify="center" class="pa-0 ma-0">
-                        <v-col cols="auto">
-                            <v-card-title>
-                                マッチング中
-                            </v-card-title>
-                            <v-row justify="center" class="pa-0 ma-0">
-                                <v-col cols="auto">
-                                    <v-btn width="50" @click="user_Refusal=true">
-                                        拒否する
-                                    </v-btn>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
-                </v-card>
-            </v-dialog> -->
 
-            <!-- 拒否ボタン押下時 -->
-            <v-dialog v-model="user_Refusal" width="500" v-if="tab == 0">
+            <!-- part_Completeモーダルで「はい」ボタン押下時 -->
+            <v-dialog v-model="user_Complete" width="500" v-if="tab == 0">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                本当に配達を拒否しますか？
+                                {{ cmpHoure }}時{{ cmpMinute }}}分に配達を完了しました。
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" @click="user_Refusal=false">
-                                        いいえ
-                                    </v-btn>
-                                </v-col>
-                                <v-col cols="auto">
-                                    <!-- ここはfirebase処理 -->
-                                    <!-- 「はい」ボタン押下時、part側でpart_Cancelモーダルを開かせたい -->
-                                    <v-btn width="50" to="/user_mypage" @click="part_Cancel=true">
-                                        はい
-                                    </v-btn>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
-                </v-card>
-            </v-dialog>
-            <!-- part側で荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="user_Delivery" width="500" v-if="tab == 0">
-                <v-card>
-                    <v-row justify="center" class="pa-0 ma-0">
-                        <v-col cols="auto">
-                            <v-card-title>
-                                荷物受け渡し完了
-                            </v-card-title>
-                            <v-row justify="center" class="pa-0 ma-0">
-                                <v-col cols="auto">
-                                    <v-btn width="50" to="/transport" @click="user_Delivery=false">
+                                    <v-btn width="50" to="/user_mypage" @click="user_Complete=false">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -288,7 +236,7 @@
                         到着予定時刻<br>
                     </v-card-title>
                     <v-card-title class="ma-0 pa-0 pl-12">
-                        {{houre}}時{{minute}}分
+                        {{ houre }}時{{ minute }}分
                     </v-card-title>
                 </v-col>
             </v-row>
@@ -301,8 +249,8 @@
             </v-row>
             <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 1">
                 <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="part_Delivery=true">
-                        荷物受け取り完了
+                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="part_Complete=true">
+                        配達完了
                     </v-btn>
                 </v-col>
             </v-row>
@@ -354,18 +302,25 @@
                     </v-col>
                 </v-row>
             </v-overlay>
-            <!-- user_Refusalモーダルで「はい」ボタン押下時 -->
-            <v-dialog v-model="part_Cancel" width="500" v-if="tab == 1">
+            <!-- 「配達完了」ボタン押下時 -->
+            <v-dialog v-model="part_Complete" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                配達依頼がキャンセルされました。
+                                本当に配達を完了しますか？
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/part_mypage" @click="part_Cancel=false">
-                                        確認
+                                    <v-btn width="50" @click="part_Complete=false">
+                                        いいえ
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="auto">
+                                    <!-- ここはfirebase -->
+                                    <!-- 「はい」ボタン押下時に part_Finモーダルを開く & user側でuser_Completeモーダルを開く -->
+                                    <v-btn width="50" @click="part_Fin=true">
+                                        はい
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -373,25 +328,19 @@
                     </v-row>
                 </v-card>
             </v-dialog>
-            <!-- 荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="part_Delivery" width="500" v-if="tab == 1">
+            <!-- part_Completeモーダルで「はい」押下時 -->
+            <v-dialog v-model="part_Fin" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                荷物受け渡し完了
+                                {{ cmpHoure }}時{{ cmpMinute }}分<br>
+                                配達完了
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" @click="part_Delivery=false">
-                                        いいえ
-                                    </v-btn>
-                                </v-col>
-                                <v-col cols="auto">
-                                    <!-- ここはfirebase処理 -->
-                                    <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                    <v-btn width="50" to="/transport">
-                                        はい
+                                    <v-btn width="50" to="/part_mypage" @click="part_Fin=false">
+                                        確認
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -412,6 +361,8 @@ export default {
             part_Name:'kaito',
             houre:'16',
             minute:'10',
+            cmpHoure:'15',
+            cmpMinute:'59',
             //文字サイズ
             x:window.innerWidth,
 			y:window.innerHeight ,
@@ -452,14 +403,10 @@ export default {
             absolute: true,
             opacity: 0.4,
             overlay: false,
-            user_Matching: true,
-            user_Refusal: false,
-            user_Delivery: false,
-            // user_Complete: false,
-            part_Cancel: false,
-            part_Delivery: false,
-            // part_Check: false,
-            // part_Complete: false,
+            user_Complete: false,
+            part_Check: false,
+            part_Complete: false,
+            part_Fin: false,
             name:""
         }
     },
@@ -516,6 +463,13 @@ export default {
                 name:this.name
             })
             this.coment = ""
+        },
+        delivery(){
+            if(this.tab == 0){
+                this.user_Delivery=true
+            }else if(this.tab == 1){
+                this.part_Delivery=true
+            }
         },
     },
     watch:{
