@@ -238,9 +238,9 @@ export default {
             //時間
             //配達希望時刻(午前、夕方、夜間)
             first_time:9,
-            first_minute:0,
+            first_minute:'00',
             last_time:12,
-            last_minute:0,
+            last_minute:'00',
             //詳しい配達希望時刻
             detailTime:null,
             //最初
@@ -314,6 +314,8 @@ export default {
                 this.yugata = "grey darken-2"
                 this.yakan = "green"
             }
+            this.first_minute = '00'
+            this.last_minute = '00'
         },
         selectColor(a){
             if(a==0){
