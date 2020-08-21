@@ -37,12 +37,12 @@
                                         contain
                                     />
                                     <v-card-text class="ma-2 ml-lg-11 pa-0" v-resize='onResize' :class='size_headline'>
-                                        〇依頼場所まで<br>
-                                        ：{{item.place}}m
+                                        〇依頼者名<br>
+                                        ：{{ item.name }}さん
                                     </v-card-text>
                                     <v-card-text class="ma-2 ml-lg-11 pa-0" v-resize='onResize' :class='size_headline'>
                                         〇配達希望時間<br>
-                                        ：{{item.isTime}}時{{item.isMinute}}分
+                                        ：{{item.first_hour}}時{{item.first_minute}}分～{{item.last_hour}}時{{item.last_minute}}分
                                     </v-card-text>
                                     <v-card-text class="ma-2 ml-lg-11 pa-0 pb-5" v-resize='onResize' :class='size_headline'>
                                         〇荷物の重量<br>
@@ -111,7 +111,7 @@ export default {
       request(a){
         //   console.log(this.items[a])
           this.$store.state.user_info = this.items[a]
-          this.$router.push('/part_requestdetails')
+          this.$store.commit('request_info', this.items[a])
       },
       onScroll (e) {
         this.offsetTop = e.target.scrollTop

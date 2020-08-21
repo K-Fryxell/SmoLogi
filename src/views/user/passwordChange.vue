@@ -1,22 +1,33 @@
 <template>
-    <v-container class="ma-0 pa-0" fluid>
-        <v-layout class="ma-0 pa-0" wrap>
-            <v-flex xs12 lg12>
-                <v-row justify="center" class="mt-12 pa-0">
-                    <v-card tile width="600" class="mt-12 mx-2 mb-12" outlined>
-                        <v-tabs>
-                            <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
-                            <v-tab v-on:click="tab = 1" :center-active="true">クレジットカード情報変更</v-tab>
-                        </v-tabs>
-                        <v-row class="ma-0 pa-0">
-                            <Pass v-if="tab === 0"/>
-                            <Cred v-else-if="tab === 1"/>
-                        </v-row>
-                    </v-card>
-                </v-row>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <content class="ma-0 pa-0">
+        <v-container class="ma-0 pa-0" fluid>
+            <v-layout class="ma-0 pa-0" wrap>
+                <v-flex xs12 lg12>
+                    <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
+                        <v-col cols="auto">
+                            <v-row class="ma-0 pa-0" justify="center">
+                                <v-col cols="auto" class="mt-12">
+                                    <img height="55" width="150" src="../../assets/logo_Sample.jpg"/>
+                                </v-col>
+                            </v-row>
+                            <v-row justify="center" class="ma-0 pa-0">
+                                <v-card tile width="600" class=" " outlined>
+                                    <v-tabs color="green">
+                                        <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
+                                        <v-tab v-on:click="tab = 1" :center-active="true">クレジットカード情報変更</v-tab>
+                                    </v-tabs>
+                                    <v-row class="ma-0 pa-0">
+                                        <Pass v-if="tab === 0"/>
+                                        <Cred v-else-if="tab === 1"/>
+                                    </v-row>
+                                </v-card>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </content>
 </template>
 <script>
 import Pass from '@/components/User/Password'
@@ -33,3 +44,11 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+img{
+    text-align: center;
+}
+.v-application--wrap{
+    background-color:#F6F6F6
+}
+</style>

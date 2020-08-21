@@ -1,10 +1,10 @@
 <template>
-    <v-card tile elevation="0" height="85">
-        <v-toolbar dense flat>
+    <v-card style="background-color: #F6F6F6" tile elevation="0" height="85">
+        <v-toolbar dense flat style="background-color: #F6F6F6">
             <v-toolbar-title>
                 <router-link to="/user_mypage">
                     <!--ロゴ <img> -->
-                    <img height="55"  src="@/assets/logo_Sample.jpg">
+                    <img height="55" src="@/assets/logo_Sample.jpg">
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -25,7 +25,7 @@
                         v-bind="attrs"
                         v-on="on"
                     >
-                        <v-icon>mdi-dots-vertical</v-icon>
+                        <v-icon x-large style="color: #83B590">mdi-microsoft-xbox-controller-menu</v-icon>
                     </v-btn>
                 </template>
                 <v-list nav width="200px">
@@ -39,11 +39,9 @@
                                 height:50px;"
                             />
                         </v-list-item-action>
-                        <v-list-content>
                             <!-- ユーザの名前 -->
-                            <v-list-item-title>{{ name }}</v-list-item-title>
-                            <v-divider insert/>
-                        </v-list-content>
+                        <v-list-item-title>{{ name }}さん</v-list-item-title>
+                        <v-divider insert/>
                     </v-list-item>
                     <v-list-item to='/user_mypage'>
                         マイページへ
@@ -66,17 +64,27 @@ export default {
             //ユーザの選んだ写真
             imgurl:require("../../assets/people.jpg"),
             //ユーザの名前
-            name:'田中昭雄',
             // menus: [
             //     { title: 'マイページ',to:'user_mypage'},
             //     { title: '詳細変更',to:'user_change'},
             // ],
         }
     },
+    computed:{
+        name(){
+            return this.$store.getters.user_fname
+        }
+    },
     methods:{
         logout:function(){
             this.$store.commit('user_logout')
+        },
+        onAuth : function(){
+            this.$store.commit('onAuthStateChanged')
         }
-    }
+    },
+    created:function(){
+        this.onAuth()
+    },
 }
 </script>

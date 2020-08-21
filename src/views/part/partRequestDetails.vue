@@ -30,7 +30,7 @@
                         </v-row>
                         <v-card-text class="text-center black--text subtitle-1">{{items.name}}さん</v-card-text>
                         <v-card-text class="text-center black--text subtitle-1">依頼場所まで：{{place}} ㎞</v-card-text>
-                        <v-card-text class="text-center black--text subtitle-1">配達希望時間：{{items.isTime}}時{{ items.isMinute }}分</v-card-text>
+                        <v-card-text class="text-center black--text subtitle-1">配達希望時間：{{items.first_hour}}時{{items.first_minute}}分～{{items.last_hour}}時{{items.last_minute}}分</v-card-text>
                         <v-card-text class="text-center black--text subtitle-1">荷物の重量：{{items.weight}} kg</v-card-text>
                         <v-row align="center">
                             <v-col class="text-center" cols="12" sm="12">
@@ -70,7 +70,6 @@ export default {
             part_longitude:0,
             place:0,
             array:{},
-            items:[],
             flg: false
         }
     },
@@ -82,6 +81,11 @@ export default {
     mounted:async function() {
         this.onResize
     },
+    computed: {
+        items(){
+            return this.$store.getters.user_info
+        }
+    },
     methods: {
         onResize () {
             this.x = window.innerWidth
@@ -90,17 +94,13 @@ export default {
         calc() {
             console.log(this.part_latitude)
             console.log(this.part_longitude)
-            console.log(this.$store.state.user_info['user_lat'])
-            console.log(this.$store.state.user_info['user_lng'])
-
-            this.items = this.$store.state.user_info
-
+            console.log(this.items['user_lat'])
+            console.log(this.items['user_lng'])
             //緯度経度取得
             this.part_latitude *= Math.PI / 180;
             this.part_longitude *= Math.PI / 180;
             this.items['user_lat'] *= Math.PI / 180;
             this.items['user_lng'] *= Math.PI / 180;
-
             //計算
             this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']))
             this.place = Math.floor(this.place)
