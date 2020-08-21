@@ -4,6 +4,7 @@ import user from './user'
 import part from './part'
 import router from '../router/index'
 import firebase from 'firebase'
+import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 Vue.use(router)
 export default new Vuex.Store({
@@ -45,5 +46,6 @@ export default new Vuex.Store({
         judge(state){
             return state.judge
         }
-    }
+    },
+    plugins:[createPersistedState()],
 })
