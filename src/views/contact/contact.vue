@@ -25,13 +25,13 @@
                                     </GmapMarker>
                                     <GmapInfoWindow
                                         :options="infoOptions"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :opened="infoWinOpen2"
                                         @closeclick="infoWinOpen2=false"
                                     >配達者の現在地</GmapInfoWindow>
                                     <GmapMarker
                                         @click="toggleInfoWindow(1)"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :clickable="true">
                                     </GmapMarker>
                                 </GmapMap>
@@ -236,13 +236,13 @@
 
                                     <GmapInfoWindow
                                         :options="infoOptions"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :opened="infoWinOpen2"
                                         @closeclick="infoWinOpen2=false"
-                                    >配達者の現在地</GmapInfoWindow>
+                                    >利用者の現在地</GmapInfoWindow>
                                     <GmapMarker
                                         @click="toggleInfoWindow(1)"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :clickable="true">
                                     </GmapMarker>
                                 </GmapMap>
@@ -439,8 +439,6 @@ export default {
             infoWinOpen2: false,
             user_latitude: 0,
             user_longitude: 0,
-            part_latitude: 0,
-            part_longitude: 0,
             coment:"",
             // center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
@@ -530,6 +528,22 @@ export default {
         }
     },
     watch:{
+        pair_latitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_latitude
+            }
+            else{
+                return this.$store.state.user_latitude
+            }
+        },
+        pair_longitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_longitude
+            }
+            else{
+                return this.$store.state.user_longitude
+            }
+        },
 		x:function(){
 			if(this.x<600)
 			{
@@ -558,6 +572,42 @@ export default {
         },
         part_name(){
             return this.$store.getters.nickname
+        },
+        pair_latitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_latitude
+                }
+                else{
+                    return this.$store.getters.user_latitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_latitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_latitude',value)
+                }
+            }
+        },
+        pair_longitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_longitude
+                }
+                else{
+                    return this.$store.getters.user_longitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_longitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_longitude',value)
+                }
+            }
         }
     },
     mounted() {
@@ -572,12 +622,14 @@ export default {
         }
     },
     created:function(){
+
         // 戻るボタンの無効化
-        window.history.pushState(null, null, null)
-        window.addEventListener("popstate", function() {
-            window.history.pushState(null, null, null)
-            return
-        })
+        // window.history.pushState(null, null, null)
+        // window.addEventListener("popstate", function() {
+        //     window.history.pushState(null, null, null)
+        //     return
+        // })
+
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
             await snapshot.forEach(doc => {
             //contentは要素
@@ -591,9 +643,7 @@ export default {
         })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        if(this.tab == 1){
-            this.$store.commit('room_onAuthState')
-        }
+        this.$store.commit('judge_room_onAuthState')
     }
 }
 </script>

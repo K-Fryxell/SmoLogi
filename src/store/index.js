@@ -10,7 +10,7 @@ Vue.use(router)
 export default new Vuex.Store({
     modules: {
         user: user,
-        part:part
+        part: part
     },
     state:{
         // ログインの種別
@@ -38,6 +38,22 @@ export default new Vuex.Store({
                 } else {
                     // User not logged in or has just logged out.
                     // router.push('/')
+                }
+            })
+        },
+        judge_room_onAuthState(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    firebase.firestore().collection("judge").doc(user.uid).get().then( doc => {
+                        // 判定
+                        state.judge = doc.data().judge
+                        if(doc.data().judge == 0){
+                            this.commit('room_onAuthState')
+                        }
+                        else if(doc.data().judge == 1){
+                            this.commit('part_room_onAuthState')
+                        }
+                    })
                 }
             })
         },

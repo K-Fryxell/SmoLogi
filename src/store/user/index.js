@@ -45,9 +45,18 @@ export default ({
         user_lat:0,
         user_lng:0,
         // アイコン
-        user_icon:''
+        user_icon:'',
+        //緯度経度
+        part_latitude:0,
+        part_longitude:0
     },
     getters: {
+        part_latitude(state){
+            return state.part_latitude
+        },
+        part_longitude(state){
+            return state.part_longitude
+        },
         user_fname(state){
             return state.user_fname
         },
@@ -93,6 +102,12 @@ export default ({
     },
     mutations: {
         // ここからセッター //
+        set_part_latitude(state, payload){
+            state.part_latitude = payload
+        },
+        set_part_longitude(state, payload){
+            state.part_longitude = payload
+        },
         set_user_image(state, payload) {
             state.user_icon = payload
         },
@@ -260,7 +275,7 @@ export default ({
                             // 正常にデータ保存できた時の処理
                             console.log('success')
                         })
-                    firebase.firestore().collection("transport").doc(state.user_id)
+                        firebase.firestore().collection("transport").doc(state.user_id)
                         .set({
                             // 重さ
                             weight: array['weight'],
@@ -306,6 +321,26 @@ export default ({
                         })
                 } else {
                     // User not logged in or has just logged out.
+                }
+            })
+        },
+        room_onAuthState(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        // state.first_hour = doc.data().first_hour,
+                        // state.first_minute = doc.data().first_minute,
+                        // state.last_hour = doc.data().last_hour,
+                        // state.last_minute = doc.data().last_minute,
+                        // state.size = doc.data().size,
+                        // state.weight = doc.data().weight,
+                        // state.user_latitude = doc.data().user_lat,
+                        // state.user_longitude = doc.data().user_lng,
+                        state.part_latitude = doc.data().part_lat,
+                        state.part_longitude = doc.data().part_lng
+                    })
                 }
             })
         },

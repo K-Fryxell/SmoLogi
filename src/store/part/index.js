@@ -60,9 +60,18 @@ export default ({
         part_weight: 0,
         // 受諾したユーザ情報
         user_info:[],
-        user_id: ''
+        user_id: '',
+        //緯度経度
+        user_latitude:0,
+        user_longitude:0
     },
     getters: {
+        user_latitude(state){
+            return state.user_latitude
+        },
+        user_longitude(state){
+            return state.user_longitude
+        },
         user_info(state){
             return state.user_info
         },
@@ -129,6 +138,12 @@ export default ({
     },
     mutations: {
         // ここからセッター //
+        set_user_latitude(state, payload){
+            state.user_latitude = payload
+        },
+        set_user_longitude(state, payload){
+            state.user_longitude = payload
+        },
         set_part_image(state,payload){
             state.part_image = payload
         },
@@ -360,7 +375,7 @@ export default ({
                 }
             })
         },
-        room_onAuthState(state){
+        part_room_onAuthState(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     state.part_user_id = user.uid
@@ -374,8 +389,8 @@ export default ({
                             // state.last_minute = doc.data().last_minute,
                             // state.size = doc.data().size,
                             // state.weight = doc.data().weight,
-                            // state.user_lat = doc.data().user_lat,
-                            // state.user_lng = doc.data().user_lng,
+                            state.user_latitude = doc.data().user_lat,
+                            state.user_longitude = doc.data().user_lng
                             // state.part_lat = doc.data().part_lat,
                             // state.part_lng = doc.data().part_lng
                         })
