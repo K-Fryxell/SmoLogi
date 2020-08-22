@@ -97,12 +97,12 @@ export default {
             console.log(this.items['user_lat'])
             console.log(this.items['user_lng'])
             //緯度経度取得
-            this.part_latitude *= Math.PI / 180;
-            this.part_longitude *= Math.PI / 180;
-            this.items['user_lat'] *= Math.PI / 180;
-            this.items['user_lng'] *= Math.PI / 180;
+            let a = this.part_latitude * Math.PI / 180;
+            let b = this.part_longitude * Math.PI / 180;
+            let c = this.items['user_lat'] * Math.PI / 180;
+            let d = this.items['user_lng'] * Math.PI / 180;
             //計算
-            this.place = 6371 * Math.acos(Math.cos(this.part_latitude) * Math.cos(this.items['user_lat']) * Math.cos(this.items['user_lng'] - this.part_longitude) + Math.sin(this.part_latitude) * Math.sin(this.items['user_lat']))
+            this.place = 6371 * Math.acos(Math.cos(a) * Math.cos(c) * Math.cos(d - b) + Math.sin(a) * Math.sin(c))
             this.place = Math.floor(this.place)
         },
         send() {
