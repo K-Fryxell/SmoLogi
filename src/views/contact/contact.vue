@@ -293,13 +293,6 @@
             </v-row>
             <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
-                        配達者と話す
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" cols="auto">
                     <v-btn width="300" height="60" class="green white--text" elevation="0" @click="user_Refusal=true" v-resize='onResize' :class='size_headline'>
                         拒否する
                     </v-btn>
@@ -579,6 +572,12 @@ export default {
         }
     },
     created:function(){
+        // 戻るボタンの無効化
+        window.history.pushState(null, null, null)
+        window.addEventListener("popstate", function() {
+            window.history.pushState(null, null, null)
+            return
+        })
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
             await snapshot.forEach(doc => {
             //contentは要素
