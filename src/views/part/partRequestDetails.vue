@@ -1,49 +1,84 @@
 <template>
     <v-content class="ma-0 pa-0">
+        <Header/>
         <v-container>
-            <Header/>
             <v-layout wrap>
-                <v-flex xs12 sm6 lg12>
-                    <v-card elevation="0">
-                        <v-card-title class="justify-center grey--text">
-                            <h1>依頼詳細</h1>
+                <v-row class="ma-0 pa-0" justify="center">
+                    <v-flex xs12 sm6 lg5>
+                        <v-card-title class="justify-center ma-0 pa-0 pt-10 pb-12" v-resize='onResize' :class='size_display'>
+                            依頼詳細
                         </v-card-title>
-                    </v-card>
-                    <v-card>
-                        <v-row justify="space-around">
-                            <v-avatar color="blue light5" size="164">
-                                <v-img
-                                    v-resize='onResize' :height='size_card'
-                                    v-if="items.gender==0"
-                                    :src="illust"
-                                    class="my-3"
-                                    contain
+                        <v-card class="ma-0 mb-12 pa-0">
+                            <v-row class="ma-0 pa-0 pt-5 pt-lg-12" justify="space-around">
+                                <v-avatar size="164">
+                                    <v-img
+                                        v-resize='onResize' :height='size_card'
+                                        v-if="items.gender==0"
+                                        :src="illust"
+                                        class="my-3"
+                                        contain
                                     />
-                                <v-img
-                                    v-resize='onResize' :height='size_card'
-                                    v-else-if="items.gender==1"
-                                    :src="img"
-                                    class="my-3"
-                                    contain
-                                />
-                            </v-avatar>
-                        </v-row>
-                        <v-card-text class="text-center black--text subtitle-1">{{items.name}}さん</v-card-text>
-                        <v-card-text class="text-center black--text subtitle-1">依頼場所まで：{{place}} ㎞</v-card-text>
-                        <v-card-text class="text-center black--text subtitle-1">配達希望時間：{{items.first_hour}}時{{items.first_minute}}分～{{items.last_hour}}時{{items.last_minute}}分</v-card-text>
-                        <v-card-text class="text-center black--text subtitle-1">荷物の重量：{{items.weight}} kg</v-card-text>
-                        <v-row align="center">
-                            <v-col class="text-center" cols="12" sm="12">
-                                <div class="my-1">
-                                    <v-btn @click="send">この依頼を受ける<v-icon>mdi-thumb-up</v-icon></v-btn>
-                                </div>
+                                    <v-img
+                                        v-resize='onResize' :height='size_card'
+                                        v-else-if="items.gender==1"
+                                        :src="img"
+                                        class="my-3"
+                                        contain
+                                    />
+                                </v-avatar>
+                            </v-row>
+                            <v-card-text class="ma-0 mt-3 mb-7 pa-0 text-center" v-resize='onResize' :class='size_headline'>
+                                {{items.name}}さん
+                            </v-card-text>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                                〇依頼場所まで<br>
+                            </v-card-text>
+                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                                ：{{place}} ㎞
+                            </v-card-text>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                                〇配達希望時間<br>
+                            </v-card-text>
+                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                                ：{{items.first_hour}}時{{items.first_minute}}分～{{items.last_hour}}時{{items.last_minute}}分
+                            </v-card-text>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                                〇荷物の重量<br>
+                            </v-card-text>
+                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                                ：{{items.weight}} kg
+                            </v-card-text>
+                            <v-row class="ma-0 mt-5 pa-0 pb-12" align="center">
+                                <v-col class="text-center" cols="12" sm="12">
+                                    <div class="my-1">
+                                        <!-- 既に受けている依頼が完了していない場合モーダル表示させたい -->
+                                        <v-btn @click="send">この依頼を受ける<v-icon>mdi-thumb-up</v-icon></v-btn>
+                                    </div>
+                                </v-col>
+                            </v-row>
+                        </v-card>
+                    </v-flex>
+                </v-row>
+                <!-- 既に依頼を受けている場合 -->
+                <v-dialog v-model="noAccept" width="500">
+                    <v-card class="ma-0 pa-0">
+                        <v-row justify="center" class="pa-0 ma-0">
+                            <v-col cols="auto">
+                                <v-card-title>
+                                    既に受けている依頼があります。<br>
+                                    配達ページへ移動して完了してください。
+                                </v-card-title>
+                                <v-row justify="center" class="pa-0 ma-0">
+                                    <v-col cols="auto">
+                                        <v-btn width="50" to="/contact" @click="noAccept=false">
+                                            確認
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
                             </v-col>
                         </v-row>
                     </v-card>
-                    <v-card>
-                        <v-card-text class="text-center black--text title">本日の依頼重量：{{sumweight}} kg</v-card-text>
-                    </v-card>
-                </v-flex>
+                </v-dialog>
             </v-layout>
         </v-container>
         <Footer/>
@@ -64,8 +99,8 @@ export default {
             size_subtitle:'subtitle-1',
             size_body:'body-1',
             sumweight:0,
-            img:require('@/assets/part/obaachan.png'),
-            illust:require('@/assets/part/ojiichan.png'),
+            img:require('@/assets/part/woman.jpg'),
+            illust:require('@/assets/part/man.jpg'),
             part_latitude:0,
             part_longitude:0,
             place:0,
