@@ -593,7 +593,9 @@ export default {
         })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        this.$store.commit('room_onAuthState')
+        if(this.tab == 1){
+            this.$store.commit('room_onAuthState')
+        }
     }
 }
 </script>

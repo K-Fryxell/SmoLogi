@@ -237,22 +237,25 @@ export default {
         return{
             //時間
             //配達希望時刻(午前、夕方、夜間)
-            first_time:9,
+            first_time:'9',
             first_minute:'00',
-            last_time:12,
+            last_time:'12',
             last_minute:'00',
             //詳しい配達希望時刻
             detailTime:null,
             //最初
             //時
-            firstTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+            firstTime:['8','9','10','11','12','13','14','15','16','17','18','19','20','21'],
             //分
             firstMinute:['00','05','10','15','20','25','30','35','40','45','50','55'],
             //最後
             //時
-            lastTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+            lastTime:['8','9','10','11','12','13','14','15','16','17','18','19','20','21'],
             //分
             lastMinute:['00','05','10','15','20','25','30','35','40','45','50','55'],
+            //時空
+            first:0,
+            last:0,
             //ボタンの色(午前、午後、夜間)
             gozen:"grey darken-2",
             yugata:"grey darken-2",
@@ -314,8 +317,8 @@ export default {
                 this.yugata = "grey darken-2"
                 this.yakan = "green"
             }
-            this.first_minute = '00'
-            this.last_minute = '00'
+            this.first_minute = 0
+            this.last_minute = 0
         },
         selectColor(a){
             if(a==0){
@@ -349,27 +352,37 @@ export default {
             this.$refs.form.validate()
         },
         decide(){
-            //名前
-            this.array['name'] = this.name
-            //最初
-            //時
-            this.array['first_time'] = this.first_time
-            //分
-            this.array['first_minute'] = this.first_minute
-            //最後
-            //時
-            this.array['last_time'] = this.last_time
-            //分
-            this.array['last_minute'] = this.last_minute
-            //荷物のサイズ
-            this.array['size'] = this.size
-            //重さ
-            this.array['weight'] = this.weight
-            //緯度経度
-            this.array['user_lat'] = this.user_latitude
-            this.array['user_lng'] = this.user_longitude
+            //計算の処理 (jsでは数値として扱える文字列は自動的に数値として扱われる)
+            this.first = this.first_time+this.first_minute
+            this.last = this.last_time+this.last_minute
+            console.log(this.first)
+            console.log(this.last)
+            if(this.first < this.last){
+                //名前
+                this.array['name'] = this.name
+                //最初
+                //時
+                this.array['first_time'] = this.first_time
+                //分
+                this.array['first_minute'] = this.first_minute
+                //最後
+                //時
+                this.array['last_time'] = this.last_time
+                //分
+                this.array['last_minute'] = this.last_minute
+                //荷物のサイズ
+                this.array['size'] = this.size
+                //重さ
+                this.array['weight'] = this.weight
+                //緯度経度
+                this.array['user_lat'] = this.user_latitude
+                this.array['user_lng'] = this.user_longitude
 
-            this.$store.commit('transport', this.array)
+                this.$store.commit('transport', this.array)
+            }
+            else{
+                alert('配達希望時刻の値が不適切です')
+            }
         },
         onResize(){
             this.x = window.innerWidth;

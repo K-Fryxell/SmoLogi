@@ -394,6 +394,13 @@ export default ({
                         state.user_id = doc.data().user_id
                         firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     })
+                    firebase.firestore().collection('part_users').doc(user.uid)
+                    .set({
+                        user_id: ''
+                    },
+                    {
+                        merge:true
+                    })
                 }
             })
         },
