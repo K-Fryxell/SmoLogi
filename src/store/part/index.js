@@ -228,7 +228,7 @@ export default ({
                 if (user) {
                     // User logged in already or has just logged in.
                     // ユーザーIDの取得
-                    console.log(user.uid);
+                    console.log(user.uid)
                     // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
                     state.part_user_id = user.uid
                     firebase.firestore().collection("part_users").doc(state.part_user_id)
@@ -335,6 +335,7 @@ export default ({
             })
         },
         part_send(state,array){
+            firebase.firestore().collection('transport').doc(array['user_id']).delete()
             firebase.firestore().collection('users').doc(array['user_id']).collection('room').doc(array['user_id'])
             .set({
                 part_lat: array['part_latitude'],
@@ -364,11 +365,8 @@ export default ({
                 if (user) {
                     state.part_user_id = user.uid
                     firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
-                        console.log(doc.data().user_id)
                         state.user_id = doc.data().user_id
                         firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
-                            //contentは要素
-                            //pushは配列データそのもの
                             console.log(doc.data())
                             // state.first_hour = doc.data().first_hour,
                             // state.first_minute = doc.data().first_minute,
@@ -393,14 +391,14 @@ export default ({
                         console.log(doc.data().user_id)
                         state.user_id = doc.data().user_id
                         firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                        firebase.firestore().collection('part_users').doc(user.uid).set({
+                            user_id:firebase.firestore.FieldValue.delete()
+                        },
+                        {
+                            merge:true
+                        })
                     })
-                    firebase.firestore().collection('part_users').doc(user.uid)
-                    .set({
-                        user_id: ''
-                    },
-                    {
-                        merge:true
-                    })
+                    router.push('/part_mypage')
                 }
             })
         },

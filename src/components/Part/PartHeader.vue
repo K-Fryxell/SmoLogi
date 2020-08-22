@@ -70,13 +70,7 @@ export default {
     methods:{
         logout:function(){
             this.$store.commit('part_logout')
-        },
-        onAuth : function(){
-            this.$store.commit('part_onAuthStateChanged')
         }
-    },
-    created:function(){
-        this.onAuth()
-    },
+    }
 }
 </script>
