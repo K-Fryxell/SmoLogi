@@ -104,6 +104,7 @@ export default {
             part_latitude:0,
             part_longitude:0,
             place:0,
+            noAccept: false,
             array:{},
             flg: false
         }
