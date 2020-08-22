@@ -59,7 +59,8 @@ export default ({
         // 総重量
         part_weight: 0,
         // 受諾したユーザ情報
-        user_info:[]
+        user_info:[],
+        user_id: ''
     },
     getters: {
         user_info(state){
@@ -298,6 +299,9 @@ export default ({
                         state.ordinary_carNumber = doc.data().ordinary_carNumber
                         // 判定
                         state.judge = doc.data().judge
+                        if(doc.data().user_id != null){
+                            state.user_id = doc.data().user_id
+                        }
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -337,15 +341,61 @@ export default ({
                 part_lng: array['part_longitude'],
                 user_lat: array['user_lat'],
                 user_lng: array['user_lng'],
-                user_id: array['user_id']
                 // part_id: array['part_id']
             },
             {
                 merge:true
             })
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(user.uid)
+                    .set({
+                        user_id: array['user_id']
+                    },
+                    {
+                        merge:true
+                    })
+                }
+            })
         },
-        deleteRoom(){
-            firebase.firestore().collection('users').doc('Alb90vMFeZPJyP8R59lBIwHbNuT2').collection('room').doc('Alb90vMFeZPJyP8R59lBIwHbNuT2').delete()
+        room_onAuthState(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
+                        console.log(doc.data().user_id)
+                        state.user_id = doc.data().user_id
+                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                            //contentは要素
+                            //pushは配列データそのもの
+                            console.log(doc.data())
+                            // state.first_hour = doc.data().first_hour,
+                            // state.first_minute = doc.data().first_minute,
+                            // state.last_hour = doc.data().last_hour,
+                            // state.last_minute = doc.data().last_minute,
+                            // state.size = doc.data().size,
+                            // state.weight = doc.data().weight,
+                            // state.user_lat = doc.data().user_lat,
+                            // state.user_lng = doc.data().user_lng,
+                            // state.part_lat = doc.data().part_lat,
+                            // state.part_lng = doc.data().part_lng
+                        })
+                    })
+                }
+            })
+        },
+        deleteRoom(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
+                        console.log(doc.data().user_id)
+                        state.user_id = doc.data().user_id
+                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    })
+                }
+            })
         },
         part_logout() {
             firebase.auth().signOut()
