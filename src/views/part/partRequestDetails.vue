@@ -142,7 +142,6 @@ export default {
             this.place = Math.floor(this.place)
         },
         send() {
-            this.$store.commit('part_onAuthStateChanged')
             this.array['part_latitude'] = this.part_latitude
             this.array['part_longitude'] = this.part_longitude
             this.array['user_id'] = this.items['user_id']

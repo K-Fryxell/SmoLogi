@@ -584,7 +584,6 @@ export default {
             //contentは要素
             //pushは配列データそのもの
             // this.allData.push(doc.data().content)
-                console.log(doc.data().content)
                 this.chat.push({
                     content:doc.data().content,
                     name:doc.data().name
