@@ -404,7 +404,7 @@
                                 <v-col cols="auto">
                                     <!-- ここはfirebase処理 -->
                                     <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                    <v-btn width="50" to="/transport">
+                                    <v-btn width="50" @click="deleteRoom()">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -531,6 +531,10 @@ export default {
             })
             this.coment = ""
         },
+        deleteRoom(){
+            // ルームのuser_idを取得する
+            this.$store.commit('deleteRoom')
+        }
     },
     watch:{
 		x:function(){
@@ -589,7 +593,7 @@ export default {
         })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        console.log()
+        // this.$store.commit('room_onAuthStateChanged')
     }
 }
 </script>

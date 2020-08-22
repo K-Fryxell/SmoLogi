@@ -12,7 +12,6 @@
                                     :zoom="zoom"
                                     :options="mapStyle"
                                     style="width: 100%; height: 100%;">
-
                                     <GmapInfoWindow
                                         :options="infoOptions"
                                         :position="{lat:user_latitude, lng:user_longitude}"

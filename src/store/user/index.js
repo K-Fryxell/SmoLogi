@@ -243,8 +243,8 @@ export default ({
                     state.user_id = user.uid
                     array['userid'] = state.user_id
                     array['gender'] = state.user_gender
-                    firebase.firestore().collection("users").doc(state.user_id).collection('room')
-                        .add({
+                    firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id)
+                        .set({
                             // 重さ
                             weight: array['weight'],
                             // 何時何分〜

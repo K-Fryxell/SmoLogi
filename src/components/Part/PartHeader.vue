@@ -4,7 +4,7 @@
             <v-toolbar-title>
                 <router-link to="/part_mypage">
                     <!--ロゴ <img> -->
-                    <img height="55"  src="@/assets/logo_Sample.jpg">
+                    <img height="55" src="@/assets/logo_Sample.jpg">
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -33,23 +33,18 @@
                         <v-list-item-action>
                             <!-- アイコン -->
                             <v-img
-                                :src="imgurl"
+                                :src="part_image"
                                 style="border-radius: 8em;
-                                width:50px;
+                                width:100px;
                                 height:50px;"
                             />
                         </v-list-item-action>
-                        <v-list-content>
-                            <!-- ユーザの名前 -->
-                            <v-list-item-title>{{ name }}</v-list-item-title>
-                            <v-divider insert/>
-                        </v-list-content>
+                        <!-- ユーザの名前 -->
+                        <v-list-item-title>{{ name }}</v-list-item-title>
+                        <v-divider insert/>
                     </v-list-item>
                     <v-list-item to='/part_mypage'>
                         マイページへ
-                    </v-list-item>
-                    <v-list-item to='/part_requestdetails'>
-                        アカウント設定
                     </v-list-item>
                     <v-list-item @click="logout">
                         ログアウト
@@ -62,21 +57,26 @@
 <script>
 export default {
     data(){
-        return{
-            //ユーザの選んだ写真
-            imgurl:require("@/assets/people.jpg"),
-            //ユーザの名前
-            name:'田中昭雄',
-            // menus: [
-            //     { title: 'マイページ',to:'user_mypage'},
-            //     { title: '詳細変更',to:'user_change'},
-            // ],
+        return{}
+    },
+    computed:{
+        name(){
+            return this.$store.getters.part_fname
+        },
+        part_image(){
+            return this.$store.getters.part_image
         }
     },
     methods:{
         logout:function(){
             this.$store.commit('part_logout')
+        },
+        onAuth : function(){
+            this.$store.commit('part_onAuthStateChanged')
         }
-    }
+    },
+    created:function(){
+        this.onAuth()
+    },
 }
 </script>

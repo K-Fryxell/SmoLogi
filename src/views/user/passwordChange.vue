@@ -10,18 +10,16 @@
                                     <img height="55" width="150" src="../../assets/logo_Sample.jpg"/>
                                 </v-col>
                             </v-row>
-                            <v-row justify="center" class="ma-0 pa-0">
-                                <v-card tile width="600" class=" " outlined>
-                                    <v-tabs color="green">
-                                        <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
-                                        <v-tab v-on:click="tab = 1" :center-active="true">クレジットカード情報変更</v-tab>
-                                    </v-tabs>
-                                    <v-row class="ma-0 pa-0">
-                                        <Pass v-if="tab === 0"/>
-                                        <Cred v-else-if="tab === 1"/>
-                                    </v-row>
-                                </v-card>
-                            </v-row>
+                            <v-card tile width="600" class="ma-0 pa-0" outlined>
+                                <v-tabs color="green">
+                                    <v-tab v-on:click="tab = 0">パスワード変更</v-tab>
+                                    <v-tab v-on:click="tab = 1" :center-active="true">クレジットカード変更</v-tab>
+                                </v-tabs>
+                                <v-row class="ma-0 pa-0">
+                                    <Pass v-if="tab === 0"/>
+                                    <Cred v-else-if="tab === 1"/>
+                                </v-row>
+                            </v-card>
                         </v-col>
                     </v-row>
                 </v-flex>
