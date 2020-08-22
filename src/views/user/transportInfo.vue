@@ -238,21 +238,21 @@ export default {
             //時間
             //配達希望時刻(午前、夕方、夜間)
             first_time:9,
-            first_minute:0,
+            first_minute:'00',
             last_time:12,
-            last_minute:0,
+            last_minute:'00',
             //詳しい配達希望時刻
             detailTime:null,
             //最初
             //時
             firstTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
             //分
-            firstMinute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            firstMinute:['00','05','10','15','20','25','30','35','40','45','50','55'],
             //最後
             //時
             lastTime:[8,9,10,11,12,13,14,15,16,17,18,19,20,21],
             //分
-            lastMinute:[0,5,10,15,20,25,30,35,40,45,50,55],
+            lastMinute:['00','05','10','15','20','25','30','35','40','45','50','55'],
             //ボタンの色(午前、午後、夜間)
             gozen:"grey darken-2",
             yugata:"grey darken-2",
@@ -314,6 +314,8 @@ export default {
                 this.yugata = "grey darken-2"
                 this.yakan = "green"
             }
+            this.first_minute = '00'
+            this.last_minute = '00'
         },
         selectColor(a){
             if(a==0){

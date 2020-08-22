@@ -1,15 +1,27 @@
 <template>
-    <content>
+    <content class="ma-0 pa-0">
         <Header/>
-        <v-card-title class="justify-center mt-12 display-2">依頼一覧</v-card-title>
-        <v-container fluid>
-            <v-layout column>
-                <v-row class="ma-0 pa-0" justify="center">
-                    <v-flex lg4 xs6 v-for="(item,index) in items" :key="index">
+        <v-card-title class="justify-center ma-0 pa-0 mt-2 mb-2" v-resize='onResize' :class='size_display'>
+            依頼一覧
+        </v-card-title>
+        <v-container 
+            id="scroll-target"
+            style="max-height: 550px"
+            class="ma-0 mb-12 pa-0 overflow-y-auto"
+            fluid
+        >
+            <v-layout class="ma-0 pa-0" column>
+                <v-row
+                    class="ma-0 pa-0"
+                    v-scroll:#scroll-target="onScroll"
+                    align="center"
+                    justify="center"
+                    style="height: auto"
+                >
+                    <v-flex class="ma-0 pa-0" lg3 xs6 v-for="(item,index) in items" :key="index">
                         <v-row class="ma-0 pa-0" justify="center">
-                            <v-col class="ma-6 pa-0" cols="10" lg="7">
-                                <v-card @click="request(index)">
-                                    依頼場所まで:{{item.place}}m<br/>
+                            <v-col class="ma-0 pa-0" cols="10" lg="9">
+                                <v-card class="ma-0 pa-0" @click="request(index)">
                                     <v-img
                                         v-resize='onResize' :height='size_card'
                                         v-if="item.gender==0"
@@ -24,19 +36,22 @@
                                         class="my-3"
                                         contain
                                     />
-                                    配達希望時間:{{item.isTime}}時{{item.isMinute}}分<br/>
-                                    荷物の重量:{{item.weight}}kg
+                                    <v-card-text class="ma-2 ml-lg-11 pa-0" v-resize='onResize' :class='size_headline'>
+                                        〇依頼者名<br>
+                                        ：{{ item.name }}さん
+                                    </v-card-text>
+                                    <v-card-text class="ma-2 ml-lg-11 pa-0" v-resize='onResize' :class='size_headline'>
+                                        〇配達希望時間<br>
+                                        ：{{item.first_hour}}時{{item.first_minute}}分～{{item.last_hour}}時{{item.last_minute}}分
+                                    </v-card-text>
+                                    <v-card-text class="ma-2 ml-lg-11 pa-0 pb-5" v-resize='onResize' :class='size_headline'>
+                                        〇荷物の重量<br>
+                                        ：{{item.weight}}kg
+                                    </v-card-text>
                                 </v-card>
                             </v-col>
                         </v-row>
                     </v-flex>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <v-card class="mx-auto" max-width="344">
-                            <v-card-text class="display-1">総重量:{{weight}}kg</v-card-text>
-                        </v-card>
-                    </v-col>
                 </v-row>
                 <!-- <partRequestdetails :items=items></partRequestdetails> -->
             </v-layout>
@@ -60,8 +75,8 @@ export default {
             size_subtitle:'subtitle-1',
             size_body:'body-1',
             sumweight:0,
-            img:require('@/assets/part/obaachan.png'),
-            illust:require('@/assets/part/ojiichan.png'),
+            img:require('@/assets/part/woman.jpg'),
+            illust:require('@/assets/part/man.jpg'),
             place:'2000',
             time:'120',
             // items: [
@@ -96,8 +111,11 @@ export default {
       request(a){
         //   console.log(this.items[a])
           this.$store.state.user_info = this.items[a]
-          this.$router.push('/part_requestdetails')
-      }
+          this.$store.commit('request_info', this.items[a])
+      },
+      onScroll (e) {
+        this.offsetTop = e.target.scrollTop
+      },
     },
     watch:{
         x:function(){

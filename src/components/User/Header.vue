@@ -35,12 +35,12 @@
                             <v-img
                                 :src="imgurl"
                                 style="border-radius: 8em;
-                                width:50px;
+                                width:100px;
                                 height:50px;"
                             />
                         </v-list-item-action>
                             <!-- ユーザの名前 -->
-                        <v-list-item-title>{{ name }}</v-list-item-title>
+                        <v-list-item-title>{{ name }}さん</v-list-item-title>
                         <v-divider insert/>
                     </v-list-item>
                     <v-list-item to='/user_mypage'>
@@ -64,17 +64,27 @@ export default {
             //ユーザの選んだ写真
             imgurl:require("../../assets/people.jpg"),
             //ユーザの名前
-            name:'田中昭雄',
             // menus: [
             //     { title: 'マイページ',to:'user_mypage'},
             //     { title: '詳細変更',to:'user_change'},
             // ],
         }
     },
+    computed:{
+        name(){
+            return this.$store.getters.user_fname
+        }
+    },
     methods:{
         logout:function(){
             this.$store.commit('user_logout')
+        },
+        onAuth : function(){
+            this.$store.commit('onAuthStateChanged')
         }
-    }
+    },
+    created:function(){
+        this.onAuth()
+    },
 }
 </script>

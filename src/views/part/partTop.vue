@@ -4,7 +4,7 @@
 		<TopHeader/>
 		<v-container class="ma-0 pa-0" fluid>
 			<v-layout class="ma-0 pa-0" column>
-				<v-card class="ma-0 pa-0" elevation="0">
+				<v-card class="ma-0 pa-0" style="background-color: #E5ECE6" elevation="0">
 					<!-- PCレイアウト -->
 					<v-row class="ma-0 mb-5 pa-0 hidden-sm-and-down" justify="center">
 						<v-col class="ma-0 mt-12 pa-0" lg="4" md="4">
@@ -16,11 +16,11 @@
 								ログインするだけで好きな時間に好きなだけ働くことができます。
 							</v-card-text>
 							<v-row class="ma-0 pa-0 pr-6 mt-6 mb-6" justify="center">
-								<v-btn class="green white--text" height="40" v-resize='onResize' :class='size_headline'>
+								<v-btn class="green white--text" height="40" v-resize='onResize' to="part_regist" :class='size_headline'>
 									今すぐ登録
 								</v-btn>
 							</v-row>
-						</v-col>           
+						</v-col>
 						<v-col class="ma-0 mt-6 pa-0 mb-6" lg="5" md="5">
 							<v-img
 								src="@/assets/partTop/Top画像.jpg"
@@ -45,7 +45,7 @@
 								ログインするだけで好きな時間に好きなだけ働くことができます。
 							</v-card-text>
 							<v-row class="ma-0 pa-0 mb-6" justify="center">
-								<v-btn class="green white--text">
+								<v-btn to="part_regist" class="green white--text">
 									今すぐ登録
 								</v-btn>
 							</v-row>
@@ -54,24 +54,24 @@
 				</v-card>
 			</v-layout>
 		</v-container>
-		<hr 
+		<hr
 			size="8"
 			color="#1B5E20"
 			elevation="2"
 			noshade
 		/>
 		<!-- 配達パートナーのメリット -->
-		<v-container class="ma-0 mt-10 mb-10 pa-0" fluid>
+		<v-container class="ma-0 pa-0" fluid>
 			<v-layout class="ma-0 pa-0" wrap>
-				<v-card class="ma-0 pa-0" elevation="0">
-					<v-row class="ma-0 pa-0" justify="center">
+				<v-card class="ma-0 pa-0" style="background-color: #E5ECE6" elevation="0">
+					<v-row class="ma-0 mt-10 pa-0" justify="center">
 						<v-col class="ma-0 pa-0" lg="9" md="9" cols="12">
 							<v-card-title class="green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
 								配達パートナーのメリット
 							</v-card-title>
 						</v-col>
 					</v-row>
-					<v-row class="ma-0 pa-0" justify="center">
+					<v-row class="ma-0 mb-10 pa-0" justify="center">
 						<v-col class="ma-0 pa-0" lg="3" md="3" cols="12">
 							<v-card-text class="mt-3 ma-0 pa-2" v-resize='onResize' :class='size_headline'>
 								1.自由な働き方
@@ -101,7 +101,7 @@
 			</v-layout>
 		</v-container>
 
-		<hr 
+		<hr
 			size="8"
 			color="#1B5E20"
 			elevation="2"
@@ -109,7 +109,7 @@
 		/>
 		<!-- スライダー -->
 		<Slider/>
-		<hr 
+		<hr
 			size="8"
 			color="#1B5E20"
 			elevation="2"
@@ -117,7 +117,7 @@
 		/>
 
 		<!-- 利用車種例 -->
-		<v-container class="ma-0 pt-5 pb-12" fluid>
+		<v-container class="ma-0 pt-5 pb-12" style="background-color: #E5ECE6" fluid>
 			<v-layout column>
 				<v-card-title class="justify-center green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
 					利用車種の例
@@ -144,7 +144,7 @@
 					</v-card>
 				</v-row>
 				<!-- 携帯レイアウト -->
-				<v-sheet class="mx-auto hidden-md-and-up" max-width="350"> 
+				<v-sheet class="mx-auto hidden-md-and-up" max-width="350">
 					<!-- hidden-md-and-up -->
 					<v-slide-group multiple show-arrows>
 						<v-slide-item
@@ -185,7 +185,7 @@
 				</v-sheet>
 			</v-layout>
 		</v-container>
-		<hr 
+		<hr
 			size="8"
 			color="#1B5E20"
 			elevation="2"
@@ -193,22 +193,22 @@
 		/>
 		<v-container class="ma-0 pa-0" fluid>
 			<v-layout class="ma-0 pa-0" column>
-				<v-card class="mt-lg-9 mb-lg-12 ma-0 pa-0" elevation="0">
+				<v-card class="pt-lg-9 pb-lg-12 ma-0 pa-0" style="background-color: #E5ECE6" elevation="0">
 					<v-row class="ma-0 pa-0 mt-10 mb-10" justify="center">
 						<v-col class="ma-0 pa-0" lg="5" md="5" cols="12">
 							<v-card-title class="ma-0 pa-2 green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
 								登録について
 							</v-card-title>
 							<v-card-text class="ma-0 pa-2 mt-3" v-resize='onResize' :class='size_title'>
-								ニモチは面接不要。必要項目を入力するだけで働き始めることができます。							
+								ニモチは面接不要。必要項目を入力するだけで働き始めることができます。
 							</v-card-text>
 							<v-card-text class="ma-0 pa-2 mt-lg-3 font-weight-bold" v-resize='onResize' :class='size_subtitle'>
-								※バイク・自動車での配達を行うためには新規登録の際に運転免許証の写真<br>を添付していただく必要があります。							
+								※バイク・自動車での配達を行うためには新規登録の際に運転免許証の写真<br>を添付していただく必要があります。
 							</v-card-text>
 						</v-col>
 						<v-col class="ma-0 pa-0 pt-lg-12" lg="4" md="4" cols="4">
 							<v-row class="ma-0 mt-12 pa-0" justify="center" align="end">
-								<v-btn class="green white--text pa-3" height="50" v-resize='onResize' :class='size_headline'>
+								<v-btn class="green white--text pa-3" height="50" v-resize='onResize' to="part_regist" :class='size_headline'>
 									今すぐ登録して配達を始める
 								</v-btn>
 							</v-row>

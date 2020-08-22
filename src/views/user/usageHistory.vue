@@ -5,8 +5,8 @@
             <v-layout class="ma-0 pa-0" wrap>
                 <v-flex xs12 lg12>
                     <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
-                        <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
-                            <h2 class=" mb-12 justify-center font-weight-light">
+                        <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6">
+                            <h2 class="mb-12 justify-center font-weight-light">
                                 <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">利用履歴</span>
                             </h2>
                             <v-col cols="auto" lg="auto" v-for="item in items" :key="item.id">
@@ -22,14 +22,14 @@
                                         </v-col>
                                         <!-- 名前、利用日、評価 -->
                                         <v-col
-                                            cols="12" lg="6"
+                                            cols="12" lg="5"
                                             v-resize="onResize"
                                             :class="size"
-                                            class="font-weight-light"
+                                            class="pt-5"
                                         >
-                                            利用日:{{item.day}}<br/>
+                                            <span class="font-weight-light">利用日:{{item.day}}<br/>
                                             名前:{{item.user_name}}<br/>
-                                            評価:
+                                            評価:</span>
                                             <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
                                                 <v-icon>mdi-thumb-up</v-icon>
                                             </v-btn>
@@ -60,7 +60,7 @@ export default {
             imageurl:require("../../assets/people.jpg"),
             x:0,
             y:0,
-            size:"display-1",
+            size:"headline",
             items: [
                 {
                     user_name:'田中太郎',
@@ -111,7 +111,7 @@ export default {
                 this.size= 'display-6'
             }else
             {
-                this.size='display-1'
+                this.size='headline'
             }
         }
     },

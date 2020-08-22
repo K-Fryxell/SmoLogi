@@ -74,7 +74,6 @@
 <script>
 import Uheader  from '@/components/User/Header'
 import Ufooter from '@/components/User/Footer'
-import firebase from 'firebase'
 export default {
     data() {
         return {
@@ -128,10 +127,6 @@ export default {
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
-        logout:function(){
-            firebase.auth().signOut()
-            alert('ログアウト')
-        },
         onResize(){
             this.x = window.innerWidth;
             this.y = window.innerHeight;
