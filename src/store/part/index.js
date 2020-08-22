@@ -330,13 +330,22 @@ export default ({
                 })
             })
         },
-        send(state,array){
-            firebase.firestore().collection('users').doc(array['user_id']).collection('room')
-            .add({
+        part_send(state,array){
+            firebase.firestore().collection('users').doc(array['user_id']).collection('room').doc(array['user_id'])
+            .set({
                 part_lat: array['part_latitude'],
                 part_lng: array['part_longitude'],
-                part_id: array['part_id']
+                user_lat: array['user_lat'],
+                user_lng: array['user_lng'],
+                user_id: array['user_id']
+                // part_id: array['part_id']
+            },
+            {
+                merge:true
             })
+        },
+        deleteRoom(){
+            firebase.firestore().collection('users').doc('Alb90vMFeZPJyP8R59lBIwHbNuT2').collection('room').doc('Alb90vMFeZPJyP8R59lBIwHbNuT2').delete()
         },
         part_logout() {
             firebase.auth().signOut()

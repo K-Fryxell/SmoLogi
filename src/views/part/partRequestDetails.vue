@@ -110,8 +110,11 @@ export default {
             this.array['part_latitude'] = this.part_latitude
             this.array['part_longitude'] = this.part_longitude
             this.array['user_id'] = this.items['user_id']
-            this.array['part_id'] = this.$store.state.part_id
-            // this.$store.commit()
+            console.log(this.items)
+            this.array['user_lat'] = this.items['user_lat']
+            this.array['user_lng'] = this.items['user_lng']
+            // this.array['part_id'] = this.$store.state.part_id
+            this.$store.commit('part_send', this.array)
             this.$router.push('/contact')
         }
     },
