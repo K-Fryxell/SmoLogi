@@ -291,16 +291,30 @@
                     </v-card-title>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 pa-0" justify="center" v-if="tab == 1">
+            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
+                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
+                        配達者と話す
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
+                <v-col class="ma-0 pa-0" cols="auto">
+                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="user_Refusal=true" v-resize='onResize' :class='size_headline'>
+                        拒否する
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 1">
+                <v-col class="ma-0 pa-0" cols="auto">
+                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
                         お客様と話す
                     </v-btn>
                 </v-col>
             </v-row>
             <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 1">
                 <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="part_Delivery=true">
+                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="part_Delivery=true" v-resize='onResize' :class='size_headline'>
                         荷物受け取り完了
                     </v-btn>
                 </v-col>

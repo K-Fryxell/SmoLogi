@@ -6,7 +6,7 @@
 					<v-row class="ma-0 pa-0" justify="center">
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn  to="/kiyaku" class="overline lighten-1" :elevation=0 color="white" text>
+								<v-btn  to="/terms" class="overline lighten-1" :elevation=0 color="white" text>
 								<span v-resize='onResize' :class='size'>利用規約</span>
 								</v-btn>
 							</v-row>
@@ -20,14 +20,14 @@
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="#" class="overline lighten-1" :elevation=0 color="white" text>
+								<v-btn to="/inquery" class="overline lighten-1" :elevation=0 color="white" text>
 									<span v-resize='onResize' :class='size'>ヘルプ</span>
 								</v-btn>
 							</v-row>
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="/question" class="overline lighten-1" :elevation=0 color="white" text>
+								<v-btn to="#" class="overline lighten-1" :elevation=0 color="white" text>
 									<span v-resize='onResize' :class='size'>お問い合わせ</span>
 								</v-btn>
 							</v-row>
