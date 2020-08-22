@@ -31,9 +31,6 @@
                                             <v-col lg="12" cols="12">
                                                 <v-row class="ma-0 pa-0" justify="center">
                                                     <v-avatar size="200">
-                                                        <v-avatar color="green light5" size="120">
-                                                            <span class="white--text body-1">アイコン</span>
-                                                        </v-avatar>
                                                         <!-- <img v-if="this.$store.state.img!='no_image' && !uploadImageUrl"
                                                             :src="this.$store.state.img"
                                                             alt="アイコン"
@@ -47,14 +44,14 @@
                                                             style="border-radius: 8em;
                                                             width:200px;
                                                             height:200px;"
-                                                        >
-                                                        <img v-if="uploadImageUrl"
-                                                            :src="uploadImageUrl"
+                                                        >  -->
+                                                        <img
+                                                            :src="part_image"
                                                             alt="アイコン"
                                                             style="border-radius: 8em;
                                                             width:200px;
                                                             height:200px;"
-                                                        > -->
+                                                        >
                                                     </v-avatar>
                                                 </v-row>
                                             </v-col>
@@ -198,6 +195,9 @@ export default {
         },
         cars(){
             return this.$store.getters.cars
+        },
+        part_image(){
+            return this.$store.getters.part_image
         }
     },
     // created:function(){

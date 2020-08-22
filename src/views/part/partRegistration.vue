@@ -2,9 +2,9 @@
     <v-container class="ma-0 pa-0" fluid>
         <Header/>
         <v-layout class="ma-0 pa-0" column>
-            
+
               <v-row class="ma-0 pa-0" justify="center">
-                    <v-flex  xs12 lg4>
+                    <v-flex  xs12 lg8>
                         <v-card class="mt-12 mb-5 ma-3 pa-0" tile outlined>
                             <v-tabs v-model="tabs">
                                 <v-tab v-on:click="tab = 0" :href="`#tab-0`">ログイン</v-tab>
