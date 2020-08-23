@@ -97,11 +97,10 @@
                  <v-row class="ma-0 mt-3 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" lg="8" cols="11">
                         <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                            ただいま{{ part_Name }}さんが荷物を配達中です。
+                            ただいま{{ part_Name }}さんが荷物を配達中です
                         </v-card-text>
                     </v-col>
                 </v-row>
-                <!-- 配達者顔写真と到着予定時刻の表示 -->
                 <!-- 配達者顔写真と到着予定時刻の表示 -->
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
@@ -263,14 +262,22 @@
                                 <v-card-text class="ma-0 mt-5 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
                                     依頼者名：{{user_name}}
                                 </v-card-text>
+                                <v-row class="ma-0 pa-0" justify="center" align="end">
+                                    <v-col class="ma-o pa-0" cols="8">
+                                        <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
+                                            お届け先住所：<br>
+                                            <span id="target">{{ address }}</span>
+                                        </v-card-text>
+                                    </v-col>
+                                    <v-col class="ma-0 pa-0" cols="2">
+                                        <v-btn
+                                            @click="witeToClipboard()"
+                                        >
+                                            コピー
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
                             </v-row>
-                        </v-col>
-                    </v-row>
-                    <v-row class="ma-0 pa-0" justify="center">
-                        <v-col class="ma-0 pa-0" cols="12">
-                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
-                                安全に荷物を配達してください
-                            </v-card-text>
                         </v-col>
                     </v-row>
                     <!-- 到着予定時刻の表示 -->
@@ -303,10 +310,12 @@
             <!-- パート側コンテンツ：携帯表示 -->
             <v-flex class="ma-0 pa-0 hidden-md-and-up" xs12 sm4 md4 lg4 v-if="tab == 1">
                 <v-row class="ma-0 mt-3 pa-0" justify="center">
-                    <v-col class="ma-0 pa-0" lg="8" cols="11">
-                        <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                            {{ user_name }}様へ荷物を配達しています。
-                        </v-card-text>
+                    <v-col class="ma-0 pa-0" cols="11">
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
+                                {{ user_name }}様へ荷物を配達しています
+                            </v-card-text>
+                        </v-row>
                     </v-col>
                 </v-row>
                 <!-- お客様のアイコンと到着予定時刻の表示 -->
@@ -331,6 +340,21 @@
                         <v-card-title class="ma-0 pa-0 pl-12">
                             {{ houre }}時{{ minute }}分
                         </v-card-title>
+                    </v-col>
+                </v-row>
+                <v-row class="ma-0 pa-0" justify="center" align="end">
+                    <v-col class="ma-o pa-0" cols="7">
+                        <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
+                            お届け先住所：<br>
+                            <span id="target">{{ address }}</span>
+                        </v-card-text>
+                    </v-col>
+                    <v-col class="ma-0 pa-0" cols="2">
+                        <v-btn
+                            @click="witeToClipboard()"
+                        >
+                            コピー
+                        </v-btn>
                     </v-col>
                 </v-row>
                 <v-row class="ma-0 mt-6 pa-0" justify="center">
@@ -452,6 +476,7 @@ export default {
     name: 'MapComponent',
     data() {
         return {
+            address: '東京都中野区上高田１－７－３プチメゾン201号室',
             user_Name:'おーさき',
             part_Name:'kaito',
             houre:'16',
@@ -566,6 +591,18 @@ export default {
                 this.part_Delivery=true
             }
         },
+        //コピー
+        witeToClipboard() {
+            const copyText = this.$el.querySelector('#target').textContent
+            navigator.clipboard
+            .writeText(copyText)
+            .then(() => {
+            console.log('テキストコピー完了')
+        })
+        .catch(e => {
+          console.error(e)
+        })
+    }
     },
     watch:{
 		x:function(){
