@@ -49,7 +49,7 @@
                     <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
-                                <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                <v-avatar class="ma-0 pa-0" color="#E5ECE6" size="130">
                                     <img
                                         :src="part_image"
                                         alt="アイコン"
@@ -306,7 +306,7 @@
                     <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
-                                <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                <v-avatar class="ma-0 pa-0" color="#E5ECE6" size="130">
                                     <img
                                         :src="user_image"
                                         alt="アイコン"

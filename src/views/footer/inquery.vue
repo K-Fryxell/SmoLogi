@@ -1,5 +1,6 @@
 <template>
     <v-card class="pb-12" min-height="700" elevation="0">
+        <TopHeader/>
         <v-row justify="center">
             <v-col cols="8">
                 <v-row justify="center" class="mb-12 mt-12 ma-0 pa-0">
@@ -44,12 +45,24 @@
                 </v-row>
             </v-col>
         </v-row>
+        <Ufooter/>
     </v-card>
 </template>
 <script>
+import TopHeader from '@/components/User/TopHeader'
+import Ufooter from '@/components/User/Footer'
 export default {
     data() {
         return {
+            //文字サイズ
+            x:window.innerWidth,
+			y:window.innerHeight ,
+			size_display:'display-1',
+			size_headline:'headline',
+			size_title:'title',
+			size_subtitle:'subtitle-1',
+            size_body:'body-1',
+
             items:[
                 {title:'Q.パスワードを忘れた場合どうすればいいの？',answer:'A.お問い合わせのアカウント情報変更まで送信ください。'},
                 {title:'Q.ページがうまく表示されない！',answer:'A.インターネットの接続をもう一度ご確認いただきください。　　　　　　　　　　　　　　　　　　　　　　　　　　　　それでも直らない場合はネットワークの環境管理者にお問い合わせください。'},
@@ -59,5 +72,35 @@ export default {
             ]
         }
     },
+    methods:{
+        onResize () {
+			this.x = window.innerWidth
+			this.y = window.innerHeight
+        },
+    },
+    components:{
+        TopHeader,
+        Ufooter,
+    },
+    watch:{
+		x:function(){
+			if(this.x<600)
+			{
+				this.size_display = 'headline',
+				this.size_headline = 'subtitle-1',
+				this.size_title = 'subtitle-1',
+				this.size_subtitle = 'caption',
+				this.size_body = 'body-1'
+			}
+			else
+			{
+				this.size_display = 'display-1',
+				this.size_headline = 'headline',
+				this.size_titele = 'title',
+				this.size_subtitele = 'subtitle-1',
+				this.size_body = 'body-1'
+			}
+		}
+	}
 }
 </script>
