@@ -46,8 +46,13 @@ export default ({
         user_lng:0,
         // ユーザアイコン
         user_image:'',
+        // 荷物受け取り完了フラグ
+        to_transport:0,
     },
     getters: {
+        to_transport(state){
+            return state.to_transport
+        },
         first_hour(state){
             return state.first_hour
         },
@@ -254,6 +259,8 @@ export default ({
                         state.isYear = doc.data().isYear
                         // 月
                         state.isMounth = doc.data().isMounth
+                        // 荷物受け取り完了フラグ
+                        state.to_transport = doc.data().to_transport
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -368,10 +375,6 @@ export default ({
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
                         console.log(doc.data())
-                        console.log(doc.data())
-                        console.log(doc.data())
-                        console.log(doc.data())
-                        console.log(doc.data())
                         state.part_user_id = doc.data().part_id
                         this.commit('deleteRoom')
                     })
@@ -391,6 +394,21 @@ export default ({
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     router.push('/user_mypage')
+                }
+            })
+        },
+        to_transport_delete(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.to_transport = 0
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).set({
+                        to_transport:firebase.firestore.FieldValue.delete()
+                    },
+                    {
+                        merge:true
+                    })
+                    router.push('/transport')
                 }
             })
         },

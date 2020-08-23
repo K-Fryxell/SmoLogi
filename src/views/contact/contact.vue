@@ -236,7 +236,7 @@
                 </v-card>
             </v-dialog>
             <!-- part側で荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="user_Delivery" width="500" v-if="tab == 0">
+            <v-dialog v-model="user_Delivery" width="500" v-if="tab == 0 && to_transport == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -245,7 +245,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/transport" @click="user_Delivery=false">
+                                    <v-btn width="50" @click="toTransportDelete()">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -458,7 +458,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/part_mypage" @click="cancelDelete()">
+                                    <v-btn width="50" @click="cancelDelete()">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -484,7 +484,7 @@
                                 <v-col cols="auto">
                                     <!-- ここはfirebase処理 -->
                                     <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                    <v-btn width="50">
+                                    <v-btn width="50" @click="addToUserTransport()">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -542,7 +542,7 @@ export default {
             overlay: false,
             user_Matching: true,
             user_Refusal: false,
-            user_Delivery: false,
+            user_Delivery: true,
             // user_Complete: false,
             part_Delivery: false,
             cancelModal: true,
@@ -552,6 +552,12 @@ export default {
         }
     },
     methods:{
+        toTransportDelete(){
+            this.$store.commit('to_transport_delete')
+        },
+        addToUserTransport(){
+            this.$store.commit('add_to_user_transport')
+        },
         cancelDelete(){
             this.$store.commit('cancel_delete')
         },
@@ -613,6 +619,9 @@ export default {
         }
     },
     watch:{
+        to_transport:function(){
+            return this.$store.state.to_transport
+        },
         part_cancel:function() {
             return this.$store.state.cancel_modal
         },
@@ -687,6 +696,9 @@ export default {
         },
         part_cancel(){
             return this.$store.getters.cancel_modal
+        },
+        to_transport(){
+            return this.$store.getters.to_transport
         },
         pair_latitude:{
             get() {
