@@ -20,8 +20,8 @@
                 >
                     <v-flex class="ma-0 pa-0" lg3 xs6 v-for="(item,index) in items" :key="index">
                         <v-row class="ma-0 pa-0" justify="center">
-                            <v-col class="ma-0 pa-0" cols="10" lg="9">
-                                <v-card class="ma-0 pa-0" @click="request(index)">
+                            <v-col class="ma-0 pa-0" cols="12">
+                                <v-card class="ma-lg-7 ma-1 pa-0" @click="request(index)">
                                     <v-img
                                         v-resize='onResize' :height='size_card'
                                         v-if="item.gender==0"
@@ -36,15 +36,15 @@
                                         class="my-3"
                                         contain
                                     />
-                                    <v-card-text class="ma-2 ml-lg-11 pa-0" v-resize='onResize' :class='size_headline'>
+                                    <v-card-text class="ma-2 ml-lg-5 pa-0" v-resize='onResize' :class='size_headline'>
                                         〇依頼者名<br>
                                         ：{{ item.name }}さん
                                     </v-card-text>
-                                    <v-card-text class="ma-2 ml-lg-11 pa-0" v-resize='onResize' :class='size_headline'>
+                                    <v-card-text class="ma-2 ml-lg-5 pa-0" v-resize='onResize' :class='size_headline'>
                                         〇配達希望時間<br>
                                         ：{{item.first_hour}}時{{item.first_minute}}分～{{item.last_hour}}時{{item.last_minute}}分
                                     </v-card-text>
-                                    <v-card-text class="ma-2 ml-lg-11 pa-0 pb-5" v-resize='onResize' :class='size_headline'>
+                                    <v-card-text class="ma-2 ml-lg-5 pa-0 pb-5" v-resize='onResize' :class='size_headline'>
                                         〇荷物の重量<br>
                                         ：{{item.weight}}kg
                                     </v-card-text>
@@ -123,7 +123,7 @@ export default {
             {
                 this.size_card = 150,
                 this.size_display = 'headline',
-                this.size_headline = 'title',
+                this.size_headline = 'subtitle-1',
                 this.size_title = 'subtitle-1',
                 this.size_subtitle = 'body-2',
                 this.size_body = 'body-1'
