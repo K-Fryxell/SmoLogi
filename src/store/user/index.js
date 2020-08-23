@@ -419,6 +419,22 @@ export default ({
                 }
             })
         },
+        user_comp(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.completed = 0
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('users').doc(state.user_id).set({
+                        completed:firebase.firestore.FieldValue.delete()
+                    },
+                    {
+                        merge:true
+                    })
+                    router.push('/user_mypage')
+                }
+            })
+        },
         // ログイン状態の確認
         // onUserStatusChanged(state, status) {
         //     state.status = status; //ログインしてるかどうか true or false

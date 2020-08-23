@@ -519,7 +519,7 @@ export default {
     },
     methods:{
         userComp(){
-            this.$store.commit('deleteRoom')
+            this.$store.commit('user_comp')
         },
         complete(){
             this.part_Fin = true
