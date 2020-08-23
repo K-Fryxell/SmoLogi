@@ -1,4 +1,5 @@
 <template>
+
     <content>
         <!-- ログインボタン -->
         <v-btn text  @click="dialog = true">

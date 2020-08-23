@@ -4,9 +4,9 @@
         <v-layout class="ma-0 pa-0" column>
 
               <v-row class="ma-0 pa-0" justify="center">
-                    <v-flex  xs12 lg8>
+                    <v-flex xs12 lg5>
                         <v-card class="mt-12 mb-5 ma-3 pa-0" tile outlined>
-                            <v-tabs v-model="tabs">
+                            <v-tabs v-model="tabs" color="green">
                                 <v-tab v-on:click="tab = 0" :href="`#tab-0`">ログイン</v-tab>
                                 <v-tab v-on:click="tab = 1" :href="`#tab-1`">新規登録</v-tab>
                             </v-tabs>
