@@ -2,7 +2,7 @@
     <v-content>
         <v-container class="mt-5 ma-0 pa-0" fluid>
             <v-layout column>
-                <v-row justify="center" class="ma-0 pa-0">
+                <v-row justify="center" class="ma-lg-7 mt-lg-0 ma-0 pa-0">
                     <v-col cols="auto" class="mx-12">
                         <v-form ref="form" v-model="regist">
                             <v-row class="ma-0 pa-0">
