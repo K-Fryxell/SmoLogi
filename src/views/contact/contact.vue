@@ -429,6 +429,7 @@ export default {
                 ]
             },
             chat:[],
+            chat_ire:[],
             // marker_items: [
             //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
             // ],
@@ -499,6 +500,21 @@ export default {
                 name:this.name
             })
             this.coment = ""
+        },
+        getChats(){
+            firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
+                await snapshot.forEach(doc => {
+                //contentは要素
+                //pushは配列データそのもの
+                // this.allData.push(doc.data().content)
+                this.chat_ire.push({
+                    content:doc.data().content,
+                    name:doc.data().name
+                })
+            })
+            this.chat = this.chat_ire
+            this.chat_ire = []
+        })
         },
         deleteRoom(){
             // ルームのuser_idを取得する
@@ -610,6 +626,9 @@ export default {
                 this.user_longitude = coords.longitude
             }.bind(this))
         }
+        firebase.firestore().collection('comments').onSnapshot(() => {
+            this.getChats()
+        })
     },
     created:function(){
         console.log(this.first_hour)
@@ -621,17 +640,6 @@ export default {
         //     return
         // })
 
-        firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
-            await snapshot.forEach(doc => {
-            //contentは要素
-            //pushは配列データそのもの
-            // this.allData.push(doc.data().content)
-                this.chat.push({
-                    content:doc.data().content,
-                    name:doc.data().name
-                })
-            })
-        })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
         this.$store.commit('judge_room_onAuthState')
