@@ -1,5 +1,5 @@
 <template>
-	<v-card class="pb-6" style="background-color: #E5ECE6"> 
+	<v-card class="mt-lg-12 mt-5 mb-lg-6 mb-5" elevation="0" style="background-color: #E5ECE6"> 
 		<v-card-title class="justify-center green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
 			サイト利用の流れ
 		</v-card-title>
