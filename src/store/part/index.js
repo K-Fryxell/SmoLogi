@@ -60,8 +60,25 @@ export default ({
         part_weight: 0,
         // 受諾したユーザ情報
         user_info:[],
+        // 配達希望時刻
+        first_hour:'',
+        first_minute:'',
+        last_hour:'',
+        last_minute:''
     },
     getters: {
+        p_first_hour(state){
+            return state.first_hour
+        },
+        p_first_minute(state){
+            return state.first_minute
+        },
+        p_last_hour(state){
+            return state.last_hour
+        },
+        p_last_minute(state){
+            return state.last_minute
+        },
         user_latitude(state){
             return state.user_latitude
         },

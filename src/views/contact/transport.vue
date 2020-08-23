@@ -27,13 +27,13 @@
                                         </GmapMarker>
                                         <GmapInfoWindow
                                             :options="infoOptions"
-                                            :position="{lat:part_latitude, lng:part_longitude}"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
                                             :opened="infoWinOpen2"
                                             @closeclick="infoWinOpen2=false"
                                         >配達者の現在地</GmapInfoWindow>
                                         <GmapMarker
                                             @click="toggleInfoWindow(1)"
-                                            :position="{lat:part_latitude, lng:part_longitude}"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
                                             :clickable="true">
                                         </GmapMarker>
                                     </GmapMap>
@@ -50,17 +50,16 @@
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
                                  <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                                    <span class="white--text body-1">アイコン</span>
+                                     <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                        <img
+                                            :src="part_image"
+                                            alt="アイコン"
+                                            style="border-radius: 8em;"
+                                        >
+                                    </v-avatar>
                                 </v-avatar>
-                                <!-- <v-avatar class="ma-0 pa-0" color="green light5" size="130">
-                                    <img
-                                        :src="part_image"
-                                        alt="アイコン"
-                                        style="border-radius: 8em;"
-                                    >
-                                </v-avatar> -->
                                 <v-card-text class="ma-0 mt-5 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
-                                    配達者名：{{part_Name}}
+                                    配達者名：{{part_name}}
                                 </v-card-text>
                             </v-row>
                         </v-col>
@@ -79,7 +78,7 @@
                                 到着予定時刻
                             </v-card-text>
                             <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
-                                {{ houre }}時{{ minute }}分
+                                {{ last_hour }}時{{ last_minute }}分
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -97,7 +96,7 @@
                  <v-row class="ma-0 mt-3 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" lg="8" cols="11">
                         <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                            ただいま{{ part_Name }}さんが荷物を配達中です
+                            ただいま{{ part_name }}さんが荷物を配達中です
                         </v-card-text>
                     </v-col>
                 </v-row>
@@ -105,22 +104,21 @@
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
                          <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                            <span class="white--text body-1">アイコン</span>
+                             <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                                <img
+                                    :src="part_image"
+                                    alt="アイコン"
+                                    style="border-radius: 8em;"
+                                >
+                            </v-avatar>
                         </v-avatar>
-                        <!-- <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                            <img
-                                :src="part_image"
-                                alt="アイコン"
-                                style="border-radius: 8em;"
-                            >
-                        </v-avatar> -->
                     </v-col>
                     <v-col class="ma-0 mt-2 pa-0" cols="7">
                         <v-card-title class="ma-0 pa-0">
                             到着予定時刻<br>
                         </v-card-title>
                         <v-card-title class="ma-0 pa-0 pl-12">
-                            {{ houre }}時{{ minute }}分
+                            {{ last_hour }}時{{ last_minute }}分
                         </v-card-title>
                     </v-col>
                 </v-row>
@@ -230,13 +228,13 @@
 
                                         <GmapInfoWindow
                                             :options="infoOptions"
-                                            :position="{lat:part_latitude, lng:part_longitude}"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
                                             :opened="infoWinOpen2"
                                             @closeclick="infoWinOpen2=false"
                                         >配達者の現在地</GmapInfoWindow>
                                         <GmapMarker
                                             @click="toggleInfoWindow(1)"
-                                            :position="{lat:part_latitude, lng:part_longitude}"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
                                             :clickable="true">
                                         </GmapMarker>
                                     </GmapMap>
@@ -287,7 +285,7 @@
                                 到着予定時刻
                             </v-card-text>
                             <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
-                                {{ houre }}時{{ minute }}分
+                                {{ p_last_hour }}時{{ p_last_minute }}分
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -300,7 +298,7 @@
                     </v-row>
                     <v-row class="ma-0 mt-6 mb-10 pa-0" justify="center">
                         <v-col class="ma-0 pa-0" cols="auto">
-                            <v-btn width="300" height="60" class="green white--text" elevation="0" @click="part_Delivery=true" v-resize='onResize' :class='size_headline'>
+                            <v-btn width="300" height="60" class="green white--text" elevation="0" @click="part_Complete=true" v-resize='onResize' :class='size_headline'>
                             配達完了
                         </v-btn>
                         </v-col>
@@ -323,22 +321,21 @@
                     <v-col class="ma-0 pa-0" cols="3">
                         <!-- レイアウト仮置き -->
                          <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                            <span class="white--text body-1">アイコン</span>
+                             <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                                <img
+                                    :src="user_image"
+                                    alt="アイコン"
+                                    style="border-radius: 8em;"
+                                >
+                            </v-avatar>
                         </v-avatar>
-                        <!-- <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                            <img
-                                :src="user_image"
-                                alt="アイコン"
-                                style="border-radius: 8em;"
-                            >
-                        </v-avatar> -->
                     </v-col>
                     <v-col class="ma-0 mt-2 pa-0" cols="7">
                         <v-card-title class="ma-0 pa-0">
                             到着予定時刻<br>
                         </v-card-title>
                         <v-card-title class="ma-0 pa-0 pl-12">
-                            {{ houre }}時{{ minute }}分
+                            {{ p_last_hour }}時{{ p_last_minute }}分
                         </v-card-title>
                     </v-col>
                 </v-row>
@@ -477,19 +474,15 @@ export default {
     data() {
         return {
             address: '東京都中野区上高田１－７－３プチメゾン201号室',
-            user_Name:'おーさき',
-            part_Name:'kaito',
-            houre:'16',
-            minute:'10',
             cmpHoure:'15',
             cmpMinute:'59',
             //文字サイズ
             x:window.innerWidth,
-			y:window.innerHeight ,
-			size_display:'display-1',
-			size_headline:'headline',
-			size_title:'title',
-			size_subtitle:'subtitle-1',
+            y:window.innerHeight ,
+            size_display:'display-1',
+            size_headline:'headline',
+            size_title:'title',
+            size_subtitle:'subtitle-1',
             size_body:'body-1',
 
             infoOptions: {
@@ -503,8 +496,6 @@ export default {
             infoWinOpen2: false,
             user_latitude: 0,
             user_longitude: 0,
-            part_latitude: 0,
-            part_longitude: 0,
             coment:"",
             // center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
@@ -597,14 +588,30 @@ export default {
             navigator.clipboard
             .writeText(copyText)
             .then(() => {
-            console.log('テキストコピー完了')
-        })
-        .catch(e => {
-          console.error(e)
-        })
-    }
+                console.log('テキストコピー完了')
+            })
+            .catch(e => {
+                console.error(e)
+            })
+        }
     },
     watch:{
+        pair_latitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_latitude
+            }
+            else{
+                return this.$store.state.user_latitude
+            }
+        },
+        pair_longitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_longitude
+            }
+            else{
+                return this.$store.state.user_longitude
+            }
+        },
 		x:function(){
 			if(this.x<600)
 			{
@@ -631,8 +638,62 @@ export default {
         user_name(){
             return this.$store.getters.user_fname
         },
+        user_image(){
+            return this.$store.getters.user_image
+        },
         part_name(){
             return this.$store.getters.nickname
+        },
+        part_image(){
+            return this.$store.getters.part_image
+        },
+        last_hour(){
+            return this.$store.getters.last_hour
+        },
+        last_minute(){
+            return this.$store.getters.last_minute
+        },
+        p_last_hour(){
+            return this.$store.getters.p_last_hour
+        },
+        p_last_minute(){
+            return this.$store.getters.p_last_minute
+        },
+        pair_latitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_latitude
+                }
+                else{
+                    return this.$store.getters.user_latitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_latitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_latitude',value)
+                }
+            }
+        },
+        pair_longitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_longitude
+                }
+                else{
+                    return this.$store.getters.user_longitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_longitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_longitude',value)
+                }
+            }
         }
     },
     mounted() {
@@ -647,12 +708,18 @@ export default {
         }
     },
     created:function(){
+        // 戻るボタンの無効化
+        // window.history.pushState(null, null, null)
+        // window.addEventListener("popstate", function() {
+        //     window.history.pushState(null, null, null)
+        //     return
+        // })
+
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
             await snapshot.forEach(doc => {
             //contentは要素
             //pushは配列データそのもの
             // this.allData.push(doc.data().content)
-                console.log(doc.data().content)
                 this.chat.push({
                     content:doc.data().content,
                     name:doc.data().name
@@ -661,7 +728,7 @@ export default {
         })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        console.log()
+        this.$store.commit('judge_room_onAuthState')
     }
 }
 </script>
