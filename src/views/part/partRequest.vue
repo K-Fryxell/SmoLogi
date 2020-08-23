@@ -4,7 +4,7 @@
         <v-card-title class="justify-center ma-0 pa-0 mt-2 mb-2" v-resize='onResize' :class='size_display'>
             依頼一覧
         </v-card-title>
-        <v-container 
+        <v-container
             id="scroll-target"
             style="max-height: 550px"
             class="ma-0 mb-12 pa-0 overflow-y-auto"

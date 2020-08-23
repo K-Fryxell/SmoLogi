@@ -60,11 +60,19 @@ export default ({
         part_weight: 0,
         // 受諾したユーザ情報
         user_info:[],
-        user_id: ''
     },
     getters: {
+        user_latitude(state){
+            return state.user_latitude
+        },
+        user_longitude(state){
+            return state.user_longitude
+        },
         user_info(state){
             return state.user_info
+        },
+        part_id(state){
+            return state.part_user_id
         },
         part_image(state){
             return state.part_image
@@ -129,6 +137,12 @@ export default ({
     },
     mutations: {
         // ここからセッター //
+        set_user_latitude(state, payload){
+            state.user_latitude = payload
+        },
+        set_user_longitude(state, payload){
+            state.user_longitude = payload
+        },
         set_part_image(state,payload){
             state.part_image = payload
         },
@@ -228,7 +242,7 @@ export default ({
                 if (user) {
                     // User logged in already or has just logged in.
                     // ユーザーIDの取得
-                    console.log(user.uid);
+                    console.log(user.uid)
                     // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
                     state.part_user_id = user.uid
                     firebase.firestore().collection("part_users").doc(state.part_user_id)
@@ -328,6 +342,7 @@ export default ({
                         last_minute: doc.data().last_minute,
                         weight: doc.data().weight,
                         name: doc.data().name,
+                        user_image: doc.data().user_image,
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
@@ -335,13 +350,24 @@ export default ({
             })
         },
         part_send(state,array){
+            firebase.firestore().collection('transport').doc(array['user_id']).delete()
             firebase.firestore().collection('users').doc(array['user_id']).collection('room').doc(array['user_id'])
             .set({
+                part_id: array['part_id'],
+                username: array['username'],
+                part_fname: array['part_fname'],
+                part_name: array['part_name'],
+                part_image: array['part_image'],
                 part_lat: array['part_latitude'],
                 part_lng: array['part_longitude'],
                 user_lat: array['user_lat'],
                 user_lng: array['user_lng'],
-                // part_id: array['part_id']
+                user_fname: array['user_fname'],
+                user_image: array['user_image'],
+                first_hour: array['first_hour'],
+                first_minute: array['first_minute'],
+                last_hour: array['last_hour'],
+                last_minute: array['last_minute'],
             },
             {
                 merge:true
@@ -359,27 +385,22 @@ export default ({
                 }
             })
         },
-        room_onAuthState(state){
+        part_room_onAuthState(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     state.part_user_id = user.uid
                     firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
-                        console.log(doc.data().user_id)
                         state.user_id = doc.data().user_id
                         firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
-                            //contentは要素
-                            //pushは配列データそのもの
                             console.log(doc.data())
-                            // state.first_hour = doc.data().first_hour,
-                            // state.first_minute = doc.data().first_minute,
-                            // state.last_hour = doc.data().last_hour,
-                            // state.last_minute = doc.data().last_minute,
-                            // state.size = doc.data().size,
-                            // state.weight = doc.data().weight,
-                            // state.user_lat = doc.data().user_lat,
-                            // state.user_lng = doc.data().user_lng,
-                            // state.part_lat = doc.data().part_lat,
-                            // state.part_lng = doc.data().part_lng
+                            state.first_hour = doc.data().first_hour
+                            state.first_minute = doc.data().first_minute
+                            state.last_hour = doc.data().last_hour
+                            state.last_minute = doc.data().last_minute
+                            state.user_fname = doc.data().user_fname
+                            state.user_image = doc.data().user_image
+                            state.user_latitude = doc.data().user_lat
+                            state.user_longitude = doc.data().user_lng
                         })
                     })
                 }
@@ -393,14 +414,14 @@ export default ({
                         console.log(doc.data().user_id)
                         state.user_id = doc.data().user_id
                         firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                        firebase.firestore().collection('part_users').doc(user.uid).set({
+                            user_id:firebase.firestore.FieldValue.delete()
+                        },
+                        {
+                            merge:true
+                        })
                     })
-                    firebase.firestore().collection('part_users').doc(user.uid)
-                    .set({
-                        user_id: ''
-                    },
-                    {
-                        merge:true
-                    })
+                    router.push('/part_mypage')
                 }
             })
         },

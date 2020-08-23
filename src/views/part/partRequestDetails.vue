@@ -120,6 +120,21 @@ export default {
     computed: {
         items(){
             return this.$store.getters.user_info
+        },
+        part_fname(){
+            return this.$store.getters.part_fname
+        },
+        part_name(){
+            return this.$store.getters.part_name
+        },
+        part_image(){
+            return this.$store.getters.part_image
+        },
+        part_id(){
+            return this.$store.getters.part_id
+        },
+        username(){
+            return this.$store.getters.nickname
         }
     },
     methods: {
@@ -142,11 +157,25 @@ export default {
             this.place = Math.floor(this.place)
         },
         send() {
-            this.$store.commit('part_onAuthStateChanged')
+            //パート情報
+            console.log(this.part_id)
+            console.log(this.username)
+            this.array['part_id'] = this.part_id
+            this.array['username'] = this.username
+            this.array['part_fname'] = this.part_fname
+            this.array['part_name'] = this.part_name
+            this.array['part_image'] = this.part_image
             this.array['part_latitude'] = this.part_latitude
             this.array['part_longitude'] = this.part_longitude
+
+            //ユーザ情報
+            this.array['first_hour'] = this.items['first_hour']
+            this.array['first_minute'] = this.items['first_minute']
+            this.array['last_hour'] = this.items['last_hour']
+            this.array['last_minute'] = this.items['last_minute']
             this.array['user_id'] = this.items['user_id']
-            console.log(this.items)
+            this.array['user_fname'] = this.items['name']
+            this.array['user_image'] = this.items['user_image']
             this.array['user_lat'] = this.items['user_lat']
             this.array['user_lng'] = this.items['user_lng']
             // this.array['part_id'] = this.$store.state.part_id
