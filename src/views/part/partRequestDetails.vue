@@ -4,11 +4,11 @@
         <v-container>
             <v-layout wrap>
                 <v-row class="ma-0 pa-0" justify="center">
-                    <v-flex xs12 sm6 lg5>
+                    <v-flex xs12 sm6 lg4>
                         <v-card-title class="justify-center ma-0 pa-0 pt-10 pb-12" v-resize='onResize' :class='size_display'>
                             依頼詳細
                         </v-card-title>
-                        <v-card class="ma-0 mb-12 pa-0">
+                        <v-card class="ma-lg-0 ma-8 mt-0 mb-12 pa-0">
                             <v-row class="ma-0 pa-0 pt-5 pt-lg-12" justify="space-around">
                                 <v-avatar size="164">
                                     <v-img
@@ -33,19 +33,19 @@
                             <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 〇依頼場所まで<br>
                             </v-card-text>
-                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 ：{{place}} ㎞
                             </v-card-text>
                             <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 〇配達希望時間<br>
                             </v-card-text>
-                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 ：{{items.first_hour}}時{{items.first_minute}}分～{{items.last_hour}}時{{items.last_minute}}分
                             </v-card-text>
                             <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 〇荷物の重量<br>
                             </v-card-text>
-                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 ：{{items.weight}} kg
                             </v-card-text>
                             <v-row class="ma-0 mt-5 pa-0 pb-12" align="center">
