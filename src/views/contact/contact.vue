@@ -25,13 +25,13 @@
                                     </GmapMarker>
                                     <GmapInfoWindow
                                         :options="infoOptions"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :opened="infoWinOpen2"
                                         @closeclick="infoWinOpen2=false"
                                     >配達者の現在地</GmapInfoWindow>
                                     <GmapMarker
                                         @click="toggleInfoWindow(1)"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :clickable="true">
                                     </GmapMarker>
                                 </GmapMap>
@@ -43,7 +43,7 @@
             <v-row class="ma-0 mt-3 pa-0" justify="center" v-if="tab == 0">
                 <v-col class="ma-0 pa-0" lg="8" cols="11">
                     <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                        ただいま{{ part_Name }}さんが荷物を受け取りに向かっています。
+                        ただいま{{ part_name }}さんが荷物を受け取りに向かっています。
                     </v-card-text>
                 </v-col>
             </v-row>
@@ -52,31 +52,22 @@
                 <v-col class="ma-0 pa-0" cols="3">
                     <!-- レイアウト仮置き -->
                     <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                        <span class="white--text body-1">アイコン</span>
+                        <img
+                            :src="part_image"
+                            alt="アイコン"
+                            style="border-radius: 8em;
+                            width:80px;
+                            height:80px;"
+                        >
+                        <!-- <span class="white--text body-1">アイコン</span> -->
                     </v-avatar>
-                    <!-- <img
-                        v-if="this.$store.state.img=='no_image'"
-                        class="mt-5 ml-6"
-                        src="@/assets/icon.jpg"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    >
-                    <img
-                        v-if="this.$store.state.img!='no_image'"
-                        class="mt-5 ml-6"
-                        :src="this.$store.state.img"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    > -->
                 </v-col>
                 <v-col class="ma-0 mt-2 pa-0" cols="7">
                     <v-card-title class="ma-0 pa-0">
                         到着予定時刻<br>
                     </v-card-title>
                     <v-card-title class="ma-0 pa-0 pl-12">
-                        {{ houre }}時{{ minute }}分
+                        {{ first_hour }}時{{ first_minute }}分
                     </v-card-title>
                 </v-col>
             </v-row>
@@ -236,13 +227,13 @@
 
                                     <GmapInfoWindow
                                         :options="infoOptions"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :opened="infoWinOpen2"
                                         @closeclick="infoWinOpen2=false"
-                                    >配達者の現在地</GmapInfoWindow>
+                                    >利用者の現在地</GmapInfoWindow>
                                     <GmapMarker
                                         @click="toggleInfoWindow(1)"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
+                                        :position="{lat:pair_latitude, lng:pair_longitude}"
                                         :clickable="true">
                                     </GmapMarker>
                                 </GmapMap>
@@ -254,7 +245,7 @@
             <v-row class="ma-0 mt-3 pa-0" justify="center" v-if="tab == 1">
                 <v-col class="ma-0 pa-0" lg="8" cols="11">
                     <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                        {{ user_Name }}様へ荷物を受け取りに向かっています。
+                        {{ user_name }}様へ荷物を受け取りに向かっています。
                     </v-card-text>
                 </v-col>
             </v-row>
@@ -263,31 +254,22 @@
                 <v-col class="ma-0 pa-0" cols="3">
                     <!-- レイアウト仮置き -->
                     <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                        <span class="white--text body-1">アイコン</span>
+                        <img
+                            :src="user_image"
+                            alt="アイコン"
+                            style="border-radius: 8em;
+                            width:80px;
+                            height:80px;"
+                        >
+                        <!-- <span class="white--text body-1">アイコン</span> -->
                     </v-avatar>
-                    <!-- <img
-                        v-if="this.$store.state.img=='no_image'"
-                        class="mt-5 ml-6"
-                        src="@/assets/icon.jpg"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    >
-                    <img
-                        v-if="this.$store.state.img!='no_image'"
-                        class="mt-5 ml-6"
-                        :src="this.$store.state.img"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    > -->
                 </v-col>
                 <v-col class="ma-0 mt-2 pa-0" cols="7">
                     <v-card-title class="ma-0 pa-0">
                         到着予定時刻<br>
                     </v-card-title>
                     <v-card-title class="ma-0 pa-0 pl-12">
-                        {{houre}}時{{minute}}分
+                        {{first_hour}}時{{first_minute}}分
                     </v-card-title>
                 </v-col>
             </v-row>
@@ -415,10 +397,6 @@ export default {
     name: 'MapComponent',
     data() {
         return {
-            user_Name:'おーさき',
-            part_Name:'kaito',
-            houre:'16',
-            minute:'10',
             //文字サイズ
             x:window.innerWidth,
             y:window.innerHeight ,
@@ -439,8 +417,6 @@ export default {
             infoWinOpen2: false,
             user_latitude: 0,
             user_longitude: 0,
-            part_latitude: 0,
-            part_longitude: 0,
             coment:"",
             // center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
@@ -530,6 +506,22 @@ export default {
         }
     },
     watch:{
+        pair_latitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_latitude
+            }
+            else{
+                return this.$store.state.user_latitude
+            }
+        },
+        pair_longitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_longitude
+            }
+            else{
+                return this.$store.state.user_longitude
+            }
+        },
 		x:function(){
 			if(this.x<600)
 			{
@@ -558,6 +550,54 @@ export default {
         },
         part_name(){
             return this.$store.getters.nickname
+        },
+        part_image(){
+            return this.$store.getters.part_image
+        },
+        first_hour(){
+            return this.$store.getters.first_hour
+        },
+        first_minute(){
+            return this.$store.getters.first_minute
+        },
+        user_image(){
+            return this.$store.getters.user_image
+        },
+        pair_latitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_latitude
+                }
+                else{
+                    return this.$store.getters.user_latitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_latitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_latitude',value)
+                }
+            }
+        },
+        pair_longitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_longitude
+                }
+                else{
+                    return this.$store.getters.user_longitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_longitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_longitude',value)
+                }
+            }
         }
     },
     mounted() {
@@ -572,12 +612,15 @@ export default {
         }
     },
     created:function(){
+        console.log(this.first_hour)
+        console.log(this.first_minute)
         // 戻るボタンの無効化
-        window.history.pushState(null, null, null)
-        window.addEventListener("popstate", function() {
-            window.history.pushState(null, null, null)
-            return
-        })
+        // window.history.pushState(null, null, null)
+        // window.addEventListener("popstate", function() {
+        //     window.history.pushState(null, null, null)
+        //     return
+        // })
+
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
             await snapshot.forEach(doc => {
             //contentは要素
@@ -591,9 +634,7 @@ export default {
         })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        if(this.tab == 1){
-            this.$store.commit('room_onAuthState')
-        }
+        this.$store.commit('judge_room_onAuthState')
     }
 }
 </script>

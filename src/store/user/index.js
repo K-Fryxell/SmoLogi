@@ -44,10 +44,31 @@ export default ({
         // 緯度経度
         user_lat:0,
         user_lng:0,
-        // アイコン
-        user_icon:''
+        // ユーザアイコン
+        user_image:'',
     },
     getters: {
+        first_hour(state){
+            return state.first_hour
+        },
+        first_minute(state){
+            return state.first_minute
+        },
+        last_hour(state){
+            return state.last_hour
+        },
+        last_minute(state){
+            return state.last_minute
+        },
+        user_image(state){
+            return state.user_image
+        },
+        part_latitude(state){
+            return state.part_latitude
+        },
+        part_longitude(state){
+            return state.part_longitude
+        },
         user_fname(state){
             return state.user_fname
         },
@@ -93,8 +114,14 @@ export default ({
     },
     mutations: {
         // ここからセッター //
+        set_part_latitude(state, payload){
+            state.part_latitude = payload
+        },
+        set_part_longitude(state, payload){
+            state.part_longitude = payload
+        },
         set_user_image(state, payload) {
-            state.user_icon = payload
+            state.user_image = payload
         },
         set_user_fname(state, payload) {
             state.user_fname = payload
@@ -196,6 +223,8 @@ export default ({
                     // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
                     firebase.firestore().collection('users').doc(user.uid).get().then( doc => {
                         console.log(doc.data())
+                        // ユーザアイコン
+                        state.user_image = doc.data().user_image
                         // メールアドレス
                         state.user_email = doc.data().email
                         // // 氏名・かな
@@ -260,7 +289,7 @@ export default ({
                             // 正常にデータ保存できた時の処理
                             console.log('success')
                         })
-                    firebase.firestore().collection("transport").doc(state.user_id)
+                        firebase.firestore().collection("transport").doc(state.user_id)
                         .set({
                             // 重さ
                             weight: array['weight'],
@@ -275,6 +304,7 @@ export default ({
                             userid: array['userid'],
                             gender: array['gender'],
                             name:array['name'],
+                            user_image:array['user_image'],
                             user_lat:array['user_lat'],
                             user_lng:array['user_lng']
                         })
@@ -296,8 +326,8 @@ export default ({
                     // ユーザーIDの取得
                     console.log(user.uid);
                     // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                    state.part_user_id = user.uid
-                    firebase.firestore().collection("users").doc(state.part_user_id)
+                    state.user_id = user.uid
+                    firebase.firestore().collection("users").doc(state.user_id)
                         .update(array)
                         .then(function () {
                             // 正常にデータ保存できた時の処理
@@ -306,6 +336,27 @@ export default ({
                         })
                 } else {
                     // User not logged in or has just logged out.
+                }
+            })
+        },
+        room_onAuthState(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        state.first_hour = doc.data().first_hour
+                        state.first_minute = doc.data().first_minute
+                        state.last_hour = doc.data().last_hour
+                        state.last_minute = doc.data().last_minute
+                        state.part_user_id = doc.data().part_id
+                        state.nickname = doc.data().username
+                        state.part_fname = doc.data().part_fname
+                        state.part_name = doc.data().part_name
+                        state.part_image = doc.data().part_image
+                        state.part_latitude = doc.data().part_lat
+                        state.part_longitude = doc.data().part_lng
+                    })
                 }
             })
         },

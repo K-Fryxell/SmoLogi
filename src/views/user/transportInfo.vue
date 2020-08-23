@@ -237,7 +237,7 @@ export default {
         return{
             //時間
             //配達希望時刻(午前、夕方、夜間)
-            first_time:'9',
+            first_time:'09',
             first_minute:'00',
             last_time:'12',
             last_minute:'00',
@@ -245,17 +245,17 @@ export default {
             detailTime:null,
             //最初
             //時
-            firstTime:['8','9','10','11','12','13','14','15','16','17','18','19','20','21'],
+            firstTime:['08','09','10','11','12','13','14','15','16','17','18','19','20','21'],
             //分
             firstMinute:['00','05','10','15','20','25','30','35','40','45','50','55'],
             //最後
             //時
-            lastTime:['8','9','10','11','12','13','14','15','16','17','18','19','20','21'],
+            lastTime:['08','09','10','11','12','13','14','15','16','17','18','19','20','21'],
             //分
             lastMinute:['00','05','10','15','20','25','30','35','40','45','50','55'],
             //時空
-            first:0,
-            last:0,
+            first:'',
+            last:'',
             //ボタンの色(午前、午後、夜間)
             gozen:"grey darken-2",
             yugata:"grey darken-2",
@@ -289,36 +289,39 @@ export default {
     computed: {
         name() {
             return this.$store.getters.user_fname
+        },
+        user_image(){
+            return this.$store.getters.user_image
         }
     },
     methods:{
         isTime(a){
             //午前が押された時
             if(a==0){
-                this.first_time = 9
-                this.last_time = 12
+                this.first_time = '09'
+                this.last_time = '12'
                 this.gozen = "green"
                 this.yugata = "grey darken-2"
                 this.yakan = "grey darken-2"
             }
             //夕方が押された時
             else if(a==1){
-                this.first_time = 14
-                this.last_time = 16
+                this.first_time = '14'
+                this.last_time = '16'
                 this.gozen = "grey darken-2"
                 this.yugata = "green"
                 this.yakan = "grey darken-2"
             }
             //夜間が押された時
             else{
-                this.first_time = 17
-                this.last_time = 20
+                this.first_time = '17'
+                this.last_time = '20'
                 this.gozen = "grey darken-2"
                 this.yugata = "grey darken-2"
                 this.yakan = "green"
             }
-            this.first_minute = 0
-            this.last_minute = 0
+            this.first_minute = '00'
+            this.last_minute = '00'
         },
         selectColor(a){
             if(a==0){
@@ -358,6 +361,8 @@ export default {
             console.log(this.first)
             console.log(this.last)
             if(this.first < this.last){
+                //ユーザアイコン
+                this.array['user_image'] = this.user_image
                 //名前
                 this.array['name'] = this.name
                 //最初

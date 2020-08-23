@@ -10,13 +10,44 @@ Vue.use(router)
 export default new Vuex.Store({
     modules: {
         user: user,
-        part:part
+        part: part
     },
     state:{
         // ログインの種別
-        judge:0
+        judge:0,
+
+        // contactでのみ扱われる値
+        user_latitude:0,
+        user_longitude:0,
+        part_latitude:0,
+        part_longitude:0,
+
+        // 配達希望時刻
+        first_hour:'',
+        first_minute:'',
+        last_hour:'',
+        last_minute:''
+    },
+    getters:{
+        judge(state){
+            return state.judge
+        }
     },
     mutations:{
+        // ここからセッター //
+        set_first_hour(state, payload){
+            state.first_hour = payload
+        },
+        set_first_minute(state, payload){
+            state.first_minute = payload
+        },
+        set_last_hour(state, payload){
+            state.last_hour = payload
+        },
+        set_last_minute(state, payload){
+            state.last_minute = payload
+        },
+        // ここまでセッター //
         judge_onAuthStateChanged(state) {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -41,11 +72,22 @@ export default new Vuex.Store({
                 }
             })
         },
-    },
-    getters:{
-        judge(state){
-            return state.judge
-        }
+        judge_room_onAuthState(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    firebase.firestore().collection("judge").doc(user.uid).get().then( doc => {
+                        // 判定
+                        state.judge = doc.data().judge
+                        if(doc.data().judge == 0){
+                            this.commit('room_onAuthState')
+                        }
+                        else if(doc.data().judge == 1){
+                            this.commit('part_room_onAuthState')
+                        }
+                    })
+                }
+            })
+        },
     },
     plugins:[createPersistedState()],
 })
