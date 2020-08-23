@@ -305,6 +305,8 @@ export default ({
                             gender: array['gender'],
                             name:array['name'],
                             user_image:array['user_image'],
+                            user_post:array['user_post'],
+                            user_address:array['user_address'],
                             user_lat:array['user_lat'],
                             user_lng:array['user_lng']
                         })

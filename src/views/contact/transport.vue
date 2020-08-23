@@ -264,7 +264,7 @@
                                     <v-col class="ma-o pa-0" cols="8">
                                         <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
                                             お届け先住所：<br>
-                                            <span id="target">{{ address }}</span>
+                                            <span id="target">{{ user_address }}</span>
                                         </v-card-text>
                                     </v-col>
                                     <v-col class="ma-0 pa-0" cols="2">
@@ -343,7 +343,7 @@
                     <v-col class="ma-o pa-0" cols="7">
                         <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
                             お届け先住所：<br>
-                            <span id="target">{{ address }}</span>
+                            <span id="target">{{ user_address }}</span>
                         </v-card-text>
                     </v-col>
                     <v-col class="ma-0 pa-0" cols="2">
@@ -473,7 +473,7 @@ export default {
     name: 'MapComponent',
     data() {
         return {
-            address: '東京都中野区上高田１－７－３プチメゾン201号室',
+            // {{ user_post }} 郵便番号
             cmpHoure:'15',
             cmpMinute:'59',
             //文字サイズ
@@ -640,6 +640,12 @@ export default {
         },
         user_image(){
             return this.$store.getters.user_image
+        },
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        user_address(){
+            return this.$store.getters.user_address
         },
         part_name(){
             return this.$store.getters.nickname

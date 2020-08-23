@@ -656,6 +656,12 @@ export default {
         user_image(){
             return this.$store.getters.user_image
         },
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        user_address(){
+            return this.$store.getters.user_address
+        },
         part_name(){
             return this.$store.getters.nickname
         },

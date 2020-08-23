@@ -176,6 +176,8 @@ export default {
             this.array['user_id'] = this.items['user_id']
             this.array['user_fname'] = this.items['name']
             this.array['user_image'] = this.items['user_image']
+            this.array['user_post'] = this.items['user_post']
+            this.array['user_address'] = this.items['user_address']
             this.array['user_lat'] = this.items['user_lat']
             this.array['user_lng'] = this.items['user_lng']
             // this.array['part_id'] = this.$store.state.part_id

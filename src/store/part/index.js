@@ -360,6 +360,8 @@ export default ({
                         weight: doc.data().weight,
                         name: doc.data().name,
                         user_image: doc.data().user_image,
+                        user_post: doc.data().user_post,
+                        user_address: doc.data().user_address,
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
@@ -381,6 +383,8 @@ export default ({
                 user_lng: array['user_lng'],
                 user_fname: array['user_fname'],
                 user_image: array['user_image'],
+                user_post: array['user_post'],
+                user_address: array['user_address'],
                 first_hour: array['first_hour'],
                 first_minute: array['first_minute'],
                 last_hour: array['last_hour'],
