@@ -144,9 +144,9 @@
 					</v-card>
 				</v-row>
 				<!-- 携帯レイアウト -->
-				<v-sheet class="mx-auto hidden-md-and-up" max-width="350">
-					<!-- hidden-md-and-up -->
-					<v-slide-group multiple show-arrows>
+				<v-sheet class="mx-auto hidden-md-and-up" max-width="300">
+					<v-slide-group>
+						<!-- multiple show-arrows -->
 						<v-slide-item
 							v-for="item in items"
 							:key="item.name"
