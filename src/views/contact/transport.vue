@@ -49,14 +49,12 @@
                     <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
-                                 <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                                     <v-avatar class="ma-0 pa-0" size="130">
-                                        <img
-                                            :src="part_image"
-                                            alt="アイコン"
-                                            style="border-radius: 8em;"
-                                        >
-                                    </v-avatar>
+                                <v-avatar class="ma-0 pa-0" size="130">
+                                    <img
+                                        :src="part_image"
+                                        alt="アイコン"
+                                        style="border-radius: 8em;"
+                                    >
                                 </v-avatar>
                                 <v-card-text class="ma-0 mt-5 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
                                     配達者名：{{part_name}}
@@ -67,7 +65,7 @@
                     <v-row class="ma-0 pa-0" justify="center">
                         <v-col class="ma-0 pa-0" cols="12">
                             <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
-                                ただいま荷物を受け取りに向かっています
+                                ただいま荷物を配達中です
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -94,23 +92,23 @@
             <!-- ユーザ側コンテンツ：携帯画面 -->
             <v-flex class="ma-0 mb-12 pa-0 hidden-md-and-up" xs12 sm4 md4 lg4 v-if="tab == 0">
                  <v-row class="ma-0 mt-3 pa-0" justify="center">
-                    <v-col class="ma-0 pa-0" lg="8" cols="11">
-                        <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                            ただいま{{ part_name }}さんが荷物を配達中です
-                        </v-card-text>
+                    <v-col class="ma-0 pa-0" cols="11">
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
+                                ただいま{{ part_name }}さんが荷物を配達中です
+                            </v-card-text>
+                        </v-row>
                     </v-col>
                 </v-row>
                 <!-- 配達者顔写真と到着予定時刻の表示 -->
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
-                         <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                             <v-avatar class="ma-0 pa-0" size="80">
-                                <img
-                                    :src="part_image"
-                                    alt="アイコン"
-                                    style="border-radius: 8em;"
-                                >
-                            </v-avatar>
+                         <v-avatar class="ma-0 pa-0" size="80">
+                            <img
+                                :src="part_image"
+                                alt="アイコン"
+                                style="border-radius: 8em;"
+                            >
                         </v-avatar>
                     </v-col>
                     <v-col class="ma-0 mt-2 pa-0" cols="7">
@@ -263,7 +261,7 @@
                                 <v-row class="ma-0 pa-0" justify="center" align="end">
                                     <v-col class="ma-o pa-0" cols="8">
                                         <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
-                                            お届け先住所：<br>
+                                            お届け先住所：〒<span id="target">{{ user_post }}</span><br>
                                             <span id="target">{{ user_address }}</span>
                                         </v-card-text>
                                     </v-col>
@@ -320,14 +318,12 @@
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
                         <!-- レイアウト仮置き -->
-                         <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                             <v-avatar class="ma-0 pa-0" size="80">
-                                <img
-                                    :src="user_image"
-                                    alt="アイコン"
-                                    style="border-radius: 8em;"
-                                >
-                            </v-avatar>
+                        <v-avatar class="ma-0 pa-0" size="80">
+                            <img
+                                :src="user_image"
+                                alt="アイコン"
+                                style="border-radius: 8em;"
+                            >
                         </v-avatar>
                     </v-col>
                     <v-col class="ma-0 mt-2 pa-0" cols="7">
@@ -342,7 +338,7 @@
                 <v-row class="ma-0 pa-0" justify="center" align="end">
                     <v-col class="ma-o pa-0" cols="7">
                         <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
-                            お届け先住所：<br>
+                            お届け先住所：〒<span id="target">{{ user_post }}</span><br>
                             <span id="target">{{ user_address }}</span>
                         </v-card-text>
                     </v-col>
