@@ -190,7 +190,7 @@
                 </v-row>
             </v-overlay>
             <!-- 最初から表示マッチング待機画面_ローディングマークつける前だよ -->
-            <!-- <v-dialog v-model="user_Matching" width="500" v-if="tab == 0">
+            <!-- <v-dialog persistent v-model="user_Matching" width="500" v-if="tab == 0">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -210,7 +210,7 @@
             </v-dialog> -->
 
             <!-- 拒否ボタン押下時 -->
-            <v-dialog v-model="user_Refusal" width="500" v-if="tab == 0">
+            <v-dialog persistent v-model="user_Refusal" width="500" v-if="tab == 0">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -236,7 +236,7 @@
                 </v-card>
             </v-dialog>
             <!-- part側で荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="user_Delivery" width="500" v-if="tab == 0 && to_transport == 1">
+            <v-dialog persistent v-model="user_Delivery" width="500" v-if="tab == 0 && to_transport == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -449,7 +449,7 @@
                 </v-row>
             </v-overlay>
             <!-- user_Refusalモーダルで「はい」ボタン押下時 -->
-            <v-dialog v-model="cancelModal" width="500" v-if="tab == 1 && part_cancel == 1">
+            <v-dialog persistent v-model="cancelModal" width="500" v-if="tab == 1 && part_cancel == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -468,7 +468,7 @@
                 </v-card>
             </v-dialog>
             <!-- 荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="part_Delivery" width="500" v-if="tab == 1">
+            <v-dialog persistent v-model="part_Delivery" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">

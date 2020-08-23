@@ -50,7 +50,7 @@
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
                                  <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                                     <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                     <v-avatar class="ma-0 pa-0" size="130">
                                         <img
                                             :src="part_image"
                                             alt="アイコン"
@@ -104,7 +104,7 @@
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
                          <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                             <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                             <v-avatar class="ma-0 pa-0" size="80">
                                 <img
                                     :src="part_image"
                                     alt="アイコン"
@@ -181,7 +181,7 @@
             </v-overlay>
 
             <!-- part_Completeモーダルで「はい」ボタン押下時 -->
-            <v-dialog v-model="user_Complete" width="500" v-if="tab == 0">
+            <v-dialog persistent v-model="user_Complete" width="500" v-if="tab == 0">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -250,7 +250,7 @@
                     <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
-                                <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                <v-avatar class="ma-0 pa-0" size="130">
                                     <img
                                         :src="user_image"
                                         alt="アイコン"
@@ -321,7 +321,7 @@
                     <v-col class="ma-0 pa-0" cols="3">
                         <!-- レイアウト仮置き -->
                          <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                             <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                             <v-avatar class="ma-0 pa-0" size="80">
                                 <img
                                     :src="user_image"
                                     alt="アイコン"
@@ -419,7 +419,7 @@
                 </v-row>
             </v-overlay>
             <!-- 「配達完了」ボタン押下時 -->
-            <v-dialog v-model="part_Complete" width="500" v-if="tab == 1">
+            <v-dialog persistent v-model="part_Complete" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -445,7 +445,7 @@
                 </v-card>
             </v-dialog>
             <!-- part_Completeモーダルで「はい」押下時 -->
-            <v-dialog v-model="part_Fin" width="500" v-if="tab == 1">
+            <v-dialog persistent v-model="part_Fin" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
