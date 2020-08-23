@@ -112,9 +112,7 @@
                             <img
                                 :src="part_image"
                                 alt="アイコン"
-                                style="border-radius: 8em;
-                                width:80px;
-                                height:80px;"
+                                style="border-radius: 8em;"
                             >
                         </v-avatar>
                     </v-col>
@@ -310,7 +308,7 @@
                             <v-row class="ma-0 pa-0" justify="center">
                                 <v-avatar class="ma-0 pa-0" color="green light5" size="130">
                                     <img
-                                        :src="part_image"
+                                        :src="user_image"
                                         alt="アイコン"
                                         style="border-radius: 8em;"
                                     >
@@ -372,9 +370,7 @@
                             <img
                                 :src="user_image"
                                 alt="アイコン"
-                                style="border-radius: 8em;
-                                width:80px;
-                                height:80px;"
+                                style="border-radius: 8em;"
                             >
                             <!-- <span class="white--text body-1">アイコン</span> -->
                         </v-avatar>
@@ -537,10 +533,7 @@ export default {
                     // カスタマイズで使用したスタイルなどはここに。
                 ]
             },
-            // チャット
             chat:[],
-            // チャットの入れ替え用
-            chat_ire:[],
             // marker_items: [
             //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
             // ],
@@ -612,22 +605,6 @@ export default {
             })
             this.coment = ""
         },
-        getChats(){
-            // チャットの中身を上書き
-            firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
-                await snapshot.forEach(doc => {
-                //contentは要素
-                //pushは配列データそのもの
-                // this.allData.push(doc.data().content)
-                this.chat_ire.push({
-                    content:doc.data().content,
-                    name:doc.data().name
-                })
-            })
-            this.chat = this.chat_ire
-            this.chat_ire = []
-        })
-        },
         deleteRoom(){
             // ルームのuser_idを取得する
             this.$store.commit('deleteRoom')
@@ -635,7 +612,6 @@ export default {
     },
     watch:{
         pair_latitude:function() {
-            console.log(this.pair_latitude)
             if(this.tab == 0){
                 return this.$store.state.part_latitude
             }
@@ -644,7 +620,6 @@ export default {
             }
         },
         pair_longitude:function() {
-            console.log(this.pair_longitude)
             if(this.tab == 0){
                 return this.$store.state.part_longitude
             }
@@ -740,10 +715,6 @@ export default {
                 this.user_longitude = coords.longitude
             }.bind(this))
         }
-        // 初期読み込み・コレクション(comments)に変更がかかると実行
-        firebase.firestore().collection('comments').onSnapshot(() => {
-            this.getChats()
-        })
     },
     created:function(){
         console.log(this.first_hour)
@@ -755,9 +726,20 @@ export default {
         //     return
         // })
 
+        firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
+            await snapshot.forEach(doc => {
+            //contentは要素
+            //pushは配列データそのもの
+            // this.allData.push(doc.data().content)
+                this.chat.push({
+                    content:doc.data().content,
+                    name:doc.data().name
+                })
+            })
+        })
         // 共通項ページでは、judgeを呼び出す(判定)
-        this.$store.commit('judge_room_onAuthState')
         this.$store.commit('judge_onAuthStateChanged')
+        this.$store.commit('judge_room_onAuthState')
     }
 }
 </script>
