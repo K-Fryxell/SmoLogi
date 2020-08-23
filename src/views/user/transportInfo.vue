@@ -292,7 +292,13 @@ export default {
         },
         user_image(){
             return this.$store.getters.user_image
-        }
+        },
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        user_address(){
+            return this.$store.getters.user_address
+        },
     },
     methods:{
         isTime(a){
@@ -363,6 +369,9 @@ export default {
             if(this.first < this.last){
                 //ユーザアイコン
                 this.array['user_image'] = this.user_image
+                //郵便番号 住所
+                this.array['user_post'] = this.user_post
+                this.array['user_address'] = this.user_address
                 //名前
                 this.array['name'] = this.name
                 //最初

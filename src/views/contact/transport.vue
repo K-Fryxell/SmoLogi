@@ -1,92 +1,135 @@
 <template>
-    <v-layout class="ma-0 pa-0">
-        <v-flex class="ma-0 pa-0 pa-lg-9 pa-md-8" xs12 sm8 md8 lg8>
-            <v-row class="ma-0 pa-0" v-if="tab == 0">
-                <v-col class="ma-0 pa-0">
-                    <v-row class="ma-0 pa-0" justify="center">
-                        <v-col cols="12" class="ma-0 pa-0">
-                            <v-card class="green" elevation="0" height="650" tile >
-                                <!-- ここにグーグルマップの表示  -->
-                                <GmapMap
-                                    :center="{lat:user_latitude, lng:user_longitude}"
-                                    :zoom="zoom"
-                                    :options="mapStyle"
-                                    style="width: 100%; height: 100%;">
-                                    <GmapInfoWindow
-                                        :options="infoOptions"
-                                        :position="{lat:user_latitude, lng:user_longitude}"
-                                        :opened="infoWinOpen"
-                                        @closeclick="infoWinOpen=false"
-                                    >あなたの現在地</GmapInfoWindow>
-                                    <GmapMarker
-                                        @click="toggleInfoWindow(0)"
-                                        :position="{lat:user_latitude, lng:user_longitude}"
-                                        :clickable="true">
-                                    </GmapMarker>
-                                    <GmapInfoWindow
-                                        :options="infoOptions"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
-                                        :opened="infoWinOpen2"
-                                        @closeclick="infoWinOpen2=false"
-                                    >配達者の現在地</GmapInfoWindow>
-                                    <GmapMarker
-                                        @click="toggleInfoWindow(1)"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
-                                        :clickable="true">
-                                    </GmapMarker>
-                                </GmapMap>
-                            </v-card>
+    <v-container class="ma-0 pa-0" fluid>
+        <v-layout class="ma-0 pa-0" wrap>
+            <!-- ユーザ側Map -->
+            <v-flex class="ma-0 pa-0 pa-lg-9 pa-md-8" xs12 sm8 md8 lg8 v-if="tab == 0">
+                <v-row class="ma-0 pa-0">
+                    <v-col class="ma-0 pa-0">
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-col cols="12" class="ma-0 pa-0">
+                                <v-card class="green" elevation="0" height="650" tile >
+                                    <!-- ここにグーグルマップの表示  -->
+                                    <GmapMap
+                                        :center="{lat:user_latitude, lng:user_longitude}"
+                                        :zoom="zoom"
+                                        :options="mapStyle"
+                                        style="width: 100%; height: 100%;">
+                                        <GmapInfoWindow
+                                            :options="infoOptions"
+                                            :position="{lat:user_latitude, lng:user_longitude}"
+                                            :opened="infoWinOpen"
+                                            @closeclick="infoWinOpen=false"
+                                        >あなたの現在地</GmapInfoWindow>
+                                        <GmapMarker
+                                            @click="toggleInfoWindow(0)"
+                                            :position="{lat:user_latitude, lng:user_longitude}"
+                                            :clickable="true">
+                                        </GmapMarker>
+                                        <GmapInfoWindow
+                                            :options="infoOptions"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
+                                            :opened="infoWinOpen2"
+                                            @closeclick="infoWinOpen2=false"
+                                        >配達者の現在地</GmapInfoWindow>
+                                        <GmapMarker
+                                            @click="toggleInfoWindow(1)"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
+                                            :clickable="true">
+                                        </GmapMarker>
+                                    </GmapMap>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-flex>
+            <!-- ユーザ側コンテンツ：PC画面 -->
+            <v-flex class="ma-0 mb-12 pa-0 pt-10 pr-12 hidden-sm-and-down" xs12 sm4 md4 lg4 v-if="tab == 0">
+                <v-card class="ma-0 pa-5" style="background-color: #E5ECE6">
+                    <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
+                        <v-col class="ma-0 pa-0">
+                            <v-row class="ma-0 pa-0" justify="center">
+                                 <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                                     <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                        <img
+                                            :src="part_image"
+                                            alt="アイコン"
+                                            style="border-radius: 8em;"
+                                        >
+                                    </v-avatar>
+                                </v-avatar>
+                                <v-card-text class="ma-0 mt-5 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
+                                    配達者名：{{part_name}}
+                                </v-card-text>
+                            </v-row>
                         </v-col>
                     </v-row>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 mt-3 pa-0" justify="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" lg="8" cols="11">
-                    <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                        ただいま{{ part_Name }}さんが荷物を配達中です。
-                    </v-card-text>
-                </v-col>
-            </v-row>
-            <!-- 配達者顔写真と到着予定時刻の表示 -->
-            <v-row class="ma-0 mt-5 pa-0" justify="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" cols="3">
-                    <!-- レイアウト仮置き -->
-                    <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                        <span class="white--text body-1">アイコン</span>
-                    </v-avatar>
-                    <!-- <img
-                        v-if="this.$store.state.img=='no_image'"
-                        class="mt-5 ml-6"
-                        src="@/assets/icon.jpg"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    >
-                    <img
-                        v-if="this.$store.state.img!='no_image'"
-                        class="mt-5 ml-6"
-                        :src="this.$store.state.img"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    > -->
-                </v-col>
-                <v-col class="ma-0 mt-2 pa-0" cols="7">
-                    <v-card-title class="ma-0 pa-0">
-                        到着予定時刻<br>
-                    </v-card-title>
-                    <v-card-title class="ma-0 pa-0 pl-12">
-                        {{houre}}時{{minute}}分
-                    </v-card-title>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 mt-6 pa-0" justify="center" v-if="tab == 0">
-                <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
-                        配達者と話す
-                    </v-btn>
-                </v-col>
-            </v-row>
+                    <v-row class="ma-0 pa-0" justify="center">
+                        <v-col class="ma-0 pa-0" cols="12">
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
+                                ただいま荷物を受け取りに向かっています
+                            </v-card-text>
+                        </v-col>
+                    </v-row>
+                    <!-- 到着予定時刻の表示 -->
+                    <v-row class="ma-0 mt-7 pa-0" justify="center">
+                        <v-col class="ma-0 mt-2 pa-0" cols="7">
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
+                                到着予定時刻
+                            </v-card-text>
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
+                                {{ last_hour }}時{{ last_minute }}分
+                            </v-card-text>
+                        </v-col>
+                    </v-row>
+                    <v-row class="ma-0 mt-12 pa-0" justify="center">
+                        <v-col class="ma-0 pa-0" cols="auto">
+                            <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
+                                配達者と話す
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-flex>
+            <!-- ユーザ側コンテンツ：携帯画面 -->
+            <v-flex class="ma-0 mb-12 pa-0 hidden-md-and-up" xs12 sm4 md4 lg4 v-if="tab == 0">
+                 <v-row class="ma-0 mt-3 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" lg="8" cols="11">
+                        <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
+                            ただいま{{ part_name }}さんが荷物を配達中です
+                        </v-card-text>
+                    </v-col>
+                </v-row>
+                <!-- 配達者顔写真と到着予定時刻の表示 -->
+                <v-row class="ma-0 mt-5 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="3">
+                         <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                             <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                                <img
+                                    :src="part_image"
+                                    alt="アイコン"
+                                    style="border-radius: 8em;"
+                                >
+                            </v-avatar>
+                        </v-avatar>
+                    </v-col>
+                    <v-col class="ma-0 mt-2 pa-0" cols="7">
+                        <v-card-title class="ma-0 pa-0">
+                            到着予定時刻<br>
+                        </v-card-title>
+                        <v-card-title class="ma-0 pa-0 pl-12">
+                            {{ last_hour }}時{{ last_minute }}分
+                        </v-card-title>
+                    </v-col>
+                </v-row>
+                <v-row class="ma-0 mt-6 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="auto">
+                        <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
+                            配達者と話す
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-flex>
             <!-- ここからチャット -->
             <v-overlay
                 :opacity="opacity"
@@ -158,101 +201,175 @@
             </v-dialog>
 
             <!-- ここからpart側 -->
-            <v-row class="ma-0 pa-0" v-if="tab == 1">
-                <v-col class="ma-0 pa-0">
-                    <v-row class="ma-0 pa-0" justify="center">
-                        <v-col cols="12" class="ma-0 pa-0">
-                            <v-card class="green" elevation="0" height="650" tile >
-                                <!-- ここにグーグルマップの表示  -->
-                                <GmapMap
-                                    :center="{lat:user_latitude, lng:user_longitude}"
-                                    :zoom="zoom"
-                                    :options="mapStyle"
-                                    style="width: 100%; height: 100%;">
+            <v-flex class="ma-0 pa-0 pa-lg-9 pa-md-8" xs12 sm8 md8 lg8 v-if="tab == 1">
+                <v-row class="ma-0 pa-0" v-if="tab == 1">
+                    <v-col class="ma-0 pa-0">
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-col cols="12" class="ma-0 pa-0">
+                                <v-card class="green" elevation="0" height="650" tile >
+                                    <!-- ここにグーグルマップの表示  -->
+                                    <GmapMap
+                                        :center="{lat:user_latitude, lng:user_longitude}"
+                                        :zoom="zoom"
+                                        :options="mapStyle"
+                                        style="width: 100%; height: 100%;">
 
-                                    <GmapInfoWindow
-                                        :options="infoOptions"
-                                        :position="{lat:user_latitude, lng:user_longitude}"
-                                        :opened="infoWinOpen"
-                                        @closeclick="infoWinOpen=false"
-                                    >あなたの現在地</GmapInfoWindow>
-                                    <GmapMarker
-                                        @click="toggleInfoWindow(0)"
-                                        :position="{lat:user_latitude, lng:user_longitude}"
-                                        :clickable="true">
-                                    </GmapMarker>
+                                        <GmapInfoWindow
+                                            :options="infoOptions"
+                                            :position="{lat:user_latitude, lng:user_longitude}"
+                                            :opened="infoWinOpen"
+                                            @closeclick="infoWinOpen=false"
+                                        >あなたの現在地</GmapInfoWindow>
+                                        <GmapMarker
+                                            @click="toggleInfoWindow(0)"
+                                            :position="{lat:user_latitude, lng:user_longitude}"
+                                            :clickable="true">
+                                        </GmapMarker>
 
-                                    <GmapInfoWindow
-                                        :options="infoOptions"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
-                                        :opened="infoWinOpen2"
-                                        @closeclick="infoWinOpen2=false"
-                                    >配達者の現在地</GmapInfoWindow>
-                                    <GmapMarker
-                                        @click="toggleInfoWindow(1)"
-                                        :position="{lat:part_latitude, lng:part_longitude}"
-                                        :clickable="true">
-                                    </GmapMarker>
-                                </GmapMap>
-                            </v-card>
+                                        <GmapInfoWindow
+                                            :options="infoOptions"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
+                                            :opened="infoWinOpen2"
+                                            @closeclick="infoWinOpen2=false"
+                                        >配達者の現在地</GmapInfoWindow>
+                                        <GmapMarker
+                                            @click="toggleInfoWindow(1)"
+                                            :position="{lat:pair_latitude, lng:pair_longitude}"
+                                            :clickable="true">
+                                        </GmapMarker>
+                                    </GmapMap>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+            </v-flex>
+            <!-- パート側コンテンツ：PC表示 -->
+            <v-flex class="ma-0 mb-12 pa-0 pt-10 pr-12 hidden-sm-and-down" xs12 sm4 md4 lg4 v-if="tab == 1">
+                <v-card class="ma-0 pa-5" style="background-color: #E5ECE6">
+                    <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
+                        <v-col class="ma-0 pa-0">
+                            <v-row class="ma-0 pa-0" justify="center">
+                                <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                    <img
+                                        :src="user_image"
+                                        alt="アイコン"
+                                        style="border-radius: 8em;"
+                                    >
+                                </v-avatar>
+                                <v-card-text class="ma-0 mt-5 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
+                                    依頼者名：{{user_name}}
+                                </v-card-text>
+                                <v-row class="ma-0 pa-0" justify="center" align="end">
+                                    <v-col class="ma-o pa-0" cols="8">
+                                        <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
+                                            お届け先住所：<br>
+                                            <span id="target">{{ user_address }}</span>
+                                        </v-card-text>
+                                    </v-col>
+                                    <v-col class="ma-0 pa-0" cols="2">
+                                        <v-btn
+                                            @click="witeToClipboard()"
+                                        >
+                                            コピー
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-row>
                         </v-col>
                     </v-row>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 mt-3 pa-0" justify="center" v-if="tab == 1">
-                <v-col class="ma-0 pa-0" lg="8" cols="11">
-                    <v-card-text class="ma-0 pa-0" v-resize='onResize' :class='size_title'>
-                        {{ user_Name }}様へ荷物を受け取りに向かっています。
-                    </v-card-text>
-                </v-col>
-            </v-row>
-            <!-- お客様のアイコンと到着予定時刻の表示 -->
-            <v-row class="ma-0 mt-5 pa-0" justify="center" v-if="tab == 1">
-                <v-col class="ma-0 pa-0" cols="3">
-                    <!-- レイアウト仮置き -->
-                    <v-avatar class="ma-0 pa-0" color="green light5" size="80">
-                        <span class="white--text body-1">アイコン</span>
-                    </v-avatar>
-                    <!-- <img
-                        v-if="this.$store.state.img=='no_image'"
-                        class="mt-5 ml-6"
-                        src="@/assets/icon.jpg"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    >
-                    <img
-                        v-if="this.$store.state.img!='no_image'"
-                        class="mt-5 ml-6"
-                        :src="this.$store.state.img"
-                        alt="アイコン"
-                        width="80"
-                        style="border-radius: 50px;"
-                    > -->
-                </v-col>
-                <v-col class="ma-0 mt-2 pa-0" cols="7">
-                    <v-card-title class="ma-0 pa-0">
-                        到着予定時刻<br>
-                    </v-card-title>
-                    <v-card-title class="ma-0 pa-0 pl-12">
-                        {{ houre }}時{{ minute }}分
-                    </v-card-title>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 pa-0" justify="center" v-if="tab == 1">
-                <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="150" class="display-1" fab elevation="0" @click="change">
-                        お客様と話す
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 pa-0" justify="center" style="height:100px;" align="center" v-if="tab == 1">
-                <v-col class="ma-0 pa-0" cols="auto">
-                    <v-btn width="290" height="70" class="display-1" elevation="0" @click="part_Complete=true">
-                        配達完了
-                    </v-btn>
-                </v-col>
-            </v-row>
+                    <!-- 到着予定時刻の表示 -->
+                    <v-row class="ma-0 mt-7 pa-0" justify="center">
+                        <v-col class="ma-0 mt-2 pa-0" cols="7">
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
+                                到着予定時刻
+                            </v-card-text>
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
+                                {{ p_last_hour }}時{{ p_last_minute }}分
+                            </v-card-text>
+                        </v-col>
+                    </v-row>
+                    <v-row class="ma-0 mt-12 pa-0" justify="center">
+                        <v-col class="ma-0 pa-0" cols="auto">
+                            <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
+                                お客様と話す
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-row class="ma-0 mt-6 mb-10 pa-0" justify="center">
+                        <v-col class="ma-0 pa-0" cols="auto">
+                            <v-btn width="300" height="60" class="green white--text" elevation="0" @click="part_Complete=true" v-resize='onResize' :class='size_headline'>
+                            配達完了
+                        </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-flex>
+            <!-- パート側コンテンツ：携帯表示 -->
+            <v-flex class="ma-0 pa-0 hidden-md-and-up" xs12 sm4 md4 lg4 v-if="tab == 1">
+                <v-row class="ma-0 mt-3 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="11">
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
+                                {{ user_name }}様へ荷物を配達しています
+                            </v-card-text>
+                        </v-row>
+                    </v-col>
+                </v-row>
+                <!-- お客様のアイコンと到着予定時刻の表示 -->
+                <v-row class="ma-0 mt-5 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="3">
+                        <!-- レイアウト仮置き -->
+                         <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                             <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                                <img
+                                    :src="user_image"
+                                    alt="アイコン"
+                                    style="border-radius: 8em;"
+                                >
+                            </v-avatar>
+                        </v-avatar>
+                    </v-col>
+                    <v-col class="ma-0 mt-2 pa-0" cols="7">
+                        <v-card-title class="ma-0 pa-0">
+                            到着予定時刻<br>
+                        </v-card-title>
+                        <v-card-title class="ma-0 pa-0 pl-12">
+                            {{ p_last_hour }}時{{ p_last_minute }}分
+                        </v-card-title>
+                    </v-col>
+                </v-row>
+                <v-row class="ma-0 pa-0" justify="center" align="end">
+                    <v-col class="ma-o pa-0" cols="7">
+                        <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
+                            お届け先住所：<br>
+                            <span id="target">{{ user_address }}</span>
+                        </v-card-text>
+                    </v-col>
+                    <v-col class="ma-0 pa-0" cols="2">
+                        <v-btn
+                            @click="witeToClipboard()"
+                        >
+                            コピー
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row class="ma-0 mt-6 pa-0" justify="center">
+                    <v-col class="ma-0 pa-0" cols="auto">
+                        <v-btn width="300" height="60" class="green white--text" elevation="0" @click="change" v-resize='onResize' :class='size_headline'>
+                            お客様と話す
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row class="ma-0 pa-0" justify="center" style="height:100px" align="center">
+                    <v-col class="ma-0 pa-0" cols="auto">
+                        <v-btn width="300" height="60" class="green white--text" elevation="0" @click="part_Complete=true" v-resize='onResize' :class='size_headline'>
+                            配達完了
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-flex>
+            <!-- ここからチャット -->
             <v-overlay
                 :opacity="opacity"
                 :value="overlay"
@@ -347,8 +464,8 @@
                     </v-row>
                 </v-card>
             </v-dialog>
-        </v-flex>
-    </v-layout>
+        </v-layout>
+    </v-container>
 </template>
 <script>
 import firebase from 'firebase'
@@ -356,19 +473,16 @@ export default {
     name: 'MapComponent',
     data() {
         return {
-            user_Name:'おーさき',
-            part_Name:'kaito',
-            houre:'16',
-            minute:'10',
+            // {{ user_post }} 郵便番号
             cmpHoure:'15',
             cmpMinute:'59',
             //文字サイズ
             x:window.innerWidth,
-			y:window.innerHeight ,
-			size_display:'display-1',
-			size_headline:'headline',
-			size_title:'title',
-			size_subtitle:'subtitle-1',
+            y:window.innerHeight ,
+            size_display:'display-1',
+            size_headline:'headline',
+            size_title:'title',
+            size_subtitle:'subtitle-1',
             size_body:'body-1',
 
             infoOptions: {
@@ -382,8 +496,6 @@ export default {
             infoWinOpen2: false,
             user_latitude: 0,
             user_longitude: 0,
-            part_latitude: 0,
-            part_longitude: 0,
             coment:"",
             // center: { lat: 35.698304, lng: 139.766325 },
             zoom: 18,
@@ -470,8 +582,36 @@ export default {
                 this.part_Delivery=true
             }
         },
+        //コピー
+        witeToClipboard() {
+            const copyText = this.$el.querySelector('#target').textContent
+            navigator.clipboard
+            .writeText(copyText)
+            .then(() => {
+                console.log('テキストコピー完了')
+            })
+            .catch(e => {
+                console.error(e)
+            })
+        }
     },
     watch:{
+        pair_latitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_latitude
+            }
+            else{
+                return this.$store.state.user_latitude
+            }
+        },
+        pair_longitude:function() {
+            if(this.tab == 0){
+                return this.$store.state.part_longitude
+            }
+            else{
+                return this.$store.state.user_longitude
+            }
+        },
 		x:function(){
 			if(this.x<600)
 			{
@@ -498,8 +638,68 @@ export default {
         user_name(){
             return this.$store.getters.user_fname
         },
+        user_image(){
+            return this.$store.getters.user_image
+        },
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        user_address(){
+            return this.$store.getters.user_address
+        },
         part_name(){
             return this.$store.getters.nickname
+        },
+        part_image(){
+            return this.$store.getters.part_image
+        },
+        last_hour(){
+            return this.$store.getters.last_hour
+        },
+        last_minute(){
+            return this.$store.getters.last_minute
+        },
+        p_last_hour(){
+            return this.$store.getters.p_last_hour
+        },
+        p_last_minute(){
+            return this.$store.getters.p_last_minute
+        },
+        pair_latitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_latitude
+                }
+                else{
+                    return this.$store.getters.user_latitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_latitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_latitude',value)
+                }
+            }
+        },
+        pair_longitude:{
+            get() {
+                if(this.tab == 0){
+                    return this.$store.getters.part_longitude
+                }
+                else{
+                    return this.$store.getters.user_longitude
+                }
+            },
+            set(value) {
+                if(this.tab == 0){
+                    this.$store.commit('set_part_longitude',value)
+                }
+                else{
+                    this.$store.commit('set_user_longitude',value)
+                }
+            }
         }
     },
     mounted() {
@@ -514,12 +714,18 @@ export default {
         }
     },
     created:function(){
+        // 戻るボタンの無効化
+        // window.history.pushState(null, null, null)
+        // window.addEventListener("popstate", function() {
+        //     window.history.pushState(null, null, null)
+        //     return
+        // })
+
         firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
             await snapshot.forEach(doc => {
             //contentは要素
             //pushは配列データそのもの
             // this.allData.push(doc.data().content)
-                console.log(doc.data().content)
                 this.chat.push({
                     content:doc.data().content,
                     name:doc.data().name
@@ -528,7 +734,7 @@ export default {
         })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        console.log()
+        this.$store.commit('judge_room_onAuthState')
     }
 }
 </script>
