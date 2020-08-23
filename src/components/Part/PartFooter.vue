@@ -1,13 +1,13 @@
 <template>
-	<v-content class="ma-0 pb-12 green darken-2">
-		<v-footer class="ma-0 pa-0 pt-5 green darken-2">
+	<v-content class="ma-0 pb-12 darken-2" style="background-color: #83B590">
+		<v-footer class="ma-0 pa-0 pt-12 darken-2" style="background-color: #83B590"  min-height="auto">
 			<v-row class="ma-0 pa-0" justify="center">
-				<v-col class="ma-0 pa-0" lg="7" cols="12">
+				<v-col class="ma-0 pa-0" lg="8" cols="12">
 					<v-row class="ma-0 pa-0" justify="center">
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn  to="/terms" class="overline lighten-1" :elevation=0 color="white" text>
-								<span v-resize='onResize' :class='size'>利用規約</span>
+								<v-btn  to="/terms" class="overline lighten-1" :elevation="0" color="white" text>
+									<span v-resize='onResize' :class='size'>利用規約</span>
 								</v-btn>
 							</v-row>
 						</v-col>
@@ -20,27 +20,27 @@
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="/inquery" class="overline lighten-1" :elevation=0 color="white" text>
+								<v-btn to="/inquery" class="overline lighten-1" :elevation="0" color="white" text>
 									<span v-resize='onResize' :class='size'>ヘルプ</span>
 								</v-btn>
 							</v-row>
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="#" class="overline lighten-1" :elevation=0 color="white" text>
+								<v-btn to="#" class="overline lighten-1" :elevation="0" color="white" text>
 									<span v-resize='onResize' :class='size'>お問い合わせ</span>
 								</v-btn>
 							</v-row>
 						</v-col>
 						<v-col class="ma-0 pa-0">
 							<v-row justify="center">
-								<v-btn to="/" class="overline lighten-1" :elevation=0 color="white" text>
-									<span v-resize='onResize' :class='size'>ユーザトップへ</span>
+								<v-btn to="/" class="overline lighten-1" :elevation="0" color="white" text>
+									<span v-resize='onResize' :class='size'>ユーザTOPへ</span>
 								</v-btn>
 							</v-row>
 						</v-col>
-						<v-col class="text-center py-12 overline" cols="12">
-							copylight &copy; nimoti
+						<v-col class="text-center py-2 mt-8 overline" cols="12">
+							copyright &copy; 2020
 						</v-col>
 					</v-row>
 				</v-col>
@@ -54,7 +54,7 @@ export default {
 		return{
 			x:window.innerWidth,
 			y:window.innerHeight ,
-			size:'title',
+			size:'subtitle-1',
 		}
 	},
 	mounted () {
@@ -70,11 +70,11 @@ export default {
 		x:function(){
 			if(this.x<600)
 			{
-				this.size = 'caption'
+			this.size = 'caption'
 			}
 			else
 			{
-				this.size = 'title'
+			this.size = 'subtitle-1'
 			}
 		}
 	}

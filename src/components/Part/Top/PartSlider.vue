@@ -1,6 +1,6 @@
 <template>
-	<v-card class="pb-6" style="background-color: #E5ECE6"> 
-		<v-card-title class="justify-center green--text font-weight-bold" v-resize='onResize' :class='size_headline'>
+	<v-card class="pb-6" style="background-color: #E5ECE6" elevation="0">
+		<v-card-title class="justify-center font-weight-bold" style="color: #83B590" v-resize='onResize' :class='size_headline'>
 			サイト利用の流れ
 		</v-card-title>
 		<v-carousel
