@@ -75,7 +75,7 @@
 
                                     <!-- パートナー側収益ページ -->
                                     <v-tab-item>
-                                        <chart :height="350" :width="700"/>
+                                        <chart :height="size_height" :width="size_width"/>
                                     </v-tab-item>
                                 </v-tabs>
                             </v-card>
@@ -176,6 +176,8 @@ export default {
             ],
             x:window.innerWidth,
             y:window.innerHeight ,
+            size_height: 350,
+            size_width: 700,
             size_display:'display-1',
             size_headline:'headline',
             size_title:'title',
@@ -234,6 +236,8 @@ export default {
         x:function(){
             if(this.x<600)
             {
+                this.size_height = 4,
+                this.size_width = 5,
                 this.size_display = 'headline',
                 this.size_headline = 'title',
                 this.size_title = 'subtitle-1',
@@ -242,6 +246,8 @@ export default {
             }
             else
             {
+                this.size_height = 350,
+                this.size_width = 700,
                 this.size_display = 'display-1',
                 this.size_headline = 'headline',
                 this.size_titele = 'title',
