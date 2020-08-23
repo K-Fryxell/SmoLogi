@@ -468,6 +468,38 @@ export default ({
                 }
             })
         },
+        complete(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).get()
+                    .then(doc => {
+                        console.log(doc.data())
+                        state.user_id = doc.data().user_id
+                        firebase.firestore().collection('users').doc(state.user_id).set({
+                            completed:1
+                        },
+                        {
+                            merge:true
+                        })
+                        this.commit('user_id_delete')
+                    })
+                }
+            })
+        },
+        user_id_delete(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                }
+                firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                    user_id:firebase.firestore.FieldValue.delete()
+                },
+                {
+                    merge:true
+                })
+            })
+        },
         part_logout() {
             firebase.auth().signOut()
             router.push('/part_top')

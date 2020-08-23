@@ -48,8 +48,13 @@ export default ({
         user_image:'',
         // 荷物受け取り完了フラグ
         to_transport:0,
+        // 配達完了フラグ
+        completed:0,
     },
     getters: {
+        completed(state){
+            return state.completed
+        },
         to_transport(state){
             return state.to_transport
         },
@@ -261,6 +266,8 @@ export default ({
                         state.isMounth = doc.data().isMounth
                         // 荷物受け取り完了フラグ
                         state.to_transport = doc.data().to_transport
+                        // 配達完了フラグ
+                        state.completed = doc.data().completed
                     })
                 } else {
                     // User not logged in or has just logged out.
