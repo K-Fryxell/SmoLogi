@@ -507,6 +507,7 @@ export default {
     },
     watch:{
         pair_latitude:function() {
+            console.log(this.pair_latitude)
             if(this.tab == 0){
                 return this.$store.state.part_latitude
             }
@@ -515,6 +516,7 @@ export default {
             }
         },
         pair_longitude:function() {
+            console.log(this.pair_longitude)
             if(this.tab == 0){
                 return this.$store.state.part_longitude
             }
@@ -633,8 +635,8 @@ export default {
             })
         })
         // 共通項ページでは、judgeを呼び出す(判定)
-        this.$store.commit('judge_onAuthStateChanged')
         this.$store.commit('judge_room_onAuthState')
+        this.$store.commit('judge_onAuthStateChanged')
     }
 }
 </script>
