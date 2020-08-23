@@ -181,7 +181,7 @@
             </v-overlay>
 
             <!-- part_Completeモーダルで「はい」ボタン押下時 -->
-            <v-dialog v-model="user_Complete" width="500" v-if="tab == 0">
+            <v-dialog v-model="user_Complete" width="500" v-if="tab == 0 && completed == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -190,7 +190,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/user_mypage" @click="user_Complete=false">
+                                    <v-btn width="50" @click="userComp()">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -435,7 +435,7 @@
                                 <v-col cols="auto">
                                     <!-- ここはfirebase -->
                                     <!-- 「はい」ボタン押下時に part_Finモーダルを開く & user側でuser_Completeモーダルを開く -->
-                                    <v-btn width="50" @click="part_Fin=true">
+                                    <v-btn width="50" @click="complete()">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -514,7 +514,7 @@ export default {
             absolute: true,
             opacity: 0.4,
             overlay: false,
-            user_Complete: false,
+            user_Complete: true,
             part_Check: false,
             part_Complete: false,
             part_Fin: false,
@@ -522,6 +522,13 @@ export default {
         }
     },
     methods:{
+        userComp(){
+            this.$store.commit('deleteRoom')
+        },
+        complete(){
+            this.part_Fin = true
+            this.$store.commit('complete')
+        },
         onResize () {
 			this.x = window.innerWidth
 			this.y = window.innerHeight
@@ -596,6 +603,9 @@ export default {
         }
     },
     watch:{
+        completed:function(){
+            return this.$store.state.completed
+        },
         pair_latitude:function() {
             if(this.tab == 0){
                 return this.$store.state.part_latitude
@@ -664,6 +674,9 @@ export default {
         },
         p_last_minute(){
             return this.$store.getters.p_last_minute
+        },
+        completed(){
+            return this.$store.getters.completed
         },
         pair_latitude:{
             get() {
