@@ -237,6 +237,8 @@ export default {
             POST: '###-####',
             TEL: '###-####-####',
             array: {},
+            // ユーザアイコン(初期値)
+            user_image: 'https://i.pinimg.com/originals/51/83/ef/5183ef65b82a66cf573f324e59cf028b.png',
             // メールアドレス
             email: '',
             // パスワード
@@ -397,6 +399,8 @@ export default {
             this.y = window.innerHeight
         },
         signUp:async function(){
+            // ユーザアイコン(初期値)
+            this.array['user_image'] = this.user_image
             // メールアドレス
             this.array['email'] = this.email
             // パスワード
