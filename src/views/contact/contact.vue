@@ -428,7 +428,9 @@ export default {
                     // カスタマイズで使用したスタイルなどはここに。
                 ]
             },
+            // チャット
             chat:[],
+            // チャットの入れ替え用
             chat_ire:[],
             // marker_items: [
             //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
@@ -502,6 +504,7 @@ export default {
             this.coment = ""
         },
         getChats(){
+            // チャットの中身を上書き
             firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
                 await snapshot.forEach(doc => {
                 //contentは要素
@@ -626,6 +629,7 @@ export default {
                 this.user_longitude = coords.longitude
             }.bind(this))
         }
+        // 初期読み込み・コレクション(comments)に変更がかかると実行
         firebase.firestore().collection('comments').onSnapshot(() => {
             this.getChats()
         })
