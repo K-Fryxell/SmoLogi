@@ -1,7 +1,7 @@
 <template>
     <content>
         <!-- ログインボタン -->
-        <v-btn text  @click="dialog = true">
+        <v-btn text style="color: #83B590" @click="dialog = true">
             ログイン
         </v-btn>
         <v-dialog v-model="dialog" width="500">
@@ -49,7 +49,7 @@
         </v-dialog>
 
         <!-- 新規登録ページボタン -->
-        <v-btn color="green" dark to="part_regist">
+        <v-btn style="background-color: #83B590" dark to="part_regist">
             新規登録
         </v-btn>
     </content>
