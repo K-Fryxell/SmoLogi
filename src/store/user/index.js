@@ -305,6 +305,8 @@ export default ({
                             gender: array['gender'],
                             name:array['name'],
                             user_image:array['user_image'],
+                            user_post:array['user_post'],
+                            user_address:array['user_address'],
                             user_lat:array['user_lat'],
                             user_lng:array['user_lng']
                         })
@@ -357,6 +359,38 @@ export default ({
                         state.part_latitude = doc.data().part_lat
                         state.part_longitude = doc.data().part_lng
                     })
+                }
+            })
+        },
+        refusal(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        state.part_user_id = doc.data().part_id
+                        this.commit('deleteRoom')
+                    })
+                }
+                firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                    cancel_modal:1,
+                    user_id:firebase.firestore.FieldValue.delete()
+                },
+                {
+                    merge:true
+                })
+            })
+        },
+        deleteRoom(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    router.push('/user_mypage')
                 }
             })
         },

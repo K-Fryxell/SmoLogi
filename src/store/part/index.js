@@ -10,6 +10,8 @@ export default ({
         part_user_id:'',
         // ログイン情報のフラグ
         status: false,
+        // 拒否フラグ
+        cancel_modal:'',
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
@@ -60,8 +62,28 @@ export default ({
         part_weight: 0,
         // 受諾したユーザ情報
         user_info:[],
+        // 配達希望時刻
+        first_hour:'',
+        first_minute:'',
+        last_hour:'',
+        last_minute:''
     },
     getters: {
+        cancel_modal(state){
+            return state.cancel_modal
+        },
+        p_first_hour(state){
+            return state.first_hour
+        },
+        p_first_minute(state){
+            return state.first_minute
+        },
+        p_last_hour(state){
+            return state.last_hour
+        },
+        p_last_minute(state){
+            return state.last_minute
+        },
         user_latitude(state){
             return state.user_latitude
         },
@@ -316,6 +338,8 @@ export default ({
                         if(doc.data().user_id != null){
                             state.user_id = doc.data().user_id
                         }
+                        // 拒否フラグ
+                        state.cancel_modal = doc.data().cancel_modal
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -343,6 +367,8 @@ export default ({
                         weight: doc.data().weight,
                         name: doc.data().name,
                         user_image: doc.data().user_image,
+                        user_post: doc.data().user_post,
+                        user_address: doc.data().user_address,
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
@@ -364,6 +390,8 @@ export default ({
                 user_lng: array['user_lng'],
                 user_fname: array['user_fname'],
                 user_image: array['user_image'],
+                user_post: array['user_post'],
+                user_address: array['user_address'],
                 first_hour: array['first_hour'],
                 first_minute: array['first_minute'],
                 last_hour: array['last_hour'],
@@ -406,22 +434,17 @@ export default ({
                 }
             })
         },
-        deleteRoom(state){
+        cancel_delete(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
+                    state.cancel_modal = 0
                     state.part_user_id = user.uid
-                    firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
-                        console.log(doc.data().user_id)
-                        state.user_id = doc.data().user_id
-                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
-                        firebase.firestore().collection('part_users').doc(user.uid).set({
-                            user_id:firebase.firestore.FieldValue.delete()
-                        },
-                        {
-                            merge:true
-                        })
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                        cancel_modal:firebase.firestore.FieldValue.delete()
+                    },
+                    {
+                        merge:true
                     })
-                    router.push('/part_mypage')
                 }
             })
         },
