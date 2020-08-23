@@ -10,6 +10,8 @@ export default ({
         part_user_id:'',
         // ログイン情報のフラグ
         status: false,
+        // 拒否フラグ
+        cancel_modal:'',
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
@@ -67,6 +69,9 @@ export default ({
         last_minute:''
     },
     getters: {
+        cancel_modal(state){
+            return state.cancel_modal
+        },
         p_first_hour(state){
             return state.first_hour
         },
@@ -333,6 +338,8 @@ export default ({
                         if(doc.data().user_id != null){
                             state.user_id = doc.data().user_id
                         }
+                        // 拒否フラグ
+                        state.cancel_modal = doc.data().cancel_modal
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -427,22 +434,17 @@ export default ({
                 }
             })
         },
-        deleteRoom(state){
+        cancel_delete(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
+                    state.cancel_modal = 0
                     state.part_user_id = user.uid
-                    firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
-                        console.log(doc.data().user_id)
-                        state.user_id = doc.data().user_id
-                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
-                        firebase.firestore().collection('part_users').doc(user.uid).set({
-                            user_id:firebase.firestore.FieldValue.delete()
-                        },
-                        {
-                            merge:true
-                        })
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                        cancel_modal:firebase.firestore.FieldValue.delete()
+                    },
+                    {
+                        merge:true
                     })
-                    router.push('/part_mypage')
                 }
             })
         },

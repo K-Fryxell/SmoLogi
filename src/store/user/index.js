@@ -362,6 +362,38 @@ export default ({
                 }
             })
         },
+        refusal(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        console.log(doc.data())
+                        state.part_user_id = doc.data().part_id
+                        this.commit('deleteRoom')
+                    })
+                }
+                firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                    cancel_modal:1,
+                    user_id:firebase.firestore.FieldValue.delete()
+                },
+                {
+                    merge:true
+                })
+            })
+        },
+        deleteRoom(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    router.push('/user_mypage')
+                }
+            })
+        },
         // ログイン状態の確認
         // onUserStatusChanged(state, status) {
         //     state.status = status; //ログインしてるかどうか true or false
