@@ -445,6 +445,26 @@ export default ({
                     {
                         merge:true
                     })
+                    router.push('/part_mypage')
+                }
+            })
+        },
+        add_to_user_transport(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).get()
+                    .then(doc => {
+                        console.log(doc.data())
+                        state.user_id = doc.data().user_id
+                        firebase.firestore().collection('users').doc(state.user_id).set({
+                            to_transport:1
+                        },
+                        {
+                            merge:true
+                        })
+                        router.push('/transport')
+                    })
                 }
             })
         },
