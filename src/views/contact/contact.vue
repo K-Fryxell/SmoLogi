@@ -225,8 +225,8 @@
                                 </v-col>
                                 <v-col cols="auto">
                                     <!-- ここはfirebase処理 -->
-                                    <!-- 「はい」ボタン押下時、part側でpart_Cancelモーダルを開かせたい -->
-                                    <v-btn width="50" to="/user_mypage" @click="part_Cancel=true">
+                                    <!-- 「はい」ボタン押下時、part側でpart_cancelモーダルを開かせたい -->
+                                    <v-btn width="50" @click="refusal()">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -449,7 +449,7 @@
                 </v-row>
             </v-overlay>
             <!-- user_Refusalモーダルで「はい」ボタン押下時 -->
-            <v-dialog v-model="part_Cancel" width="500" v-if="tab == 1">
+            <v-dialog v-model="cancelModal" width="500" v-if="tab == 1 && part_cancel == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -458,7 +458,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/part_mypage" @click="part_Cancel=false">
+                                    <v-btn width="50" to="/part_mypage" @click="cancelDelete()">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -484,7 +484,7 @@
                                 <v-col cols="auto">
                                     <!-- ここはfirebase処理 -->
                                     <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                    <v-btn width="50" @click="deleteRoom()">
+                                    <v-btn width="50">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -544,14 +544,20 @@ export default {
             user_Refusal: false,
             user_Delivery: false,
             // user_Complete: false,
-            part_Cancel: false,
             part_Delivery: false,
+            cancelModal: true,
             // part_Check: false,
             // part_Complete: false,
-            name:""
+            name:"",
         }
     },
     methods:{
+        cancelDelete(){
+            this.$store.commit('cancel_delete')
+        },
+        refusal() {
+            this.$store.commit('refusal')
+        },
         onResize () {
 			this.x = window.innerWidth
 			this.y = window.innerHeight
@@ -604,13 +610,12 @@ export default {
                 name:this.name
             })
             this.coment = ""
-        },
-        deleteRoom(){
-            // ルームのuser_idを取得する
-            this.$store.commit('deleteRoom')
         }
     },
     watch:{
+        part_cancel:function() {
+            return this.$store.state.cancel_modal
+        },
         pair_latitude:function() {
             if(this.tab == 0){
                 return this.$store.state.part_latitude
@@ -679,6 +684,9 @@ export default {
         },
         p_first_minute(){
             return this.$store.getters.p_first_minute
+        },
+        part_cancel(){
+            return this.$store.getters.cancel_modal
         },
         pair_latitude:{
             get() {
