@@ -333,7 +333,7 @@
                                 到着予定時刻
                             </v-card-text>
                             <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
-                                {{ first_hour }}時{{ first_minute }}分
+                                {{ p_first_hour }}時{{ p_first_minute }}分
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -380,7 +380,7 @@
                             到着予定時刻<br>
                         </v-card-title>
                         <v-card-title class="ma-0 pa-0 pl-12">
-                            {{first_hour}}時{{first_minute}}分
+                            {{p_first_hour}}時{{p_first_minute}}分
                         </v-card-title>
                     </v-col>
                 </v-row>
@@ -653,6 +653,15 @@ export default {
         user_name(){
             return this.$store.getters.user_fname
         },
+        user_image(){
+            return this.$store.getters.user_image
+        },
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        user_address(){
+            return this.$store.getters.user_address
+        },
         part_name(){
             return this.$store.getters.nickname
         },
@@ -665,8 +674,11 @@ export default {
         first_minute(){
             return this.$store.getters.first_minute
         },
-        user_image(){
-            return this.$store.getters.user_image
+        p_first_hour(){
+            return this.$store.getters.p_first_hour
+        },
+        p_first_minute(){
+            return this.$store.getters.p_first_minute
         },
         pair_latitude:{
             get() {
@@ -717,8 +729,6 @@ export default {
         }
     },
     created:function(){
-        console.log(this.first_hour)
-        console.log(this.first_minute)
         // 戻るボタンの無効化
         // window.history.pushState(null, null, null)
         // window.addEventListener("popstate", function() {

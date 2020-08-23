@@ -60,8 +60,25 @@ export default ({
         part_weight: 0,
         // 受諾したユーザ情報
         user_info:[],
+        // 配達希望時刻
+        first_hour:'',
+        first_minute:'',
+        last_hour:'',
+        last_minute:''
     },
     getters: {
+        p_first_hour(state){
+            return state.first_hour
+        },
+        p_first_minute(state){
+            return state.first_minute
+        },
+        p_last_hour(state){
+            return state.last_hour
+        },
+        p_last_minute(state){
+            return state.last_minute
+        },
         user_latitude(state){
             return state.user_latitude
         },
@@ -343,6 +360,8 @@ export default ({
                         weight: doc.data().weight,
                         name: doc.data().name,
                         user_image: doc.data().user_image,
+                        user_post: doc.data().user_post,
+                        user_address: doc.data().user_address,
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
@@ -364,6 +383,8 @@ export default ({
                 user_lng: array['user_lng'],
                 user_fname: array['user_fname'],
                 user_image: array['user_image'],
+                user_post: array['user_post'],
+                user_address: array['user_address'],
                 first_hour: array['first_hour'],
                 first_minute: array['first_minute'],
                 last_hour: array['last_hour'],
