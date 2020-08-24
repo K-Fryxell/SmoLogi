@@ -52,6 +52,9 @@ export default ({
         completed:0,
     },
     getters: {
+        user_id(state){
+            return state.user_id
+        },
         completed(state){
             return state.completed
         },
@@ -332,7 +335,7 @@ export default ({
                     // User not logged in or has just logged out.
                 }
             })
-            router.push('/contact')
+            router.push('/waiting')
         },
         // 更新
         userUpdater(state, array) {
@@ -393,6 +396,9 @@ export default ({
                 {
                     merge:true
                 })
+                firebase.firestore().collection('users').doc(state.user_id).update({
+                    flg:true
+                })
             })
         },
         deleteRoom(state){
@@ -416,6 +422,22 @@ export default ({
                         merge:true
                     })
                     router.push('/transport')
+                }
+            })
+        },
+        user_comp(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.completed = 0
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('users').doc(state.user_id).set({
+                        completed:firebase.firestore.FieldValue.delete()
+                    },
+                    {
+                        merge:true
+                    })
+                    router.push('/user_mypage')
                 }
             })
         },

@@ -75,6 +75,12 @@ const routes = [{
         import('../views/part/partRequestDetails.vue')
 },
 {
+    path: '/waiting',
+    name: 'WaitingRoom',
+    component: () =>
+        import('../views/contact/waitingRoom.vue')
+},
+{
     path: '/contact',
     name: 'Contact',
     component: () =>

@@ -412,6 +412,9 @@ export default ({
                     })
                 }
             })
+            firebase.firestore().collection('users').doc(array['user_id']).update({
+                flg:false
+            })
         },
         part_room_onAuthState(state){
             firebase.auth().onAuthStateChanged((user) => {
@@ -481,6 +484,9 @@ export default ({
                         },
                         {
                             merge:true
+                        })
+                        firebase.firestore().collection('users').doc(state.user_id).update({
+                            flg:true
                         })
                         this.commit('user_id_delete')
                     })
