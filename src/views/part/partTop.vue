@@ -130,15 +130,15 @@
 						:key="item.name"
 						class="justify-center ma-0 pa-0"
 						tile
-						style="border:solid 2px grey;"
+						style="border:solid 2px #83B590; "
 						elevation="0"
 					>
 						<v-col>
 							<v-card-text class="mt-5 text-center">
-							<img :src="item.img" width="110" height="80" class="ma-0 pa-0"/>
-							<p v-resize='onResize' :class='size_subtitle'>
-							{{item.name}}
-							</p>
+								<img :src="item.img" width="110" height="80" class="ma-0 pa-0"/>
+								<p v-resize='onResize' :class='size_subtitle' style="color: #83B590;">
+									{{item.name}}
+								</p>
 							</v-card-text>
 						</v-col>
 					</v-card>
@@ -151,7 +151,7 @@
 							v-for="item in items"
 							:key="item.name"
 							v-slot:default="{ active, toggle }"
-							style="border:solid 2px grey"
+							style="border:solid 2px #83B590"
 							class="ma-0 pa-0"
 						>
 						<!-- <v-slide-item
@@ -178,7 +178,7 @@
 								@click="toggle">
 								<img :src="item.img" width="70" height="55" class="ma-0 pa-0"
 							/>
-								<p>{{item.name}}</p>
+								<p style="color: #83B590;">{{item.name}}</p>
 							</v-card-text>
 						</v-slide-item>
 					</v-slide-group>
