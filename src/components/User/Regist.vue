@@ -399,6 +399,7 @@ export default {
             this.y = window.innerHeight
         },
         signUp:async function(){
+            this.array['flg'] = true
             // ユーザアイコン(初期値)
             this.array['user_image'] = this.user_image
             // メールアドレス

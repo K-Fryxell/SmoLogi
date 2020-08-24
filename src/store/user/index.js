@@ -52,6 +52,9 @@ export default ({
         completed:0,
     },
     getters: {
+        user_id(state){
+            return state.user_id
+        },
         completed(state){
             return state.completed
         },
@@ -332,7 +335,7 @@ export default ({
                     // User not logged in or has just logged out.
                 }
             })
-            router.push('/contact')
+            router.push('/waiting')
         },
         // 更新
         userUpdater(state, array) {
@@ -392,6 +395,9 @@ export default ({
                 },
                 {
                     merge:true
+                })
+                firebase.firestore().collection('users').doc(state.user_id).update({
+                    flg:true
                 })
             })
         },
