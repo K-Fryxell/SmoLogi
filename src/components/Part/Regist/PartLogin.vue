@@ -4,7 +4,6 @@
             <v-row justify="center">
                 <v-col lg="8" cols="10" class="mx-12">
                     <v-form ref="form" v-model="valid">
-
                         <!-- mail入力 -->
                         <v-text-field prepend-icon="mdi-email" class="pt-6" v-model="mailaddress"
                             :rules="registemailRules"

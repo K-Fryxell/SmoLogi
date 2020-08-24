@@ -1,8 +1,6 @@
 <template>
     <v-container class="ma-0 pa-0" fluid>
-        <Header/>
         <v-layout class="ma-0 pa-0" column>
-
               <v-row class="ma-0 pa-0" justify="center">
                     <v-flex xs12 lg5>
                         <v-card class="mt-12 mb-5 ma-3 pa-0" tile outlined>
@@ -18,14 +16,11 @@
                     </v-flex>
               </v-row>
         </v-layout>
-        <Footer/>
     </v-container>
 </template>
 <script>
 import partRegist from '@/components/Part/Regist/PartRegist'
 import partLogin from '@/components/Part/Regist/PartLogin'
-import Header from '@/components/Part/PartHeader'
-import Footer from '@/components/Part/PartFooter'
 export default {
     data(){
         return{
@@ -37,8 +32,6 @@ export default {
     components:{
         partRegist,
         partLogin,
-        Header,
-        Footer
     },
     methods: {
         signUp:async function(){
