@@ -61,10 +61,10 @@
 			noshade
 		/>
 		<!-- 配達パートナーのメリット -->
-		<v-container class="ma-0 mt-lg-12 mt-5 mb-lg-12 pa-0" fluid>
+		<v-container class="ma-0 pa-0" fluid>
 			<v-layout class="ma-0 pa-0" wrap>
-				<v-card class="ma-lg-0 ma-5 pa-0" style="background-color: #E5ECE6" elevation="0">
-					<v-row class="ma-0 pa-0" justify="center">
+				<v-card class="ma-lg-0 pt-lg-12 pb-lg-12 ma-0 pa-5" style="background-color: #E5ECE6" elevation="0">
+					<v-row class="ma-0 pa-0 pt-lg-5" justify="center">
 						<v-col class="ma-0 pa-0" lg="9" md="9" cols="12">
 							<v-card-title class="font-weight-bold" style="color: #83B590" v-resize='onResize' :class='size_headline'>
 								配達パートナーのメリット
@@ -117,9 +117,9 @@
 		/>
 
 		<!-- 利用車種例 -->
-		<v-container class="ma-0 mt-lg-12 mt-5 mb-lg-12 pb-12" style="background-color: #E5ECE6" fluid>
+		<v-container class="ma-0 pt-lg-12 pb-12" style="background-color: #E5ECE6" fluid>
 			<v-layout column>
-				<v-card-title class="justify-center font-weight-bold" style="color: #83B590" v-resize='onResize' :class='size_headline'>
+				<v-card-title class="mt-5 mb-lg-12 justify-center font-weight-bold" style="color: #83B590" v-resize='onResize' :class='size_headline'>
 					利用車種の例
 				</v-card-title>
 				<!-- PCレイアウト -->
