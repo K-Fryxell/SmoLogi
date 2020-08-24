@@ -3,7 +3,7 @@
         <Uheader/>
         <v-layout class="ma-0 pa-0" wrap>
             <v-flex xs12 lg12>
-                <h2 class="justify-center font-weight-light" style="background-color: #F6F6F6">
+                <h2 class="justify-center font-weight-light">
                     <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">配達情報</span>
                 </h2>
                 <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
