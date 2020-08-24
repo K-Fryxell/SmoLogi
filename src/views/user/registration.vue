@@ -6,7 +6,9 @@
                     <v-col cols="auto">
                         <v-row justify="center" class="ma-0 pa-0">
                             <v-col cols="auto" class="mt-12 mr-4">
-                                <img height="55" width="150" src="../../assets/nimochi.png"/>
+                                <router-link to="/">
+                                    <img height="55" width="150" src="@/assets/nimochi.png"/>
+                                </router-link>
                             </v-col>
                         </v-row>
                         <v-card tile width="600" class="ma-0 pa-0" outlined>
