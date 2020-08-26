@@ -3,18 +3,20 @@
         <Uheader/>
         <v-layout class="ma-0 pa-0" wrap>
             <v-flex xs12 lg12>
-                <h2 class="justify-center font-weight-light">
-                    <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">配達情報</span>
-                </h2>
+                <v-card-title class="ma-0 pa-0 text--black justify-center headline">
+                    <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 15px">
+                        配達依頼情報
+                    </span>
+                </v-card-title>
                 <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
-                    <v-col cols="auto" lg="5">
+                    <v-col cols="auto" lg="6">
                         <v-card class="ma-0 pa-0" min-height="561" elevation="0" style="background-color: #F6F6F6">
                             <v-row justify="center" class="ma-0 pa-0">
                                 <v-col cols="auto">
                                     <!-- 配達希望時刻 -->
-                                    <v-row class="mb-5 mt-6 pa-0">
+                                    <v-row class="mb-5 mt-6 pa-0" justify="center">
                                         <v-col cols="12" lg="auto">
-                                            <span style="font-size: 23px;">配達時刻：</span>
+                                            <span style="font-size: 23px;">配達希望時刻：</span>
                                         </v-col>
                                         <v-col cols="6" lg="auto">
                                             <span style="font-size: 23px;">
@@ -72,8 +74,8 @@
                                             </v-radio-group>
                                         </v-col>
                                     </v-row>
-                                    <v-row lg="12" v-if="detailTime==0" class="mt-0 pa-0">
-                                        <v-col class="mt-5" cols="12" lg="12">
+                                    <v-row v-if="detailTime==0" class="mt-0 pa-0" justify="center">
+                                        <v-col class="mt-5" cols="12">
                                             <span style="font-size: 20px;">配達希望時刻：</span>
                                         </v-col>
                                         <v-col cols="auto" style="width:100px;">
