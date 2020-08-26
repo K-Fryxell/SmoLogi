@@ -631,8 +631,8 @@ export default {
 			{
 				this.size_display = 'display-1',
 				this.size_headline = 'headline',
-				this.size_titele = 'title',
-				this.size_subtitele = 'subtitle-1',
+				this.size_title = 'title',
+				this.size_subtitle = 'subtitle-1',
 				this.size_body = 'body-1'
 			}
 		}
