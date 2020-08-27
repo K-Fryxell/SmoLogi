@@ -74,6 +74,7 @@ export default {
         firebase.firestore().collection('users').doc(this.user_id).onSnapshot((doc) => {
             console.log('success')
             if(doc.data().flg == false){
+                this.$store.commit('flgOn')
                 this.$router.push('/contact')
             }
         })

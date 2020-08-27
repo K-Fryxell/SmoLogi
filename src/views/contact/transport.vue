@@ -184,7 +184,7 @@
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                {{ cmpHoure }}時{{ cmpMinute }}}分に配達を完了しました。
+                                {{ cmpHoure }}時{{ cmpMinute }}分に配達を完了しました。
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
@@ -728,6 +728,10 @@ export default {
         }
     },
     mounted() {
+        firebase.firestore().collection('users').onSnapshot(() => {
+            this.$store.commit('judge_onAuthStateChanged')
+            this.completed = this.$store.getters.completed
+        })
         firebase.firestore().collection('comments').onSnapshot(() => {
             this.getChats()
         })

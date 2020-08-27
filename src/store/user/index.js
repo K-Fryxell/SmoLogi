@@ -379,6 +379,16 @@ export default ({
                 }
             })
         },
+        flgOn(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        flg:true
+                    })
+                }
+            })
+        },
         refusal(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {

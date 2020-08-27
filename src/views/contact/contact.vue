@@ -754,6 +754,14 @@ export default {
         }
     },
     mounted() {
+        firebase.firestore().collection('part_users').onSnapshot(() => {
+            this.$store.commit('judge_onAuthStateChanged')
+            this.part_cancel = this.$store.getters.cancel_modal
+        })
+        firebase.firestore().collection('users').onSnapshot(() => {
+            this.$store.commit('judge_onAuthStateChanged')
+            this.to_transport = this.$store.getters.to_transport
+        })
         firebase.firestore().collection('comments').onSnapshot(() => {
             this.getChats()
         })
