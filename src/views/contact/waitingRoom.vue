@@ -18,12 +18,12 @@
                 ></v-progress-circular>
             </v-row>
             <v-row class="ma-0 mt-12 pa-0" justify="center">
-                <v-btn color="red" @click="user_refusul=true">
+                <v-btn color="red" @click="user_refusal=true">
                     拒否する
                 </v-btn>
             </v-row>
             <!-- 拒否するボタン押下時モーダル -->
-            <v-dialog persistent v-model="user_refusul" width="500">
+            <v-dialog persistent v-model="user_refusal" width="500">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -32,7 +32,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" @click="user_refusul=false">
+                                    <v-btn width="50" @click="user_refusal=false">
                                         いいえ
                                     </v-btn>
                                 </v-col>
@@ -57,7 +57,7 @@ export default {
     data(){
         return{
             overlay: true,
-        user_refusul:false
+            user_refusal:false
         }
     },
     methods: {
