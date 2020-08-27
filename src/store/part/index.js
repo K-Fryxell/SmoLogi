@@ -228,36 +228,36 @@ export default ({
         // ここまでセッター //
         partRegistUser(state, array) {
             firebase.auth().createUserWithEmailAndPassword(
-                    array['email'],
-                    array['password']
-                )
-                .then(function() {
-                    // ユーザ情報の変更などに検知
-                    firebase.auth().onAuthStateChanged((user) => {
-                        if (user) {
-                            // User logged in already or has just logged in.
-                            // ユーザーIDの取得
-                            console.log(user.uid);
-                            // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                            state.part_user_id = user.uid
-                            firebase.firestore().collection("part_users").doc(state.part_user_id)
-                            .set(array)
+                array['email'],
+                array['password']
+            )
+            .then(function() {
+                // ユーザ情報の変更などに検知
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        // User logged in already or has just logged in.
+                        // ユーザーIDの取得
+                        console.log(user.uid);
+                        // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                        state.part_user_id = user.uid
+                        firebase.firestore().collection("part_users").doc(state.part_user_id)
+                        .set(array)
+                        .then(function () {
+                            // 正常にデータ保存できた時の処理
+                            console.log('success')
+                            firebase.firestore().collection("judge").doc(state.part_user_id)
+                            .set({judge:1})
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
-                                firebase.firestore().collection("judge").doc(state.part_user_id)
-                                .set({judge:1})
-                                .then(function () {
-                                    // 正常にデータ保存できた時の処理
-                                    console.log('success')
-                                    router.push('/part_mypage')
-                                })
+                                router.push('/part_mypage')
                             })
-                        } else {
-                            // User not logged in or has just logged out.
-                        }
-                    })
+                        })
+                    } else {
+                        // User not logged in or has just logged out.
+                    }
                 })
+            })
         },
         partUpdater(state,array){
             firebase.auth().onAuthStateChanged((user) => {

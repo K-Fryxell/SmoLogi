@@ -410,6 +410,16 @@ export default ({
                 }
             })
         },
+        deleteRoomTransport(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('transport').doc(state.user_id).delete()
+                    router.push('/user_mypage')
+                }
+            })
+        },
         to_transport_delete(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
