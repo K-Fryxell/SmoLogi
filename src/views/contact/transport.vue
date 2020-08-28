@@ -687,8 +687,13 @@ export default {
         p_last_minute(){
             return this.$store.getters.p_last_minute
         },
-        completed(){
-            return this.$store.getters.completed
+        completed:{
+            get(){
+                return this.$store.getters.completed
+            },
+            set(value){
+                return this.$store.commit('set_completed',value)
+            }
         },
         pair_latitude:{
             get() {

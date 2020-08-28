@@ -50,8 +50,13 @@ export default ({
         to_transport:0,
         // 配達完了フラグ
         completed:0,
+        // 依頼中は1
+        request:0,
     },
     getters: {
+        request(state){
+            return state.request
+        },
         user_id(state){
             return state.user_id
         },
@@ -280,6 +285,8 @@ export default ({
                         state.to_transport = doc.data().to_transport
                         // 配達完了フラグ
                         state.completed = doc.data().completed
+                        // 依頼中かどうか
+                        state.request = doc.data().request
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -298,6 +305,12 @@ export default ({
                     state.user_id = user.uid
                     array['userid'] = state.user_id
                     array['gender'] = state.user_gender
+                    firebase.firestore().collection("users").doc(state.user_id).set({
+                        request:1,
+                    },
+                    {
+                        merge:true
+                    })
                     firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id)
                         .set({
                             // 重さ
@@ -410,7 +423,8 @@ export default ({
                 }
                 firebase.firestore().collection('part_users').doc(state.part_user_id).set({
                     cancel_modal:1,
-                    user_id:firebase.firestore.FieldValue.delete()
+                    user_id:firebase.firestore.FieldValue.delete(),
+                    delivery:0
                 },
                 {
                     merge:true
@@ -424,7 +438,12 @@ export default ({
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     state.user_id = user.uid
+                    // エラーになる！！！！
+                    // firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id).collection('comments').delete()
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        request:0,
+                    })
                     router.push('/user_mypage')
                 }
             })
@@ -435,6 +454,9 @@ export default ({
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     firebase.firestore().collection('transport').doc(state.user_id).delete()
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        request:0,
+                    })
                     router.push('/user_mypage')
                 }
             })
@@ -445,7 +467,8 @@ export default ({
                     state.to_transport = 0
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).set({
-                        to_transport:firebase.firestore.FieldValue.delete()
+                        to_transport:firebase.firestore.FieldValue.delete(),
+                        request:3
                     },
                     {
                         merge:true
@@ -459,9 +482,12 @@ export default ({
                 if (user) {
                     state.completed = 0
                     state.user_id = user.uid
+                    // エラーになる！！！！
+                    // firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id).collection('comments').delete()
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     firebase.firestore().collection('users').doc(state.user_id).set({
-                        completed:firebase.firestore.FieldValue.delete()
+                        completed:firebase.firestore.FieldValue.delete(),
+                        request:0
                     },
                     {
                         merge:true

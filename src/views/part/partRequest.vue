@@ -109,9 +109,13 @@ export default {
         this.y = window.innerHeight
       },
       request(a){
-        //   console.log(this.items[a])
-          this.$store.state.user_info = this.items[a]
-          this.$store.commit('request_info', this.items[a])
+          if(this.delivery == 1){
+              alert('配達中の依頼を完了してください')
+          }
+          else{
+            this.$store.state.user_info = this.items[a]
+            this.$store.commit('request_info', this.items[a])
+          }
       },
       onScroll (e) {
         this.offsetTop = e.target.scrollTop
@@ -145,6 +149,9 @@ export default {
         },
         weight(){
             return this.$store.getters.part_weight
+        },
+        delivery(){
+            return this.$store.getters.delivery
         }
     },
     created:async function(){
