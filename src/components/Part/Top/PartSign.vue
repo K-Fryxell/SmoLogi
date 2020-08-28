@@ -4,50 +4,63 @@
         <v-btn text style="color: #83B590" @click="dialog = true">
             ログイン
         </v-btn>
-        <v-dialog v-model="dialog" width="500">
+        <v-dialog v-model="dialog" class="ma-0 pa-0" width="500">
             <v-card>
-                <v-row justify="center">
-                    <v-col cols="11" class="mx-12">
+                <v-row justify="center" class="ma-0 pa-0">
+                    <v-col cols="10" class="ma-0 pa-0">
+                        <v-row justify="center" class="ma-0 pa-0 pa-6">
+                            <img width="200" src="@/assets/nimochi.png">
+                        </v-row>
                         <v-form ref="form" v-model="valid">
                             <!-- mail入力 -->
-                            <v-text-field prepend-icon="mdi-email" class="pt-6" v-model="mailaddress"
+                            <v-text-field
+                                v-model="mailaddress"
+                                class="ma-0 pa-0 pb-6"
+                                prepend-icon="mdi-email"
                                 :rules="registemailRules"
-                                counter
                                 label="E-mail"
                                 hint="メールアドレスは50字以下で記入してください。"
+                                counter
                                 required />
                             <!-- パスワード入力 -->
-                            <v-text-field :type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock"
-                                v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                @click:append="showPassword = !showPassword" v-model="password"
+                            <v-text-field
+                                v-model="password"
+                                class="ma-0 pa-0 pb-6"
+                                prepend-icon="mdi-lock"
                                 :rules="registpassRules"
-                                counter
+                                :type="showPassword ? 'text' : 'password'"
+                                v-bind:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                @click:append="showPassword = !showPassword"
                                 label="password"
                                 hint="パスワードは8字以上20字以下にしてください。"
+                                counter
                                 required/>
                                 <!-- ログインボタン -->
-                            <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
+                            <v-row justify="center" align="center" class="ma-0 pa-0 pb-8">
                                 <v-btn
-                                    dark
+                                    class="ma-0 pa-0 white--text"
                                     style="background-color: #83B590"
+                                    @click="login"
+                                    width="120"
+                                    dark
                                     outlined
                                     rounded
                                     :disabled="!valid"
-                                    class="mr-4 white--text"
-                                    @click="login"
                                     :loading="loading"
-                                    width="120"
                                 >
                                     ログイン
                                 </v-btn>
-                                <v-progress-linear :active="loading" :indeterminate="loading" top color="blue accent-4"></v-progress-linear>
+                                <v-progress-linear
+                                    :active="loading"
+                                    :indeterminate="loading"
+                                    top
+                                    color="blue accent-4"></v-progress-linear>
                             </v-row>
                         </v-form>
                     </v-col>
                 </v-row>
             </v-card>
         </v-dialog>
-
         <!-- 新規登録ページボタン -->
         <v-btn style="background-color: #83B590" dark to="part_regist">
             新規登録
