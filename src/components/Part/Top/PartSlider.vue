@@ -35,7 +35,7 @@
 						class="ma-0 pa-0 green"
 						v-resize='onResize' :height='sheet2_height' :width='sheet2_width'
 					>
-						<v-row class="ma-0 pa-0" align="center" justify="center">
+						<v-row class="ma-0 mt-2 mt-lg-0 mt-md-0 pa-0" align="center" justify="center">
 							<v-card-title elevation="0" width="100%" align="center" class="ma-1 ma-lg-3 pa-0" v-resize='onResize' :class='size_title'>{{item.text}}</v-card-title>
 							<v-card-text elevation="0" justify="center" class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>{{item.texts}}</v-card-text>
 						</v-row>
@@ -67,10 +67,10 @@ export default {
 			size_subtitle:'subtitle-1',
 			size_body:'body-1',
 			items:[
-				{color:'green',slides:'First',text:'1.ログイン',texts:'マイページでは色々な情報を見ることができます。',img:require('@/assets/partTop/slider01.png')},
-				{color:'green',slides:'Second',text:'2.依頼を選ぶ',texts:'マイページから依頼一覧ページを選び、自分に合った依頼を探しましょう！',img:require('@/assets/partTop/slider02.png')},
+				{color:'green',slides:'First',text:'1.ログイン・会員登録',texts:'オンラインにするだけで誰でもすぐに働けます。',img:require('@/assets/partTop/slider001.png')},
+				{color:'green',slides:'Second',text:'2.依頼を選ぶ',texts:'たくさんの依頼から、自分に合う依頼を探しましょう！',img:require('@/assets/partTop/slider002.png')},
 				{color:'green',slides:'Third',text:'3.荷物を受け取りに向かう',texts:'素早く安全に荷物を受け取りに行きましょう！',img:require('@/assets/partTop/slider03.png')},
-				{color:'green',slides:'Fourth',text:'4.荷物を届ける',texts:'指定の時間内に荷物をお客様の元へ届けます！',img:require('@/assets/partTop/slider04.png')}
+				{color:'green',slides:'Fourth',text:'4.荷物を届ける',texts:'指定の時間内に荷物をお客様の元へ届けます。',img:require('@/assets/partTop/slider004.png')}
 			]
 		}
 	},
