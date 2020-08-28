@@ -7,9 +7,11 @@
                     <v-row justify="center" class="ma-0 pa-0" style="background-color: #F6F6F6">
                         <v-col cols="auto" lg="9" class="mx-12">
                             <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
-                                <h2 class=" mb-12 justify-center font-weight-light">
-                                    <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">プロフィール変更</span>
-                                </h2>
+                                <v-row class="ma-0 pa-0" justify="center">
+                                    <v-title class="mb-12 title text--black font-weight-bold">
+                                        <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">プロフィール変更</span>
+                                    </v-title>
+                                </v-row>
                                 <v-form ref="form" v-model="update">
                                     <!-- ここから顔写真 -->
                                     <v-row class="ma-0 pa-0" justify="center">

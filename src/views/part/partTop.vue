@@ -218,13 +218,13 @@
 			</v-layout>
 		</v-container>
 		<!-- フッター -->
-		<Footer/>
+		<TopFooter/>
 	</content>
 </template>
 <script>
 import TopHeader from '@/components/Part/Top/PartTopHeader'
 import Slider from '@/components/Part/Top/PartSlider'
-import Footer from '@/components/Part/PartFooter'
+import TopFooter from '@/components/Part/Top/PartTopFooter'
 export default {
 	data (){
 		return{
@@ -246,7 +246,7 @@ export default {
 	components:{
 		Slider,
 		TopHeader,
-		Footer
+		TopFooter
 	},
 	mounted () {
 		this.onResize
