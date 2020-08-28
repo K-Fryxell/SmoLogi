@@ -181,6 +181,15 @@ export default ({
         set_user_usage_history(state, payload) {
             state.user_usage_history = payload
         },
+        set_to_transport(state, payload) {
+            state.to_transport = payload
+        },
+        set_completed(state, payload) {
+            state.completed = payload
+        },
+        set_user_id(state, payload) {
+            state.user_id = payload
+        },
         // ここまでセッター //
         registUser(state,array) {
             firebase.auth().createUserWithEmailAndPassword(
