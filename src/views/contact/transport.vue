@@ -184,7 +184,7 @@
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                {{ cmpHoure }}時{{ cmpMinute }}}分に配達を完了しました。
+                                {{ cmpHoure }}時{{ cmpMinute }}分に配達を完了しました。
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
@@ -504,6 +504,7 @@ export default {
                 ]
             },
             chat:[],
+            chat_ire:[],
             // marker_items: [
             //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
             // ],
@@ -543,6 +544,21 @@ export default {
         },
         change:function(){
             this.overlay = !this.overlay
+        },
+        getChats(){
+            firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
+                    await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.chat_ire.push({
+                        content:doc.data().content,
+                        name:doc.data().name
+                    })
+                })
+                this.chat = this.chat_ire
+                this.chat_ire = []
+            })
         },
         send:function(){
             // this.chat = []
@@ -712,6 +728,13 @@ export default {
         }
     },
     mounted() {
+        firebase.firestore().collection('users').onSnapshot(() => {
+            this.$store.commit('judge_onAuthStateChanged')
+            this.completed = this.$store.getters.completed
+        })
+        firebase.firestore().collection('comments').onSnapshot(() => {
+            this.getChats()
+        })
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
@@ -729,18 +752,6 @@ export default {
         //     window.history.pushState(null, null, null)
         //     return
         // })
-
-        firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
-            await snapshot.forEach(doc => {
-            //contentは要素
-            //pushは配列データそのもの
-            // this.allData.push(doc.data().content)
-                this.chat.push({
-                    content:doc.data().content,
-                    name:doc.data().name
-                })
-            })
-        })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
         this.$store.commit('judge_room_onAuthState')

@@ -379,6 +379,16 @@ export default ({
                 }
             })
         },
+        flgOn(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        flg:true
+                    })
+                }
+            })
+        },
         refusal(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -406,6 +416,16 @@ export default ({
                 if (user) {
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    router.push('/user_mypage')
+                }
+            })
+        },
+        deleteRoomTransport(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('transport').doc(state.user_id).delete()
                     router.push('/user_mypage')
                 }
             })
