@@ -8,24 +8,31 @@
                         配達依頼情報
                     </span>
                 </v-card-title>
-                <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
-                    <v-col cols="auto" md="6" sm="6" lg="6">
+                <v-row class="ma-5 pa-0" justify="center" style="background-color: #F6F6F6">
+                    <v-col class="ma-0 pa-0" md="5" sm="5" lg="5">
                         <v-card class="ma-0 pa-0" min-height="561" elevation="0" style="background-color: #F6F6F6">
                             <v-row justify="center" class="ma-0 pa-0">
-                                <v-col cols="auto">
+                                <v-col class="ma-0 pa-0">
                                     <!-- 配達希望時刻 -->
-                                    <v-row class="mb-5 mt-6 pa-0" justify="center">
-                                        <v-col cols="12" lg="auto">
-                                            <span style="font-size: 23px;">配達希望時刻：</span>
+                                    <v-row class="ma-0 mt-5 pa-0" justify="center">
+                                        <v-col class="ma-0 pa-0 text-center" cols="12" lg="auto">
+                                            <span style="font-size: 23px;">配達希望時刻</span>
                                         </v-col>
-                                        <v-col cols="6" lg="auto">
+                                    </v-row>
+                                    <v-row class="mb-5 mt-6 pa-0" justify="center">
+                                        <v-col class="ma-0 pa-0 pl-0 pl-md-5 pl-sm-0" align="end" cols="4">
                                             <span style="font-size: 23px;">
-                                                {{first_time}}時{{first_minute}}分から
+                                                {{first_time}}時{{first_minute}}分
                                             </span>
                                         </v-col>
-                                        <v-col cols="6" lg="auto">
+                                        <v-col class="ma-0 pa-0 text-center" cols="2">
                                             <span style="font-size: 23px;">
-                                                {{last_time}}時{{last_minute}}分まで
+                                                ～
+                                            </span>
+                                        </v-col>
+                                        <v-col class="ma-0 pa-0" align="start" cols="4">
+                                            <span style="font-size: 23px;">
+                                                {{last_time}}時{{last_minute}}分
                                             </span>
                                         </v-col>
                                     </v-row>
@@ -74,7 +81,7 @@
                                             </v-row>
                                         </v-col>
                                     </v-row>
-                                    <v-row class="mt-2 pa-0">
+                                    <v-row class="mt-2 pa-0 pa-0">
                                         <v-col lg="auto">
                                             <v-radio-group v-model="detailTime" :mandatory="false" row>
                                                 <v-radio color="green" @click="isTrans" label="詳しく時間指定をする"/>
@@ -82,43 +89,43 @@
                                         </v-col>
                                     </v-row>
                                     <v-row v-if="detailTime==0" class="mt-0 pa-0" justify="center">
-                                        <v-col class="mt-5" cols="12">
+                                        <v-col class=" ma-0 mt-5 ml-10 pa-0" cols="12">
                                             <span style="font-size: 20px;">配達希望時刻：</span>
                                         </v-col>
-                                        <v-col cols="auto" style="width:100px;">
+                                        <v-col cols="4" lg="auto" style="width:100px;">
                                             <v-select
                                                 v-model="first_time"
                                                 :items="firstTime"
                                                 single-line/>
                                         </v-col>
-                                        <v-col cols="auto" class="mt-8 pa-0">
+                                        <v-col cols="1" lg="auto" class="mt-8 ma-0 pa-0">
                                             <span style="font-size: 18px;">時</span>
                                         </v-col>
-                                        <v-col cols="auto" style="width:100px;">
+                                        <v-col cols="4" lg="auto" style="width:100px;">
                                             <v-select
                                                 v-model="first_minute"
                                                 :items="firstMinute"
                                                 single-line/>
                                         </v-col>
-                                        <v-col cols="auto" class="mt-8 pa-0">
+                                        <v-col cols="3" lg="auto" class="mt-8 pa-0">
                                             <span style="font-size: 18px;">分から</span>
                                         </v-col>
-                                        <v-col cols="auto" style="width:100px;">
+                                        <v-col cols="4" lg="auto" style="width:100px;">
                                             <v-select
                                                 v-model="last_time"
                                                 :items=" lastTime"
                                                 single-line/>
                                         </v-col>
-                                        <v-col cols="auto" class="mt-8 pa-0">
+                                        <v-col cols="1" lg="auto" class="mt-8 pa-0">
                                             <span style="font-size: 18px;">時</span>
                                         </v-col>
-                                        <v-col cols="auto" style="width:100px;">
+                                        <v-col cols="4" lg="auto" style="width:100px;">
                                             <v-select
                                                 v-model="last_minute"
                                                 :items="lastMinute"
                                                 single-line/>
                                         </v-col>
-                                        <v-col cols="auto" class="mt-8 pa-0">
+                                        <v-col cols="3" lg="auto" class="mt-8 pa-0">
                                             <span style="font-size: 18px;">分まで</span>
                                         </v-col>
                                     </v-row>
