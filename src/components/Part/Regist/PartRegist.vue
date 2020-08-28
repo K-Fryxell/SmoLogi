@@ -473,6 +473,7 @@ export default {
             // host:'',
             // ここから画像
             uploadImageUrl: require("@/assets/icon.jpg"),
+            delivery:0,
             array: {},
             regist: true,
             //文字サイズ
@@ -648,6 +649,7 @@ export default {
                 this.array['ordinary_carNumber'] = this.carNumber3
                 // ログインの種別判定
                 this.array['judge'] = 1
+                this.array['delivery'] = 0
                 // this.array['bankname'] = this.bankname
                 // this.array['bankcode'] = this.bankcode
                 // this.array['branch'] = this.branch

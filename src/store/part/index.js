@@ -66,9 +66,15 @@ export default ({
         first_hour:'',
         first_minute:'',
         last_hour:'',
-        last_minute:''
+        last_minute:'',
+
+        // 配達中は1
+        delivery:0
     },
     getters: {
+        delivery(state){
+            return state.delivery
+        },
         cancel_modal(state){
             return state.cancel_modal
         },
@@ -341,9 +347,8 @@ export default ({
                         state.ordinary_carNumber = doc.data().ordinary_carNumber
                         // 判定
                         state.judge = doc.data().judge
-                        if(doc.data().user_id != null){
-                            state.user_id = doc.data().user_id
-                        }
+                        state.user_id = doc.data().user_id
+                        state.delivery = doc.data().delivery
                         // 拒否フラグ
                         state.cancel_modal = doc.data().cancel_modal
                     })
@@ -411,7 +416,8 @@ export default ({
                     state.part_user_id = user.uid
                     firebase.firestore().collection('part_users').doc(user.uid)
                     .set({
-                        user_id: array['user_id']
+                        user_id: array['user_id'],
+                        delivery: 1
                     },
                     {
                         merge:true
@@ -419,7 +425,8 @@ export default ({
                 }
             })
             firebase.firestore().collection('users').doc(array['user_id']).update({
-                flg:false
+                flg:false,
+                request:2
             })
         },
         part_room_onAuthState(state){
@@ -466,6 +473,12 @@ export default ({
                     .then(doc => {
                         console.log(doc.data())
                         state.user_id = doc.data().user_id
+                        firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                            delivery:2
+                        },
+                        {
+                            merge:true
+                        })
                         firebase.firestore().collection('users').doc(state.user_id).set({
                             to_transport:1
                         },
@@ -505,7 +518,8 @@ export default ({
                     state.part_user_id = user.uid
                 }
                 firebase.firestore().collection('part_users').doc(state.part_user_id).set({
-                    user_id:firebase.firestore.FieldValue.delete()
+                    user_id:firebase.firestore.FieldValue.delete(),
+                    delivery:0
                 },
                 {
                     merge:true
