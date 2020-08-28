@@ -20,8 +20,7 @@
                                 <v-col cols="12" lg="12">
                                     <!-- 銀行の種類で分岐 -->
                                     <v-radio-group v-model="whichbank" :mandatory="false" row>
-                                        <v-radio value="0" label="ゆうちょ銀行"/>
-                                        <v-radio value="1" label="その他"/>
+                                        <!-- <v-radio value="0" label="ゆうちょ銀行"/> -->
                                     </v-radio-group>
                                 </v-col>
                             </v-row>
@@ -253,7 +252,7 @@ export default {
 
             const file = this.$refs.input.files[0]
             if (!file)return
-            
+
             const fr = new FileReader()
                 fr.readAsDataURL(file)
                 fr.addEventListener('load', () => {
