@@ -29,7 +29,7 @@
                                             </span>
                                         </v-col>
                                     </v-row>
-                                    
+
                                     <v-row justify="center" class="mt-0 pa-0">
                                         <v-col cols="4" lg="auto">
                                             <v-row class="ma-0 pa-0" justify="end">
@@ -314,6 +314,14 @@ export default {
         user_address(){
             return this.$store.getters.user_address
         },
+        request:{
+            get(){
+                return this.$store.getters.request
+            },
+            set(value){
+                return this.$store.commit('set_request',value)
+            }
+        }
     },
     methods:{
         isTime(a){
@@ -376,46 +384,51 @@ export default {
             this.$refs.form.validate()
         },
         decide(){
-            //計算の処理 (jsでは数値として扱える文字列は自動的に数値として扱われる)
-            this.first = this.first_time+this.first_minute
-            this.last = this.last_time+this.last_minute
-            console.log(this.first)
-            console.log(this.last)
-            if(this.first < this.last){
-                //ユーザアイコン
-                this.array['user_image'] = this.user_image
-                //郵便番号 住所
-                this.array['user_post'] = this.user_post
-                this.array['user_address'] = this.user_address
-                //名前
-                this.array['name'] = this.name
-                //最初
-                //時
-                this.array['first_time'] = this.first_time
-                //分
-                this.array['first_minute'] = this.first_minute
-                //最後
-                //時
-                this.array['last_time'] = this.last_time
-                //分
-                this.array['last_minute'] = this.last_minute
-                //荷物のサイズ
-                this.array['size'] = this.size
-                //重さ
-                this.array['weight'] = this.weight
-                //緯度経度
-                this.array['user_lat'] = this.user_latitude
-                this.array['user_lng'] = this.user_longitude
+            if(this.request == 0){
+                //計算の処理 (jsでは数値として扱える文字列は自動的に数値として扱われる)
+                this.first = this.first_time+this.first_minute
+                this.last = this.last_time+this.last_minute
+                console.log(this.first)
+                console.log(this.last)
+                if(this.first < this.last){
+                    //ユーザアイコン
+                    this.array['user_image'] = this.user_image
+                    //郵便番号 住所
+                    this.array['user_post'] = this.user_post
+                    this.array['user_address'] = this.user_address
+                    //名前
+                    this.array['name'] = this.name
+                    //最初
+                    //時
+                    this.array['first_time'] = this.first_time
+                    //分
+                    this.array['first_minute'] = this.first_minute
+                    //最後
+                    //時
+                    this.array['last_time'] = this.last_time
+                    //分
+                    this.array['last_minute'] = this.last_minute
+                    //荷物のサイズ
+                    this.array['size'] = this.size
+                    //重さ
+                    this.array['weight'] = this.weight
+                    //緯度経度
+                    this.array['user_lat'] = this.user_latitude
+                    this.array['user_lng'] = this.user_longitude
 
-                this.$store.commit('transport', this.array)
+                    this.$store.commit('transport', this.array)
+                }
+                else{
+                    alert('配達希望時刻の値が不適切です')
+                }
             }
             else{
-                alert('配達希望時刻の値が不適切です')
+                alert('既に依頼中です')
             }
         },
         onResize(){
-            this.x = window.innerWidth;
-            this.y = window.innerHeight;
+            this.x = window.innerWidth
+            this.y = window.innerHeight
         },
     },
     watch:{
@@ -434,13 +447,15 @@ export default {
         Uheader,
     },
     created() {
+        this.request = this.$store.getters.request
+        console.log(this.request)
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
-                let coords = position.coords;
+                let coords = position.coords
                 // 緯度経度だけ取得
-                this.user_latitude = coords.latitude;
-                this.user_longitude = coords.longitude;
+                this.user_latitude = coords.latitude
+                this.user_longitude = coords.longitude
             }.bind(this))
         }
     },

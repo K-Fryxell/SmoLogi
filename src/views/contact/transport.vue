@@ -184,7 +184,7 @@
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                {{ cmpHoure }}時{{ cmpMinute }}分に配達を完了しました。
+                                {{ lTime }}に配達を完了しました。
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
@@ -446,7 +446,7 @@
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
                             <v-card-title>
-                                {{ cmpHoure }}時{{ cmpMinute }}分<br>
+                                {{ compTime }}<br>
                                 配達完了
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
@@ -470,8 +470,6 @@ export default {
     data() {
         return {
             // {{ user_post }} 郵便番号
-            cmpHoure:'15',
-            cmpMinute:'59',
             //文字サイズ
             x:window.innerWidth,
             y:window.innerHeight ,
@@ -515,7 +513,12 @@ export default {
             part_Check: false,
             part_Complete: false,
             part_Fin: false,
-            name:""
+            name:"",
+            compTime:"",
+            compDay:"",
+            month:0,
+            roomCompTime:"",
+            array:{}
         }
     },
     methods:{
@@ -523,8 +526,14 @@ export default {
             this.$store.commit('user_comp')
         },
         complete(){
+            var date = new Date()
+            this.compTime = date.getHours() + "時" + date.getMinutes() + "分"
+            this.month = date.getMonth()+1
+            this.compDay = date.getFullYear() + '/' + this.month + '/' + date.getDate()
+            this.array['roomCompTime'] = this.compTime
+            this.array['compDay'] = this.compDay
             this.part_Fin = true
-            this.$store.commit('complete')
+            this.$store.commit('complete',this.array)
         },
         onResize () {
 			this.x = window.innerWidth
@@ -546,7 +555,7 @@ export default {
             this.overlay = !this.overlay
         },
         getChats(){
-            firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
                     await snapshot.forEach(doc => {
                     //contentは要素
                     //pushは配列データそのもの
@@ -561,7 +570,7 @@ export default {
             })
         },
         send:function(){
-            // this.chat = []
+            console.log(this.user_id)
             if(this.tab == 0)
             {
                 this.name = this.user_name
@@ -570,7 +579,7 @@ export default {
             {
                 this.name = this.part_name
             }
-            firebase.firestore().collection("comments").add({
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').add({
                 content: this.coment,
                 createdAt: new Date(),
                 name:this.name
@@ -616,6 +625,9 @@ export default {
     },
     watch:{
         completed:function(){
+            this.$store.commit('judge_room_onAuthState')
+            this.lTime = this.$store.state.roomCompTime
+            console.log(this.lTime)
             return this.$store.state.completed
         },
         pair_latitude:function() {
@@ -687,6 +699,14 @@ export default {
         p_last_minute(){
             return this.$store.getters.p_last_minute
         },
+        lTime:{
+            get(){
+                return this.$store.getters.roomCompTime
+            },
+            set(value){
+                return this.$store.commit('set_roomCompTime',value)
+            }
+        },
         completed:{
             get(){
                 return this.$store.getters.completed
@@ -733,11 +753,7 @@ export default {
         }
     },
     mounted() {
-        firebase.firestore().collection('users').onSnapshot(() => {
-            this.$store.commit('judge_onAuthStateChanged')
-            this.completed = this.$store.getters.completed
-        })
-        firebase.firestore().collection('comments').onSnapshot(() => {
+        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
             this.getChats()
         })
         if (navigator.geolocation) {

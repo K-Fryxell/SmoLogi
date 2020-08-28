@@ -69,7 +69,7 @@ export default ({
         last_minute:'',
 
         // 配達中は1
-        delivery:0
+        delivery:0,
     },
     getters: {
         delivery(state){
@@ -491,7 +491,7 @@ export default ({
                 }
             })
         },
-        complete(state){
+        complete(state,array){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     state.part_user_id = user.uid
@@ -499,8 +499,17 @@ export default ({
                     .then(doc => {
                         console.log(doc.data())
                         state.user_id = doc.data().user_id
+                        state.roomCompTime = array['roomCompTime']
+                        state.compDay = array['compDay']
                         firebase.firestore().collection('users').doc(state.user_id).set({
                             completed:1
+                        },
+                        {
+                            merge:true
+                        })
+                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).set({
+                            roomCompTime:state.roomCompTime,
+                            compDay:state.compDay
                         },
                         {
                             merge:true

@@ -52,8 +52,17 @@ export default ({
         completed:0,
         // 依頼中は1
         request:0,
+        // 履歴の時間
+        roomCompTime:'',
+        compDay:''
     },
     getters: {
+        roomCompTime(state){
+            return state.roomCompTime
+        },
+        compDay(state){
+            return state.compDay
+        },
         request(state){
             return state.request
         },
@@ -132,6 +141,12 @@ export default ({
     },
     mutations: {
         // ここからセッター //
+        set_roomCompTime(state,payload){
+            state.roomCompTime = payload
+        },
+        set_compDay(state,payload){
+            state.compDay = payload
+        },
         set_part_latitude(state, payload){
             state.part_latitude = payload
         },
@@ -194,6 +209,9 @@ export default ({
         },
         set_user_id(state, payload) {
             state.user_id = payload
+        },
+        set_request(state, payload) {
+            state.request = payload
         },
         // ここまでセッター //
         registUser(state,array) {
@@ -396,6 +414,8 @@ export default ({
                         state.part_image = doc.data().part_image
                         state.part_latitude = doc.data().part_lat
                         state.part_longitude = doc.data().part_lng
+                        state.roomCompTime = doc.data().roomCompTime
+                        state.compDay = doc.data().compDay
                     })
                 }
             })
@@ -437,8 +457,13 @@ export default ({
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     state.user_id = user.uid
-                    // エラーになる！！！！
-                    // firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id).collection('comments').delete()
+                    firebase.firestore().collection("users").doc(state.user_id)
+                    .collection('room').doc(state.user_id)
+                    .collection('comments').get().then(async snapshot => {
+                        await snapshot.forEach(doc => {
+                            doc.ref.delete()
+                        })
+                    })
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     firebase.firestore().collection('users').doc(state.user_id).update({
                         request:0,
@@ -481,21 +506,27 @@ export default ({
                 if (user) {
                     state.completed = 0
                     state.user_id = user.uid
-                    // エラーになる！！！！
-                    firebase.firestore().collection("users").doc(state.user_id)
-                    .collection('room').doc(state.user_id)
-                    .collection('comments').get().then(async snapshot => {
-                        await snapshot.forEach(doc => {
-                            doc.ref.delete()
-                        })
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        state.compDay = doc.data().compDay
+                        state.part_fname = doc.data().part_fname
+                        state.part_name = doc.data().part_name
+                        state.part_image = doc.data().part_image
+                        this.commit('deleteRoom')
                     })
-                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     firebase.firestore().collection('users').doc(state.user_id).set({
                         completed:firebase.firestore.FieldValue.delete(),
                         request:0
                     },
                     {
                         merge:true
+                    })
+                    firebase.firestore().collection("users").doc(state.user_id).collection('history').add({
+                        compDay:state.compDay,
+                        part_fname:state.part_fname,
+                        part_name:state.part_name,
+                        part_image:state.part_image,
+                        createdAt: new Date()
                     })
                     router.push('/user_mypage')
                 }
