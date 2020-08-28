@@ -399,6 +399,7 @@ export default {
             this.y = window.innerHeight
         },
         signUp:async function(){
+            this.array['flg'] = true
             // ユーザアイコン(初期値)
             this.array['user_image'] = this.user_image
             // メールアドレス
@@ -437,6 +438,7 @@ export default {
             this.array['isMonth'] = this.isMonth
             // ログインの種別判定
             this.array['judge'] = 0
+            this.array['request'] = 0
             await this.$store.commit('registUser',this.array)
         }
     },

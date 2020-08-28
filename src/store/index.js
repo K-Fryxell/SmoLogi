@@ -21,7 +21,6 @@ export default new Vuex.Store({
         user_longitude:0,
         part_latitude:0,
         part_longitude:0,
-
         // 配達希望時刻
         first_hour:'',
         first_minute:'',
@@ -31,7 +30,7 @@ export default new Vuex.Store({
     getters:{
         judge(state){
             return state.judge
-        }
+        },
     },
     mutations:{
         // ここからセッター //

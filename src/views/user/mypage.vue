@@ -16,8 +16,17 @@
                                                 <span class="display-1">さん</span>
                                             </p>
                                         </v-row>
-                                        <v-row justify="center" class="ma-0 pa-0">
+                                        <v-row justify="center" class="ma-0 pa-0" v-if='request == 0'>
                                             <v-btn class="mt-12" dark rounded style="background-color: #83B590" large to="/user_transport" height="60" width="250"><span style="font-size:25px">お手伝いを頼む</span></v-btn>
+                                        </v-row>
+                                        <v-row justify="center" class="ma-0 pa-0" v-if='request == 1'>
+                                            <v-btn class="mt-12" dark rounded style="background-color: #83B590" large to="/waiting" height="60" width="250"><span style="font-size:25px">依頼中のお手伝い</span></v-btn>
+                                        </v-row>
+                                        <v-row justify="center" class="ma-0 pa-0" v-if='request == 2'>
+                                            <v-btn class="mt-12" dark rounded style="background-color: #83B590" large to="/contact" height="60" width="250"><span style="font-size:25px">依頼中のお手伝い</span></v-btn>
+                                        </v-row>
+                                        <v-row justify="center" class="ma-0 pa-0" v-if='request == 3'>
+                                            <v-btn class="mt-12" dark rounded style="background-color: #83B590" large to="/transport" height="60" width="250"><span style="font-size:25px">依頼中のお手伝い</span></v-btn>
                                         </v-row>
                                         <v-row justify="center" class="ma-0 pa-0">
                                             <v-col cols="12" lg="8">
@@ -118,6 +127,9 @@ export default {
     computed:{
         user_fname(){
             return this.$store.getters.user_fname
+        },
+        request(){
+            return this.$store.getters.request
         }
     },
     mounted(){

@@ -22,13 +22,16 @@
                             <!-- ログインボタン -->
                         <v-row justify="center" align="center" class="ma-0 pa-0 mt-2">
                             <v-btn
+                                dark
+                                style="background-color: #83B590"
+                                outlined
+                                rounded
                                 :disabled="!valid"
-                                to="/part_mypage"
                                 color="blue"
                                 class="mr-4 white--text mb-5"
                                 width="120"
                             >
-                                | Login |
+                                ログイン
                             </v-btn>
                         </v-row>
                     </v-form>

@@ -2,7 +2,7 @@
     <v-content>
         <v-container class="mt-5 ma-0 pa-0" fluid>
             <v-layout column>
-                <v-row justify="center" class="ma-0 pa-0">
+                <v-row justify="center" class="ma-lg-7 mt-lg-0 ma-0 pa-0">
                     <v-col cols="auto" class="mx-12">
                         <v-form ref="form" v-model="regist">
                             <v-row class="ma-0 pa-0">
@@ -473,6 +473,7 @@ export default {
             // host:'',
             // ここから画像
             uploadImageUrl: require("@/assets/icon.jpg"),
+            delivery:0,
             array: {},
             regist: true,
             //文字サイズ
@@ -648,6 +649,7 @@ export default {
                 this.array['ordinary_carNumber'] = this.carNumber3
                 // ログインの種別判定
                 this.array['judge'] = 1
+                this.array['delivery'] = 0
                 // this.array['bankname'] = this.bankname
                 // this.array['bankcode'] = this.bankcode
                 // this.array['branch'] = this.branch

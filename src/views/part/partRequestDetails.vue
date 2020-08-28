@@ -4,11 +4,11 @@
         <v-container>
             <v-layout wrap>
                 <v-row class="ma-0 pa-0" justify="center">
-                    <v-flex xs12 sm6 lg5>
+                    <v-flex xs12 sm6 lg4>
                         <v-card-title class="justify-center ma-0 pa-0 pt-10 pb-12" v-resize='onResize' :class='size_display'>
                             依頼詳細
                         </v-card-title>
-                        <v-card class="ma-0 mb-12 pa-0">
+                        <v-card class="ma-lg-0 ma-8 mt-0 mb-12 pa-0">
                             <v-row class="ma-0 pa-0 pt-5 pt-lg-12" justify="space-around">
                                 <v-avatar size="164">
                                     <v-img
@@ -33,19 +33,19 @@
                             <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 〇依頼場所まで<br>
                             </v-card-text>
-                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 ：{{place}} ㎞
                             </v-card-text>
                             <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 〇配達希望時間<br>
                             </v-card-text>
-                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 ：{{items.first_hour}}時{{items.first_minute}}分～{{items.last_hour}}時{{items.last_minute}}分
                             </v-card-text>
                             <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 〇荷物の重量<br>
                             </v-card-text>
-                            <v-card-text class="ma-0 mb-5 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
+                            <v-card-text class="ma-0 ma-lg-3 ml-12 pa-0 pl-lg-12" v-resize='onResize' :class='size_headline'>
                                 ：{{items.weight}} kg
                             </v-card-text>
                             <v-row class="ma-0 mt-5 pa-0 pb-12" align="center">
@@ -135,6 +135,9 @@ export default {
         },
         username(){
             return this.$store.getters.nickname
+        },
+        delivery(){
+            return this.$store.getters.delivery
         }
     },
     methods: {
@@ -157,30 +160,37 @@ export default {
             this.place = Math.floor(this.place)
         },
         send() {
-            //パート情報
-            console.log(this.part_id)
-            console.log(this.username)
-            this.array['part_id'] = this.part_id
-            this.array['username'] = this.username
-            this.array['part_fname'] = this.part_fname
-            this.array['part_name'] = this.part_name
-            this.array['part_image'] = this.part_image
-            this.array['part_latitude'] = this.part_latitude
-            this.array['part_longitude'] = this.part_longitude
+            if(this.delivery == 1){
+                alert('配達中の依頼を完了してください')
+            }
+            else{
+                //パート情報
+                console.log(this.part_id)
+                console.log(this.username)
+                this.array['part_id'] = this.part_id
+                this.array['username'] = this.username
+                this.array['part_fname'] = this.part_fname
+                this.array['part_name'] = this.part_name
+                this.array['part_image'] = this.part_image
+                this.array['part_latitude'] = this.part_latitude
+                this.array['part_longitude'] = this.part_longitude
 
-            //ユーザ情報
-            this.array['first_hour'] = this.items['first_hour']
-            this.array['first_minute'] = this.items['first_minute']
-            this.array['last_hour'] = this.items['last_hour']
-            this.array['last_minute'] = this.items['last_minute']
-            this.array['user_id'] = this.items['user_id']
-            this.array['user_fname'] = this.items['name']
-            this.array['user_image'] = this.items['user_image']
-            this.array['user_lat'] = this.items['user_lat']
-            this.array['user_lng'] = this.items['user_lng']
-            // this.array['part_id'] = this.$store.state.part_id
-            this.$store.commit('part_send', this.array)
-            this.$router.push('/contact')
+                //ユーザ情報
+                this.array['first_hour'] = this.items['first_hour']
+                this.array['first_minute'] = this.items['first_minute']
+                this.array['last_hour'] = this.items['last_hour']
+                this.array['last_minute'] = this.items['last_minute']
+                this.array['user_id'] = this.items['user_id']
+                this.array['user_fname'] = this.items['name']
+                this.array['user_image'] = this.items['user_image']
+                this.array['user_post'] = this.items['user_post']
+                this.array['user_address'] = this.items['user_address']
+                this.array['user_lat'] = this.items['user_lat']
+                this.array['user_lng'] = this.items['user_lng']
+                // this.array['part_id'] = this.$store.state.part_id
+                this.$store.commit('part_send', this.array)
+                this.$router.push('/contact')
+            }
         }
     },
     watch:{
@@ -199,8 +209,8 @@ export default {
                 this.size_card = 200,
                 this.size_display = 'display-1',
                 this.size_headline = 'headline',
-                this.size_titele = 'title',
-                this.size_subtitele = 'subtitle-1',
+                this.size_title = 'title',
+                this.size_subtitle = 'subtitle-1',
                 this.size_body = 'body-1'
             }
         },

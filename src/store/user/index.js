@@ -46,8 +46,35 @@ export default ({
         user_lng:0,
         // ユーザアイコン
         user_image:'',
+        // 荷物受け取り完了フラグ
+        to_transport:0,
+        // 配達完了フラグ
+        completed:0,
+        // 依頼中は1
+        request:0,
+        // 履歴の時間
+        roomCompTime:'',
+        compDay:''
     },
     getters: {
+        roomCompTime(state){
+            return state.roomCompTime
+        },
+        compDay(state){
+            return state.compDay
+        },
+        request(state){
+            return state.request
+        },
+        user_id(state){
+            return state.user_id
+        },
+        completed(state){
+            return state.completed
+        },
+        to_transport(state){
+            return state.to_transport
+        },
         first_hour(state){
             return state.first_hour
         },
@@ -114,6 +141,12 @@ export default ({
     },
     mutations: {
         // ここからセッター //
+        set_roomCompTime(state,payload){
+            state.roomCompTime = payload
+        },
+        set_compDay(state,payload){
+            state.compDay = payload
+        },
         set_part_latitude(state, payload){
             state.part_latitude = payload
         },
@@ -168,6 +201,18 @@ export default ({
         set_user_usage_history(state, payload) {
             state.user_usage_history = payload
         },
+        set_to_transport(state, payload) {
+            state.to_transport = payload
+        },
+        set_completed(state, payload) {
+            state.completed = payload
+        },
+        set_user_id(state, payload) {
+            state.user_id = payload
+        },
+        set_request(state, payload) {
+            state.request = payload
+        },
         // ここまでセッター //
         registUser(state,array) {
             firebase.auth().createUserWithEmailAndPassword(
@@ -202,7 +247,6 @@ export default ({
                         }
                     })
                 })
-
         },
         user_login(state,array)
         {
@@ -254,6 +298,12 @@ export default ({
                         state.isYear = doc.data().isYear
                         // 月
                         state.isMounth = doc.data().isMounth
+                        // 荷物受け取り完了フラグ
+                        state.to_transport = doc.data().to_transport
+                        // 配達完了フラグ
+                        state.completed = doc.data().completed
+                        // 依頼中かどうか
+                        state.request = doc.data().request
                     })
                 } else {
                     // User not logged in or has just logged out.
@@ -272,6 +322,12 @@ export default ({
                     state.user_id = user.uid
                     array['userid'] = state.user_id
                     array['gender'] = state.user_gender
+                    firebase.firestore().collection("users").doc(state.user_id).set({
+                        request:1,
+                    },
+                    {
+                        merge:true
+                    })
                     firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id)
                         .set({
                             // 重さ
@@ -305,6 +361,8 @@ export default ({
                             gender: array['gender'],
                             name:array['name'],
                             user_image:array['user_image'],
+                            user_post:array['user_post'],
+                            user_address:array['user_address'],
                             user_lat:array['user_lat'],
                             user_lng:array['user_lng']
                         })
@@ -316,7 +374,7 @@ export default ({
                     // User not logged in or has just logged out.
                 }
             })
-            router.push('/contact')
+            router.push('/waiting')
         },
         // 更新
         userUpdater(state, array) {
@@ -356,7 +414,121 @@ export default ({
                         state.part_image = doc.data().part_image
                         state.part_latitude = doc.data().part_lat
                         state.part_longitude = doc.data().part_lng
+                        state.roomCompTime = doc.data().roomCompTime
+                        state.compDay = doc.data().compDay
                     })
+                }
+            })
+        },
+        flgOn(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        flg:true
+                    })
+                }
+            })
+        },
+        refusal(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        state.part_user_id = doc.data().part_id
+                        this.commit('deleteRoom')
+                    })
+                }
+                firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                    cancel_modal:1,
+                    user_id:firebase.firestore.FieldValue.delete(),
+                    delivery:0
+                },
+                {
+                    merge:true
+                })
+                firebase.firestore().collection('users').doc(state.user_id).update({
+                    flg:true
+                })
+            })
+        },
+        deleteRoom(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection("users").doc(state.user_id)
+                    .collection('room').doc(state.user_id)
+                    .collection('comments').get().then(async snapshot => {
+                        await snapshot.forEach(doc => {
+                            doc.ref.delete()
+                        })
+                    })
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        request:0,
+                    })
+                    router.push('/user_mypage')
+                }
+            })
+        },
+        deleteRoomTransport(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
+                    firebase.firestore().collection('transport').doc(state.user_id).delete()
+                    firebase.firestore().collection('users').doc(state.user_id).update({
+                        request:0,
+                    })
+                    router.push('/user_mypage')
+                }
+            })
+        },
+        to_transport_delete(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.to_transport = 0
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).set({
+                        to_transport:firebase.firestore.FieldValue.delete(),
+                        request:3
+                    },
+                    {
+                        merge:true
+                    })
+                    router.push('/transport')
+                }
+            })
+        },
+        user_comp(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.completed = 0
+                    state.user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        console.log(doc.data())
+                        state.compDay = doc.data().compDay
+                        state.part_fname = doc.data().part_fname
+                        state.part_name = doc.data().part_name
+                        state.part_image = doc.data().part_image
+                        this.commit('deleteRoom')
+                    })
+                    firebase.firestore().collection('users').doc(state.user_id).set({
+                        completed:firebase.firestore.FieldValue.delete(),
+                        request:0
+                    },
+                    {
+                        merge:true
+                    })
+                    firebase.firestore().collection("users").doc(state.user_id).collection('history').add({
+                        compDay:state.compDay,
+                        part_fname:state.part_fname,
+                        part_name:state.part_name,
+                        part_image:state.part_image,
+                        createdAt: new Date()
+                    })
+                    router.push('/user_mypage')
                 }
             })
         },

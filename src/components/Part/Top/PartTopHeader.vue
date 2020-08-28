@@ -3,7 +3,7 @@
     <v-toolbar dense elevation="0">
         <v-toolbar-title>
             <router-link to="/part_top">
-                <img height="55" src="@/assets/partTop_header/logokari.png">
+                <img height="50" src="@/assets/nimochi.png">
             </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>

@@ -10,6 +10,8 @@ export default ({
         part_user_id:'',
         // ログイン情報のフラグ
         status: false,
+        // 拒否フラグ
+        cancel_modal: 0,
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
@@ -60,8 +62,34 @@ export default ({
         part_weight: 0,
         // 受諾したユーザ情報
         user_info:[],
+        // 配達希望時刻
+        first_hour:'',
+        first_minute:'',
+        last_hour:'',
+        last_minute:'',
+
+        // 配達中は1
+        delivery:0,
     },
     getters: {
+        delivery(state){
+            return state.delivery
+        },
+        cancel_modal(state){
+            return state.cancel_modal
+        },
+        p_first_hour(state){
+            return state.first_hour
+        },
+        p_first_minute(state){
+            return state.first_minute
+        },
+        p_last_hour(state){
+            return state.last_hour
+        },
+        p_last_minute(state){
+            return state.last_minute
+        },
         user_latitude(state){
             return state.user_latitude
         },
@@ -203,39 +231,45 @@ export default ({
         set_ordinary_carNumber(state,payload) {
             state.ordinary_carNumber = payload
         },
+        set_cancel_modal(state, payload) {
+            state.cancel_modal = payload
+        },
+        set_part_id(state, payload) {
+            state.part_user_id = payload
+        },
         // ここまでセッター //
         partRegistUser(state, array) {
             firebase.auth().createUserWithEmailAndPassword(
-                    array['email'],
-                    array['password']
-                )
-                .then(function() {
-                    // ユーザ情報の変更などに検知
-                    firebase.auth().onAuthStateChanged((user) => {
-                        if (user) {
-                            // User logged in already or has just logged in.
-                            // ユーザーIDの取得
-                            console.log(user.uid);
-                            // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
-                            state.part_user_id = user.uid
-                            firebase.firestore().collection("part_users").doc(state.part_user_id)
-                            .set(array)
+                array['email'],
+                array['password']
+            )
+            .then(function() {
+                // ユーザ情報の変更などに検知
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        // User logged in already or has just logged in.
+                        // ユーザーIDの取得
+                        console.log(user.uid);
+                        // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
+                        state.part_user_id = user.uid
+                        firebase.firestore().collection("part_users").doc(state.part_user_id)
+                        .set(array)
+                        .then(function () {
+                            // 正常にデータ保存できた時の処理
+                            console.log('success')
+                            firebase.firestore().collection("judge").doc(state.part_user_id)
+                            .set({judge:1})
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
                                 console.log('success')
-                                firebase.firestore().collection("judge").doc(state.part_user_id)
-                                .set({judge:1})
-                                .then(function () {
-                                    // 正常にデータ保存できた時の処理
-                                    console.log('success')
-                                    router.push('/part_mypage')
-                                })
+                                router.push('/part_mypage')
                             })
-                        } else {
-                            // User not logged in or has just logged out.
-                        }
-                    })
+                        })
+                    } else {
+                        // User not logged in or has just logged out.
+                    }
                 })
+            })
         },
         partUpdater(state,array){
             firebase.auth().onAuthStateChanged((user) => {
@@ -313,12 +347,14 @@ export default ({
                         state.ordinary_carNumber = doc.data().ordinary_carNumber
                         // 判定
                         state.judge = doc.data().judge
-                        if(doc.data().user_id != null){
-                            state.user_id = doc.data().user_id
-                        }
+                        state.user_id = doc.data().user_id
+                        state.delivery = doc.data().delivery
+                        // 拒否フラグ
+                        state.cancel_modal = doc.data().cancel_modal
                     })
                 } else {
                     // User not logged in or has just logged out.
+                    router.push('/part_top')
                 }
             })
         },
@@ -343,6 +379,8 @@ export default ({
                         weight: doc.data().weight,
                         name: doc.data().name,
                         user_image: doc.data().user_image,
+                        user_post: doc.data().user_post,
+                        user_address: doc.data().user_address,
                         user_lat: doc.data().user_lat,
                         user_lng: doc.data().user_lng
                     })
@@ -364,6 +402,8 @@ export default ({
                 user_lng: array['user_lng'],
                 user_fname: array['user_fname'],
                 user_image: array['user_image'],
+                user_post: array['user_post'],
+                user_address: array['user_address'],
                 first_hour: array['first_hour'],
                 first_minute: array['first_minute'],
                 last_hour: array['last_hour'],
@@ -377,12 +417,17 @@ export default ({
                     state.part_user_id = user.uid
                     firebase.firestore().collection('part_users').doc(user.uid)
                     .set({
-                        user_id: array['user_id']
+                        user_id: array['user_id'],
+                        delivery: 1
                     },
                     {
                         merge:true
                     })
                 }
+            })
+            firebase.firestore().collection('users').doc(array['user_id']).update({
+                flg:false,
+                request:2
             })
         },
         part_room_onAuthState(state){
@@ -406,23 +451,89 @@ export default ({
                 }
             })
         },
-        deleteRoom(state){
+        cancel_delete(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.cancel_modal = 0
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                        cancel_modal:firebase.firestore.FieldValue.delete()
+                    },
+                    {
+                        merge:true
+                    })
+                    router.push('/part_mypage')
+                }
+            })
+        },
+        add_to_user_transport(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     state.part_user_id = user.uid
-                    firebase.firestore().collection('part_users').doc(user.uid).get().then(doc => {
-                        console.log(doc.data().user_id)
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).get()
+                    .then(doc => {
+                        console.log(doc.data())
                         state.user_id = doc.data().user_id
-                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
-                        firebase.firestore().collection('part_users').doc(user.uid).set({
-                            user_id:firebase.firestore.FieldValue.delete()
+                        firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                            delivery:2
                         },
                         {
                             merge:true
                         })
+                        firebase.firestore().collection('users').doc(state.user_id).set({
+                            to_transport:1
+                        },
+                        {
+                            merge:true
+                        })
+                        router.push('/transport')
                     })
-                    router.push('/part_mypage')
                 }
+            })
+        },
+        complete(state,array){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('part_users').doc(state.part_user_id).get()
+                    .then(doc => {
+                        console.log(doc.data())
+                        state.user_id = doc.data().user_id
+                        state.roomCompTime = array['roomCompTime']
+                        state.compDay = array['compDay']
+                        firebase.firestore().collection('users').doc(state.user_id).set({
+                            completed:1
+                        },
+                        {
+                            merge:true
+                        })
+                        firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).set({
+                            roomCompTime:state.roomCompTime,
+                            compDay:state.compDay
+                        },
+                        {
+                            merge:true
+                        })
+                        firebase.firestore().collection('users').doc(state.user_id).update({
+                            flg:true
+                        })
+                        this.commit('user_id_delete')
+                    })
+                }
+            })
+        },
+        user_id_delete(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                }
+                firebase.firestore().collection('part_users').doc(state.part_user_id).set({
+                    user_id:firebase.firestore.FieldValue.delete(),
+                    delivery:0
+                },
+                {
+                    merge:true
+                })
             })
         },
         part_logout() {

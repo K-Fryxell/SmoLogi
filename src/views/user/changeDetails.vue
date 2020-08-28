@@ -3,25 +3,28 @@
         <Uheader/>
         <v-container class="ma-0 pa-0" fluid>
             <v-layout class="ma-0 pa-0" wrap>
-                <v-flex xs12 lg12 >
+                <v-flex>
                     <v-row justify="center" class="ma-0 pa-0" style="background-color: #F6F6F6">
-                        <v-col cols="auto" lg="9" class="mx-12">
+                        <v-col cols="12" md="6" sm="6" lg="6" class="ma-0 pa-0 mx-12">
                             <v-card class="ma-0 pa-0" elevation="0" style="background-color: #F6F6F6">
-                                <h2 class=" mb-12 justify-center font-weight-light">
-                                    <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">プロフィール変更</span>
-                                </h2>
+                                <v-row class="ma-0 pa-0" justify="center">
+                                    <v-card-title class="ma-0 pa-0 mb-12 title text--black font-weight-bold">
+                                        <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">プロフィール変更</span>
+                                    </v-card-title>
+                                </v-row>
                                 <v-form ref="form" v-model="update">
                                     <!-- ここから顔写真 -->
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <v-avatar size="200">
-                                            <img v-if="uploadImageUrl"
+                                            <img
+                                                v-if="uploadImageUrl != ''"
                                                 :src="uploadImageUrl"
                                                 alt="アイコン"
                                             >
                                             <img
-                                                v-if="uploadImageUrl==null"
-                                                :src="img"
-                                                alt="アイコンa"
+                                                v-else
+                                                :src="user_image"
+                                                alt="アイコン"
                                             >
                                         </v-avatar>
                                     </v-row>
@@ -45,15 +48,15 @@
                                     <!-- ここまでの顔写真 -->
 
                                     <!-- 姓,名 -->
-                                    <v-row class="ma-0 pa-0">
-                                        <v-col cols="6" lg="4">
+                                    <v-row class="ma-0 pa-0" justify="center">
+                                        <v-col cols="6">
                                             <v-text-field
                                                 prepend-icon="mdi-account-circle"
                                                 v-model="user_fname"
                                                 label="姓"
                                                 :rules="firstnameRules"/>
                                         </v-col>
-                                        <v-col cols="6" lg="4">
+                                        <v-col cols="6">
                                             <v-text-field
                                                 v-model="user_name"
                                                 label="名"
@@ -61,15 +64,15 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 姓名カナ -->
-                                    <v-row class="ma-0 pa-0">
-                                        <v-col cols="6" lg="4">
+                                    <v-row class="ma-0 pa-0" justify="center">
+                                        <v-col cols="6">
                                             <v-text-field
                                                 prepend-icon="mdi-account-circle-outline"
                                                 v-model="user_fname_kana"
                                                 label="セイ"
                                                 :rules="firstkanaRules"/>
                                         </v-col>
-                                        <v-col cols="6" lg="4">
+                                        <v-col cols="6">
                                             <v-text-field
                                                 v-model="user_name_kana"
                                                 label="メイ"
@@ -77,7 +80,7 @@
                                         </v-col>
                                     </v-row>
                                     <!-- メールアドレス -->
-                                    <v-row class="ma-0 pa-0">
+                                    <v-row class="ma-0 pa-0" justify="center">
                                         <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-email"
@@ -89,8 +92,8 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 郵便番号 -->
-                                    <v-row class="ma-0 pa-0">
-                                        <v-col cols="6" lg="4">
+                                    <v-row class="ma-0 pa-0" justify="center">
+                                        <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-currency-kzt"
                                                 v-model="user_post"
@@ -100,7 +103,7 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 住所 -->
-                                    <v-row class="ma-0 pa-0">
+                                    <v-row class="ma-0 pa-0" justify="center">
                                         <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-home"
@@ -110,7 +113,7 @@
                                         </v-col>
                                     </v-row>
                                     <!-- 電話番号 -->
-                                    <v-row class="ma-0 pa-0">
+                                    <v-row class="ma-0 pa-0" justify="center">
                                         <v-col>
                                             <v-text-field
                                                 prepend-icon="mdi-phone-in-talk"
@@ -173,13 +176,12 @@ export default {
             TEL: '###-####-####',
             array:{},
             //プロフィール写真
-            uploadImageUrl: null,
+            uploadImageUrl: '',
             //v-formのv-model
             update :true,
             btnLayout:'end',
             x:0,
             y:0,
-            img:require("@/assets/icon.jpg"),
             //Rules
             // 姓名
             firstnameRules: [
@@ -236,6 +238,15 @@ export default {
         window.removeEventListener('resize',this.onResize)
     },
     computed:{
+        //画像
+        user_image:{
+            get(){
+                return this.$store.getters.user_image
+            },
+            set(value){
+                this.$store.commit('set_user_image',value)
+            }
+        },
         //姓
         user_fname:{
             get() {
@@ -320,6 +331,7 @@ export default {
         //更新ボタン
         clickUpdate(){
             //プロフィール写真
+            this.array['user_image'] = this.uploadImageUrl
             //姓
             this.array['firstname'] = this.user_fname
             //名

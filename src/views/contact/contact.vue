@@ -49,7 +49,7 @@
                     <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
-                                <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                <v-avatar class="ma-0 pa-0" size="130">
                                     <img
                                         :src="part_image"
                                         alt="アイコン"
@@ -108,7 +108,7 @@
                 <!-- 配達者顔写真と到着予定時刻の表示 -->
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
-                        <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                        <v-avatar class="ma-0 pa-0" size="80">
                             <img
                                 :src="part_image"
                                 alt="アイコン"
@@ -190,7 +190,7 @@
                 </v-row>
             </v-overlay>
             <!-- 最初から表示マッチング待機画面_ローディングマークつける前だよ -->
-            <!-- <v-dialog v-model="user_Matching" width="500" v-if="tab == 0">
+            <!-- <v-dialog persistent v-model="user_Matching" width="500" v-if="tab == 0">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -210,7 +210,7 @@
             </v-dialog> -->
 
             <!-- 拒否ボタン押下時 -->
-            <v-dialog v-model="user_Refusal" width="500" v-if="tab == 0">
+            <v-dialog persistent v-model="user_Refusal" width="500" v-if="tab == 0">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -225,8 +225,8 @@
                                 </v-col>
                                 <v-col cols="auto">
                                     <!-- ここはfirebase処理 -->
-                                    <!-- 「はい」ボタン押下時、part側でpart_Cancelモーダルを開かせたい -->
-                                    <v-btn width="50" to="/user_mypage" @click="part_Cancel=true">
+                                    <!-- 「はい」ボタン押下時、part側でpart_cancelモーダルを開かせたい -->
+                                    <v-btn width="50" @click="refusal()">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -236,7 +236,7 @@
                 </v-card>
             </v-dialog>
             <!-- part側で荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="user_Delivery" width="500" v-if="tab == 0">
+            <v-dialog persistent v-model="user_Delivery" width="500" v-if="tab == 0 && to_transport == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -245,7 +245,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/transport" @click="user_Delivery=false">
+                                    <v-btn width="50" @click="toTransportDelete()">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -306,7 +306,7 @@
                     <v-row class="ma-0 mt-10 mb-5 pa-0" justify="center">
                         <v-col class="ma-0 pa-0">
                             <v-row class="ma-0 pa-0" justify="center">
-                                <v-avatar class="ma-0 pa-0" color="green light5" size="130">
+                                <v-avatar class="ma-0 pa-0" size="130">
                                     <img
                                         :src="user_image"
                                         alt="アイコン"
@@ -333,7 +333,7 @@
                                 到着予定時刻
                             </v-card-text>
                             <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_title'>
-                                {{ first_hour }}時{{ first_minute }}分
+                                {{ p_first_hour }}時{{ p_first_minute }}分
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -366,7 +366,7 @@
                 <v-row class="ma-0 mt-5 pa-0" justify="center">
                     <v-col class="ma-0 pa-0" cols="3">
                         <!-- レイアウト仮置き -->
-                        <v-avatar class="ma-0 pa-0" color="green light5" size="80">
+                        <v-avatar class="ma-0 pa-0" size="80">
                             <img
                                 :src="user_image"
                                 alt="アイコン"
@@ -380,7 +380,7 @@
                             到着予定時刻<br>
                         </v-card-title>
                         <v-card-title class="ma-0 pa-0 pl-12">
-                            {{first_hour}}時{{first_minute}}分
+                            {{p_first_hour}}時{{p_first_minute}}分
                         </v-card-title>
                     </v-col>
                 </v-row>
@@ -449,7 +449,7 @@
                 </v-row>
             </v-overlay>
             <!-- user_Refusalモーダルで「はい」ボタン押下時 -->
-            <v-dialog v-model="part_Cancel" width="500" v-if="tab == 1">
+            <v-dialog persistent v-model="cancelModal" width="500" v-if="tab == 1 && part_cancel == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -458,7 +458,7 @@
                             </v-card-title>
                             <v-row justify="center" class="pa-0 ma-0">
                                 <v-col cols="auto">
-                                    <v-btn width="50" to="/part_mypage" @click="part_Cancel=false">
+                                    <v-btn width="50" @click="cancelDelete()">
                                         確認
                                     </v-btn>
                                 </v-col>
@@ -468,7 +468,7 @@
                 </v-card>
             </v-dialog>
             <!-- 荷物受け取り完了ボタン押下時 -->
-            <v-dialog v-model="part_Delivery" width="500" v-if="tab == 1">
+            <v-dialog persistent v-model="part_Delivery" width="500" v-if="tab == 1">
                 <v-card>
                     <v-row justify="center" class="pa-0 ma-0">
                         <v-col cols="auto">
@@ -484,7 +484,7 @@
                                 <v-col cols="auto">
                                     <!-- ここはfirebase処理 -->
                                     <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                    <v-btn width="50" @click="deleteRoom()">
+                                    <v-btn width="50" @click="addToUserTransport()">
                                         はい
                                     </v-btn>
                                 </v-col>
@@ -534,6 +534,7 @@ export default {
                 ]
             },
             chat:[],
+            chat_ire:[],
             // marker_items: [
             //     { position: { lat: YOUR_lat, lng: YOUR_lng }, title: 'title' }
             // ],
@@ -542,16 +543,28 @@ export default {
             overlay: false,
             user_Matching: true,
             user_Refusal: false,
-            user_Delivery: false,
+            user_Delivery: true,
             // user_Complete: false,
-            part_Cancel: false,
             part_Delivery: false,
+            cancelModal: true,
             // part_Check: false,
             // part_Complete: false,
-            name:""
+            name:"",
         }
     },
     methods:{
+        toTransportDelete(){
+            this.$store.commit('to_transport_delete')
+        },
+        addToUserTransport(){
+            this.$store.commit('add_to_user_transport')
+        },
+        cancelDelete(){
+            this.$store.commit('cancel_delete')
+        },
+        refusal() {
+            this.$store.commit('refusal')
+        },
         onResize () {
 			this.x = window.innerWidth
 			this.y = window.innerHeight
@@ -571,8 +584,23 @@ export default {
         change:function(){
             this.overlay = !this.overlay
         },
+        getChats(){
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
+                    await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.chat_ire.push({
+                        content:doc.data().content,
+                        name:doc.data().name
+                    })
+                })
+                this.chat = this.chat_ire
+                this.chat_ire = []
+            })
+        },
         send:function(){
-            // this.chat = []
+            console.log(this.user_id)
             if(this.tab == 0)
             {
                 this.name = this.user_name
@@ -581,7 +609,7 @@ export default {
             {
                 this.name = this.part_name
             }
-            firebase.firestore().collection("comments").add({
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').add({
                 content: this.coment,
                 createdAt: new Date(),
                 name:this.name
@@ -604,13 +632,15 @@ export default {
                 name:this.name
             })
             this.coment = ""
-        },
-        deleteRoom(){
-            // ルームのuser_idを取得する
-            this.$store.commit('deleteRoom')
         }
     },
     watch:{
+        to_transport:function(){
+            return this.$store.state.to_transport
+        },
+        part_cancel:function() {
+            return this.$store.state.cancel_modal
+        },
         pair_latitude:function() {
             if(this.tab == 0){
                 return this.$store.state.part_latitude
@@ -640,8 +670,8 @@ export default {
 			{
 				this.size_display = 'display-1',
 				this.size_headline = 'headline',
-				this.size_titele = 'title',
-				this.size_subtitele = 'subtitle-1',
+				this.size_title = 'title',
+				this.size_subtitle = 'subtitle-1',
 				this.size_body = 'body-1'
 			}
 		}
@@ -652,6 +682,15 @@ export default {
         },
         user_name(){
             return this.$store.getters.user_fname
+        },
+        user_image(){
+            return this.$store.getters.user_image
+        },
+        user_post(){
+            return this.$store.getters.user_post
+        },
+        user_address(){
+            return this.$store.getters.user_address
         },
         part_name(){
             return this.$store.getters.nickname
@@ -665,8 +704,35 @@ export default {
         first_minute(){
             return this.$store.getters.first_minute
         },
-        user_image(){
-            return this.$store.getters.user_image
+        p_first_hour(){
+            return this.$store.getters.p_first_hour
+        },
+        p_first_minute(){
+            return this.$store.getters.p_first_minute
+        },
+        user_id:{
+            get(){
+                return this.$store.getters.user_id
+            },
+            set(value){
+                return this.$store.commit('set_user_id',value)
+            }
+        },
+        part_cancel:{
+            get(){
+                return this.$store.getters.cancel_modal
+            },
+            set(value){
+                return this.$store.commit('set_cancel_modal',value)
+            }
+        },
+        to_transport:{
+            get(){
+                return this.$store.getters.to_transport
+            },
+            set(value){
+                return this.$store.commit('set_to_transport',value)
+            }
         },
         pair_latitude:{
             get() {
@@ -706,6 +772,17 @@ export default {
         }
     },
     mounted() {
+        firebase.firestore().collection('part_users').onSnapshot(() => {
+            this.$store.commit('judge_onAuthStateChanged')
+            this.part_cancel = this.$store.getters.cancel_modal
+        })
+        firebase.firestore().collection('users').onSnapshot(() => {
+            this.$store.commit('judge_onAuthStateChanged')
+            this.to_transport = this.$store.getters.to_transport
+        })
+        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
+            this.getChats()
+        })
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
@@ -717,28 +794,17 @@ export default {
         }
     },
     created:function(){
-        console.log(this.first_hour)
-        console.log(this.first_minute)
         // 戻るボタンの無効化
         // window.history.pushState(null, null, null)
         // window.addEventListener("popstate", function() {
         //     window.history.pushState(null, null, null)
         //     return
         // })
-
-        firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
-            await snapshot.forEach(doc => {
-            //contentは要素
-            //pushは配列データそのもの
-            // this.allData.push(doc.data().content)
-                this.chat.push({
-                    content:doc.data().content,
-                    name:doc.data().name
-                })
-            })
-        })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
+        // judge_onAuthStateChanged の発火後に呼び出したい (未実装*稀なエラー原因)
+        // partの情報結合前にuser側がonAuthをかける事で 緯度経度が nullになり mapAPIからエラー出される
+        // room削除直後 part側が拒否通知を受け取るとき room情報までonAuthしてしまいエラーが出る
         this.$store.commit('judge_room_onAuthState')
     }
 }

@@ -1,10 +1,9 @@
 <template>
-    <v-card tile elevation="0" height="85">
-        <v-toolbar dense flat>
+    <v-card style="background-color: #F6F6F6" tile elevation="0" height="85">
+        <v-toolbar dense flat style="background-color: #F6F6F6">
             <v-toolbar-title>
                 <router-link to="/part_mypage">
-                    <!--ロゴ <img> -->
-                    <img height="55" src="@/assets/logo_Sample.jpg">
+                    <img height="50" src="@/assets/nimochi.png">
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -25,7 +24,7 @@
                         v-bind="attrs"
                         v-on="on"
                     >
-                        <v-icon>mdi-dots-vertical</v-icon>
+                        <v-icon x-large style="color: #83B590">mdi-microsoft-xbox-controller-menu</v-icon>
                     </v-btn>
                 </template>
                 <v-list nav width="200px">
