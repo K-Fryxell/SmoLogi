@@ -585,7 +585,7 @@ export default {
             this.overlay = !this.overlay
         },
         getChats(){
-            firebase.firestore().collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').orderBy('createdAt', 'asc').get().then(async snapshot => {
                     await snapshot.forEach(doc => {
                     //contentは要素
                     //pushは配列データそのもの
@@ -600,7 +600,7 @@ export default {
             })
         },
         send:function(){
-            // this.chat = []
+            console.log(this.user_id)
             if(this.tab == 0)
             {
                 this.name = this.user_name
@@ -609,7 +609,7 @@ export default {
             {
                 this.name = this.part_name
             }
-            firebase.firestore().collection("comments").add({
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').add({
                 content: this.coment,
                 createdAt: new Date(),
                 name:this.name
@@ -710,11 +710,29 @@ export default {
         p_first_minute(){
             return this.$store.getters.p_first_minute
         },
-        part_cancel(){
-            return this.$store.getters.cancel_modal
+        user_id:{
+            get(){
+                return this.$store.getters.user_id
+            },
+            set(value){
+                return this.$store.commit('set_user_id',value)
+            }
         },
-        to_transport(){
-            return this.$store.getters.to_transport
+        part_cancel:{
+            get(){
+                return this.$store.getters.cancel_modal
+            },
+            set(value){
+                return this.$store.commit('set_cancel_modal',value)
+            }
+        },
+        to_transport:{
+            get(){
+                return this.$store.getters.to_transport
+            },
+            set(value){
+                return this.$store.commit('set_to_transport',value)
+            }
         },
         pair_latitude:{
             get() {
@@ -762,7 +780,7 @@ export default {
             this.$store.commit('judge_onAuthStateChanged')
             this.to_transport = this.$store.getters.to_transport
         })
-        firebase.firestore().collection('comments').onSnapshot(() => {
+        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
             this.getChats()
         })
         if (navigator.geolocation) {

@@ -11,7 +11,7 @@ export default ({
         // ログイン情報のフラグ
         status: false,
         // 拒否フラグ
-        cancel_modal:'',
+        cancel_modal: 0,
         // メールアドレス・パスワード
         part_email: "",
         part_pass: "",
@@ -224,6 +224,12 @@ export default ({
         },
         set_ordinary_carNumber(state,payload) {
             state.ordinary_carNumber = payload
+        },
+        set_cancel_modal(state, payload) {
+            state.cancel_modal = payload
+        },
+        set_part_id(state, payload) {
+            state.part_user_id = payload
         },
         // ここまでセッター //
         partRegistUser(state, array) {
