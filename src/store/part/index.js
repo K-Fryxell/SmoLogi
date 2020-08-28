@@ -354,6 +354,7 @@ export default ({
                     })
                 } else {
                     // User not logged in or has just logged out.
+                    router.push('/part_top')
                 }
             })
         },

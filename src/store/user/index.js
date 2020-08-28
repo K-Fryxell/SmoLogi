@@ -229,7 +229,6 @@ export default ({
                         }
                     })
                 })
-
         },
         user_login(state,array)
         {
@@ -290,7 +289,7 @@ export default ({
                     })
                 } else {
                     // User not logged in or has just logged out.
-                    // router.push('/')
+                    router.push('/')
                 }
             })
         },
