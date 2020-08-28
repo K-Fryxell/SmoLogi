@@ -262,12 +262,12 @@
                 </span>
             </v-btn>
         </v-row>
-        <Ufooter/>
+        <UTopfooter/>
     </content>
 </template>
 <script>
 import TopHeader from '@/components/User/TopHeader'
-import Ufooter from '@/components/User/Footer'
+import UTopfooter from '../components/User/TopFooter'
 export default {
     data(){
         return{
@@ -301,7 +301,7 @@ export default {
     },
         components:{
             TopHeader,
-            Ufooter,
+            UTopfooter,
         }
     }
 </script>

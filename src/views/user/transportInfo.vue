@@ -1,15 +1,15 @@
 <template>
     <v-container class="ma-0 pa-0" fluid>
         <Uheader/>
-        <v-layout class="ma-0 pa-0" wrap>
-            <v-flex xs12 lg12>
+        <v-layout class="ma-0 pa-0">
+            <v-flex class="ma-0 pa-0" xs12 md12 sm12 lg12>
                 <v-card-title class="ma-0 pa-0 text--black justify-center headline">
                     <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 15px">
                         配達依頼情報
                     </span>
                 </v-card-title>
                 <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
-                    <v-col cols="auto" lg="6">
+                    <v-col cols="auto" md="6" sm="6" lg="6">
                         <v-card class="ma-0 pa-0" min-height="561" elevation="0" style="background-color: #F6F6F6">
                             <v-row justify="center" class="ma-0 pa-0">
                                 <v-col cols="auto">
@@ -29,42 +29,49 @@
                                             </span>
                                         </v-col>
                                     </v-row>
+                                    
                                     <v-row justify="center" class="mt-0 pa-0">
                                         <v-col cols="4" lg="auto">
-                                            <v-btn
-                                                @click="isTime(0)"
-                                                width="100"
-                                                height="50"
-                                                large
-                                                outlined
-                                                :color="gozen"
-                                            >
-                                                午前
-                                            </v-btn>
+                                            <v-row class="ma-0 pa-0" justify="end">
+                                                <v-btn
+                                                    @click="isTime(0)"
+                                                    width="100"
+                                                    height="50"
+                                                    large
+                                                    outlined
+                                                    :color="gozen"
+                                                >
+                                                    午前
+                                                </v-btn>
+                                            </v-row>
                                         </v-col>
                                         <v-col cols="4" lg="auto">
-                                            <v-btn
-                                                @click="isTime(1)"
-                                                width="100"
-                                                height="50"
-                                                large
-                                                outlined
-                                                :color="yugata"
-                                            >
-                                                夕方
-                                            </v-btn>
+                                            <v-row class="ma-0 pa-0" justify="center">
+                                                <v-btn
+                                                    @click="isTime(1)"
+                                                    width="100"
+                                                    height="50"
+                                                    large
+                                                    outlined
+                                                    :color="yugata"
+                                                >
+                                                    夕方
+                                                </v-btn>
+                                            </v-row>
                                         </v-col>
                                         <v-col cols="4" lg="auto">
-                                            <v-btn
-                                                width="100"
-                                                height="50"
-                                                @click="isTime(2)"
-                                                large
-                                                outlined
-                                                :color="yakan"
-                                            >
-                                                夜間
-                                            </v-btn>
+                                            <v-row class="ma-0 pa-0" justify="start">
+                                                <v-btn
+                                                    width="100"
+                                                    height="50"
+                                                    @click="isTime(2)"
+                                                    large
+                                                    outlined
+                                                    :color="yakan"
+                                                >
+                                                    夜間
+                                                </v-btn>
+                                            </v-row>
                                         </v-col>
                                     </v-row>
                                     <v-row class="mt-2 pa-0">
@@ -146,40 +153,46 @@
                                     </v-row>
                                     <v-row class="mt-0 pa-0" justify="center">
                                         <v-col cols="4" lg="auto">
-                                            <v-btn
-                                                @click="select(1);selectColor(0)"
-                                                width="100"
-                                                height="50"
-                                                large
-                                                outlined
-                                                :color="onekg"
-                                            >
-                                                1キロ
-                                            </v-btn>
+                                            <v-row class="ma-0 pa-0" justify="end">
+                                                <v-btn
+                                                    @click="select(1);selectColor(0)"
+                                                    width="100"
+                                                    height="50"
+                                                    large
+                                                    outlined
+                                                    :color="onekg"
+                                                >
+                                                    1キロ
+                                                </v-btn>
+                                            </v-row>
                                         </v-col>
                                         <v-col cols="4" lg="auto">
-                                            <v-btn
-                                                @click="select(3);selectColor(1)"
-                                                width="100"
-                                                height="50"
-                                                large
-                                                outlined
-                                                :color="threekg"
-                                            >
-                                                3キロ
-                                            </v-btn>
+                                            <v-row class="ma-0 pa-0" justify="center">
+                                                <v-btn
+                                                    @click="select(3);selectColor(1)"
+                                                    width="100"
+                                                    height="50"
+                                                    large
+                                                    outlined
+                                                    :color="threekg"
+                                                >
+                                                    3キロ
+                                                </v-btn>
+                                            </v-row>
                                         </v-col>
                                         <v-col cols="4" lg="auto">
-                                            <v-btn
-                                                width="100"
-                                                height="50"
-                                                @click="select(5);selectColor(2)"
-                                                large
-                                                outlined
-                                                :color="fivekg"
-                                            >
-                                                5キロ
-                                            </v-btn>
+                                            <v-row class="ma-0 pa-0" justify="start">
+                                                <v-btn
+                                                    width="100"
+                                                    height="50"
+                                                    @click="select(5);selectColor(2)"
+                                                    large
+                                                    outlined
+                                                    :color="fivekg"
+                                                >
+                                                    5キロ
+                                                </v-btn>
+                                            </v-row>
                                         </v-col>
                                     </v-row>
                                     <!-- 決定ボタンとダイアログ表示 -->

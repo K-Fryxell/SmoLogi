@@ -32,6 +32,13 @@
 								</v-btn>
 							</v-row>
 						</v-col>
+						<v-col class="ma-0 pa-0">
+							<v-row justify="center">
+								<v-btn to="/" class="overline lighten-1" :elevation="0" color="white" text>
+									<span v-resize='onResize' :class='size'>ユーザTOPへ</span>
+								</v-btn>
+							</v-row>
+						</v-col>
 						<v-col class="text-center py-2 mt-8 overline" cols="12">
 							copyright &copy; 2020
 						</v-col>
