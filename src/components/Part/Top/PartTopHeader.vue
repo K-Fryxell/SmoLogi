@@ -1,9 +1,9 @@
 <template>
 <v-card elevation="0" outlined tile>
     <v-toolbar dense elevation="0">
-        <v-toolbar-title class="pt-3 pb-2">
+        <v-toolbar-title>
             <router-link to="/part_top">
-                <img height="55" src="@/assets/nimochi.png">
+                <img height="50" src="@/assets/nimochi.png">
             </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>

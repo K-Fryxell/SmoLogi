@@ -289,7 +289,7 @@ export default ({
                     })
                 } else {
                     // User not logged in or has just logged out.
-                    router.push('/')
+                    // router.push('/')
                 }
             })
         },
@@ -482,7 +482,13 @@ export default ({
                     state.completed = 0
                     state.user_id = user.uid
                     // エラーになる！！！！
-                    // firebase.firestore().collection("users").doc(state.user_id).collection('room').doc(state.user_id).collection('comments').delete()
+                    firebase.firestore().collection("users").doc(state.user_id)
+                    .collection('room').doc(state.user_id)
+                    .collection('comments').get().then(async snapshot => {
+                        await snapshot.forEach(doc => {
+                            doc.ref.delete()
+                        })
+                    })
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).delete()
                     firebase.firestore().collection('users').doc(state.user_id).set({
                         completed:firebase.firestore.FieldValue.delete(),

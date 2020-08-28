@@ -16,7 +16,7 @@
 				v-for="item in items"
 				:key="item.slides"
 				class="ma-0 pa-0"
-				v-resize='onResize' :height='item_height'
+				v-resize='onResize'
 			>
 				<v-row class="ma-0 pa-0" justify="center">
 					<v-sheet
@@ -105,7 +105,7 @@ export default {
 			{
 				this.carousel_height=400,//全体の縦幅
 				this.carousel_width=1,//効かねぇ
-				this.item_height=1,//効かねぇ
+				// this.item_height=1,//効かねぇ
 				this.item_width=700,//全体の横幅
 				this.sheet1_height=300,//画像エリア縦
 				this.sheet1_width=700,//画像エリア横

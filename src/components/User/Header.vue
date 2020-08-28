@@ -1,10 +1,10 @@
 <template>
     <v-card style="background-color: #F6F6F6" tile elevation="0" height="85">
         <v-toolbar dense flat style="background-color: #F6F6F6">
-            <v-toolbar-title class="mt-4 mr-4">
+            <v-toolbar-title>
                 <router-link to="/user_mypage">
                     <!--ロゴ <img> -->
-                    <img height="50" width="120" src="../../assets/nimochi.png">
+                    <img height="50" src="../../assets/nimochi.png">
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>

@@ -1,6 +1,6 @@
 <template>
     <v-toolbar dense elevation="0">
-        <v-toolbar-title class="mt-3">
+        <v-toolbar-title>
             <router-link to="/">
             <!-- img -->
                 <img height="50" src="../../assets/nimochi.png">
