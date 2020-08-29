@@ -13,7 +13,7 @@
                             </h2>
                             <v-row class="ma-0 pa-0" justify="end" align="end">
                                 <v-col class="ma-0 pa-0" cols="2">
-                                    <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                    <v-btn v-if="history != ''" class="ma-0 pa-0" text @click="delete_history=true">
                                         利用履歴の削除
                                     </v-btn>
                                 </v-col>
@@ -72,7 +72,7 @@
                                         <v-col cols="auto">
                                             <!-- ここはfirebase処理 -->
                                             <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                            <v-btn width="50">
+                                            <v-btn width="50" @click="deleteHistory()">
                                                 はい
                                             </v-btn>
                                         </v-col>
@@ -124,6 +124,9 @@ export default {
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
+        deleteHistory(){
+            this.$store.commit('deleteHistory')
+        },
         getHistory(){
             firebase.firestore().collection("users").doc(this.user_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
                     await snapshot.forEach(doc => {
@@ -138,6 +141,9 @@ export default {
                 })
                 this.history = this.items_ire
                 this.items_ire = []
+                if(this.history == ''){
+                    this.$router.push('/user_mypage')
+                }
             })
         },
         onResize(){

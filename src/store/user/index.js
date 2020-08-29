@@ -514,6 +514,20 @@ export default ({
                 }
             })
         },
+        deleteHistory(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection("users").doc(state.user_id)
+                    .collection('history').get().then(async snapshot => {
+                        await snapshot.forEach(doc => {
+                            doc.ref.delete()
+                        })
+                    })
+                }
+                router.push('/user_mypage')
+            })
+        },
         user_comp(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
