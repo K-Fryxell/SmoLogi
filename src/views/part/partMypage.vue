@@ -104,11 +104,12 @@
                                 elevation="0"
                                 class="overflow-y-auto"
                                 max-height="400">
-                                <v-card-text v-for="item in items"
-                                    :key="item.id"
+                                <v-card-text v-for="(history,index) in history"
+                                    :key="index"
+                                    :index="index"
                                     class="mb-4"
                                     v-resize='onResize' :class='size_title'>
-                                        <span class="pr-4">{{item.month}}月{{item.date}}日/{{item.time}}</span><span class="pr-4">{{item.name}}さん</span>{{item.weight}}kg
+                                        <span class="pr-4">{{history.compDay}}：{{history.roomCompTime}}</span><span class="pr-4">{{history.username}}さん</span>{{history.weight}}kg
                                 </v-card-text>
                             </v-card>
                         </v-card>
@@ -130,59 +131,10 @@ export default {
         return {
             selectCar: '',
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
-            items: [
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:07',
-                    name:'ユーザ',
-                    weight:'2',
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:06',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:05',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:04',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:03',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:02',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:01',
-                    name:'ユーザ',
-                    weight:'2'
-                }
-            ],
+            history: [],
+            items_ire: [],
             x:window.innerWidth,
-            y:window.innerHeight ,
+            y:window.innerHeight,
             size_height: 350,
             size_width: 700,
             size_display:'display-1',
@@ -199,6 +151,14 @@ export default {
         chart
     },
     computed:{
+        part_id:{
+            get(){
+                return this.$store.getters.part_id
+            },
+            set(value){
+                return this.$store.commit('set_part_id',value)
+            }
+        },
         part_fname(){
             return this.$store.getters.part_fname
         },
@@ -225,8 +185,29 @@ export default {
     // }
     mounted () {
         this.onResize
+        this.getHistory()
+        firebase.firestore().collection("part_users").doc(this.part_id).collection('history').onSnapshot(() => {
+            this.getHistory()
+        })
     },
     methods: {
+        getHistory(){
+            firebase.firestore().collection("part_users").doc(this.part_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
+                    await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.items_ire.push({
+                        roomCompTime:doc.data().roomCompTime,
+                        compDay:doc.data().compDay,
+                        username:doc.data().username,
+                        weight:doc.data().weight
+                    })
+                })
+                this.history = this.items_ire
+                this.items_ire = []
+            })
+        },
         logout:function(){
             firebase.auth().signOut()
         },

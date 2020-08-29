@@ -627,7 +627,6 @@ export default {
         completed:function(){
             this.$store.commit('judge_room_onAuthState')
             this.lTime = this.$store.state.roomCompTime
-            console.log(this.lTime)
             return this.$store.state.completed
         },
         pair_latitude:function() {
@@ -698,6 +697,14 @@ export default {
         },
         p_last_minute(){
             return this.$store.getters.p_last_minute
+        },
+        user_id:{
+            get(){
+                return this.$store.getters.user_id
+            },
+            set(value){
+                return this.$store.commit('set_user_id',value)
+            }
         },
         lTime:{
             get(){
