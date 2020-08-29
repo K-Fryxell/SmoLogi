@@ -138,7 +138,6 @@ export default {
                 this.history = this.items_ire
                 this.items_ire = []
             })
-            console.log(this.history)
         },
         onResize(){
             this.x = window.innerWidth;

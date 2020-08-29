@@ -491,6 +491,22 @@ export default ({
                 }
             })
         },
+        part_createHistory(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
+                        firebase.firestore().collection("part_users").doc(state.part_user_id).collection('history').add({
+                            roomCompTime:state.roomCompTime,
+                            compDay:state.compDay,
+                            username:doc.data().user_fname,
+                            weight:doc.data().weight,
+                            createdAt: new Date()
+                        })
+                    })
+                }
+            })
+        },
         complete(state,array){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -517,6 +533,7 @@ export default ({
                         firebase.firestore().collection('users').doc(state.user_id).update({
                             flg:true
                         })
+                        this.commit('part_createHistory')
                         this.commit('user_id_delete')
                     })
                 }
