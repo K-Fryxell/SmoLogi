@@ -53,7 +53,7 @@
                         </v-row>
                     </v-flex>
                 </v-row>
-                <v-dialog persistent v-model="no_request" width="500">
+                <v-dialog persistent v-model="no_request" v-if="items == ''" width="500">
                     <v-card>
                         <v-row justify="center" class="pa-0 ma-0">
                             <v-col cols="auto">
@@ -63,7 +63,7 @@
                                 </v-card-title>
                                 <v-row justify="center" class="pa-0 ma-0">
                                     <v-col cols="auto">
-                                        <v-btn width="50" to="/part_mypage" @click="no_request=false">
+                                        <v-btn width="50" @click="back()">
                                             確認
                                         </v-btn>
                                     </v-col>
@@ -82,11 +82,12 @@
 // import partRequestdetails from '@/components/Part/partRequestdetails'
 import Header from '@/components/Part/PartHeader'
 import Footer from '@/components/Part/PartFooter'
+import firebase from 'firebase'
 export default {
     data() {
         return {
             //モーダル
-            no_request: true,
+            no_request: false,
             x:window.innerWidth,
             y:window.innerHeight,
             size_card:200,
@@ -100,6 +101,8 @@ export default {
             illust:require('@/assets/part/man.jpg'),
             place:'2000',
             time:'120',
+            items: [],
+            items_ire: []
             // items: [
             //     // {
             //     //     illust:require('@/assets/part/obaachan.png'),
@@ -122,25 +125,59 @@ export default {
         Footer
     },
     mounted () {
-      this.onResize
+        this.onResize
+        this.getTrans()
     },
     methods: {
-      onResize () {
-        this.x = window.innerWidth
-        this.y = window.innerHeight
-      },
-      request(a){
-          if(this.delivery == 1){
-              alert('配達中の依頼を完了してください')
-          }
-          else{
-            this.$store.state.user_info = this.items[a]
-            this.$store.commit('request_info', this.items[a])
-          }
-      },
-      onScroll (e) {
-        this.offsetTop = e.target.scrollTop
-      },
+        getTrans(){
+            firebase.firestore().collection("transport").get().then(async snapshot => {
+                await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.items_ire.push({
+                        user_id: doc.data().userid,
+                        gender: doc.data().gender,
+                        first_hour:doc.data().first_hour,
+                        first_minute: doc.data().first_minute,
+                        last_hour:doc.data().last_hour,
+                        last_minute: doc.data().last_minute,
+                        weight: doc.data().weight,
+                        name: doc.data().name,
+                        user_image: doc.data().user_image,
+                        user_post: doc.data().user_post,
+                        user_address: doc.data().user_address,
+                        user_lat: doc.data().user_lat,
+                        user_lng: doc.data().user_lng
+                    })
+                })
+                this.items = this.items_ire
+                this.items_ire = []
+                if(this.items == ''){
+                    this.no_request = true
+                }
+            })
+        },
+        back(){
+            this.no_request=false
+            this.$router.push('/part_mypage')
+        },
+        onResize () {
+            this.x = window.innerWidth
+            this.y = window.innerHeight
+        },
+        request(a){
+            if(this.delivery == 1){
+                alert('配達中の依頼を完了してください')
+            }
+            else{
+                this.$store.state.user_info = this.items[a]
+                this.$store.commit('request_info', this.items[a])
+            }
+        },
+        onScroll (e) {
+            this.offsetTop = e.target.scrollTop
+        },
     },
     watch:{
         x:function(){
@@ -165,9 +202,6 @@ export default {
         }
     },
     computed:{
-        items(){
-            return this.$store.getters.trans
-        },
         weight(){
             return this.$store.getters.part_weight
         },

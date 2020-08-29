@@ -41,7 +41,7 @@
                                             :class="size"
                                             class="pt-5"
                                         >
-                                            <span class="font-weight-light">利用日:{{history.compDay}}<br/>
+                                            <span class="font-weight-light">利用日:{{history.compDay}}：{{history.roomCompTime}}<br/>
                                             名前:{{history.username}}<br/>
                                             評価:</span>
                                             <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
@@ -134,6 +134,7 @@ export default {
                     //pushは配列データそのもの
                     // this.allData.push(doc.data().content)
                     this.items_ire.push({
+                        roomCompTime:doc.data().roomCompTime,
                         compDay:doc.data().compDay,
                         username:doc.data().username,
                         part_image:doc.data().part_image

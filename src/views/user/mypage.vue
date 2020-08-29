@@ -51,7 +51,7 @@
                                                             v-for="(history,index) in history"
                                                             :key="index"
                                                             :index="index">
-                                                            <span class="display-6">利用日:{{history.compDay}} 名前:{{history.username}}</span>
+                                                            <span class="display-6">利用日:{{history.compDay}}：{{history.roomCompTime}} 名前:{{history.username}}</span>
                                                             <v-divider class="mt-5"></v-divider>
                                                         </v-card-text>
                                                     </v-card>
@@ -146,6 +146,7 @@ export default {
                     //pushは配列データそのもの
                     // this.allData.push(doc.data().content)
                     this.items_ire.push({
+                        roomCompTime:doc.data().roomCompTime,
                         compDay:doc.data().compDay,
                         username:doc.data().username
                     })
