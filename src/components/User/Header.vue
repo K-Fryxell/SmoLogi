@@ -4,7 +4,8 @@
             <v-toolbar-title>
                 <router-link to="/user_mypage">
                     <!--ロゴ <img> -->
-                    <img height="50" width="120" src="@/assets/nimochi.png">
+                    <img height="50" src="@/assets/nimochi.png">
+
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>

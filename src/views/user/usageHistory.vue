@@ -7,8 +7,17 @@
                     <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
                         <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6">
                             <h2 class="mb-12 justify-center font-weight-light">
-                                <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">利用履歴</span>
+                                <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">
+                                    利用履歴
+                                </span>
                             </h2>
+                            <v-row class="ma-0 pa-0" justify="end" align="end">
+                                <v-col class="ma-0 pa-0" cols="2">
+                                    <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                        利用履歴の削除
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
                             <v-col
                                 cols="auto"
                                 lg="auto"
@@ -47,6 +56,31 @@
                             </v-col>
                         </v-card>
                     </v-row>
+                    <v-dialog persistent v-model="delete_history" width="500">
+                        <v-card>
+                            <v-row justify="center" class="pa-0 ma-0">
+                                <v-col cols="auto">
+                                    <v-card-title>
+                                        本当に履歴を削除しますか
+                                    </v-card-title>
+                                    <v-row justify="center" class="pa-0 ma-0">
+                                        <v-col cols="auto">
+                                            <v-btn width="50" @click="delete_history=false">
+                                                いいえ
+                                            </v-btn>
+                                        </v-col>
+                                        <v-col cols="auto">
+                                            <!-- ここはfirebase処理 -->
+                                            <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
+                                            <v-btn width="50">
+                                                はい
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-card>
+                    </v-dialog>
                 </v-flex>
             </v-layout>
             <Ufooter/>
@@ -66,6 +100,8 @@ export default {
             x:0,
             y:0,
             size:"headline",
+            //モーダル
+            delete_history:false,
             history: [],
             items_ire: []
         }

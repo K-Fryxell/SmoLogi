@@ -68,7 +68,7 @@ export default {
 			size_body:'body-1',
 			items:[
 				{color:'green',slides:'First',text:'1.ログイン・会員登録',texts:'オンラインにするだけで誰でもすぐに働けます。',img:require('@/assets/partTop/slider001.png')},
-				{color:'green',slides:'Second',text:'2.依頼を選ぶ',texts:'たくさんの依頼から、自分に合う依頼を探しましょう！',img:require('@/assets/partTop/slider002.png')},
+				{color:'green',slides:'Second',text:'2.依頼を選ぶ',texts:'たくさんの依頼から、自分に合う依頼を探しましょう！',img:require('@/assets/partTop/slider0002.png')},
 				{color:'green',slides:'Third',text:'3.荷物を受け取りに向かう',texts:'素早く安全に荷物を受け取りに行きましょう！',img:require('@/assets/partTop/slider03.png')},
 				{color:'green',slides:'Fourth',text:'4.荷物を届ける',texts:'指定の時間内に荷物をお客様の元へ届けます。',img:require('@/assets/partTop/slider004.png')}
 			]

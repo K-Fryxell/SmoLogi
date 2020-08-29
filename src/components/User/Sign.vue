@@ -2,7 +2,7 @@
 
     <content>
         <!-- ログインボタン -->
-        <v-btn text  @click="dialog = true">
+        <v-btn text style="color: #83B590" @click="dialog = true">
             ログイン
         </v-btn>
         <v-dialog v-model="dialog" class="ma-0 pa-0" width="500">
@@ -37,7 +37,7 @@
                                 counter
                                 required/>
                                 <!-- ログインボタン -->
-                            <v-row justify="center" align="center" class="ma-0 pa-0 pb-8">
+                            <v-row justify="center" align="center" class="ma-0 pa-0 pb-2">
                                 <v-btn
                                     class="ma-0 pa-0 white--text"
                                     style="background-color: #83B590"
@@ -56,6 +56,12 @@
                                     :indeterminate="loading"
                                     top
                                     color="blue accent-4"></v-progress-linear>
+                            </v-row>
+                            <!-- 会員登録へのリンク -->
+                            <v-row class="ma-0 pa-0 pb-8" justify="end" align="end">
+                                <v-btn class="ma-0 pa-0" style="color:#757575" text to="part_regist">
+                                    会員登録はこちら
+                                </v-btn>
                             </v-row>
                         </v-form>
                     </v-col>
