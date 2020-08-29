@@ -1,7 +1,9 @@
 <template>
     <content class="ma-0 pa-0">
-        <Header/>
-        <v-card-title class="justify-center ma-0 pa-0 mt-2 mb-2" v-resize='onResize' :class='size_display'>
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Header/>
+		</v-navigation-drawer>
+        <v-card-title class="justify-center ma-0 pa-0 mt-12 py-8 mb-2" v-resize='onResize' :class='size_display'>
             依頼一覧
         </v-card-title>
         <v-container
@@ -86,7 +88,7 @@ export default {
     data() {
         return {
             //モーダル
-            no_request: true,
+            no_request: false,
             x:window.innerWidth,
             y:window.innerHeight,
             size_card:200,

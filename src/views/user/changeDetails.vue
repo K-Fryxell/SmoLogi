@@ -1,7 +1,9 @@
 <template>
     <content class="ma-0 pa-0">
-        <Uheader/>
-        <v-container class="ma-0 pa-0" fluid>
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Uheader/>
+		</v-navigation-drawer>
+        <v-container class="ma-0 mt-12 py-8 pa-0" fluid>
             <v-layout class="ma-0 pa-0" wrap>
                 <v-flex>
                     <v-row justify="center" class="ma-0 pa-0" style="background-color: #F6F6F6">

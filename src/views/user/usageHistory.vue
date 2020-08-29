@@ -1,10 +1,12 @@
 <template>
     <content class="ma-0 pa-0">
         <v-container class="ma-0 pa-0" fluid>
-            <Uheader/>
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Uheader/>
+		</v-navigation-drawer>
             <v-layout class="ma-0 pa-0" wrap>
                 <v-flex xs12 lg12>
-                    <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
+                    <v-row class="ma-0 mt-12 py-8 pa-0" justify="center" style="background-color: #F6F6F6">
                         <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6">
                             <h2 class="mb-12 justify-center font-weight-light">
                                 <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">

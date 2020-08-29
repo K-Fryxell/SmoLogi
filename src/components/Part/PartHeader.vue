@@ -1,7 +1,7 @@
 <template>
-    <v-card style="background-color: #F6F6F6" tile elevation="0" height="85">
-        <v-toolbar dense flat style="background-color: #F6F6F6">
-            <v-toolbar-title>
+    <v-card class="ma-0 pa-0 ma-0 pa-0 pt-6 pt-lg-0 pt-md-0 pt-sm-0" style="background-color: #F6F6F6" tile elevation="0" v-resize='onResize' :height='size_header'>
+        <v-toolbar class="ma-0 pa-0" elevation="0" dense flat style="background-color: #F6F6F6">
+            <v-toolbar-title class="ma-0 pa-0">
                 <router-link to="/part_mypage">
                     <img height="50" src="@/assets/nimochi.png">
                 </router-link>
@@ -56,8 +56,15 @@
 <script>
 export default {
     data(){
-        return{}
+        return{
+            x:window.innerWidth,
+			y:window.innerHeight ,
+			size_header:50,
+        }
     },
+    mounted () {
+		this.onResize
+	},
     computed:{
         name(){
             return this.$store.getters.part_fname
@@ -67,9 +74,25 @@ export default {
         }
     },
     methods:{
+        onResize () {
+			this.x = window.innerWidth
+			this.y = window.innerHeight
+		},
         logout:function(){
             this.$store.commit('part_logout')
         }
-    }
+    },
+    watch:{
+		x:function(){
+			if(this.x<600)
+			{
+				this.size_header = 80
+			}
+			else
+			{
+				this.size_header = 50
+            }
+		}
+	}
 }
 </script>
