@@ -53,6 +53,25 @@
                         </v-row>
                     </v-flex>
                 </v-row>
+                <v-dialog persistent v-model="no_request" width="500">
+                    <v-card>
+                        <v-row justify="center" class="pa-0 ma-0">
+                            <v-col cols="auto">
+                                <v-card-title class="text-center">
+                                    ただいま受注可能な依頼がありません<br>
+                                    少し時間を空けてご確認ください
+                                </v-card-title>
+                                <v-row justify="center" class="pa-0 ma-0">
+                                    <v-col cols="auto">
+                                        <v-btn width="50" to="/part_mypage" @click="no_request=false">
+                                            確認
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-dialog>
                 <!-- <partRequestdetails :items=items></partRequestdetails> -->
             </v-layout>
         </v-container>
@@ -66,6 +85,8 @@ import Footer from '@/components/Part/PartFooter'
 export default {
     data() {
         return {
+            //モーダル
+            no_request: true,
             x:window.innerWidth,
             y:window.innerHeight,
             size_card:200,
