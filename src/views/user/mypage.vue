@@ -40,9 +40,11 @@
                                                         elevation="0"
                                                         class="overflow-y-auto"
                                                         max-height="400">
-                                                        <v-card-text v-for="item in items"
-                                                            :key="item.id">
-                                                            <span class="display-6">利用日:{{item.day}}名前:{{item.name}}</span>
+                                                        <v-card-text
+                                                            v-for="(history,index) in history"
+                                                            :key="index"
+                                                            :index="index">
+                                                            <span class="display-6">利用日:{{history.compDay}} 名前:{{history.username}}</span>
                                                             <v-divider class="mt-5"></v-divider>
                                                         </v-card-text>
                                                     </v-card>
@@ -83,48 +85,27 @@
 <script>
 import Uheader  from '@/components/User/Header'
 import Ufooter from '@/components/User/Footer'
+import firebase from 'firebase'
 export default {
     data() {
         return {
             //ユーザーの名前
-            username:"まるい",
             x:0,
             y:0,
             size:"display-2",
-            items: [
-                    {
-                        name:'たろう',
-                        day:'2020年3月27日',
-
-                    },
-                    {
-                        name:'ねむい',
-                        day:'2020年3月27日',
-                    },
-                    {
-                        name:'ねむい',
-                        day:'2020年3月27日',
-                    },
-                    {
-                        name:'ねむい',
-                        day:'2020年3月27日',
-                    },
-                    {
-                        name:'ねむい',
-                        day:'2020年3月27日',
-                    },
-                    {
-                        name:'ねむい',
-                        day:'2020年3月27日',
-                    },
-                    {
-                        name:'ねむい',
-                        day:'2020年3月27日',
-                    }
-                ]
-            }
+            history: [],
+            items_ire: []
+        }
     },
     computed:{
+        user_id:{
+            get(){
+                return this.$store.getters.user_id
+            },
+            set(value){
+                return this.$store.commit('set_user_id',value)
+            }
+        },
         user_fname(){
             return this.$store.getters.user_fname
         },
@@ -133,12 +114,32 @@ export default {
         }
     },
     mounted(){
+        this.getHistory()
+        firebase.firestore().collection("users").doc(this.user_id).collection('history').onSnapshot(() => {
+            this.getHistory()
+        })
         window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
+        getHistory(){
+            firebase.firestore().collection("users").doc(this.user_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
+                    await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.items_ire.push({
+                        compDay:doc.data().compDay,
+                        username:doc.data().username
+                    })
+                })
+                this.history = this.items_ire
+                this.items_ire = []
+            })
+            console.log(this.history)
+        },
         onResize(){
             this.x = window.innerWidth;
             this.y = window.innerHeight;
@@ -149,11 +150,10 @@ export default {
     },
     watch:{
         x:function(){
-            if(this.x<=600)
-            {
+            if(this.x<=600) {
                 this.size= 'display-1'
-            }else
-            {
+            }
+            else {
                 this.size='display-2'
             }
         }
