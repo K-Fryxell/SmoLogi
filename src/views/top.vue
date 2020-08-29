@@ -1,61 +1,49 @@
 <template>
     <content class="ma-0 pa-0">
         <TopHeader/>
-        <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
+        <v-container class="ma-0 pa-0 pt-lg-8 pt-md-8" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
-            <!-- PC -->
-            <v-row class="ma-0 pa-0 hidden-sm-and-down" style="background-color: #E5ECE6">
-                <v-col>
-                    <h2 class="py-6" style="color: #000000">二モチとは</h2>
-                    <h2 class="py-6" style="color: #000000" headline >高齢者向けのお買い物手助けサービスです。</h2>
-                </v-col>
-            </v-row>
-            <!-- 携帯 -->
-            <v-row class="ma-0 pa-0 hidden-md-and-up" justify="center" style="background-color: #E5ECE6">
-                <v-col>
-                    <h2 class="py-6 title font-weight-bold" style="color: #000000">二モチとは</h2>
-                    <h2 class="py-6 title font-weight-bold" style="color: #000000">高齢者向けの<br>お買い物手助けサービスです。</h2>
-                </v-col>
-            </v-row>
+                <!-- 紹介 -->
+                <v-row class="ma-0 pa-0" justify="center" style="background-color: #E5ECE6">
+                    <v-col class="ma-0 pa-0" lg="9" md="9">
+                        <v-card-text class="ma-0 pa-0 py-6 text-center" v-resize='onResize' :class='size_headline'>
+                            二モチでは
+                        </v-card-text>
+                        <v-card-text class="ma-0 pa-0 py-lg-2 text-center" v-resize='onResize' :class='size_headline' >
+                            お買い物後の荷物運びを<br>負担と感じている人をターゲットに<br>お買い物荷物の配達サービスを行っております
+                        </v-card-text>
+                    </v-col>
+                </v-row>
             </v-layout>
         </v-container>
-            <v-row class="ma-0 pa-0" style="background-color: #E5ECE6">
-                <v-col>
-                    <p class="pb-3"><v-icon class="me-2 mb-1">mdi-timer-outline</v-icon><span class="font-weight-bold">素早く簡単に</span>配達者を要請</p>
-                    <p><v-icon class="me-2 mb-1">mdi-security</v-icon>
-                    <span class="font-weight-bold">安心安全な</span>サービスの提供
-                    </p>
+            <v-row class="ma-0 pa-0" justify="center" style="background-color: #E5ECE6">
+                <v-col class="ma-0 pa-0">
+                    <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
+                        <v-icon class="ma-0 pa-0">mdi-timer-outline</v-icon>
+                        <span class="ma-0 pa-0 font-weight-bold">素早く簡単に</span>配達者を要請
+                    </v-card-text>
+                    <v-card-text class="ma-0 pa-0 text-center" v-resize='onResize' :class='size_subtitle'>
+                        <v-icon class="ma-0 pa-0">mdi-security</v-icon>
+                        <span class="ma-0 pa-0 font-weight-bold">安心安全な</span>サービスの提供
+                    </v-card-text>
                 </v-col>
             </v-row>
         <!-- ユーザ特徴 -->
         <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
-                <!-- PC -->
-                <v-row class="ma-0 mb-12 m mt-3 pa-0 hidden-sm-and-down" justify="center">
+                <v-row class="ma-0 pa-0" justify="center">
                         <!-- <v-img
                             justify="center"
                             src="../assets/delivery.jpg"
                             max-width="1800"
                             max-height="234"/> -->
-                    <v-card elevation="0" width="1172" height="150" style="background-color: #83B590">
-                        <v-row class="mt-12 ma-0 pa-0" justify="center">
-                            <v-card elevation="0" style="background-color: #83B590">
-                                <h2 class="mt-2">ユーザに向けた特徴</h2>
-                            </v-card>
-                        </v-row>
-                    </v-card>
-                </v-row>
-                <!-- 携帯 -->
-                <v-row class="ma-0 mb-10 mt-3 pa-0 hidden-md-and-up" justify="center">
-                        <!-- <v-img
-                        justify="center"
-                        src="../assets/delivery.jpg"
-                        max-width="1800"
-                        max-height="234"/> -->
-                    <v-card elevation="0" width="500" height="100" style="background-color: #83B590">
-                        <v-row class="mt-8 ma-0 pa-0" justify="center">
-                            <v-card elevation="0" style="background-color: #83B590">
-                                <h2 class="title font-weight-bold">ユーザに向けた特徴</h2>
+                    <!-- card1 -->
+                    <v-card class="ma-0 pa-0" elevation="0" style="background-color: #83B590" v-resize='onResize' :height='card1_height' :width='card1_width'>
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card class="ma-0 pa-0" elevation="0" style="background-color: #83B590">
+                                <v-card-text class="ma-0 pa-0 white--text" v-resize='onResize' :class='size_headline'>
+                                    ニモチの特徴
+                                </v-card-text>
                             </v-card>
                         </v-row>
                     </v-card>
@@ -64,68 +52,45 @@
         </v-container>
         <v-container class="ma-0 pa-0" fluid style="background-color: #E5ECE6">
             <v-layout class="ma-0 pa-0" column>
-                <!-- PC -->
-                <v-row class="mb-12 pa-0 hidden-sm-and-down" justify="center">
-                    <v-card elevation="0" height="350" width="1172">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>01</h2>
+                <v-row class="ma-0 pa-0" justify="center">
+                    <!-- card2 -->
+                    <v-card class="ma-0 pa-0" elevation="0" v-resize='onResize' :height='card2_height' :width='card2_width'>
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <!-- card3 -->
+                            <v-card class="ma-0 pa-0" elevation="0" style="background-color: #83B590" width="150">
+                                <v-card-text class="ma-0 pa-0 white--text" v-resize='onResize' :class='size_headline'>
+                                    01
+                                </v-card-text>
                             </v-card>
                         </v-row>
-                        <h2 class="mt-6 pb-3" style="color: #000000">
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
                             素早く手軽に要請が可能
-                        </h2>
+                        </v-card-text>
                         <v-divider/>
-                        <p class="mt-9 title">簡単な操作でご希望に沿った配達者を要請します</p>
-                    </v-card>
-                </v-row>
-                <!-- 携帯 -->
-                <v-row class="mb-10 pa-0 hidden-md-and-up" justify="center">
-                    <v-card elevation="0" height="250" width="350">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>01</h2>
-                            </v-card>
-                        </v-row>
-                        <h2 class="mt-6 pb-3 title font-weight-bold" style="color: #000000">
-                            素早く手軽に要請が可能
-                        </h2>
-                        <v-divider/>
-                        <p class="mt-9 body-2" v-resize='onResize' :class='size'>簡単な操作でご希望に沿った配達者を要請します</p>
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
+                            簡単な操作でご希望に沿った配達者を要請します
+                        </v-card-text>
                     </v-card>
                 </v-row>
             </v-layout>
         </v-container>
         <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
-                <!-- PC -->
-                <v-row class="mb-12 pa-0 hidden-sm-and-down" justify="center">
-                    <v-card elevation="0" height="350" width="1172">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>02</h2>
+                <v-row class="ma-0 pa-0" justify="center">
+                    <!-- card2 -->
+                    <v-card class="ma-0 pa-0" elevation="0" v-resize='onResize' :height='card2_height' :width='card2_width'>
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card class="ma-0 pa-0" elevation="0" width="150" style="background-color: #83B590">
+                                <v-card-text class="ma-0 pa-0 white--text" v-resize='onResize' :class='size_headline'>02</v-card-text>
                             </v-card>
                         </v-row>
-                        <h2 class="mt-6 pb-3" style="color: #000000">
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
                             安心安全な配達
-                        </h2>
+                        </v-card-text>
                         <v-divider/>
-                        <p class="mt-9 title">配達者の名前と顔写真が表示されるため、安心してサービスを受けられます</p>
-                    </v-card>
-                </v-row>
-                <!-- 携帯 -->
-                <v-row class="mb-12 pa-0 hidden-md-and-up" justify="center">
-                    <v-card elevation="0" height="250" width="350">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>02</h2>
-                            </v-card>
-                        </v-row>
-                        <h2 class="mt-6 pb-3 title font-weight-bold" style="color: #000000">
-                            安心安全な配達
-                        </h2>
-                        <v-divider/>
-                        <p class="mt-9 body-2">配達者の名前と顔写真が表示されるため、安心してサービスを受けられます</p>
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
+                            配達者の名前と顔写真が表示されるため、安心してサービスを受けられます
+                        </v-card-text>
                     </v-card>
                 </v-row>
             </v-layout>
@@ -147,33 +112,19 @@
         <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
                 <!-- PC -->
-                <v-row class="ma-0 mb-12 mt-8 pa-0 hidden-sm-and-down" justify="center">
+                <v-row class="ma-0 pa-0" justify="center">
                         <!-- <v-img
                         justify="center"
                         src="../assets/delivery.jpg"
                         max-width="1800"
                         max-height="234"/> -->
-
-                    <v-card elevation="0" width="1172" height="150" style="background-color: #83B590">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" style="background-color: #83B590">
-                                <h2 class="mt-2">パートに向けた特徴</h2>
-                            </v-card>
-                        </v-row>
-                    </v-card>
-                </v-row>
-                <!-- 携帯 -->
-                <v-row class="ma-0 mb-10 mt-8 pa-0 hidden-md-and-up" justify="center">
-                        <!-- <v-img
-                        justify="center"
-                        src="../assets/delivery.jpg"
-                        max-width="1800"
-                        max-height="234"/> -->
-
-                    <v-card elevation="0" width="500" height="100" style="background-color: #83B590">
-                        <v-row class="mt-6 pa-0" justify="center">
-                            <v-card elevation="0" style="background-color: #83B590">
-                                <h2 class="mt-2 title font-weight-bold">パートに向けた特徴</h2>
+                    <!-- card1 -->
+                    <v-card class="ma-0 pa-0" elevation="0" style="background-color: #83B590" v-resize='onResize' :height='card1_height' :width='card1_width'>
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card class="ma-0 pa-0" elevation="0" style="background-color: #83B590">
+                                <v-card-text class="ma-0 pa-0 white--text" v-resize='onResize' :class='size_headline'>
+                                    パートに向けた特徴
+                                </v-card-text>
                             </v-card>
                         </v-row>
                     </v-card>
@@ -182,68 +133,44 @@
         </v-container>
         <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
-                <!-- PC -->
-                <v-row class="mb-12 pa-0 hidden-sm-and-down" justify="center">
-                    <v-card elevation="0" height="350" width="1172">
-                        <v-row class="mt-12 pa-0" justify="center" >
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>01</h2>
+                <v-row class="ma-0 pa-0" justify="center">
+                    <v-card class="ma-0 pa-0" elevation="0" v-resize='onResize' :height='card2_height' :width='card2_width'>
+                        <v-row class="ma-0 pa-0" justify="center" >
+                            <v-card class="ma-0 pa-0" elevation="0" width="150" style="background-color: #83B590">
+                                <v-card-text class="ma-0 pa-0 white--text" v-resize='onResize' :class='size_headline'>
+                                    01
+                                </v-card-text>
                             </v-card>
                         </v-row>
-                        <h2 class="mt-6 pb-3" style="color: #000000">
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
                             空いている時間に稼げる
-                        </h2>
+                        </v-card-text>
                         <v-divider/>
-                        <p class="mt-9 title">働ける時間と場所を自分で決めることができます</p>
-                    </v-card>
-                </v-row>
-                <!-- 携帯 -->
-                <v-row class="mb-10 pa-0 hidden-md-and-up" justify="center">
-                    <v-card elevation="0" height="250" width="350">
-                        <v-row class="mt-12 pa-0" justify="center" >
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>01</h2>
-                            </v-card>
-                        </v-row>
-                        <h2 class="mt-6 pb-3 title font-weight-bold" style="color: #000000">
-                            空いている時間に稼げる
-                        </h2>
-                        <v-divider/>
-                        <p class="mt-9 body-2">働ける時間と場所を自分で決めることができます</p>
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
+                            働ける時間と場所を自分で決めることができます
+                        </v-card-text>
                     </v-card>
                 </v-row>
             </v-layout>
         </v-container>
         <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
-                <!-- PC -->
-                <v-row class="mb-5 pa-0 hidden-sm-and-down" justify="center">
-                    <v-card elevation="0" height="350" width="1172">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>02</h2>
+                <v-row class="ma-0 pa-0" justify="center">
+                    <v-card class="ma-0 pa-0" elevation="0" v-resize='onResize' :height='card2_height' :width='card2_width'>
+                        <v-row class="ma-0 pa-0" justify="center">
+                            <v-card class="ma-0 pa-0" elevation="0" width="150" style="background-color: #83B590">
+                                <v-card-text class="ma-0 pa-0 white--text" v-resize='onResize' :class='size_headline'>
+                                    02
+                                </v-card-text>
                             </v-card>
                         </v-row>
-                        <h2 class="mt-6 pb-3" style="color: #000000">
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
                             運動不足の解消
-                        </h2>
+                        </v-card-text>
                         <v-divider/>
-                        <p class="mt-9 title">運動がてら働くことも可能です</p>
-                    </v-card>
-                </v-row>
-                <!-- 携帯 -->
-                <v-row class="mb-5 pa-0 hidden-md-and-up" justify="center">
-                    <v-card elevation="0" height="250" width="350">
-                        <v-row class="mt-12 pa-0" justify="center">
-                            <v-card elevation="0" width="150" style="background-color: #83B590">
-                                <h2>02</h2>
-                            </v-card>
-                        </v-row>
-                        <h2 class="mt-6 pb-3 title font-weight-bold" style="color: #000000">
-                            運動不足の解消
-                        </h2>
-                        <v-divider/>
-                        <p class="mt-9 body-2">運動がてら働くことも可能です</p>
+                        <v-card-text class="ma-0 pa-0 text-center black--text" v-resize='onResize' :class='size_headline'>
+                            運動がてら働くことも可能です
+                        </v-card-text>
                     </v-card>
                 </v-row>
             </v-layout>
@@ -254,7 +181,7 @@
                 large
                 style="color: #83B590"
                 to="part_top"
-                class="mb-5 font-weight-bold"
+                class="ma-0 pa-0 font-weight-bold"
                 width="300"
             >
                 <span style="font-size:18px">
@@ -271,9 +198,17 @@ import UTopfooter from '../components/User/TopFooter'
 export default {
     data(){
         return{
-                x:0,
-                y:0,
-                size:"body-1"
+                x:window.innerWidth,
+                y:window.innerHeight ,
+                size_display:'display-1',
+                size_headline:'headline',
+                size_title:'title',
+                size_subtitle:'subtitle-1',
+                size_body:'body-1',
+                card1_height: 150,
+                card1_width: 1172,
+                card2_height: 350,
+                card2_width: 1172
             }
         },
         mounted(){
@@ -289,16 +224,33 @@ export default {
             },
         },
         watch:{
-        x:function(){
-            if(this.x<=600)
-            {
-                this.size= 'display-6'
-            }else
-            {
-                this.size='body-1'
+            x:function(){
+                if(this.x<600)
+                {
+                    this.size_display = 'headline',
+                    this.size_headline = 'subtitle-1',
+                    this.size_title = 'subtitle-1',
+                    this.size_subtitle = 'caption',
+                    this.size_body = 'body-1',
+                    this.card1_height = 100,
+                    this.card1_width = 500,
+                    this.card2_height = 250,
+                    this.card2_width = 350
+                }
+                else
+                {
+                    this.size_display = 'display-1',
+                    this.size_headline = 'headline',
+                    this.size_title = 'title',
+                    this.size_subtitle = 'subtitle-1',
+                    this.size_body = 'body-1',
+                    this.card1_height = 150,
+                    this.card1_width = 1172,
+                    this.card2_height = 350,
+                    this.card2_width = 1172
+                }
             }
-        }
-    },
+        },
         components:{
             TopHeader,
             UTopfooter,
@@ -306,11 +258,11 @@ export default {
     }
 </script>
 <style lang="scss">
-h2{
+v-card-text{
     text-align: center;
     color: white;
 }
-p{
+v-card-text{
     text-align: center;
 }
 
