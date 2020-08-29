@@ -501,6 +501,19 @@ export default ({
                 }
             })
         },
+        createHistory(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection("users").doc(state.user_id).collection('history').add({
+                        compDay:state.compDay,
+                        username:state.username,
+                        part_image:state.part_image,
+                        createdAt: new Date()
+                    })
+                }
+            })
+        },
         user_comp(state){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -509,9 +522,9 @@ export default ({
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
                         console.log(doc.data())
                         state.compDay = doc.data().compDay
-                        state.part_fname = doc.data().part_fname
-                        state.part_name = doc.data().part_name
+                        state.username = doc.data().username
                         state.part_image = doc.data().part_image
+                        this.commit('createHistory')
                         this.commit('deleteRoom')
                     })
                     firebase.firestore().collection('users').doc(state.user_id).set({
@@ -520,13 +533,6 @@ export default ({
                     },
                     {
                         merge:true
-                    })
-                    firebase.firestore().collection("users").doc(state.user_id).collection('history').add({
-                        compDay:state.compDay,
-                        part_fname:state.part_fname,
-                        part_name:state.part_name,
-                        part_image:state.part_image,
-                        createdAt: new Date()
                     })
                     router.push('/user_mypage')
                 }
