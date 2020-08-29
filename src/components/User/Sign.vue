@@ -2,7 +2,7 @@
 
     <content>
         <!-- ログインボタン -->
-        <v-btn text  @click="dialog = true">
+        <v-btn text style="color: #83B590" @click="dialog = true">
             ログイン
         </v-btn>
         <v-dialog v-model="dialog" class="ma-0 pa-0" width="500">
