@@ -8,7 +8,7 @@
         </v-card-title>
         <v-container
             id="scroll-target"
-            style="max-height: 550px"
+            style="max-height: 550px; min-height:300px;"
             class="ma-0 mb-12 pa-0 overflow-y-auto"
             fluid
         >
