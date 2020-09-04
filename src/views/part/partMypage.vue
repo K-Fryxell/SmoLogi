@@ -1,7 +1,9 @@
 <template>
     <content class="ma-0 pa-0">
-        <Header/>
-        <v-container fluid class="ma-0 pa-0">
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Header/>
+		</v-navigation-drawer>
+        <v-container fluid class="ma-0 mt-12 py-8 pa-0">
             <v-layout column>
                 <v-flex lg12 xs12>
                     <v-row class="ma-0 mt-6 pa-0" justify="center">
@@ -104,16 +106,49 @@
                                 elevation="0"
                                 class="overflow-y-auto"
                                 max-height="400">
-                                <v-card-text v-for="item in items"
-                                    :key="item.id"
+                                <v-card-text v-for="(history,index) in history"
+                                    :key="index"
+                                    :index="index"
                                     class="mb-4"
                                     v-resize='onResize' :class='size_title'>
-                                        <span class="pr-4">{{item.month}}月{{item.date}}日/{{item.time}}</span><span class="pr-4">{{item.name}}さん</span>{{item.weight}}kg
+                                        <span class="pr-4">{{history.compDay}}：{{history.roomCompTime}}</span><span class="pr-4">{{history.username}}さん</span>{{history.weight}}kg
                                 </v-card-text>
                             </v-card>
                         </v-card>
+                        <v-row class="ma-0 pa-0" justify="end" align="end">
+                            <v-col class="ma-0 pa-0" cols="4" sm="3" md="2" lg="2">
+                                <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                    配達履歴の削除
+                                </v-btn>
+                            </v-col>
+                        </v-row>
                     </v-col>
                 </v-row>
+                <v-dialog persistent v-model="delete_history" width="500">
+                    <v-card>
+                        <v-row justify="center" class="pa-0 ma-0">
+                            <v-col cols="auto">
+                                <v-card-title>
+                                    本当に履歴を削除しますか
+                                </v-card-title>
+                                <v-row justify="center" class="pa-0 ma-0">
+                                    <v-col cols="auto">
+                                        <v-btn width="50" @click="delete_history=false">
+                                            いいえ
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col cols="auto">
+                                        <!-- ここはfirebase処理 -->
+                                        <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
+                                        <v-btn width="50">
+                                            はい
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-dialog>
             </v-layout>
         </v-container>
         <Footer/>
@@ -128,61 +163,14 @@ import chart from '@/components/Part/Top/PartChart'
 export default {
     data() {
         return {
+            //モーダル
+            delete_history: false,
             selectCar: '',
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
-            items: [
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:07',
-                    name:'ユーザ',
-                    weight:'2',
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:06',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:05',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:04',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:03',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:02',
-                    name:'ユーザ',
-                    weight:'2'
-                },
-                {
-                    month:'7',
-                    date:'19',
-                    time:'13:01',
-                    name:'ユーザ',
-                    weight:'2'
-                }
-            ],
+            history: [],
+            items_ire: [],
             x:window.innerWidth,
-            y:window.innerHeight ,
+            y:window.innerHeight,
             size_height: 350,
             size_width: 700,
             size_display:'display-1',
@@ -199,6 +187,14 @@ export default {
         chart
     },
     computed:{
+        part_id:{
+            get(){
+                return this.$store.getters.part_id
+            },
+            set(value){
+                return this.$store.commit('set_part_id',value)
+            }
+        },
         part_fname(){
             return this.$store.getters.part_fname
         },
@@ -225,8 +221,29 @@ export default {
     // }
     mounted () {
         this.onResize
+        this.getHistory()
+        firebase.firestore().collection("part_users").doc(this.part_id).collection('history').onSnapshot(() => {
+            this.getHistory()
+        })
     },
     methods: {
+        getHistory(){
+            firebase.firestore().collection("part_users").doc(this.part_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
+                    await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.items_ire.push({
+                        roomCompTime:doc.data().roomCompTime,
+                        compDay:doc.data().compDay,
+                        username:doc.data().username,
+                        weight:doc.data().weight
+                    })
+                })
+                this.history = this.items_ire
+                this.items_ire = []
+            })
+        },
         logout:function(){
             firebase.auth().signOut()
         },

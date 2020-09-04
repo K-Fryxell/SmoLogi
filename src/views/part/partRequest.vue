@@ -1,12 +1,14 @@
 <template>
     <content class="ma-0 pa-0">
-        <Header/>
-        <v-card-title class="justify-center ma-0 pa-0 mt-2 mb-2" v-resize='onResize' :class='size_display'>
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Header/>
+		</v-navigation-drawer>
+        <v-card-title class="justify-center ma-0 pa-0 mt-12 py-8 mb-2" v-resize='onResize' :class='size_display'>
             依頼一覧
         </v-card-title>
         <v-container
             id="scroll-target"
-            style="max-height: 550px"
+            style="max-height: 550px; min-height:300px;"
             class="ma-0 mb-12 pa-0 overflow-y-auto"
             fluid
         >
@@ -53,6 +55,25 @@
                         </v-row>
                     </v-flex>
                 </v-row>
+                <v-dialog persistent v-model="no_request" width="500">
+                    <v-card>
+                        <v-row justify="center" class="pa-0 ma-0">
+                            <v-col cols="auto">
+                                <v-card-title class="text-center">
+                                    ただいま受注可能な依頼がありません<br>
+                                    少し時間を空けてご確認ください
+                                </v-card-title>
+                                <v-row justify="center" class="pa-0 ma-0">
+                                    <v-col cols="auto">
+                                        <v-btn width="50" to="/part_mypage" @click="no_request=false">
+                                            確認
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-dialog>
                 <!-- <partRequestdetails :items=items></partRequestdetails> -->
             </v-layout>
         </v-container>
@@ -66,6 +87,8 @@ import Footer from '@/components/Part/PartFooter'
 export default {
     data() {
         return {
+            //モーダル
+            no_request: false,
             x:window.innerWidth,
             y:window.innerHeight,
             size_card:200,

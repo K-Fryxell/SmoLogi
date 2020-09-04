@@ -1,22 +1,38 @@
 <template>
     <content class="ma-0 pa-0">
-        <v-container class="ma-0 pa-0" fluid>
-            <Uheader/>
-            <v-layout class="ma-0 pa-0" wrap>
-                <v-flex xs12 lg12>
-                    <v-row class="ma-0 pa-0" justify="center" style="background-color: #F6F6F6">
-                        <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6">
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Uheader/>
+		</v-navigation-drawer>
+        <v-container class="ma-0 pa-0" style="min-height:300px;" fluid>
+            <v-layout class="ma-0 pa-0" style="min-height:300px;" wrap>
+                <v-flex xs12 lg12 style="min-height:300px;">
+                    <v-row class="ma-0 mt-12 py-8 pa-0" justify="center" style="background-color: #F6F6F6 min-height:300px;">
+                        <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6 min-height:300px;">
                             <h2 class="mb-12 justify-center font-weight-light">
-                                <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">利用履歴</span>
+                                <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">
+                                    利用履歴
+                                </span>
                             </h2>
-                            <v-col cols="auto" lg="auto" v-for="item in items" :key="item.id">
+                            <v-row class="ma-0 pa-0" justify="end" align="end">
+                                <v-col class="ma-0 pa-0" cols="2">
+                                    <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                        利用履歴の削除
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                            <v-col
+                                cols="auto"
+                                lg="auto"
+                                v-for="(history,index) in history"
+                                :key="index"
+                                :index="index">
                                 <v-card class="mx-6 pa-0" outlined max-width="1000">
                                     <v-row class="ma-0 pa-0">
                                         <!-- 配達者画像 -->
                                         <v-col cols="12" lg="5">
                                             <v-img
                                                 class="my-3 pa-0"
-                                                :src="imageurl"
+                                                :src="history.part_image"
                                                 contain
                                                 height="150"/>
                                         </v-col>
@@ -27,8 +43,8 @@
                                             :class="size"
                                             class="pt-5"
                                         >
-                                            <span class="font-weight-light">利用日:{{item.day}}<br/>
-                                            名前:{{item.user_name}}<br/>
+                                            <span class="font-weight-light">利用日:{{history.compDay}}<br/>
+                                            名前:{{history.username}}<br/>
                                             評価:</span>
                                             <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
                                                 <v-icon>mdi-thumb-up</v-icon>
@@ -42,6 +58,31 @@
                             </v-col>
                         </v-card>
                     </v-row>
+                    <v-dialog persistent v-model="delete_history" width="500">
+                        <v-card>
+                            <v-row justify="center" class="pa-0 ma-0">
+                                <v-col cols="auto">
+                                    <v-card-title>
+                                        本当に履歴を削除しますか
+                                    </v-card-title>
+                                    <v-row justify="center" class="pa-0 ma-0">
+                                        <v-col cols="auto">
+                                            <v-btn width="50" @click="delete_history=false">
+                                                いいえ
+                                            </v-btn>
+                                        </v-col>
+                                        <v-col cols="auto">
+                                            <!-- ここはfirebase処理 -->
+                                            <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
+                                            <v-btn width="50">
+                                                はい
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-card>
+                    </v-dialog>
                 </v-flex>
             </v-layout>
             <Ufooter/>
@@ -51,51 +92,56 @@
 <script>
 import Uheader  from '@/components/User/Header'
 import Ufooter from '@/components/User/Footer'
+import firebase from 'firebase'
 export default {
     data(){
         return {
             //評価
             evaluation: 2,
             //画像
-            imageurl:require("../../assets/people.jpg"),
             x:0,
             y:0,
             size:"headline",
-            items: [
-                {
-                    user_name:'田中太郎',
-                    day:'2020年03月25日',
-                },
-                {
-                    user_name:'中川武',
-                    day:'2020年05月25日',
-                },
-                {
-                    user_name:'中川聖',
-                    day:'2020年02月25日',
-                },
-                {
-                    user_name:'中川聖',
-                    day:'2020年02月25日',
-                },
-                {
-                    user_name:'中川聖',
-                    day:'2020年02月25日',
-                },
-                {
-                    user_name:'中川聖',
-                    day:'2020年02月25日',
-                }
-            ]
+            //モーダル
+            delete_history:false,
+            history: [],
+            items_ire: []
         }
     },
+    computed: {
+        user_id:{
+            get(){
+                return this.$store.getters.user_id
+            },
+            set(value){
+                return this.$store.commit('set_user_id',value)
+            }
+        },
+    },
     mounted(){
+        this.getHistory()
         window.addEventListener('resize', this.onResize)
     },
     beforeDestory(){
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
+        getHistory(){
+            firebase.firestore().collection("users").doc(this.user_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
+                    await snapshot.forEach(doc => {
+                    //contentは要素
+                    //pushは配列データそのもの
+                    // this.allData.push(doc.data().content)
+                    this.items_ire.push({
+                        compDay:doc.data().compDay,
+                        username:doc.data().username,
+                        part_image:doc.data().part_image
+                    })
+                })
+                this.history = this.items_ire
+                this.items_ire = []
+            })
+        },
         onResize(){
             this.x = window.innerWidth;
             this.y = window.innerHeight;
