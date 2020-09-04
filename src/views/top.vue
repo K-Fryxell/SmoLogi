@@ -122,7 +122,7 @@
                                     <v-row class="ma-0 pa-0" justify="center">
                                         <img v-resize='onResize' :width='img_width' src="../assets/transport.png">
                                     </v-row>
-                                    <v-row class="ma-0 mt-3 pa-0">
+                                    <v-row class="ma-0 mt-4 pa-0">
                                         <v-card-text class="ma-0 pa-0 text-center font-weight-bold">
                                             配達依頼情報を入力する
                                             </v-card-text>
@@ -150,11 +150,11 @@
                                     style="color: #83B590">
                                     3</v-card-text>
                                     <v-row class="ma-0 pa-0" justify="center">
-                                        <img width="150" src="../assets/transport_image1.png">
+                                        <img width="140" src="../assets/transport_image1.png">
                                     </v-row>
-                                    <v-row class="ma-0 mb-5 pa-0">
+                                    <v-row class="ma-0 pa-0">
                                         <v-card-text class="ma-0 pa-0 text-center font-weight-bold">
-                                            配達完了
+                                            配達者から荷物を受け取る
                                             </v-card-text>
                                     </v-row>
                                 </v-card>
@@ -253,8 +253,8 @@
                         </v-card-text>
                         <v-divider/>
                         <v-card-text class="ma-0 pa-0 mt-5 text-center black--text" v-resize='onResize' :class='size_title'>
-                            普段運動されない方や運動する時間が取れない方も働きながら運動することができます<br>
-                            普段行かないエリアでの新しい発見があるかもしれません。
+                            普段運動されない方や運動する時間が取れない方も働きながら運動することができます。<br>
+                            また、普段行かないエリアでの新しい発見があるかもしれません。
                         </v-card-text>
                     </v-card>
                 </v-row>
@@ -294,8 +294,8 @@ export default {
                 card1_width: 1000,
                 card2_height: 300,
                 card2_width: 1000,
-                card3_height: 300,
-                card3_width: 250,
+                card3_height: 290,
+                card3_width: 300,
                 img_width: 100,
                 items:[
                     {img:require('../assets/transport.png'),
@@ -349,8 +349,8 @@ export default {
                     this.card1_width = 1000,
                     this.card2_height = 300,
                     this.card2_width = 1000,
-                    this.card3_height = 300,
-                    this.card3_width = 250,
+                    this.card3_height = 290,
+                    this.card3_width = 260,
                     this.img_width = 100
                 }
             }
