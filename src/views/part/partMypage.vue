@@ -1,7 +1,9 @@
 <template>
     <content class="ma-0 pa-0">
-        <Header/>
-        <v-container fluid class="ma-0 pa-0">
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Header/>
+		</v-navigation-drawer>
+        <v-container fluid class="ma-0 mt-12 py-8 pa-0">
             <v-layout column>
                 <v-flex lg12 xs12>
                     <v-row class="ma-0 mt-6 pa-0" justify="center">
@@ -113,8 +115,40 @@
                                 </v-card-text>
                             </v-card>
                         </v-card>
+                        <v-row class="ma-0 pa-0" justify="end" align="end">
+                            <v-col class="ma-0 pa-0" cols="4" sm="3" md="2" lg="2">
+                                <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                    配達履歴の削除
+                                </v-btn>
+                            </v-col>
+                        </v-row>
                     </v-col>
                 </v-row>
+                <v-dialog persistent v-model="delete_history" width="500">
+                    <v-card>
+                        <v-row justify="center" class="pa-0 ma-0">
+                            <v-col cols="auto">
+                                <v-card-title>
+                                    本当に履歴を削除しますか
+                                </v-card-title>
+                                <v-row justify="center" class="pa-0 ma-0">
+                                    <v-col cols="auto">
+                                        <v-btn width="50" @click="delete_history=false">
+                                            いいえ
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col cols="auto">
+                                        <!-- ここはfirebase処理 -->
+                                        <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
+                                        <v-btn width="50">
+                                            はい
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-dialog>
             </v-layout>
         </v-container>
         <Footer/>
@@ -129,6 +163,8 @@ import chart from '@/components/Part/Top/PartChart'
 export default {
     data() {
         return {
+            //モーダル
+            delete_history: false,
             selectCar: '',
             message:"最近は週に３回ほど働けていますね。その調子で頑張っていきましょう！！",
             history: [],

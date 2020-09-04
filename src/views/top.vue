@@ -1,7 +1,9 @@
 <template>
     <content class="ma-0 pa-0">
-        <TopHeader/>
-        <v-container class="ma-0 pa-0 pt-lg-8 pt-md-8" style="background-color: #E5ECE6" fluid>
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<TopHeader/>
+		</v-navigation-drawer>
+        <v-container class="ma-0 mt-12 py-8 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
                 <!-- 紹介-->
                 <v-row class="ma-0 pa-0" justify="center" style="background-color: #E5ECE6">
