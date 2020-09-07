@@ -73,9 +73,7 @@
                                         <v-row class="ma-0 pa-0" justify="center" v-if="delivery == 2">
                                             <v-btn class="white--text pa-6" color="red" to="/transport"><span v-resize='onResize' :class='size_headline'>配達中の依頼</span></v-btn>
                                         </v-row>
-
                                     </v-tab-item>
-
 
                                     <!-- パートナー側プロフィール詳細変更ページ -->
                                     <v-tab-item>
