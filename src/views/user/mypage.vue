@@ -34,6 +34,13 @@
                                             <v-col cols="12" lg="8">
                                                 <v-card class="mt-12" width="1000" outlined>
                                                     <v-banner
+                                                        v-if="history == ''"
+                                                        class="justify-center title font-weight-light"
+                                                        sticky>
+                                                            現在の利用履歴はありません
+                                                    </v-banner>
+                                                    <v-banner
+                                                        v-else
                                                         class="justify-center title font-weight-light"
                                                         sticky>
                                                             利用履歴
@@ -46,7 +53,7 @@
                                                             v-for="(history,index) in history"
                                                             :key="index"
                                                             :index="index">
-                                                            <span class="display-6">利用日:{{history.compDay}} 名前:{{history.username}}</span>
+                                                            <span class="display-6">利用日:{{history.compDay}}：{{history.roomCompTime}} 名前:{{history.username}}</span>
                                                             <v-divider class="mt-5"></v-divider>
                                                         </v-card-text>
                                                     </v-card>
@@ -64,9 +71,9 @@
                                                 outlined
                                                 large
                                                 style="color: #83B590"
-                                                to="user_history"
                                                 class="mb-5"
                                                 width="150"
+                                                @click="toHistory()"
                                             >
                                             <span style="font-size:18px">
                                                 履歴詳細
@@ -126,6 +133,14 @@ export default {
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
+        toHistory(){
+            if(this.history == ''){
+                alert('利用履歴がありません')
+            }
+            else{
+                this.$router.push('/user_history')
+            }
+        },
         getHistory(){
             firebase.firestore().collection("users").doc(this.user_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
                     await snapshot.forEach(doc => {
@@ -133,6 +148,7 @@ export default {
                     //pushは配列データそのもの
                     // this.allData.push(doc.data().content)
                     this.items_ire.push({
+                        roomCompTime:doc.data().roomCompTime,
                         compDay:doc.data().compDay,
                         username:doc.data().username
                     })

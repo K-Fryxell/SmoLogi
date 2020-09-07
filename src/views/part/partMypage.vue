@@ -73,7 +73,9 @@
                                         <v-row class="ma-0 pa-0" justify="center" v-if="delivery == 2">
                                             <v-btn class="white--text pa-6" color="red" to="/transport"><span v-resize='onResize' :class='size_headline'>配達中の依頼</span></v-btn>
                                         </v-row>
+
                                     </v-tab-item>
+
 
                                     <!-- パートナー側プロフィール詳細変更ページ -->
                                     <v-tab-item>
@@ -95,6 +97,14 @@
                     <v-col cols="12" lg="8">
                         <v-card class="mt-12" outlined>
                             <v-banner
+                                v-if="history == ''"
+                                class="justify-center title font-weight-light"
+                                sticky
+                                v-resize='onResize' :class='size_headline'>
+                                現在の配達履歴はありません
+                            </v-banner>
+                            <v-banner
+                                v-else
                                 class="justify-center title font-weight-light"
                                 sticky
                                 v-resize='onResize' :class='size_headline'>
@@ -115,7 +125,7 @@
                         </v-card>
                         <v-row class="ma-0 pa-0" justify="end" align="end">
                             <v-col class="ma-0 pa-0" cols="4" sm="3" md="2" lg="2">
-                                <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                <v-btn v-if="history != ''" class="ma-0 pa-0" text @click="delete_history=true">
                                     配達履歴の削除
                                 </v-btn>
                             </v-col>
@@ -138,7 +148,7 @@
                                     <v-col cols="auto">
                                         <!-- ここはfirebase処理 -->
                                         <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                        <v-btn width="50">
+                                        <v-btn width="50" @click="deleteHistory()">
                                             はい
                                         </v-btn>
                                     </v-col>
@@ -225,9 +235,13 @@ export default {
         })
     },
     methods: {
+        deleteHistory(){
+            this.$store.commit('part_deleteHistory')
+            this.delete_history = false
+        },
         getHistory(){
             firebase.firestore().collection("part_users").doc(this.part_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
-                    await snapshot.forEach(doc => {
+                await snapshot.forEach(doc => {
                     //contentは要素
                     //pushは配列データそのもの
                     // this.allData.push(doc.data().content)
