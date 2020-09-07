@@ -507,6 +507,20 @@ export default ({
                 }
             })
         },
+        part_deleteHistory(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.part_user_id = user.uid
+                    firebase.firestore().collection("part_users").doc(state.part_user_id)
+                    .collection('history').get().then(async snapshot => {
+                        await snapshot.forEach(doc => {
+                            doc.ref.delete()
+                        })
+                    })
+                }
+                router.push('/part_mypage')
+            })
+        },
         complete(state,array){
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
