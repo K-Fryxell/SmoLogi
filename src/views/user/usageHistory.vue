@@ -20,7 +20,7 @@
                             </h2>
                             <v-row class="ma-0 pa-0" justify="end" align="end">
                                 <v-col class="ma-0 pa-0" cols="2">
-                                    <v-btn class="ma-0 pa-0" text @click="delete_history=true">
+                                    <v-btn v-if="history != ''" class="ma-0 pa-0" text @click="delete_history=true">
                                         利用履歴の削除
                                     </v-btn>
                                 </v-col>
@@ -48,7 +48,7 @@
                                             :class="size"
                                             class="pt-5"
                                         >
-                                            <span class="font-weight-light">利用日:{{history.compDay}}<br/>
+                                            <span class="font-weight-light">利用日:{{history.compDay}}：{{history.roomCompTime}}<br/>
                                             名前:{{history.username}}<br/>
                                             評価:</span>
                                             <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">
@@ -79,7 +79,7 @@
                                         <v-col cols="auto">
                                             <!-- ここはfirebase処理 -->
                                             <!-- 「はい」ボタン押下時、user側でuser_Deliveryモーダルをひらかせたい -->
-                                            <v-btn width="50">
+                                            <v-btn width="50" @click="deleteHistory()">
                                                 はい
                                             </v-btn>
                                         </v-col>
@@ -131,6 +131,9 @@ export default {
         window.removeEventListener('resize',this.onResize)
     },
     methods:{
+        deleteHistory(){
+            this.$store.commit('deleteHistory')
+        },
         getHistory(){
             firebase.firestore().collection("users").doc(this.user_id).collection('history').orderBy('createdAt', 'desc').get().then(async snapshot => {
                     await snapshot.forEach(doc => {
@@ -138,6 +141,7 @@ export default {
                     //pushは配列データそのもの
                     // this.allData.push(doc.data().content)
                     this.items_ire.push({
+                        roomCompTime:doc.data().roomCompTime,
                         compDay:doc.data().compDay,
                         username:doc.data().username,
                         part_image:doc.data().part_image
@@ -145,6 +149,9 @@ export default {
                 })
                 this.history = this.items_ire
                 this.items_ire = []
+                if(this.history == ''){
+                    this.$router.push('/user_mypage')
+                }
             })
         },
         onResize(){

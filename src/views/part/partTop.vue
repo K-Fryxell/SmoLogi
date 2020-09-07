@@ -29,7 +29,7 @@
 						</v-col>
 						<v-col class="ma-0 mt-6 pa-0 mb-6" lg="5" md="5">
 							<v-img
-								src="@/assets/partTop/Top画像.jpg"
+								src="@/assets/partTop/TopImage.jpg"
 								class="ma-0 pa-0"
 							/>
 						</v-col>
@@ -38,7 +38,7 @@
 					<v-row class="ma-0 pa-0 hidden-md-and-up" justify="center">
 						<v-col class="ma-0 pa-0 mb-6" cols="12">
 							<v-img
-								src="@/assets/partTop/Top画像.jpg"
+								src="@/assets/partTop/TopImage.jpg"
 								class="ma-0 pa-0"
 							/>
 						</v-col>
