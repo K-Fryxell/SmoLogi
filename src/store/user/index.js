@@ -506,12 +506,27 @@ export default ({
                 if (user) {
                     state.user_id = user.uid
                     firebase.firestore().collection("users").doc(state.user_id).collection('history').add({
+                        roomCompTime:state.roomCompTime,
                         compDay:state.compDay,
                         username:state.username,
                         part_image:state.part_image,
                         createdAt: new Date()
                     })
                 }
+            })
+        },
+        deleteHistory(state){
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    state.user_id = user.uid
+                    firebase.firestore().collection("users").doc(state.user_id)
+                    .collection('history').get().then(async snapshot => {
+                        await snapshot.forEach(doc => {
+                            doc.ref.delete()
+                        })
+                    })
+                }
+                router.push('/user_mypage')
             })
         },
         user_comp(state){
@@ -521,6 +536,7 @@ export default ({
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
                         console.log(doc.data())
+                        state.roomCompTime = doc.data().roomCompTime
                         state.compDay = doc.data().compDay
                         state.username = doc.data().username
                         state.part_image = doc.data().part_image
