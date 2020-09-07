@@ -70,7 +70,7 @@
                                             </v-col>
                                         </v-row>
                                         <v-row class="ma-0 pa-0" justify="center" v-if="delivery == 0">
-                                            <v-btn class="white--text pa-6" color="green" to="/part_request"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
+                                            <v-btn class="white--text pa-6" color="#659e68" to="/part_request"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
                                         </v-row>
                                         <v-row class="ma-0 pa-0" justify="center" v-if="delivery == 1">
                                             <v-btn class="white--text pa-6" color="red" to="/contact"><span v-resize='onResize' :class='size_headline'>配達中の依頼</span></v-btn>

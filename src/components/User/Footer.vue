@@ -1,6 +1,6 @@
 <template>
-	<v-content class="ma-0 pb-12 darken-2" style="background-color: #83B590">
-		<v-footer class="ma-0 pa-0 pt-12 darken-2" style="background-color: #83B590"  min-height="auto">
+	<v-content class="ma-0 pb-12 darken-2" style="background-color: #659e68">
+		<v-footer class="ma-0 pa-0 pt-12 darken-2" style="background-color: #659e68"  min-height="auto">
 			<v-row class="ma-0 pa-0" justify="center">
 				<v-col class="ma-0 pa-0" lg="8" cols="12">
 					<v-row class="ma-0 pa-0" justify="center">

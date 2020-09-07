@@ -1,10 +1,10 @@
 <template>
-    <v-card class="ma-0 pa-0 pt-6 pt-lg-0 pt-md-0 pt-sm-0" elevation="0" tile v-resize='onResize' :height='size_header'>
-        <v-toolbar class="ma-0 pa-0" dense flat elevation="0">
-            <v-toolbar-title class="ma-0 pa-0">
+    <v-card class="ma-0 pa-0 pt-6 pt-lg-0 pt-md-0 pt-sm-0" style="background-color: #83B590" elevation="0" tile v-resize='onResize' :height='size_header'>
+        <v-toolbar class="ma-0 pa-0" style="background-color: #83B590" dense flat elevation="0">
+            <v-toolbar-title class="ma-0 pa-0 pt-3">
                 <router-link to="/">
                 <!-- img -->
-                    <img height="50" src="../../assets/nimochi.png">
+                    <img height="50" src="../../assets/header_logo.png">
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>

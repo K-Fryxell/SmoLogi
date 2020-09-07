@@ -1,9 +1,9 @@
 <template>
-    <v-card class="ma-0 pa-0 ma-0 pa-0 pt-6 pt-lg-0 pt-md-0 pt-sm-0" style="background-color: #F6F6F6" tile elevation="0" v-resize='onResize' :height='size_header'>
-        <v-toolbar class="ma-0 pa-0" elevation="0" dense flat style="background-color: #F6F6F6">
-            <v-toolbar-title class="ma-0 pa-0">
+    <v-card class="ma-0 pa-0 ma-0 pa-0 pt-6 pt-lg-0 pt-md-0 pt-sm-0" style="background-color: #83B590" tile elevation="0" v-resize='onResize' :height='size_header'>
+        <v-toolbar class="ma-0 pa-0" elevation="0" dense flat style="background-color: #83B590">
+            <v-toolbar-title class="ma-0 pt-3">
                 <router-link to="/part_mypage">
-                    <img height="50" src="@/assets/nimochi.png">
+                    <img height="50" src="@/assets/header_logo.png">
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -24,7 +24,7 @@
                         v-bind="attrs"
                         v-on="on"
                     >
-                        <v-icon x-large style="color: #83B590">mdi-microsoft-xbox-controller-menu</v-icon>
+                        <v-icon class="ma-0 pa-0 pr-5" x-large style="color: #FAFAFA">mdi-microsoft-xbox-controller-menu</v-icon>
                     </v-btn>
                 </template>
                 <v-list nav width="200px">
