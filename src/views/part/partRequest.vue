@@ -1,6 +1,11 @@
 <template>
     <content class="ma-0 pa-0">
-        <v-navigation-drawer fixed height style="width:100%" permanent>
+        <!-- pcヘッダー -->
+		<v-navigation-drawer class="ma-0 pa-0 hidden-sm-and-down" fixed height style="width:100%;" permanent>
+			<Header/>
+		</v-navigation-drawer>
+		<!-- 携帯ヘッダー -->
+		<v-navigation-drawer class="ma-0 pa-0 hidden-md-and-up" fixed height style="width:100%; height:70px;" permanent>
 			<Header/>
 		</v-navigation-drawer>
         <v-card-title class="justify-center ma-0 pa-0 mt-12 py-8 mb-2" v-resize='onResize' :class='size_display'>
