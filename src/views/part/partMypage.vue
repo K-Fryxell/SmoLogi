@@ -261,9 +261,6 @@ export default {
                 this.items_ire = []
             })
         },
-        logout:function(){
-            firebase.auth().signOut()
-        },
         onResize () {
             this.x = window.innerWidth
             this.y = window.innerHeight

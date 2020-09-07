@@ -569,7 +569,8 @@ export default ({
         },
         part_logout() {
             firebase.auth().signOut()
-            router.push('/part_top')
+            // Authのelse内で随時ログイン管理している場合はプッシュ重複になる
+            // router.push('/part_top')
         },
     },
     actions: {}
