@@ -1,7 +1,9 @@
 <template>
     <content class="ma-0 pa-0">
-        <Header/>
-        <v-container fluid class="ma-0 pa-0">
+        <v-navigation-drawer fixed height style="width:100%" permanent>
+			<Header/>
+		</v-navigation-drawer>
+        <v-container fluid class="ma-0 mt-12 py-8 pa-0">
             <v-layout column>
                 <v-flex lg12 xs12>
                     <v-row class="ma-0 mt-6 pa-0" justify="center">
@@ -122,7 +124,7 @@
                             </v-card>
                         </v-card>
                         <v-row class="ma-0 pa-0" justify="end" align="end">
-                            <v-col class="ma-0 pa-0" cols="2">
+                            <v-col class="ma-0 pa-0" cols="4" sm="3" md="2" lg="2">
                                 <v-btn v-if="history != ''" class="ma-0 pa-0" text @click="delete_history=true">
                                     配達履歴の削除
                                 </v-btn>

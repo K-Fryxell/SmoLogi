@@ -22,11 +22,11 @@
 					<v-sheet
 						class="ma-0 pa-0"
 						style="background-color:#A1ACB1;"
-						v-resize='onResize' :height='sheet1_height' :width='sheet1_width' 
+						v-resize='onResize' :height='sheet1_height' :width='sheet1_width'
 					>
 						<v-row class="fill-height" align="center" justify="center">
-							<img 
-								v-resize='onResize' :height='img_height' :width='img_width' 
+							<img
+								v-resize='onResize' :height='img_height' :width='img_width'
 								:src="item.img"
 								alt="スライド画像">
 						</v-row>
@@ -52,14 +52,14 @@ export default {
 		return {
 			x:window.innerWidth,
 			y:window.innerHeight,
-			carousel_height:400,//全体の縦幅
-			item_width:700,//全体の横幅
-			sheet1_height:300,//画像エリア縦
-			sheet1_width:700,//画像エリア横
+			carousel_height:428,//全体の縦幅
+			item_width:750,//全体の横幅
+			sheet1_height:321,//画像エリア縦
+			sheet1_width:750,//画像エリア横
 			sheet2_height:100,//文字エリア縦
-			sheet2_width:700,//文字エリア横
-			img_height:300,//画像縦
-			img_width:700,//画像横
+			sheet2_width:750,//文字エリア横
+			img_height:321,//画像縦
+			img_width:750,//画像横
 
 			size_display:'display-1',
 			size_headline:'headline',
@@ -103,16 +103,16 @@ export default {
 			}
 			else
 			{
-				this.carousel_height=400,//全体の縦幅
+				this.carousel_height=428,//全体の縦幅
 				this.carousel_width=1,//効かねぇ
 				// this.item_height=1,//効かねぇ
-				this.item_width=700,//全体の横幅
-				this.sheet1_height=300,//画像エリア縦
-				this.sheet1_width=700,//画像エリア横
+				this.item_width=750,//全体の横幅
+				this.sheet1_height=321,//画像エリア縦
+				this.sheet1_width=750,//画像エリア横
 				this.sheet2_height=100,//文字エリア縦
-				this.sheet2_width=700,//文字エリア横
-				this.img_height=300,//画像縦
-				this.img_width=700,//画像横
+				this.sheet2_width=750,//文字エリア横
+				this.img_height=321,//画像縦
+				this.img_width=750,//画像横
 				this.size_display = 'display-1',
 				this.size_headline = 'headline',
 				this.size_title = 'title',

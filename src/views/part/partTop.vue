@@ -1,8 +1,10 @@
 <template>
 	<content class="ma-0 pa-0">
 		<!-- ヘッダー -->
-		<TopHeader/>
-		<v-container class="ma-0 pa-0" fluid>
+		<v-navigation-drawer fixed height style="width:100%" permanent>
+			<TopHeader/>
+		</v-navigation-drawer>
+		<v-container class="ma-0 mt-12 py-8 pa-0" style="background-color: #E5ECE6" fluid>
 			<v-layout class="ma-0 pa-0" column>
 				<v-card class="ma-0 pa-0" style="background-color: #E5ECE6" elevation="0">
 					<!-- PCレイアウト -->
