@@ -168,8 +168,8 @@
                     </v-row>
                 </v-flex>
             </v-layout>
-            <Ufooter/>
         </v-container>
+        <Ufooter/>
     </content>
 </template>
 <script>

@@ -92,8 +92,8 @@
                     </v-row>
                 </v-flex>
             </v-layout>
-            <ufooter/>
         </v-container>
+        <ufooter/>
     </content>
 </template>
 <script>
