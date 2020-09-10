@@ -160,7 +160,7 @@
                                     <v-row class="ma-0 pa-0">
                                         <v-card-text class="ma-0 pa-0 text-center font-weight-bold">
                                             配達者から荷物を受け取る
-                                            </v-card-text>
+                                        </v-card-text>
                                     </v-row>
                                 </v-card>
                             </v-col>
@@ -189,23 +189,23 @@
                         </v-slide-item>
                     </v-slide-group>
                 </v-sheet>
+                <v-row class="ma-0 pa-0" justify="center" style="background-color: #E5ECE6">
+                    <v-btn
+                        outlined
+                        large
+                        style="color: #83B590"
+                        to="user_regist"
+                        class="mb-5 font-weight-bold"
+                        width="300"
+                    >
+                        <span style="font-size:18px">
+                            新規登録はこちらから
+                        </span>
+                    </v-btn>
+                </v-row>
             </v-layout>
         </v-container>
     <v-divider/>
-        <!-- <v-row class="ma-0 pa-0" justify="center" style="background-color: #E5ECE6">
-            <v-btn
-                outlined
-                large
-                style="color: #83B590"
-                to="user_regist"
-                class="mb-5 font-weight-bold"
-                width="300"
-            >
-                <span style="font-size:18px">
-                    新規登録はこちらから
-                </span>
-            </v-btn>
-        </v-row> -->
         <v-container class="ma-0 pa-0" style="background-color: #E5ECE6" fluid>
             <v-layout class="ma-0 pa-0" column>
                 <v-row class="ma-0 mt-10 mb-10 pa-0" justify="center">
