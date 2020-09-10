@@ -11,8 +11,8 @@
         <v-container class="ma-0 pa-0" style="min-height:300px;" fluid>
             <v-layout class="ma-0 pa-0" style="min-height:300px;" wrap>
                 <v-flex xs12 lg12 style="min-height:300px;">
-                    <v-row class="ma-0 mt-12 py-8 pa-0" justify="center" style="background-color: #F6F6F6 min-height:300px;">
-                        <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6 min-height:300px;">
+                    <v-row class="ma-0 mt-12 py-8 pa-0" justify="center" style="background-color: #F6F6F6; min-height:300px;">
+                        <v-card class="ma-0 pa-0 mb-12" elevation="0" style="background-color: #F6F6F6; min-height:300px;">
                             <h2 class="mb-12 justify-center font-weight-light">
                                 <span style="text-decoration:underline; text-underline-position: under; text-decoration-thickness: 10px">
                                     利用履歴
@@ -48,7 +48,8 @@
                                             :class="size"
                                             class="pt-5"
                                         >
-                                            <span class="font-weight-light">利用日:{{history.compDay}}：{{history.roomCompTime}}<br/>
+                                            <span class="font-weight-light">利用日:{{history.compDay}}<br/>
+                                            時刻:{{history.roomCompTime}}<br/>
                                             名前:{{history.username}}<br/>
                                             評価:</span>
                                             <v-btn class="ma-2" @click="clickEvaluation(0)" icon color="blue lighten-2">

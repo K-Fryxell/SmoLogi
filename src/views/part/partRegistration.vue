@@ -50,3 +50,8 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+.v-application--wrap{
+    background-color:#F6F6F6
+}
+</style>
