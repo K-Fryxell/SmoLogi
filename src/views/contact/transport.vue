@@ -577,7 +577,7 @@ export default {
             }
             else
             {
-                this.name = this.part_name
+                this.name = this.part_name + "(配達者)"
             }
             firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').add({
                 content: this.coment,
