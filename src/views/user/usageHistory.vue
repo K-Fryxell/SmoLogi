@@ -1,6 +1,11 @@
 <template>
     <content class="ma-0 pa-0">
-        <v-navigation-drawer fixed height style="width:100%" permanent>
+        <!-- pcヘッダー -->
+		<v-navigation-drawer class="ma-0 pa-0 hidden-sm-and-down" fixed height style="width:100%;" permanent>
+			<Uheader/>
+		</v-navigation-drawer>
+		<!-- 携帯ヘッダー -->
+		<v-navigation-drawer class="ma-0 pa-0 hidden-md-and-up" fixed height style="width:100%; height:70px;" permanent>
 			<Uheader/>
 		</v-navigation-drawer>
         <v-container class="ma-0 pa-0" style="min-height:300px;" fluid>
@@ -85,8 +90,8 @@
                     </v-dialog>
                 </v-flex>
             </v-layout>
-            <Ufooter/>
         </v-container>
+        <Ufooter/>
     </content>
 </template>
 <script>

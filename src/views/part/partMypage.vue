@@ -1,6 +1,11 @@
 <template>
     <content class="ma-0 pa-0">
-        <v-navigation-drawer fixed height style="width:100%" permanent>
+        <!-- pcヘッダー -->
+		<v-navigation-drawer class="ma-0 pa-0 hidden-sm-and-down" fixed height style="width:100%;" permanent>
+			<Header/>
+		</v-navigation-drawer>
+		<!-- 携帯ヘッダー -->
+		<v-navigation-drawer class="ma-0 pa-0 hidden-md-and-up" fixed height style="width:100%; height:70px;" permanent>
 			<Header/>
 		</v-navigation-drawer>
         <v-container fluid class="ma-0 mt-12 py-8 pa-0">
@@ -65,7 +70,7 @@
                                             </v-col>
                                         </v-row>
                                         <v-row class="ma-0 pa-0" justify="center" v-if="delivery == 0">
-                                            <v-btn class="white--text pa-6" color="green" to="/part_request"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
+                                            <v-btn class="white--text pa-6" color="#659e68" to="/part_request"><span v-resize='onResize' :class='size_headline'>配達依頼確認</span></v-btn>
                                         </v-row>
                                         <v-row class="ma-0 pa-0" justify="center" v-if="delivery == 1">
                                             <v-btn class="white--text pa-6" color="red" to="/contact"><span v-resize='onResize' :class='size_headline'>配達中の依頼</span></v-btn>
@@ -255,9 +260,6 @@ export default {
                 this.history = this.items_ire
                 this.items_ire = []
             })
-        },
-        logout:function(){
-            firebase.auth().signOut()
         },
         onResize () {
             this.x = window.innerWidth

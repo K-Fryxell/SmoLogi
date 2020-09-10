@@ -2,7 +2,7 @@
 
     <content>
         <!-- ログインボタン -->
-        <v-btn text style="color: #83B590" @click="dialog = true">
+        <v-btn class="mr-1" text style="color: #FFF" @click="dialog = true">
             ログイン
         </v-btn>
         <v-dialog v-model="dialog" class="ma-0 pa-0" width="500">
@@ -69,7 +69,7 @@
             </v-card>
         </v-dialog>
         <!-- 新規登録ページボタン -->
-        <v-btn dark style="background-color: #83B590" to="/user_regist">
+        <v-btn dark elevation="0" style="background-color: #A5D6A7; color: #FFF" to="/user_regist">
             新規登録
         </v-btn>
     </content>
