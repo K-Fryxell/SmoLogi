@@ -72,6 +72,9 @@ export default ({
         delivery:0,
     },
     getters: {
+        user_id_part(state){
+            return state.user_id
+        },
         delivery(state){
             return state.delivery
         },
