@@ -461,6 +461,8 @@ export default ({
                             state.user_image = doc.data().user_image
                             state.user_latitude = doc.data().user_lat
                             state.user_longitude = doc.data().user_lng
+                            state.user_post = doc.data().user_post
+                            state.user_address = doc.data().user_address
                         })
                     })
                 }

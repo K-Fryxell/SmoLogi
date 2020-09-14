@@ -338,8 +338,8 @@
                 <v-row class="ma-0 pa-0" justify="center" align="end">
                     <v-col class="ma-o pa-0" cols="7">
                         <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
-                            お届け先住所：〒<span id="target">{{ user_post }}</span><br>
-                            <span id="target">{{ user_address }}</span>
+                            お届け先住所：〒<span id="target">{{ user_post }}<br>
+                            {{ user_address }}</span>
                         </v-card-text>
                     </v-col>
                     <v-col class="ma-0 pa-0" cols="2">
@@ -570,7 +570,6 @@ export default {
             })
         },
         send:function(){
-            console.log(this.user_id)
             if(this.tab == 0)
             {
                 this.name = this.user_name
@@ -685,20 +684,10 @@ export default {
             }
         },
         user_post(){
-            if(this.tab == 0){
-                return this.$store.getters.user_post
-            }
-            else{
-                return this.$store.getters.user_post_part
-            }
+            return this.$store.getters.user_post_part
         },
         user_address(){
-            if(this.tab == 0){
-                return this.$store.getters.user_address
-            }
-            else{
-                return this.$store.getters.user_address_part
-            }
+            return this.$store.getters.user_address_part
         },
         part_name(){
             if(this.tab == 0){
@@ -730,7 +719,12 @@ export default {
         },
         user_id:{
             get(){
-                return this.$store.getters.user_id
+                if(this.tab == 0){
+                    return this.$store.getters.user_id
+                }
+                else{
+                    return this.$store.getters.user_id_part
+                }
             },
             set(value){
                 return this.$store.commit('set_user_id',value)

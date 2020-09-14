@@ -600,7 +600,6 @@ export default {
             })
         },
         send:function(){
-            console.log(this.user_id)
             if(this.tab == 0)
             {
                 this.name = this.user_name
