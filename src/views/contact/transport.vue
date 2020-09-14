@@ -669,22 +669,52 @@ export default {
             return this.$store.getters.judge
         },
         user_name(){
-            return this.$store.getters.user_fname
+            if(this.tab == 0){
+                return this.$store.getters.user_fname
+            }
+            else{
+                return this.$store.getters.user_fname_part
+            }
         },
         user_image(){
-            return this.$store.getters.user_image
+            if(this.tab == 0){
+                return this.$store.getters.user_image
+            }
+            else{
+                return this.$store.getters.user_image_part
+            }
         },
         user_post(){
-            return this.$store.getters.user_post
+            if(this.tab == 0){
+                return this.$store.getters.user_post
+            }
+            else{
+                return this.$store.getters.user_post_part
+            }
         },
         user_address(){
-            return this.$store.getters.user_address
+            if(this.tab == 0){
+                return this.$store.getters.user_address
+            }
+            else{
+                return this.$store.getters.user_address_part
+            }
         },
         part_name(){
-            return this.$store.getters.nickname
+            if(this.tab == 0){
+                return this.$store.getters.nickname_user
+            }
+            else{
+                return this.$store.getters.nickname
+            }
         },
         part_image(){
-            return this.$store.getters.part_image
+            if(this.tab == 0){
+                return this.$store.getters.part_image_user
+            }
+            else{
+                return this.$store.getters.part_image
+            }
         },
         last_hour(){
             return this.$store.getters.last_hour
