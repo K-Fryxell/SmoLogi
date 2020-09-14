@@ -165,6 +165,18 @@ export default ({
         ordinary_carNumber(state) {
             return state.ordinary_carNumber
         },
+        user_fname_part(state){
+            return state.user_fname
+        },
+        user_image_part(state){
+            return state.user_image
+        },
+        user_post_part(state) {
+            return state.user_post
+        },
+        user_address_part(state) {
+            return state.user_address
+        },
     },
     mutations: {
         // ここからセッター //
@@ -449,6 +461,8 @@ export default ({
                             state.user_image = doc.data().user_image
                             state.user_latitude = doc.data().user_lat
                             state.user_longitude = doc.data().user_lng
+                            state.user_post = doc.data().user_post
+                            state.user_address = doc.data().user_address
                         })
                     })
                 }

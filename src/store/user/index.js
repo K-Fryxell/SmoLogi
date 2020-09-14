@@ -135,6 +135,12 @@ export default ({
         user_lng(state) {
             return state.user_lng
         },
+        nickname_user(state) {
+            return state.nickname
+        },
+        part_image_user(state){
+            return state.part_image
+        },
         // history(state) {
         //     return state.user_usage_history
         // },
