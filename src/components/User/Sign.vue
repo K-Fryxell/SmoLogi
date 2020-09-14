@@ -59,7 +59,7 @@
                             </v-row>
                             <!-- 会員登録へのリンク -->
                             <v-row class="ma-0 pa-0 pb-8" justify="end" align="end">
-                                <v-btn class="ma-0 pa-0" style="color:#757575" text to="part_regist">
+                                <v-btn class="ma-0 pa-0" style="color:#757575" text to="user_regist">
                                     会員登録はこちら
                                 </v-btn>
                             </v-row>
