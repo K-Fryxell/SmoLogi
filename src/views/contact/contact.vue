@@ -785,9 +785,11 @@ export default {
             this.$store.commit('judge_onAuthStateChanged')
             this.to_transport = this.$store.getters.to_transport
         })
-        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
-            this.getChats()
-        })
+        if(this.user_id != null){
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
+                this.getChats()
+            })
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){

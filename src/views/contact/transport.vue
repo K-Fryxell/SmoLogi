@@ -760,9 +760,11 @@ export default {
         }
     },
     mounted() {
-        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
-            this.getChats()
-        })
+        if(this.user_id != null){
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
+                this.getChats()
+            })
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
