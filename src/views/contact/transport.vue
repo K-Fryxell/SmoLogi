@@ -261,8 +261,8 @@
                                 <v-row class="ma-0 pa-0" justify="center" align="end">
                                     <v-col class="ma-o pa-0" cols="8">
                                         <v-card-text class="ma-0 mt-5 pa-0" v-resize='onResize' :class='size_subtitle'>
-                                            お届け先住所：〒<span id="target">{{ user_post }}</span><br>
-                                            <span id="target">{{ user_address }}</span>
+                                            お届け先住所：〒<span id="target">{{ user_post }}<br>
+                                            {{ user_address }}</span>
                                         </v-card-text>
                                     </v-col>
                                     <v-col class="ma-0 pa-0" cols="2">
@@ -760,9 +760,11 @@ export default {
         }
     },
     mounted() {
-        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
-            this.getChats()
-        })
+        if(this.user_id != null){
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
+                this.getChats()
+            })
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){

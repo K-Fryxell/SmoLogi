@@ -712,7 +712,12 @@ export default {
         },
         user_id:{
             get(){
-                return this.$store.getters.user_id
+                if(this.tab == 0){
+                    return this.$store.getters.user_id
+                }
+                else{
+                    return this.$store.getters.user_id_part
+                }
             },
             set(value){
                 return this.$store.commit('set_user_id',value)
@@ -780,9 +785,11 @@ export default {
             this.$store.commit('judge_onAuthStateChanged')
             this.to_transport = this.$store.getters.to_transport
         })
-        firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
-            this.getChats()
-        })
+        if(this.user_id != null){
+            firebase.firestore().collection("users").doc(this.user_id).collection('room').doc(this.user_id).collection('comments').onSnapshot(() => {
+                this.getChats()
+            })
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
             function(position){
@@ -802,9 +809,6 @@ export default {
         // })
         // 共通項ページでは、judgeを呼び出す(判定)
         this.$store.commit('judge_onAuthStateChanged')
-        // judge_onAuthStateChanged の発火後に呼び出したい (未実装*稀なエラー原因)
-        // partの情報結合前にuser側がonAuthをかける事で 緯度経度が nullになり mapAPIからエラー出される
-        // room削除直後 part側が拒否通知を受け取るとき room情報までonAuthしてしまいエラーが出る
         this.$store.commit('judge_room_onAuthState')
     }
 }
