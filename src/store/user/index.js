@@ -231,19 +231,19 @@ export default ({
                         if (user) {
                             // User logged in already or has just logged in.
                             // ユーザーIDの取得
-                            console.log(user.uid);
+                            //console.log(user.uid);
                             // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
                             state.user_id = user.uid
                             firebase.firestore().collection("users").doc(state.user_id)
                             .set(array)
                             .then(function () {
                                 // 正常にデータ保存できた時の処理
-                                console.log('success')
+                                //console.log('success')
                                 firebase.firestore().collection("judge").doc(state.user_id)
                                 .set({judge:0})
                                 .then(function () {
                                     // 正常にデータ保存できた時の処理
-                                    console.log('success')
+                                    //console.log('success')
                                     router.push('/user_mypage')
                                 })
                             })
@@ -272,7 +272,7 @@ export default ({
                     // this.user_id = user.uid
                     // ドキュメントIDをユーザIDとしているのでユーザIDを持ってきてそこからフィールド取り出し
                     firebase.firestore().collection('users').doc(user.uid).get().then( doc => {
-                        console.log(doc.data())
+                        //console.log(doc.data())
                         // ユーザアイコン
                         state.user_image = doc.data().user_image
                         // メールアドレス
@@ -323,7 +323,7 @@ export default ({
                 if (user) {
                     // User logged in already or has just logged in.
                     // ユーザーIDの取得
-                    console.log(user.uid);
+                    //console.log(user.uid);
                     // ユーザIDをドキュメントIDとしてコレクションにarrayの中身をフィールドとして追加
                     state.user_id = user.uid
                     array['userid'] = state.user_id
@@ -349,7 +349,7 @@ export default ({
                         })
                         .then(function () {
                             // 正常にデータ保存できた時の処理
-                            console.log('success')
+                            //console.log('success')
                         })
                         firebase.firestore().collection("transport").doc(state.user_id)
                         .set({
@@ -441,7 +441,7 @@ export default ({
                 if (user) {
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
-                        console.log(doc.data())
+                        //console.log(doc.data())
                         state.part_user_id = doc.data().part_id
                         this.commit('deleteRoom')
                     })
@@ -541,7 +541,7 @@ export default ({
                     state.completed = 0
                     state.user_id = user.uid
                     firebase.firestore().collection('users').doc(state.user_id).collection('room').doc(state.user_id).get().then(doc => {
-                        console.log(doc.data())
+                        //console.log(doc.data())
                         state.roomCompTime = doc.data().roomCompTime
                         state.compDay = doc.data().compDay
                         state.username = doc.data().username
